@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /*
- * The class 'user' with three attributes 
+ * The class 'user' has three attributes 
  * will become the table 'users' with three columns :
  * - Id --> This will automaticaly be a sequence on our database
  * - Firstname
