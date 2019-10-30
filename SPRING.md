@@ -18,3 +18,5 @@ Pour lancer l'application en local sur Eclipse :
 - Maven Clean
 - Maven Install
 - Run l'application : voir le tutoriel https://stackoverflow.com/questions/23677808/how-to-run-spring-boot-web-application-in-eclipse-itself
+
+Modification pour test Jenkins
