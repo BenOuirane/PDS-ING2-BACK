@@ -7,4 +7,5 @@ import com.application.aled.entity.User;
 
 @Repository
 public interface UserRepository extends CrudRepository<User, Long> {
+
 }

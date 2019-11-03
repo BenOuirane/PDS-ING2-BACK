@@ -3,6 +3,8 @@ package com.application.aled.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.application.aled.service.UserService;
+import com.application.aled.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,6 +40,8 @@ public class UserController {
 	@Autowired
 	UserRepository repository;
 
+	@Autowired
+	UserServiceImpl userService;
 
 	/*
 	 * Annotation GetMapping :
@@ -47,9 +51,11 @@ public class UserController {
 	@GetMapping("/users")
 	public List<User> getAllUsers() {
 		System.out.println("Get all Users...");
+		System.out.println(userService);
 
-		List<User> users = new ArrayList<>();
-		repository.findAll().forEach(users::add);
+		List<User> users = userService.getUsers();
+
+		System.out.println(users);
 
 		return users;
 	}
