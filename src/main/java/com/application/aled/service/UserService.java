@@ -5,6 +5,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/*
+* Here we have an interface with all of the methods that will
+* be implemented on our UserService
+ */
 @Service
 public interface UserService {
 

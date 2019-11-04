@@ -51,11 +51,8 @@ public class UserController {
 	@GetMapping("/users")
 	public List<User> getAllUsers() {
 		System.out.println("Get all Users...");
-		System.out.println(userService);
 
 		List<User> users = userService.getUsers();
-
-		System.out.println(users);
 
 		return users;
 	}
