@@ -29,6 +29,7 @@ public class User {
 	private String lastname;
 
 	public User() {
+
 	}
 
 	public User(String firstname, String lastname) {
