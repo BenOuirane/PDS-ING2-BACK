@@ -2,11 +2,16 @@ package com.application.aled.service;
 
 import com.application.aled.entity.Company;
 import com.application.aled.repository.CompanyRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class CompanyServiceImpl implements CompanyService{
+
+    @Autowired
     private CompanyRepository repository;
 
 
@@ -22,6 +27,6 @@ public class CompanyServiceImpl implements CompanyService{
     @Override
     public void addCompany(Company company) {
         System.out.println("Create Company...");
-        repository.save(company);
+        repository.save(new Company(company.getName()));
     }
 }
