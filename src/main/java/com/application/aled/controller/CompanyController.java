@@ -18,7 +18,7 @@ public class CompanyController {
     @Autowired
     CompanyServiceImpl companyService;
 
-    @GetMapping("/companies")
+    @GetMapping("/company")
     public List<Company> getAllCompanies() {
         System.out.println("Get all companies...");
 
