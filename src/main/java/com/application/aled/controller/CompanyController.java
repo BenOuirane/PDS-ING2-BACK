@@ -12,13 +12,13 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/api")
+@RequestMapping("/api/company")
 public class CompanyController {
 
     @Autowired
     CompanyServiceImpl companyService;
 
-    @GetMapping("/company")
+    @GetMapping()
     public List<Company> getAllCompanies() {
         System.out.println("Get all companies...");
 
@@ -26,7 +26,7 @@ public class CompanyController {
         return companies;
     }
 
-    @PutMapping(value = "/company/create")
+    @PutMapping(value = "/create")
     public void putCompany(@RequestBody Company company){
         System.out.println("Create company...");
         companyService.addCompany(company);
