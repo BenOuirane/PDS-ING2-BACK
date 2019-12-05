@@ -4,17 +4,20 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "ReferentialMeasure")
-public class ReferentialMeasure {
+public class ReferentialMeasure  {
 
+	
+	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long RefMeasure;
-
-	@Column(name = "RefMeasure")
+	@Column(name= "RefMeasure")
 	private String refMeasure;
+	
+
 
 	@Column(name = "TypeMeasure")
 	private String typeMeasure;
@@ -32,17 +35,13 @@ public class ReferentialMeasure {
 
 	@Override
 	public String toString() {
-		return "ReferentialMeasure [RefMeasure=" + RefMeasure + ", refMeasure=" + refMeasure + ", typeMeasure="
+		return "ReferentialMeasure [RefMeasure=" + refMeasure + ", refMeasure=" + refMeasure + ", typeMeasure="
 				+ typeMeasure + ", LevelMeasure=" + LevelMeasure + ", wipDate=" + wipDate + ", upDate=" + upDate + "]";
 	}
 
-	public void setRefMeasure(long refMeasure) {
-		RefMeasure = refMeasure;
-	}
+	
 
-	public String getRefMeasure() {
-		return refMeasure;
-	}
+	
 
 	public void setRefMeasure(String refMeasure) {
 		this.refMeasure = refMeasure;

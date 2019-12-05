@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.application.aled.entity.ReferentialPosition;
+import com.application.aled.entity.ReferentialResident;
 import com.application.aled.service.ReferentialPositionService;
+import com.application.aled.service.ReferentialResidentService;
 
 /**
  * @author ISMAIL EL HAMMOUD
@@ -29,10 +31,10 @@ public class ReferentialResidentController {
 ReferentialResidentService referentialResidentService;
 
 @GetMapping("/referential_resident")
-public List<ReferentialPosition> getAllReferentialPostions() {
+public List<ReferentialResident> getAllReferentialPostions() {
 	System.out.println("Get all Referential Positons...");
 
-	List<ReferentialPosition> refresidents= referentialResidentService.getAllReferentialResidents();
+	List<ReferentialResident> refresidents= referentialResidentService.getAllReferentialResidents();
 
 	return refresidents;
 }

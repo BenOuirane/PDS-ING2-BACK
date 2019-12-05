@@ -29,12 +29,27 @@ public class ReferentialResidentServiceImpl implements ReferentialResidentServic
 	}
 
 	@Override
-	public void addResident(ReferentialResident refResi) {
+	public void addResidentRef(ReferentialResident refResi) {
 		if(refResi == null) {
 			//FIXME: action non autorisee
 			return;
 		}
 		residentRepository.save(refResi);
+		
+	}
+
+	@Override
+	public void updateResidentRef(ReferentialResident refResi) {
+		if(refResi == null) {
+			//FIXME: action non autorisee
+			return;
+		}
+		residentRepository.save(refResi);
+	}
+
+	@Override
+	public void removeResidentRef(ReferentialResident refResi) {
+		residentRepository.delete(refResi);
 		
 	}
 

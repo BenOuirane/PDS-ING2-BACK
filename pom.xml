@@ -85,6 +85,12 @@
 			<version>5.0.1.RELEASE</version>
 			<scope>compile</scope>
 		</dependency>
+		
+		  <dependency>
+    <groupId>javax.annotation</groupId>
+    <artifactId>javax.annotation-api</artifactId>
+    <version>1.2</version>
+  </dependency>
 
 	</dependencies>
 

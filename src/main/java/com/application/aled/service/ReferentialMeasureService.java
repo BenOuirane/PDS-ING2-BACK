@@ -13,4 +13,8 @@ import com.application.aled.entity.ReferentialMeasure;
  */
 public interface ReferentialMeasureService {
 	public List<ReferentialMeasure> getAllReferentialMeasures();
+	
+	 void addMeasureRef(ReferentialMeasure refMeasu); 
+	 void updateMeasureRef(ReferentialMeasure refMeasu);
+	 void removeMeasureRef(ReferentialMeasure refMeasu);
 }

@@ -24,7 +24,7 @@ public class ReferentialPosition {
 	private Double surface;
 	
 	@Column(name= "Emplacement")
-	private String emplacement;
+	private String emplacementPosition;
 
 	public String getId() {
 		return id;
@@ -51,17 +51,17 @@ public class ReferentialPosition {
 	}
 
 	public String getEmplacement() {
-		return emplacement;
+		return emplacementPosition;
 	}
 
 	public void setEmplacement(String emplacement) {
-		this.emplacement = emplacement;
+		this.emplacementPosition = emplacement;
 	}
 
 	@Override
 	public String toString() {
 		return "ReferentialPosition [id=" + id + ", name=" + name + ", surface=" + surface + ", emplacement="
-				+ emplacement + "]";
+				+ emplacementPosition + "]";
 	}
 
 	public ReferentialPosition(String id, String name, Double surface, String emplacement) {
@@ -69,7 +69,7 @@ public class ReferentialPosition {
 		this.id = id;
 		this.name = name;
 		this.surface = surface;
-		this.emplacement = emplacement;
+		this.emplacementPosition = emplacement;
 	}
 	
 }
