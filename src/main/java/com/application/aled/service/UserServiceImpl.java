@@ -32,4 +32,12 @@ public class UserServiceImpl implements UserService {
 
         return users;
     }
+
+    public User userLogin(String username, String password) throws NullPointerException {
+        System.out.println("Login User....");
+
+        User user = repository.findByUsernameAndPassword(username, password);
+
+        return user;
+    }
 }

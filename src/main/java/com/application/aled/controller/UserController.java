@@ -3,15 +3,11 @@ package com.application.aled.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.application.aled.controller.exception.CustomHandler;
 import com.application.aled.service.UserService;
 import com.application.aled.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.application.aled.entity.User;
 import com.application.aled.repository.UserRepository;
@@ -73,9 +69,23 @@ public class UserController {
 	public User postUser(@RequestBody User user) {
 		System.out.println("Adding a user...");
 
-		User _user = repository.save(new User(user.getFirstname(), user.getLastname()));
+		User _user = repository.save(new User(user.getFirstname(), user.getLastname(), user.getUsername(), user.getPassword(), user.getRole()));
 
 		return _user;
+	}
+
+	@PutMapping(value = "/user/login")
+	public User loginUser(@RequestBody User user) throws Exception {
+		System.out.println("Login a user...");
+
+		User _user = userService.userLogin(user.getUsername(), user.getPassword());
+
+		if(_user == null){
+			throw new CustomHandler("User not found");
+		} else {
+			System.out.println(_user.toString());
+			return _user;
+		}
 	}
 
 }
