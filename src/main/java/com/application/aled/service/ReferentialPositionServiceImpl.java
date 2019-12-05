@@ -24,5 +24,8 @@ public class ReferentialPositionServiceImpl implements ReferentialPositionServic
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	//@Override
+	//public void addPositionRef()
 
 }

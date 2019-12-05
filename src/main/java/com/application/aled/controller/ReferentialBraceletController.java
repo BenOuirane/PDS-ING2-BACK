@@ -29,7 +29,7 @@ public class ReferentialBraceletController {
 	@Autowired
 	ReferentialBraceletService referentialBraceletService;
 
-	@GetMapping("/ReferentialBracelet")
+	@GetMapping("/Referential_Bracelet")
 	public List<ReferentialBracelet> getAllReferentialBracelet() {
 		System.out.println("Get all Referential Measures...");
 
@@ -37,4 +37,6 @@ public class ReferentialBraceletController {
 
 		return refbracelets;
 	}
+	
+	
 }
