@@ -1,0 +1,41 @@
+/**
+ * 
+ */
+package com.application.aled.service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.application.aled.entity.ReferentialResident;
+import com.application.aled.repository.ReferentialResidentRepository;
+
+/**
+ * @author ISMAIL EL HAMMOUD
+ *
+ */
+public class ReferentialResidentServiceImpl implements ReferentialResidentService {
+
+	@Autowired
+	private ReferentialResidentRepository residentRepository;
+	
+	@Override
+	public List<ReferentialResident> getAllReferentialResidents() {
+		List<ReferentialResident> refresidentslist = new ArrayList<ReferentialResident>();
+		
+		residentRepository.findAll().forEach(refresidentslist::add);
+		return refresidentslist;
+	}
+
+	@Override
+	public void addResident(ReferentialResident refResi) {
+		if(refResi == null) {
+			//FIXME: action non autorisee
+			return;
+		}
+		residentRepository.save(refResi);
+		
+	}
+
+}

@@ -1,0 +1,14 @@
+pipeline
+	options { 
+		gitlabconnection('gitlab connection for jenkins') 
+		builddiscarder(logrotator (artifactdaystokeepstr: '10', artifactnumtokeepstr: '10', days tokeepstr: '365', numtokeepstr: '365)) 
+	triggers { 
+		gitlab(triggeronpush: true, triggeronmergerequest: true, branchfiltertype: 'all") 
+	stages{ 
+		stage('compile'){ 
+			steps{ 
+				gitlabcommitstatus(name: "compile and install"){ 
+					sh 'mvn clean install -dskiptests=true -p build-ui' 
+		stage('archive artifacts on jenkins') { 
+			steps { 
+				echo "jenkins archiving" archiveartifacts 'target/*jar' 

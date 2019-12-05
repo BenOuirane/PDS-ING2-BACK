@@ -1,0 +1,40 @@
+/**
+ * 
+ */
+package com.application.aled.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.application.aled.entity.ReferentialBracelet;
+import com.application.aled.entity.ReferentialMeasure;
+import com.application.aled.service.ReferentialBraceletService;
+import com.application.aled.service.ReferentialMeasureService;
+
+/**
+ * @author ISMAIL EL HAMMOUD
+ *
+ */
+@RestController
+@CrossOrigin(origins = "*")
+@RequestMapping("/")
+public class ReferentialBraceletController {
+
+	
+	@Autowired
+	ReferentialBraceletService referentialBraceletService;
+
+	@GetMapping("/ReferentialBracelet")
+	public List<ReferentialBracelet> getAllReferentialBracelet() {
+		System.out.println("Get all Referential Measures...");
+
+		List<ReferentialBracelet> refbracelets = referentialBraceletService.getAllReferentialBracelets();
+
+		return refbracelets;
+	}
+}
