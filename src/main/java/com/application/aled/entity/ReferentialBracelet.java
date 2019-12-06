@@ -17,7 +17,7 @@ import com.sun.jmx.snmp.Timestamp;
  *
  */
 
-// add table attributs
+// add table attributes
 @Entity
 @Table(name = "ReferentialBracelet")
 public class ReferentialBracelet {

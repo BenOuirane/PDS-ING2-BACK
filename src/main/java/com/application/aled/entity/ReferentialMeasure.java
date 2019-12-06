@@ -18,7 +18,6 @@ public class ReferentialMeasure  {
 	private String refMeasure;
 	
 
-
 	@Column(name = "TypeMeasure")
 	private String typeMeasure;
 	

@@ -3,12 +3,12 @@
  */
 package com.application.aled.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.application.aled.entity.ReferentialPosition;
-import com.application.aled.repository.PositionRepository;
 import com.application.aled.repository.ReferentialPositionRepository;
 
 /**
@@ -17,33 +17,42 @@ import com.application.aled.repository.ReferentialPositionRepository;
  */
 public class ReferentialPositionServiceImpl implements ReferentialPositionService {
 	@Autowired
-	ReferentialPositionRepository repository;
+	ReferentialPositionRepository positionsRefRepository;
 	
 	@Override
 	public List<ReferentialPosition> getAllReferentialPositions() {
-		// TODO Auto-generated method stub
-		return null;
+	List<ReferentialPosition> refpositionslist = new ArrayList<ReferentialPosition>();
+		
+		positionsRefRepository.findAll().forEach(refpositionslist::add);
+		return refpositionslist;
 	}
 
 	@Override
 	public void addPositionRef(ReferentialPosition refPosi) {
-		// TODO Auto-generated method stub
+		if(refPosi == null) {
+			//FIXME: action non autorisee
+
+			return;
+		}
+		positionsRefRepository.save(refPosi);
 		
 	}
 
 	@Override
 	public void updateResidentRef(ReferentialPosition refPosi) {
-		// TODO Auto-generated method stub
+		if(refPosi == null) {
+			//FIXME: action non autorisee
+			return;
+		}
+		positionsRefRepository.save(refPosi);
 		
 	}
 
 	@Override
 	public void removeResidentRef(ReferentialPosition refPosi) {
-		// TODO Auto-generated method stub
-		
+		positionsRefRepository.delete(refPosi);
 	}
 	
-	//@Override
-	//public void addPositionRef()
+	
 
 }
