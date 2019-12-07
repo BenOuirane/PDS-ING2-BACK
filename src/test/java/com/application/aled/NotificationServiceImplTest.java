@@ -3,7 +3,9 @@ package com.application.aled;
 import com.application.aled.controller.exception.CustomHandler;
 import com.application.aled.entity.Notification;
 import com.application.aled.entity.User;
+import com.application.aled.repository.NotificationRepository;
 import com.application.aled.repository.UserRepository;
+import com.application.aled.service.NotificationServiceImpl;
 import com.application.aled.service.UserServiceImpl;
 import org.junit.Assert;
 import org.junit.Before;
@@ -18,42 +20,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RunWith(MockitoJUnitRunner.class)
-public class UserServiceImplTest {
+public class NotificationServiceImplTest {
 
     @Mock
-    UserRepository repository;
+    NotificationRepository repository;
 
     @InjectMocks
-    UserServiceImpl userService;
+    NotificationServiceImpl notificationService;
 
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
     }
 
-
-    @Test
-    public void listAllUserShouldReturnAllUsers() {
-        //
-        // GIVEN
-        //
-        List<User> userList = new ArrayList<>();
-        repository.findAll().forEach(userList::add);
-
-        //
-        // WHEN
-        //
-        List<User> userListTest = userService.getUsers();
-
-        //
-        // THEN
-        //
-        Assert.assertEquals(userList, userListTest);
-    }
-
     @Test(expected = CustomHandler.class)
-    public void assertRoleEnum() {
-        User _user = new User();
-        _user.setRole("TOTO");
+    public void assertStateEnum() {
+        Notification _notification = new Notification();
+        _notification.setState("TOTO");
     }
+
 }
