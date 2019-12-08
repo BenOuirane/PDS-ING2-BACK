@@ -12,9 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.application.aled.entity.ReferentialBracelet;
-import com.application.aled.entity.ReferentialMeasure;
 import com.application.aled.service.ReferentialBraceletService;
-import com.application.aled.service.ReferentialMeasureService;
 
 /**
  * @author ISMAIL EL HAMMOUD
@@ -25,7 +23,6 @@ import com.application.aled.service.ReferentialMeasureService;
 @RequestMapping("/")
 public class ReferentialBraceletController {
 
-	
 	@Autowired
 	ReferentialBraceletService referentialBraceletService;
 
@@ -37,6 +34,5 @@ public class ReferentialBraceletController {
 
 		return refbracelets;
 	}
-	
-	
+
 }

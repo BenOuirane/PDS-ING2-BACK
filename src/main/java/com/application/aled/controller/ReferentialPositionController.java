@@ -1,4 +1,5 @@
 package com.application.aled.controller;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,18 +16,16 @@ import com.application.aled.service.ReferentialPositionService;
 @RequestMapping("/")
 public class ReferentialPositionController {
 
+	@Autowired
+	ReferentialPositionService referentialPositionService;
 
-@Autowired
-ReferentialPositionService referentialPositionService;
+	@GetMapping("/referential_postion")
+	public List<ReferentialPosition> getAllReferentialPostions() {
+		System.out.println("Get all Referential Positons...");
 
-@GetMapping("/referential_postion")
-public List<ReferentialPosition> getAllReferentialPostions() {
-	System.out.println("Get all Referential Positons...");
+		List<ReferentialPosition> refpositions = referentialPositionService.getAllReferentialPositions();
 
-	List<ReferentialPosition> refpositions = referentialPositionService.getAllReferentialPositions();
+		return refpositions;
+	}
 
-	return refpositions;
 }
-
-}
-

@@ -9,38 +9,30 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "ReferentialMeasure")
-public class ReferentialMeasure  {
+public class ReferentialMeasure {
 
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name= "RefMeasure")
+	@Column(name = "RefMeasure")
 	private String refMeasure;
-	
 
 	@Column(name = "TypeMeasure")
 	private String typeMeasure;
-	
+
 	@Column(name = "LevelMeasure")
 	private String LevelMeasure;
-	
-	@Column(name= "WIPDate")
-	private String wipDate;
-	
-	@Column(name= "UPDate")
-	private String upDate;
 
-	
+	@Column(name = "WIPDate")
+	private String wipDate;
+
+	@Column(name = "UPDate")
+	private String upDate;
 
 	@Override
 	public String toString() {
 		return "ReferentialMeasure [RefMeasure=" + refMeasure + ", refMeasure=" + refMeasure + ", typeMeasure="
 				+ typeMeasure + ", LevelMeasure=" + LevelMeasure + ", wipDate=" + wipDate + ", upDate=" + upDate + "]";
 	}
-
-	
-
-	
 
 	public void setRefMeasure(String refMeasure) {
 		this.refMeasure = refMeasure;

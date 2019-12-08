@@ -19,7 +19,7 @@ import javax.persistence.Table;
 public class Resident {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name= "IdResident")
+	@Column(name = "IdResident")
 	private String id;
 
 }

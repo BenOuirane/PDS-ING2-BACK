@@ -24,9 +24,11 @@ public class PositionServiceImpl implements PositionService {
 		// TODO Auto-generated method stub
 		List<Position> listPosition = new ArrayList<Position>();
 		Iterable<Position> itPos = repository.findAll();
-		
-		itPos.forEach(p -> {listPosition.add(p); });
-		
+
+		itPos.forEach(p -> {
+			listPosition.add(p);
+		});
+
 		return listPosition;
 	}
 

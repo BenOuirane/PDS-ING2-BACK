@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.application.aled.entity.Measure;
 import com.application.aled.entity.ReferentialMeasure;
-import com.application.aled.entity.ReferentialResident;
 import com.application.aled.repository.ReferentialMeasureRepository;
 
 /**
@@ -21,7 +20,7 @@ public class ReferentialMeasureServiceImpl implements ReferentialMeasureService 
 
 	@Autowired
 	private ReferentialMeasureRepository measureRefRepository;
-	
+
 	@Override
 	public List<ReferentialMeasure> getAllReferentialMeasures() {
 		List<ReferentialMeasure> refmeasureslist = new ArrayList<ReferentialMeasure>();
@@ -32,31 +31,28 @@ public class ReferentialMeasureServiceImpl implements ReferentialMeasureService 
 
 	@Override
 	public void addMeasureRef(ReferentialMeasure refMeasu) {
-		if(refMeasu == null) {
-			//FIXME: action non autorisee
+		if (refMeasu == null) {
+			// FIXME: action non autorisee
 			return;
 		}
 		measureRefRepository.save(refMeasu);
-		
+
 	}
-		
-	
 
 	@Override
 	public void updateMeasureRef(ReferentialMeasure refMeasu) {
-		if(refMeasu == null) {
-			//FIXME: action non autorisee
+		if (refMeasu == null) {
+			// FIXME: action non autorisee
 			return;
 		}
 		measureRefRepository.save(refMeasu);
-		
+
 	}
-		
 
 	@Override
 	public void removeMeasureRef(ReferentialMeasure refMeasu) {
 		measureRefRepository.delete(refMeasu);
-		
+
 	}
 
 }

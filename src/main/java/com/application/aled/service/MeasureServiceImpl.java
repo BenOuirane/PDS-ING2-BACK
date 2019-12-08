@@ -17,7 +17,7 @@ import com.application.aled.repository.MeasureRepository;
 public class MeasureServiceImpl implements MeasureService {
 	@Autowired
 	MeasureRepository repository;
-	
+
 	@Override
 	public List<Measure> getAllMeasures() {
 		// TODO Auto-generated method stub

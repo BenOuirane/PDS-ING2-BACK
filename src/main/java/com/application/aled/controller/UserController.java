@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import com.application.aled.entity.User;
 import com.application.aled.repository.UserRepository;
 
-
 /*
  * Annotation Cross Origins :
  * CrossOrigin allows an external domain to access
@@ -40,9 +39,9 @@ public class UserController {
 	UserServiceImpl userService;
 
 	/*
-	 * Annotation GetMapping :
-	 * GetMapping gives us the route to get to the getAllUsers() function :
-	 * Here, we have http://{localhost} or {172.31.254.61}/api/users
+	 * Annotation GetMapping : GetMapping gives us the route to get to the
+	 * getAllUsers() function : Here, we have http://{localhost} or
+	 * {172.31.254.61}/api/users
 	 */
 	@GetMapping("/users")
 	public List<User> getAllUsers() {
@@ -55,21 +54,22 @@ public class UserController {
 
 	/*
 	 * Annotation @PostMapping :
-	 * @PostMapping gives us the route to get to the postUser() function :
-	 * Here, we have http://{localhost} or {172.31.254.61}/api/users/create
+	 * 
+	 * @PostMapping gives us the route to get to the postUser() function : Here, we
+	 * have http://{localhost} or {172.31.254.61}/api/users/create
 	 */
 
 	/*
-	 * Annotation @RequestBody :
-	 * With this annotation, we say that our request (from the 
-	 * fronend app) will have a user in his body
-	 * and that it will be our parameter for this function
+	 * Annotation @RequestBody : With this annotation, we say that our request (from
+	 * the fronend app) will have a user in his body and that it will be our
+	 * parameter for this function
 	 */
 	@PostMapping(value = "/users/create")
 	public User postUser(@RequestBody User user) {
 		System.out.println("Adding a user...");
 
-		User _user = repository.save(new User(user.getFirstname(), user.getLastname(), user.getUsername(), user.getPassword(), user.getRole()));
+		User _user = repository.save(new User(user.getFirstname(), user.getLastname(), user.getUsername(),
+				user.getPassword(), user.getRole()));
 
 		return _user;
 	}
@@ -80,7 +80,7 @@ public class UserController {
 
 		User _user = userService.userLogin(user.getUsername(), user.getPassword());
 
-		if(_user == null){
+		if (_user == null) {
 			throw new CustomHandler("User not found");
 		} else {
 			System.out.println(_user.toString());

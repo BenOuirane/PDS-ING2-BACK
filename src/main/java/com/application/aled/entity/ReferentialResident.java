@@ -10,22 +10,22 @@ public class ReferentialResident {
 
 	@Column(name = "RefResident")
 	private String refresident;
-	
+
 	@Column(name = "FirstName")
 	private String firstName;
-	
+
 	@Column(name = "LastName")
 	private String LastName;
-	
+
 	@Column(name = "PhoneNumber")
 	private String phonenumber;
-	
+
 	@Column(name = "RoomNumber")
 	private String roomNumber;
-	
+
 	@Column(name = "ControlLevel")
 	private String controlLevel;
-	
+
 	@Column(name = "DateArrived")
 	private String dateArrived;
 
@@ -107,6 +107,5 @@ public class ReferentialResident {
 				+ ", getDateArrived()=" + getDateArrived() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
 				+ ", toString()=" + super.toString() + "]";
 	}
-	
-	
+
 }

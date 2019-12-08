@@ -1,6 +1,5 @@
 package com.application.aled.entity;
 
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,22 +7,21 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
 @Entity
 @Table(name = "ReferentialPosition")
 public class ReferentialPosition {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name= "RefPosition")
+	@Column(name = "RefPosition")
 	private String id;
-	
-	@Column(name= "Name")
+
+	@Column(name = "Name")
 	private String name;
-	
-	@Column(name= "Surface")
+
+	@Column(name = "Surface")
 	private Double surface;
-	
-	@Column(name= "Emplacement")
+
+	@Column(name = "Emplacement")
 	private String emplacementPosition;
 
 	public String getId() {
@@ -71,5 +69,5 @@ public class ReferentialPosition {
 		this.surface = surface;
 		this.emplacementPosition = emplacement;
 	}
-	
+
 }

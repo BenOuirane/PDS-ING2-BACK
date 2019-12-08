@@ -20,19 +20,16 @@ import com.application.aled.entity.Position;
 
 public class PositionController {
 
+	@Autowired
+	PositionService positionService;
 
+	@GetMapping("/positions")
+	public List<Position> getAllPositions() {
+		System.out.println("Get all Position...");
 
-@Autowired
-PositionService positionService;
+		List<Position> positions = positionService.getAllPositions();
 
-@GetMapping("/positions")
-public List<Position> getAllPositions() {
-	System.out.println("Get all Position...");
-
-	List<Position> positions = positionService.getAllPositions();
-
-	return positions;
-}
-
+		return positions;
+	}
 
 }

@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.application.aled.entity.Bracelet;
 import com.application.aled.repository.BraceletRepository;
-import com.application.aled.repository.PositionRepository;
 
 /**
  * @author ISMAIL EL HAMMOUD
@@ -18,7 +17,7 @@ import com.application.aled.repository.PositionRepository;
 public class BraceletServiceImpl implements BraceletService {
 	@Autowired
 	BraceletRepository repository;
-	
+
 	@Override
 	public List<Bracelet> getAllBracelets() {
 		// TODO Auto-generated method stub

@@ -17,7 +17,7 @@ import com.application.aled.repository.MedObjectRepository;
 public class MedObjectServiceImpl implements MedObjectService {
 	@Autowired
 	MedObjectRepository repository;
-	
+
 	@Override
 	public List<MedObject> getAllMedObject() {
 		// TODO Auto-generated method stub

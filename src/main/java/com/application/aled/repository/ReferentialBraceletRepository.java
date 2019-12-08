@@ -5,8 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.application.aled.entity.ReferentialBracelet;
 
-
 @Repository
-public interface ReferentialBraceletRepository extends CrudRepository<ReferentialBracelet, String>{
+public interface ReferentialBraceletRepository extends CrudRepository<ReferentialBracelet, String> {
 
 }

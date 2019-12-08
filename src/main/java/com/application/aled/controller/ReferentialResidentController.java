@@ -26,16 +26,15 @@ import com.application.aled.service.ReferentialResidentService;
 @RequestMapping("/")
 public class ReferentialResidentController {
 
+	@Autowired
+	ReferentialResidentService referentialResidentService;
 
-@Autowired
-ReferentialResidentService referentialResidentService;
+	@GetMapping("/referential_resident")
+	public List<ReferentialResident> getAllReferentialPostions() {
+		System.out.println("Get all Referential Positons...");
 
-@GetMapping("/referential_resident")
-public List<ReferentialResident> getAllReferentialPostions() {
-	System.out.println("Get all Referential Positons...");
+		List<ReferentialResident> refresidents = referentialResidentService.getAllReferentialResidents();
 
-	List<ReferentialResident> refresidents= referentialResidentService.getAllReferentialResidents();
-
-	return refresidents;
-}
+		return refresidents;
+	}
 }

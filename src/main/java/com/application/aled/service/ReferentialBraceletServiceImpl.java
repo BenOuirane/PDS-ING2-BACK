@@ -20,39 +20,36 @@ public class ReferentialBraceletServiceImpl implements ReferentialBraceletServic
 
 	@Override
 	public List<ReferentialBracelet> getAllReferentialBracelets() {
-	List<ReferentialBracelet> refbraceletlist = new ArrayList<ReferentialBracelet>();
-		
-	braceletRepository.findAll().forEach(refbraceletlist::add);
+		List<ReferentialBracelet> refbraceletlist = new ArrayList<ReferentialBracelet>();
+
+		braceletRepository.findAll().forEach(refbraceletlist::add);
 		return refbraceletlist;
 	}
-	
-	
+
 	@Override
 	public void addBraceletRef(ReferentialBracelet refBrac) {
-		if(refBrac == null) {
-			//FIXME: action non autorisee
+		if (refBrac == null) {
+			// FIXME: action non autorisee
 			return;
 		}
-			braceletRepository.save(refBrac);
-		
+		braceletRepository.save(refBrac);
+
 	}
 
 	@Override
 	public void updateBraceletRef(ReferentialBracelet refBrac) {
-		if(refBrac == null) {
-			//FIXME: action non autorisee
+		if (refBrac == null) {
+			// FIXME: action non autorisee
 			return;
 		}
-			braceletRepository.save(refBrac);
-		
+		braceletRepository.save(refBrac);
+
 	}
-		
-	
 
 	@Override
 	public void removeBraceletRef(ReferentialBracelet refBrac) {
 		braceletRepository.delete(refBrac);
-		
+
 	}
 
 }

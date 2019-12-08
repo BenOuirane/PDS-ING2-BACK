@@ -25,16 +25,16 @@ public class ReferentialBracelet {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private String id;
-	
+
 	@Column(name = "Name")
 	private String nameBracelet;
-	
+
 	@Column(name = "Brand")
 	private String brandBracelet;
-	
+
 	@Column(name = "WIPDate")
 	private Timestamp wipDate;
-	
+
 	public String getId() {
 		return id;
 	}
@@ -101,13 +101,13 @@ public class ReferentialBracelet {
 
 	@Column(name = "UPDate")
 	private Timestamp upDate;
-	
+
 	@Column(name = "Waterproof")
 	private boolean optionWaterProofYN;
-	
+
 	@Column(name = "CardiacFrequency")
 	private boolean optioncardiacFrequency;
-	
+
 	@Column(name = "GPS")
 	private boolean optionGPS;
 
@@ -131,5 +131,4 @@ public class ReferentialBracelet {
 				+ ", optioncardiacFrequency=" + optioncardiacFrequency + ", optionGPS=" + optionGPS + "]";
 	}
 
-	
 }

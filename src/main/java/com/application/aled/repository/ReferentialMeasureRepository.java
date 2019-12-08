@@ -13,6 +13,6 @@ import com.application.aled.entity.ReferentialMeasure;
  *
  */
 @Repository
-public interface ReferentialMeasureRepository extends CrudRepository<ReferentialMeasure, String>{
+public interface ReferentialMeasureRepository extends CrudRepository<ReferentialMeasure, String> {
 
 }

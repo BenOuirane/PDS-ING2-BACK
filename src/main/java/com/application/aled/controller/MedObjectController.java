@@ -16,17 +16,16 @@ import com.application.aled.service.MedObjectService;
 @RequestMapping("/api")
 public class MedObjectController {
 
+	@Autowired
+	MedObjectService medObjectService;
 
-@Autowired
-MedObjectService medObjectService;
+	@GetMapping("/medicalObject")
+	public List<MedObject> getAllMedObject() {
+		System.out.println("Get all Medical Objects...");
 
-@GetMapping("/medicalObject")
-public List<MedObject> getAllMedObject() {
-	System.out.println("Get all Medical Objects...");
+		List<MedObject> medObjects = medObjectService.getAllMedObject();
 
-	List<MedObject> medObjects = medObjectService.getAllMedObject();
-
-	return medObjects;
-}
+		return medObjects;
+	}
 
 }

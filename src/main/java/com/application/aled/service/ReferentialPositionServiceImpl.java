@@ -18,41 +18,39 @@ import com.application.aled.repository.ReferentialPositionRepository;
 public class ReferentialPositionServiceImpl implements ReferentialPositionService {
 	@Autowired
 	ReferentialPositionRepository positionsRefRepository;
-	
+
 	@Override
 	public List<ReferentialPosition> getAllReferentialPositions() {
-	List<ReferentialPosition> refpositionslist = new ArrayList<ReferentialPosition>();
-		
+		List<ReferentialPosition> refpositionslist = new ArrayList<ReferentialPosition>();
+
 		positionsRefRepository.findAll().forEach(refpositionslist::add);
 		return refpositionslist;
 	}
 
 	@Override
 	public void addPositionRef(ReferentialPosition refPosi) {
-		if(refPosi == null) {
-			//FIXME: action non autorisee
+		if (refPosi == null) {
+			// FIXME: action non autorisee
 
 			return;
 		}
 		positionsRefRepository.save(refPosi);
-		
+
 	}
 
 	@Override
 	public void updateResidentRef(ReferentialPosition refPosi) {
-		if(refPosi == null) {
-			//FIXME: action non autorisee
+		if (refPosi == null) {
+			// FIXME: action non autorisee
 			return;
 		}
 		positionsRefRepository.save(refPosi);
-		
+
 	}
 
 	@Override
 	public void removeResidentRef(ReferentialPosition refPosi) {
 		positionsRefRepository.delete(refPosi);
 	}
-	
-	
 
 }

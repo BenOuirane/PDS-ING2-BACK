@@ -18,16 +18,16 @@ import com.application.aled.service.BraceletService;
 @RequestMapping("/")
 public class BraceletController {
 
-@Autowired
-BraceletService braceletService;
+	@Autowired
+	BraceletService braceletService;
 
-@GetMapping("/bracelets")
-public List<Bracelet> getAllBracelets() {
-	System.out.println("Get all Bracelets...");
+	@GetMapping("/bracelets")
+	public List<Bracelet> getAllBracelets() {
+		System.out.println("Get all Bracelets...");
 
-	List<Bracelet> bracelets = braceletService.getAllBracelets();
+		List<Bracelet> bracelets = braceletService.getAllBracelets();
 
-	return bracelets;
-}
+		return bracelets;
+	}
 
 }

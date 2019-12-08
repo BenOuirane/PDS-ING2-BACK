@@ -10,25 +10,24 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Measure")
 public class Measure {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name= "IdMeasure")
+	@Column(name = "IdMeasure")
 	private long id;
-	
-	
-	@Column(name= "CSleep")
+
+	@Column(name = "CSleep")
 	private String countSleep;
-	
-	@Column(name= "CCardiacFrequency")
+
+	@Column(name = "CCardiacFrequency")
 	private String countCardiacFrequency;
-	
-	@Column(name= "CWaterResistance")
+
+	@Column(name = "CWaterResistance")
 	private String countWaterResistance;
-	
-	@Column(name= "CPaths")
+
+	@Column(name = "CPaths")
 	private String countPaths;
-	
+
 	public Measure(long id, String countSleep, String countCardiacFrequency, String countWaterResistance,
 			String countPaths, String countDistance, String countRespiratoryRate, String countExpiratoryFlowRate,
 			String countOxygenSaturation, String countBodyTemperature) {
@@ -45,15 +44,15 @@ public class Measure {
 		this.countBodyTemperature = countBodyTemperature;
 	}
 
-	@Column(name= "CDistance")
+	@Column(name = "CDistance")
 	private String countDistance;
-	
-	@Column(name= "CRespiratoryRate")
+
+	@Column(name = "CRespiratoryRate")
 	private String countRespiratoryRate;
-	
-	@Column(name= "CExpiratoryFlowRate")
+
+	@Column(name = "CExpiratoryFlowRate")
 	private String countExpiratoryFlowRate;
-	
+
 	public long getId() {
 		return id;
 	}
@@ -143,11 +142,10 @@ public class Measure {
 		this.countBodyTemperature = countBodyTemperature;
 	}
 
-	@Column(name= "COxygenSaturation")
+	@Column(name = "COxygenSaturation")
 	private String countOxygenSaturation;
-	
-	@Column(name= "CBodyTemperature")
+
+	@Column(name = "CBodyTemperature")
 	private String countBodyTemperature;
-	
-	
+
 }

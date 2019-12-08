@@ -19,29 +19,29 @@ public class ReferentialResidentServiceImpl implements ReferentialResidentServic
 
 	@Autowired
 	private ReferentialResidentRepository residentRepository;
-	
+
 	@Override
 	public List<ReferentialResident> getAllReferentialResidents() {
 		List<ReferentialResident> refresidentslist = new ArrayList<ReferentialResident>();
-		
+
 		residentRepository.findAll().forEach(refresidentslist::add);
 		return refresidentslist;
 	}
 
 	@Override
 	public void addResidentRef(ReferentialResident refResi) {
-		if(refResi == null) {
-			//FIXME: action non autorisee
+		if (refResi == null) {
+			// FIXME: action non autorisee
 			return;
 		}
 		residentRepository.save(refResi);
-		
+
 	}
 
 	@Override
 	public void updateResidentRef(ReferentialResident refResi) {
-		if(refResi == null) {
-			//FIXME: action non autorisee
+		if (refResi == null) {
+			// FIXME: action non autorisee
 			return;
 		}
 		residentRepository.save(refResi);
@@ -50,7 +50,7 @@ public class ReferentialResidentServiceImpl implements ReferentialResidentServic
 	@Override
 	public void removeResidentRef(ReferentialResident refResi) {
 		residentRepository.delete(refResi);
-		
+
 	}
 
 }

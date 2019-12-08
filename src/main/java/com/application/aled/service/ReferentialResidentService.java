@@ -13,7 +13,10 @@ import com.application.aled.entity.ReferentialResident;
  */
 public interface ReferentialResidentService {
 	public List<ReferentialResident> getAllReferentialResidents();
-	void addResidentRef(ReferentialResident refResi); 
+
+	void addResidentRef(ReferentialResident refResi);
+
 	void updateResidentRef(ReferentialResident refResi);
+
 	void removeResidentRef(ReferentialResident refResi);
 }

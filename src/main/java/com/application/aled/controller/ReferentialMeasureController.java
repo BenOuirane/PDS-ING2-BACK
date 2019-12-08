@@ -16,7 +16,6 @@ import com.application.aled.service.ReferentialMeasureService;
 @RequestMapping("/")
 public class ReferentialMeasureController {
 
-	
 	@Autowired
 	ReferentialMeasureService referentialMeasureService;
 

@@ -21,16 +21,16 @@ import com.application.aled.repository.MeasureRepository;
 
 public class MeasureController {
 
-@Autowired
-MeasureRepository repository;
-	
-@Autowired
-MeasureService measureService;
+	@Autowired
+	MeasureRepository repository;
 
-@GetMapping("/measure")
-public List<Measure> getAllMeasure() {
-	System.out.println("Get all Measures...");
-	List<Measure> measures = measureService.getAllMeasures();
-	return measures;
-}
+	@Autowired
+	MeasureService measureService;
+
+	@GetMapping("/measure")
+	public List<Measure> getAllMeasure() {
+		System.out.println("Get all Measures...");
+		List<Measure> measures = measureService.getAllMeasures();
+		return measures;
+	}
 }

@@ -12,8 +12,11 @@ import com.application.aled.entity.Resident;
  *
  */
 public interface ResidentService {
-	 public List<Resident> getAllResidents();
-	 void addResident(Resident idResi); 
-	 void updateResident(Resident idResi);
-	 void removeResident(Resident idResi);
+	public List<Resident> getAllResidents();
+
+	void addResident(Resident idResi);
+
+	void updateResident(Resident idResi);
+
+	void removeResident(Resident idResi);
 }
