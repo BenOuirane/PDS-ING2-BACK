@@ -34,4 +34,5 @@ public class NotificationController {
 
         return _notifications;
     }
+
 }

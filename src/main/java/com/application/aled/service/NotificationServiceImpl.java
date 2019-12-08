@@ -23,6 +23,7 @@ public class NotificationServiceImpl implements NotificationService {
         _notification.setTitle(notification.getTitle());
         _notification.setReceiver(notification.getReceiver());
         _notification.setSender(notification.getSender());
+        _notification.setType(notification.getType());
 
         repository.save(_notification);
 

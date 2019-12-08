@@ -33,6 +33,7 @@ public class UserServiceImpl implements UserService {
         return users;
     }
 
+    @Override
     public User userLogin(String username, String password) throws NullPointerException {
         System.out.println("Login User....");
 
@@ -40,4 +41,15 @@ public class UserServiceImpl implements UserService {
 
         return user;
     }
+
+    @Override
+    public List<User> getUserByRole(String role) {
+        System.out.println("Finding users with role : " + role);
+
+        List<User> users = new ArrayList<>();
+        repository.findAllByRole(role).forEach(users::add);;
+
+        return users;
+    }
+
 }

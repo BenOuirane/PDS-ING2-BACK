@@ -10,4 +10,5 @@ public interface NotificationService {
     Notification[] getNotifications(long receiver);
 
     void updateState(Notification notification);
+
 }

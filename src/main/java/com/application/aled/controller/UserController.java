@@ -88,4 +88,13 @@ public class UserController {
 		}
 	}
 
+	@PutMapping(value = "/users/")
+	public List<User> getResidents(@RequestBody String role) {
+		System.out.println("Getting users with role : " + role);
+
+		List<User> users = userService.getUserByRole(role);
+
+		return users;
+	}
+
 }

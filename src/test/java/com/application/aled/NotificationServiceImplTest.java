@@ -39,4 +39,10 @@ public class NotificationServiceImplTest {
         _notification.setState("TOTO");
     }
 
+    @Test(expected = CustomHandler.class)
+    public void assertNotificationEnum() {
+        Notification _notification = new Notification();
+        _notification.setType("TOTO");
+    }
+
 }

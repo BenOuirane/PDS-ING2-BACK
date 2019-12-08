@@ -31,15 +31,19 @@ public class Notification {
     @Column(name = "state")
     private String state;
 
+    @Column(name = "type")
+    private String type;
+
     public Notification() {
     }
 
-    public Notification(long sender, String title, String message, long receiver, String state) {
+    public Notification(long sender, String title, String message, long receiver, String state, String type) {
         this.sender = sender;
         this.title = title;
         this.message = message;
         this.receiver = receiver;
         this.state = state;
+        this.type = type;
     }
 
     public long getId() {
@@ -104,6 +108,20 @@ public class Notification {
         throw new CustomHandler("StateType not respected");
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        for (NotificationType notificationType : NotificationType.values()) {
+            if(type.equals(notificationType.name())){
+                this.type = type;
+                return;
+            }
+        }
+        throw new CustomHandler("Notification Type not respected");
+    }
+
     @Override
     public String toString() {
         return "Notification{" +
@@ -114,6 +132,7 @@ public class Notification {
                 ", receiver=" + receiver +
                 ", date=" + date +
                 ", state=" + state +
+                ", type=" + type +
                 '}';
     }
 }
