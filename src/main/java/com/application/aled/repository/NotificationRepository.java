@@ -7,6 +7,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface NotificationRepository extends CrudRepository<Notification, Long> {
 
-    Notification[] findByStateAndReceiver(String StateType, long receiver);
+    Notification[] findByReceiver(long receiver);
 
 }

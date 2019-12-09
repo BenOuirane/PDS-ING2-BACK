@@ -32,7 +32,7 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Override
     public Notification[] getNotifications(long receiver) {
-        Notification[] _notifications = repository.findByStateAndReceiver("PENDING", receiver);
+        Notification[] _notifications = repository.findByReceiver(receiver);
         return _notifications;
     }
 

@@ -28,10 +28,6 @@ public class NotificationController {
 
         Notification[] _notifications = notificationService.getNotifications(userId);
 
-        for (Notification notification: _notifications) {
-            notificationService.updateState(notification);
-        }
-
         return _notifications;
     }
 
