@@ -5,11 +5,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.sql.Timestamp;
 
 /*
- * The class 'Message' has TODO nb attributes
+ * The class 'Message' has five attributes
  * will become the table 'messages' with three columns :
  * - Id --> This will automaticaly be a sequence on our database
  * - mac_address
- * - Lastname
+ * - effective_temperature
+ * - programmed_temperature
+ * - dateTime
  */
 @XmlRootElement(name="message")
 @Entity
@@ -21,13 +23,13 @@ public class Message {
     private long id;
 
     @Column(name = "mac_address")
-    private String mac_address;
+    private String macAddress;
 
     @Column(name = "effective_temperature")
-    private String effective_temperature;
+    private int effective_temperature;
 
     @Column(name = "programmed_temperature")
-    private String programmed_temperature;
+    private int programmed_temperature;
 
     @Column(name = "dateTime")
     private Timestamp dateTime;
@@ -41,26 +43,26 @@ public class Message {
     }
 
     public String getMac_address() {
-        return mac_address;
+        return macAddress;
     }
 
     public void setMac_address(String mac_address) {
-        this.mac_address = mac_address;
+        this.macAddress = mac_address;
     }
 
-    public String getEffective_temperature() {
+    public int getEffective_temperature() {
         return effective_temperature;
     }
 
-    public void setEffective_temperature(String effective_temperature) {
+    public void setEffective_temperature(int effective_temperature) {
         this.effective_temperature = effective_temperature;
     }
 
-    public String getProgrammed_temperature() {
+    public int getProgrammed_temperature() {
         return programmed_temperature;
     }
 
-    public void setProgrammed_temperature(String programmed_temperature) {
+    public void setProgrammed_temperature(int programmed_temperature) {
         this.programmed_temperature = programmed_temperature;
     }
 
@@ -76,7 +78,7 @@ public class Message {
     public String toString() {
         return "Message{" +
                 "id=" + id +
-                ", mac_address='" + mac_address + '\'' +
+                ", mac_address='" + macAddress + '\'' +
                 ", effective_temperature='" + effective_temperature + '\'' +
                 ", programmed_temperature='" + programmed_temperature + '\'' +
                 ", dateTime='" + dateTime + '\'' +

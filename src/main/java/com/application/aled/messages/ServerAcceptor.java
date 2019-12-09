@@ -1,20 +1,17 @@
-package com.application.messages;
+package com.application.aled.messages;
+import javax.sql.rowset.spi.XmlReader;
 import java.io.*;
 
 import java.net.ServerSocket;
 import java.net.Socket;
 /**
- * Classe illustrant le transfert de XML via une connexion TCP.
- * Le client envoie un document XML au serveur qui l'affiche a l'écran.
- * Le numéro de port du serveur est spécifié dans la classe ServeurTCPXML.
- * @author Cyril Rabat
- * @version 18/10/2017
+ * This class receive message in xml format and it gives it to the XmlReader
  */
 public class ServerAcceptor {
 
     public static final int portEcoute = 5001;
 
-    public static void main(String[] args) {
+    public static void receiveMessage() {
         // Création de la socket serveur
         ServerSocket socketServeur = null;
         String str = null;
@@ -58,7 +55,8 @@ public class ServerAcceptor {
          * We transmit the xml string to the Xml reader to analyse and stock its information
          *
          **/
-        XmlReader.xmlTranslate(str);
+        XmlController xmlReader = new XmlController();
+        xmlReader.xmlTranslate(str);
 
         // Fermeture des flux et des sockets
         try {
@@ -71,5 +69,9 @@ public class ServerAcceptor {
         }
     }
 
+    public static void main(String[] args) {
+        ServerAcceptor serverAcceptor = new ServerAcceptor();
+        serverAcceptor.receiveMessage();
+    }
 }
 

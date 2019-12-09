@@ -1,8 +1,11 @@
-package com.application.messages;
+package com.application.aled.messages;
 
 import com.application.aled.entity.Message;
 import com.application.aled.repository.MessageRepository;
+import com.application.aled.service.MessageServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
@@ -11,15 +14,20 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.io.StringReader;
 import java.sql.Timestamp;
-import java.util.Properties;
 
 @RestController
-public class XmlReader {
-    @Autowired
-    private static MessageRepository messageRepository;
+@CrossOrigin(origins = "*")
+public class XmlController {
+
+    @Autowired(required = true)
+    MessageRepository messageRepository;
     /**
      * Just an example to test the xmlTranslate method
      */
+
+    @Autowired
+    MessageServiceImpl messageService;
+
     String xmlString = "<message>" +
             "    <mac_address>00-1E-33-1D-6A-79</mac_address>" +
             "        <effective_temperature>100</effective_temperature>" +
@@ -30,10 +38,10 @@ public class XmlReader {
     This method must create an object message from a xml file in a first time.
     After that it save the message in the database
      */
-    public static void xmlTranslate(String xmlString){
+    public void xmlTranslate(String xmlString){
 
         /*
-        JAXBContext allow to create an xml object from an existing class
+        JAXBContext permits creation of a xml object from an existing class
          */
         JAXBContext jaxbContext;
 
@@ -41,7 +49,7 @@ public class XmlReader {
         {
             jaxbContext = JAXBContext.newInstance(Message.class);
             /*
-            Unmarshaller permits java to read an xml string and create an object with it
+            Unmarshaller read an xml string and create an object with the method unmarshal
              */
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 
