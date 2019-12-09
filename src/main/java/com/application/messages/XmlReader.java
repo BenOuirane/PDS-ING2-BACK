@@ -11,11 +11,12 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.io.StringReader;
 import java.sql.Timestamp;
+import java.util.Properties;
 
 @RestController
 public class XmlReader {
     @Autowired
-    MessageRepository messageRepository;
+    private static MessageRepository messageRepository;
     /**
      * Just an example to test the xmlTranslate method
      */
@@ -26,9 +27,10 @@ public class XmlReader {
             "</message>";
 
     /*
-    This method must create an object message from a xml file
+    This method must create an object message from a xml file in a first time.
+    After that it save the message in the database
      */
-    public void xmlTranslate(String xmlString){
+    public static void xmlTranslate(String xmlString){
 
         /*
         JAXBContext allow to create an xml object from an existing class
