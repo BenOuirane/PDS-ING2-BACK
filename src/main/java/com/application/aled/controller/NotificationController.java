@@ -7,8 +7,8 @@ import com.application.aled.service.NotificationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
 @CrossOrigin(origins = "*")
+@RestController
 @RequestMapping("/api")
 public class NotificationController {
 
@@ -27,6 +27,14 @@ public class NotificationController {
     public Notification[] getNotification(@RequestBody long userId){
 
         Notification[] _notifications = notificationService.getNotifications(userId);
+
+        return _notifications;
+    }
+
+    @PutMapping("/notifications/update")
+    public Notification[] updateNotificationState(@RequestBody long userId){
+
+        Notification[] _notifications = notificationService.updateStateByReceiver(userId);
 
         return _notifications;
     }

@@ -36,13 +36,14 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
-    public void updateState(Notification notification) {
-        Notification notificationFound =  repository.findById(notification.getId())
-                .orElseThrow(() -> new CustomHandler("Notification not found"));
+    public Notification[] updateStateByReceiver(long receiver) {
+        Notification[] notificationFound =  repository.findByStateAndReceiver("PENDING", receiver);
 
-        notificationFound.setState("SEND");
+        for (Notification notification : notificationFound) {
+            notification.setState("SEEN");
+            repository.save(notification);
+        }
 
-        repository.save(notificationFound);
-
+        return notificationFound;
     }
 }

@@ -9,4 +9,6 @@ public interface NotificationRepository extends CrudRepository<Notification, Lon
 
     Notification[] findByReceiver(long receiver);
 
+    Notification[] findByStateAndReceiver(String state, long receiver);
+
 }

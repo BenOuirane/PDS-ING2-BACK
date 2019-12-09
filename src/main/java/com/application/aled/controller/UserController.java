@@ -28,8 +28,8 @@ import com.application.aled.repository.UserRepository;
  * Here, we have http://{localhost} or {172.31.254.61}/api/...
  */
 
-@RestController
 @CrossOrigin(origins = "*")
+@RestController
 @RequestMapping("/api")
 public class UserController {
 
