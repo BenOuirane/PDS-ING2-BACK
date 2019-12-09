@@ -2,8 +2,6 @@ package com.application.aled.service;
 
 import com.application.aled.controller.exception.CustomHandler;
 import com.application.aled.entity.Notification;
-import com.application.aled.entity.StateType;
-import com.application.aled.entity.User;
 import com.application.aled.repository.NotificationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +22,7 @@ public class NotificationServiceImpl implements NotificationService {
         _notification.setReceiver(notification.getReceiver());
         _notification.setSender(notification.getSender());
         _notification.setType(notification.getType());
+        _notification.setCustomData(notification.getCustomData());
 
         repository.save(_notification);
 

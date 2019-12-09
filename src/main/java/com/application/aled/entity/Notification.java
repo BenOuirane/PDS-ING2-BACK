@@ -4,6 +4,7 @@ import com.application.aled.controller.exception.CustomHandler;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.util.Arrays;
 import java.util.Date;
 
 @Entity
@@ -34,16 +35,20 @@ public class Notification {
     @Column(name = "type")
     private String type;
 
+    @Column(name = "customData")
+    private String customData;
+
     public Notification() {
     }
 
-    public Notification(long sender, String title, String message, long receiver, String state, String type) {
+    public Notification(long sender, String title, String message, long receiver, String state, String type, String customData) {
         this.sender = sender;
         this.title = title;
         this.message = message;
         this.receiver = receiver;
         this.state = state;
         this.type = type;
+        this.customData = customData;
     }
 
     public long getId() {
@@ -122,6 +127,14 @@ public class Notification {
         throw new CustomHandler("Notification Type not respected");
     }
 
+    public String getCustomData() {
+        return customData;
+    }
+
+    public void setCustomData(String customData) {
+        this.customData = customData;
+    }
+
     @Override
     public String toString() {
         return "Notification{" +
@@ -131,8 +144,9 @@ public class Notification {
                 ", message='" + message + '\'' +
                 ", receiver=" + receiver +
                 ", date=" + date +
-                ", state=" + state +
-                ", type=" + type +
+                ", state='" + state + '\'' +
+                ", type='" + type + '\'' +
+                ", customData=" + customData +
                 '}';
     }
 }
