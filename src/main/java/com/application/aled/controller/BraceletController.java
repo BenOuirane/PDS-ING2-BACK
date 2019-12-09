@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.application.aled.entity.Bracelet;
 import com.application.aled.repository.BraceletRepository;
-import com.application.aled.repository.UserRepository;
 import com.application.aled.service.BraceletService;
 
 @RestController
@@ -29,5 +28,7 @@ public class BraceletController {
 
 		return bracelets;
 	}
+	
+	
 
 }

@@ -6,26 +6,29 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
+
+@XmlRootElement(name="measure")
 @Entity
-@Table(name = "Measure")
+@Table(name = "measure")
 public class Measure {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "IdMeasure")
+	@Column(name = "id_measure")
 	private long id;
 
-	@Column(name = "CSleep")
+	@Column(name = "count_sleep")
 	private String countSleep;
 
-	@Column(name = "CCardiacFrequency")
+	@Column(name = "count_cardiacfrequency")
 	private String countCardiacFrequency;
 
-	@Column(name = "CWaterResistance")
+	@Column(name = "count_waterresistance")
 	private String countWaterResistance;
 
-	@Column(name = "CPaths")
+	@Column(name = "count_paths")
 	private String countPaths;
 
 	public Measure(long id, String countSleep, String countCardiacFrequency, String countWaterResistance,
@@ -44,14 +47,21 @@ public class Measure {
 		this.countBodyTemperature = countBodyTemperature;
 	}
 
-	@Column(name = "CDistance")
+	@Column(name = "count_distance")
 	private String countDistance;
 
-	@Column(name = "CRespiratoryRate")
+	@Column(name = "count_respiratoryrate")
 	private String countRespiratoryRate;
 
-	@Column(name = "CExpiratoryFlowRate")
+	@Column(name = "count_expiratoryflowrate")
 	private String countExpiratoryFlowRate;
+	
+	@Column(name = "count_oxygensaturation")
+	private String countOxygenSaturation;
+
+	@Column(name = "count_podytemperature")
+	private String countBodyTemperature;
+
 
 	public long getId() {
 		return id;
@@ -142,10 +152,5 @@ public class Measure {
 		this.countBodyTemperature = countBodyTemperature;
 	}
 
-	@Column(name = "COxygenSaturation")
-	private String countOxygenSaturation;
-
-	@Column(name = "CBodyTemperature")
-	private String countBodyTemperature;
 
 }

@@ -10,8 +10,8 @@ public interface ReferentialPositionService {
 
 	void addPositionRef(ReferentialPosition refPosi);
 
-	void updateResidentRef(ReferentialPosition refPosi);
+	void updatePositionRef(ReferentialPosition refPosi);
 
-	void removeResidentRef(ReferentialPosition refPosi);
+	void removePositionRef(ReferentialPosition refPosi);
 
 }

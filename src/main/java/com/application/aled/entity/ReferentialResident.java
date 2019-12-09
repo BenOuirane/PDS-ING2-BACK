@@ -1,36 +1,41 @@
 package com.application.aled.entity;
 
+import java.sql.Timestamp;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
+
+@XmlRootElement(name="referentialResident")
 @Entity
-@Table(name = "ReferentialResident")
+@Table(name = "referential_resident")
 public class ReferentialResident {
 
-	@Column(name = "RefResident")
+	@Column(name = "ref_resident")
 	private String refresident;
 
-	@Column(name = "FirstName")
+	@Column(name = "first_name")
 	private String firstName;
 
-	@Column(name = "LastName")
+	@Column(name = "last_name")
 	private String LastName;
 
-	@Column(name = "PhoneNumber")
+	@Column(name = "phone_number")
 	private String phonenumber;
 
-	@Column(name = "RoomNumber")
+	@Column(name = "room_number")
 	private String roomNumber;
 
-	@Column(name = "ControlLevel")
+	@Column(name = "control_level")
 	private String controlLevel;
 
-	@Column(name = "DateArrived")
-	private String dateArrived;
+	@Column(name = "date_arrived")
+	private Timestamp dateArrived;
 
 	public ReferentialResident(String refresident, String firstName, String lastName, String phonenumber,
-			String roomNumber, String controlLevel, String dateArrived) {
+			String roomNumber, String controlLevel, Timestamp dateArrived) {
 		super();
 		this.refresident = refresident;
 		this.firstName = firstName;
@@ -89,11 +94,11 @@ public class ReferentialResident {
 		this.controlLevel = controlLevel;
 	}
 
-	public String getDateArrived() {
+	public Timestamp getDateArrived() {
 		return dateArrived;
 	}
 
-	public void setDateArrived(String dateArrived) {
+	public void setDateArrived(Timestamp dateArrived) {
 		this.dateArrived = dateArrived;
 	}
 

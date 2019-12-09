@@ -1,32 +1,36 @@
 package com.application.aled.entity;
 
+import java.sql.Timestamp;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement(name="referentialMeasure")
 @Entity
-@Table(name = "ReferentialMeasure")
+@Table(name = "referential_measure")
 public class ReferentialMeasure {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "RefMeasure")
+	@Column(name = "ref_measure")
 	private String refMeasure;
 
-	@Column(name = "TypeMeasure")
+	@Column(name = "type_measure")
 	private String typeMeasure;
 
-	@Column(name = "LevelMeasure")
+	@Column(name = "level_measure")
 	private String LevelMeasure;
 
-	@Column(name = "WIPDate")
-	private String wipDate;
+	@Column(name = "wip_date")
+	private Timestamp wipDate;
 
-	@Column(name = "UPDate")
-	private String upDate;
+	@Column(name = "up_date")
+	private Timestamp upDate;
 
 	@Override
 	public String toString() {
@@ -54,19 +58,19 @@ public class ReferentialMeasure {
 		LevelMeasure = levelMeasure;
 	}
 
-	public String getWipDate() {
+	public Timestamp getWipDate() {
 		return wipDate;
 	}
 
-	public void setWipDate(String wipDate) {
+	public void setWipDate(Timestamp wipDate) {
 		this.wipDate = wipDate;
 	}
 
-	public String getUpDate() {
+	public Timestamp getUpDate() {
 		return upDate;
 	}
 
-	public void setUpDate(String upDate) {
+	public void setUpDate(Timestamp upDate) {
 		this.upDate = upDate;
 	}
 }

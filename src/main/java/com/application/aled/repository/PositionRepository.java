@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.application.aled.entity.Position;
 
 @Repository
-public interface PositionRepository extends CrudRepository<Position, Long> {
+public interface PositionRepository extends CrudRepository<Position, String> {
 
 }

@@ -1,28 +1,73 @@
 package com.application.aled.entity;
 
+import java.sql.Timestamp;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement(name="referentialPosition")
 @Entity
-@Table(name = "ReferentialPosition")
+@Table(name = "referential_position")
 public class ReferentialPosition {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "RefPosition")
+	@Column(name = "ref_position")
 	private String id;
 
-	@Column(name = "Name")
+	@Column(name = "name")
 	private String name;
 
-	@Column(name = "Surface")
+	@Column(name = "surface")
 	private Double surface;
 
-	@Column(name = "Emplacement")
+	public ReferentialPosition(String id, String name, Double surface, String emplacementPosition, Timestamp wipDate,
+			Timestamp upDate) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.surface = surface;
+		this.emplacementPosition = emplacementPosition;
+		this.wipDate = wipDate;
+		this.upDate = upDate;
+	}
+
+	@Column(name = "emplacement")
 	private String emplacementPosition;
+
+	@Column(name = "wip_date")
+	private Timestamp wipDate;
+
+	@Column(name = "up_date")
+	private Timestamp upDate;
+	
+	public String getEmplacementPosition() {
+		return emplacementPosition;
+	}
+
+	public void setEmplacementPosition(String emplacementPosition) {
+		this.emplacementPosition = emplacementPosition;
+	}
+
+	public Timestamp getWipDate() {
+		return wipDate;
+	}
+
+	public void setWipDate(Timestamp wipDate) {
+		this.wipDate = wipDate;
+	}
+
+	public Timestamp getUpDate() {
+		return upDate;
+	}
+
+	public void setUpDate(Timestamp upDate) {
+		this.upDate = upDate;
+	}
 
 	public String getId() {
 		return id;
@@ -58,8 +103,8 @@ public class ReferentialPosition {
 
 	@Override
 	public String toString() {
-		return "ReferentialPosition [id=" + id + ", name=" + name + ", surface=" + surface + ", emplacement="
-				+ emplacementPosition + "]";
+		return "ReferentialPosition [id=" + id + ", name=" + name + ", surface=" + surface + ", emplacementPosition="
+				+ emplacementPosition + ", wipDate=" + wipDate + ", upDate=" + upDate + "]";
 	}
 
 	public ReferentialPosition(String id, String name, Double surface, String emplacement) {

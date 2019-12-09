@@ -13,8 +13,10 @@ import com.application.aled.entity.ReferentialBracelet;
  */
 public interface ReferentialBraceletService {
 	public List<ReferentialBracelet> getAllReferentialBracelets();
-	
-	 void addBraceletRef(ReferentialBracelet refBrac); 
-	 void updateBraceletRef(ReferentialBracelet refBrac);
-	 void removeBraceletRef(ReferentialBracelet refBrac);
+
+	void addBraceletRef(ReferentialBracelet refBrac);
+
+	void updateBraceletRef(ReferentialBracelet refBrac);
+
+	void removeBraceletRef(ReferentialBracelet refBrac);
 }

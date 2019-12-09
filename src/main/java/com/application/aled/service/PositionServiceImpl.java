@@ -17,7 +17,7 @@ import com.application.aled.repository.PositionRepository;
  */
 public class PositionServiceImpl implements PositionService {
 	@Autowired
-	PositionRepository repository;
+	PositionRepository positionRepository;
 
 	@Override
 	public List<Position> getAllPositions() {
@@ -30,6 +30,34 @@ public class PositionServiceImpl implements PositionService {
 		});
 
 		return listPosition;
+	}
+
+	@Override
+	public void addPosition(Position idPos) {
+		if (idPos == null) {
+			// FIXME: action non autorisee
+
+			return;
+		}
+		positionRepository.save(idPos);
+
+	}
+
+	@Override
+	public void updatePosition(Position idPos) {
+		if (idPos == null) {
+			// FIXME: action non autorisee
+
+			return;
+		}
+		positionRepository.save(idPos);
+
+	}
+
+	@Override
+	public void removePosition(Position idPos) {
+		positionRepository.delete(idPos);
+		
 	}
 
 }

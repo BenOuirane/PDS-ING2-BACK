@@ -5,9 +5,7 @@ package com.application.aled.service;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-
 import com.application.aled.entity.ReferentialPosition;
 import com.application.aled.repository.ReferentialPositionRepository;
 
@@ -39,7 +37,7 @@ public class ReferentialPositionServiceImpl implements ReferentialPositionServic
 	}
 
 	@Override
-	public void updateResidentRef(ReferentialPosition refPosi) {
+	public void updatePositionRef(ReferentialPosition refPosi) {
 		if (refPosi == null) {
 			// FIXME: action non autorisee
 			return;
@@ -49,7 +47,7 @@ public class ReferentialPositionServiceImpl implements ReferentialPositionServic
 	}
 
 	@Override
-	public void removeResidentRef(ReferentialPosition refPosi) {
+	public void removePositionRef(ReferentialPosition refPosi) {
 		positionsRefRepository.delete(refPosi);
 	}
 

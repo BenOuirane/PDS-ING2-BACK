@@ -3,11 +3,13 @@
  */
 package com.application.aled.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.application.aled.entity.Measure;
+import com.application.aled.entity.ReferentialPosition;
 import com.application.aled.repository.MeasureRepository;
 
 /**
@@ -16,12 +18,41 @@ import com.application.aled.repository.MeasureRepository;
  */
 public class MeasureServiceImpl implements MeasureService {
 	@Autowired
-	MeasureRepository repository;
+	MeasureRepository measureRepository;
 
 	@Override
 	public List<Measure> getAllMeasures() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Measure> measlist = new ArrayList<Measure>();
+
+		measureRepository.findAll().forEach(measlist::add);
+		return measlist;
+	}
+
+	@Override
+	public void addMeasure(Measure measId) {
+		if (measId == null) {
+			// FIXME: action non autorisee
+
+			return;
+		}
+		measureRepository.save(measId);
+
+	}
+
+	@Override
+	public void updateMeasure(Measure measId) {
+		if (measId == null) {
+			// FIXME: action non autorisee
+
+			return;
+		}
+		measureRepository.save(measId);
+	}
+
+	@Override
+	public void removeMeasure(Measure measId) {
+		measureRepository.delete(measId);
+		
 	}
 
 }

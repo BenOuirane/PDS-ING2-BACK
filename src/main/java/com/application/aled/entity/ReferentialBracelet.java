@@ -9,8 +9,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
-import com.sun.jmx.snmp.Timestamp;
+import java.sql.Timestamp;
+
+
 
 /**
  * @author ISMAIL EL HAMMOUD
@@ -18,21 +21,23 @@ import com.sun.jmx.snmp.Timestamp;
  */
 
 // add table attributes
+
+@XmlRootElement(name="referentialBracelet")
 @Entity
-@Table(name = "ReferentialBracelet")
+@Table(name = "referential_bracelet")
 public class ReferentialBracelet {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private String id;
 
-	@Column(name = "Name")
+	@Column(name = "name")
 	private String nameBracelet;
 
-	@Column(name = "Brand")
+	@Column(name = "brand")
 	private String brandBracelet;
 
-	@Column(name = "WIPDate")
+	@Column(name = "wip_date")
 	private Timestamp wipDate;
 
 	public String getId() {
@@ -99,16 +104,16 @@ public class ReferentialBracelet {
 		this.optionGPS = optionGPS;
 	}
 
-	@Column(name = "UPDate")
+	@Column(name = "up_date")
 	private Timestamp upDate;
 
-	@Column(name = "Waterproof")
+	@Column(name = "is_waterproof")
 	private boolean optionWaterProofYN;
 
-	@Column(name = "CardiacFrequency")
+	@Column(name = "is_cardiacfrequency")
 	private boolean optioncardiacFrequency;
 
-	@Column(name = "GPS")
+	@Column(name = "is_gps")
 	private boolean optionGPS;
 
 	public ReferentialBracelet(String id, String nameBracelet, String brandBracelet, Timestamp wipDate,
