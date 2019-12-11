@@ -23,7 +23,7 @@ public class PositionServiceImpl implements PositionService {
 	public List<Position> getAllPositions() {
 		// TODO Auto-generated method stub
 		List<Position> listPosition = new ArrayList<Position>();
-		Iterable<Position> itPos = repository.findAll();
+		Iterable<Position> itPos = positionRepository.findAll();
 
 		itPos.forEach(p -> {
 			listPosition.add(p);
@@ -40,6 +40,8 @@ public class PositionServiceImpl implements PositionService {
 			return;
 		}
 		positionRepository.save(idPos);
+		//positionRepository.save(new Position("CUS1",1.250, 25.55,"Cuisine1",2016.11.16.06.43.19));
+		
 
 	}
 
@@ -60,4 +62,9 @@ public class PositionServiceImpl implements PositionService {
 		
 	}
 
+	@Override
+	public Position getPosition(String id) {
+	return null;
+	//return positionRepository.findById(id);
+	}
 }

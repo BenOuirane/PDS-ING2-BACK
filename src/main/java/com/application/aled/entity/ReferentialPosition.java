@@ -10,6 +10,15 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
+
+/* 
+	This entity will be the table of Referential Position
+	Its attributes will be the following columns
+	Every change in the backend side will impact the table 
+	structure
+*/
+
+
 @XmlRootElement(name="referentialPosition")
 @Entity
 @Table(name = "referential_position")

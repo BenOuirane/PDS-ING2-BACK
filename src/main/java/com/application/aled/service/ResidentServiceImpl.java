@@ -28,7 +28,7 @@ public class ResidentServiceImpl implements ResidentService {
 		residentRepository.findAll().forEach(reslist::add);
 		return reslist;
 	}
-	}
+
 
 	@Override
 	public void addResident(Resident idResi) {

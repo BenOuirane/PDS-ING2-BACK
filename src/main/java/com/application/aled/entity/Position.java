@@ -11,12 +11,19 @@ import javax.xml.bind.annotation.XmlRootElement;
 import com.sun.jmx.snmp.Timestamp;
 
 
+/* 
+	This entity will be the table of Position
+	Its attributes will be the following columns
+	Every change in the backend side will impact the table 
+	structure
+*/
+
 @XmlRootElement(name="position")
 @Entity
 @Table(name = "position")
 public class Position {
 	
-	public Position(String id, long lat_pos, long long_pos, String ref_pos, Timestamp date_pos) {
+	public Position(String id, double lat_pos, double long_pos, String ref_pos, Timestamp date_pos) {
 		super();
 		this.id = id;
 		this.lat_pos = lat_pos;
@@ -37,10 +44,10 @@ public class Position {
 	private String id;
 
 	@Column(name = "latitude")
-	private long lat_pos;
+	private double lat_pos;
 
 	@Column(name = "longitude")
-	private long long_pos;
+	private double long_pos;
 
 	@Column(name = "ref_position")
 	private String ref_pos;
@@ -72,19 +79,19 @@ public class Position {
 		this.id = id;
 	}
 
-	public long getLong_pos() {
+	public double getLong_pos() {
 		return long_pos;
 	}
 
-	public void setLong_pos(long long_pos) {
+	public void setLong_pos(double long_pos) {
 		this.long_pos = long_pos;
 	}
 
-	public long getLat_pos() {
+	public double getLat_pos() {
 		return lat_pos;
 	}
 
-	public void setLat_pos(long lat_pos) {
+	public void setLat_pos(double lat_pos) {
 		this.lat_pos = lat_pos;
 	}
 

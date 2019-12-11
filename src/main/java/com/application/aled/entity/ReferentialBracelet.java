@@ -20,8 +20,12 @@ import java.sql.Timestamp;
  *
  */
 
-// add table attributes
-
+/* 
+	This entity will be the table of Referential Bracelet
+	Its attributes will be the following columns
+	Evevy change in the backend side will impact the table 
+	structure
+*/
 @XmlRootElement(name="referentialBracelet")
 @Entity
 @Table(name = "referential_bracelet")

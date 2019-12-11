@@ -8,7 +8,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-
+/* 
+	This entity will be the table of Bracelet
+	Its attributes will be the following columns
+	Every change in the backend side will impact the table 
+	structure
+*/
 
 @XmlRootElement(name="bracelet")
 @Entity

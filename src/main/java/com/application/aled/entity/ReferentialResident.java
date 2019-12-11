@@ -4,8 +4,19 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+
+/* 
+	This entity will be the table of Referential Bracelet
+	Its attributes will be the following columns
+	Every change in the backend side will impact the table 
+	structure
+*/	
+
 
 
 @XmlRootElement(name="referentialResident")
@@ -13,6 +24,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "referential_resident")
 public class ReferentialResident {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ref_resident")
 	private String refresident;
 

@@ -3,7 +3,6 @@ package com.application.aled.service;
 import java.util.List;
 
 import com.application.aled.entity.Measure;
-import com.application.aled.entity.ReferentialPosition;
 
 public interface MeasureService {
 
