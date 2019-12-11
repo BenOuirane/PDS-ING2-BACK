@@ -1,6 +1,6 @@
 package com.application.aled.entity;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -45,10 +45,10 @@ public class ReferentialResident {
 	private String controlLevel;
 
 	@Column(name = "date_arrived")
-	private Timestamp dateArrived;
+	private LocalDateTime dateArrived;
 
 	public ReferentialResident(String refresident, String firstName, String lastName, String phonenumber,
-			String roomNumber, String controlLevel, Timestamp dateArrived) {
+			String roomNumber, String controlLevel, LocalDateTime dateArrived) {
 		super();
 		this.refresident = refresident;
 		this.firstName = firstName;
@@ -107,11 +107,11 @@ public class ReferentialResident {
 		this.controlLevel = controlLevel;
 	}
 
-	public Timestamp getDateArrived() {
+	public LocalDateTime getDateArrived() {
 		return dateArrived;
 	}
 
-	public void setDateArrived(Timestamp dateArrived) {
+	public void setDateArrived(LocalDateTime dateArrived) {
 		this.dateArrived = dateArrived;
 	}
 

@@ -1,6 +1,6 @@
 package com.application.aled.entity;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -34,8 +34,8 @@ public class ReferentialPosition {
 	@Column(name = "surface")
 	private Double surface;
 
-	public ReferentialPosition(String id, String name, Double surface, String emplacementPosition, Timestamp wipDate,
-			Timestamp upDate) {
+	public ReferentialPosition(String id, String name, Double surface, String emplacementPosition, LocalDateTime wipDate,
+			LocalDateTime upDate) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -49,10 +49,10 @@ public class ReferentialPosition {
 	private String emplacementPosition;
 
 	@Column(name = "wip_date")
-	private Timestamp wipDate;
+	private LocalDateTime wipDate;
 
 	@Column(name = "up_date")
-	private Timestamp upDate;
+	private LocalDateTime upDate;
 	
 	public String getEmplacementPosition() {
 		return emplacementPosition;
@@ -62,19 +62,19 @@ public class ReferentialPosition {
 		this.emplacementPosition = emplacementPosition;
 	}
 
-	public Timestamp getWipDate() {
+	public LocalDateTime getWipDate() {
 		return wipDate;
 	}
 
-	public void setWipDate(Timestamp wipDate) {
+	public void setWipDate(LocalDateTime wipDate) {
 		this.wipDate = wipDate;
 	}
 
-	public Timestamp getUpDate() {
+	public LocalDateTime getUpDate() {
 		return upDate;
 	}
 
-	public void setUpDate(Timestamp upDate) {
+	public void setUpDate(LocalDateTime upDate) {
 		this.upDate = upDate;
 	}
 

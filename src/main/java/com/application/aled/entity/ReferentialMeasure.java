@@ -1,6 +1,7 @@
 package com.application.aled.entity;
 
-import java.sql.Timestamp;
+
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -35,10 +36,10 @@ public class ReferentialMeasure {
 	private String LevelMeasure;
 
 	@Column(name = "wip_date")
-	private Timestamp wipDate;
+	private LocalDateTime wipDate;
 
 	@Column(name = "up_date")
-	private Timestamp upDate;
+	private LocalDateTime upDate;
 
 	@Override
 	public String toString() {
@@ -66,19 +67,19 @@ public class ReferentialMeasure {
 		LevelMeasure = levelMeasure;
 	}
 
-	public Timestamp getWipDate() {
+	public LocalDateTime getWipDate() {
 		return wipDate;
 	}
 
-	public void setWipDate(Timestamp wipDate) {
+	public void setWipDate(LocalDateTime wipDate) {
 		this.wipDate = wipDate;
 	}
 
-	public Timestamp getUpDate() {
+	public LocalDateTime getUpDate() {
 		return upDate;
 	}
 
-	public void setUpDate(Timestamp upDate) {
+	public void setUpDate(LocalDateTime upDate) {
 		this.upDate = upDate;
 	}
 }

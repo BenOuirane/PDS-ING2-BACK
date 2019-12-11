@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 
 
@@ -42,7 +42,7 @@ public class ReferentialBracelet {
 	private String brandBracelet;
 
 	@Column(name = "wip_date")
-	private Timestamp wipDate;
+	private LocalDateTime wipDate;
 
 	public String getId() {
 		return id;
@@ -68,19 +68,19 @@ public class ReferentialBracelet {
 		this.brandBracelet = brandBracelet;
 	}
 
-	public Timestamp getWipDate() {
+	public LocalDateTime getWipDate() {
 		return wipDate;
 	}
 
-	public void setWipDate(Timestamp wipDate) {
+	public void setWipDate(LocalDateTime wipDate) {
 		this.wipDate = wipDate;
 	}
 
-	public Timestamp getUpDate() {
+	public LocalDateTime getUpDate() {
 		return upDate;
 	}
 
-	public void setUpDate(Timestamp upDate) {
+	public void setUpDate(LocalDateTime upDate) {
 		this.upDate = upDate;
 	}
 
@@ -109,7 +109,7 @@ public class ReferentialBracelet {
 	}
 
 	@Column(name = "up_date")
-	private Timestamp upDate;
+	private LocalDateTime upDate;
 
 	@Column(name = "is_waterproof")
 	private boolean optionWaterProofYN;
@@ -120,8 +120,8 @@ public class ReferentialBracelet {
 	@Column(name = "is_gps")
 	private boolean optionGPS;
 
-	public ReferentialBracelet(String id, String nameBracelet, String brandBracelet, Timestamp wipDate,
-			Timestamp upDate, boolean optionWaterProofYN, boolean optioncardiacFrequency, boolean optionGPS) {
+	public ReferentialBracelet(String id, String nameBracelet, String brandBracelet, LocalDateTime wipDate,
+			LocalDateTime upDate, boolean optionWaterProofYN, boolean optioncardiacFrequency, boolean optionGPS) {
 		super();
 		this.id = id;
 		this.nameBracelet = nameBracelet;

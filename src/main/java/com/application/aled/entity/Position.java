@@ -1,5 +1,7 @@
 package com.application.aled.entity;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,7 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import com.sun.jmx.snmp.Timestamp;
 
 
 /* 
@@ -23,7 +24,7 @@ import com.sun.jmx.snmp.Timestamp;
 @Table(name = "position")
 public class Position {
 	
-	public Position(String id, double lat_pos, double long_pos, String ref_pos, Timestamp date_pos) {
+	public Position(String id, double lat_pos, double long_pos, String ref_pos, LocalDateTime date_pos) {
 		super();
 		this.id = id;
 		this.lat_pos = lat_pos;
@@ -53,7 +54,7 @@ public class Position {
 	private String ref_pos;
 
 	@Column(name = "date")
-	private Timestamp date_pos;
+	private LocalDateTime date_pos;
 
 	public String getRef_pos() {
 		return ref_pos;
@@ -63,11 +64,11 @@ public class Position {
 		this.ref_pos = ref_pos;
 	}
 
-	public Timestamp getDate_pos() {
+	public LocalDateTime getDate_pos() {
 		return date_pos;
 	}
 
-	public void setDate_pos(Timestamp date_pos) {
+	public void setDate_pos(LocalDateTime date_pos) {
 		this.date_pos = date_pos;
 	}
 
