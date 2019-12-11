@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.application.aled.entity.Measure;
 import com.application.aled.entity.ReferentialMeasure;
@@ -16,15 +17,16 @@ import com.application.aled.repository.ReferentialMeasureRepository;
  * @author ISMAIL EL HAMMOUD
  *
  */
+@Service
 public class ReferentialMeasureServiceImpl implements ReferentialMeasureService {
 
 	@Autowired
-	private ReferentialMeasureRepository measureRefRepository;
+	private ReferentialMeasureRepository referentialMeasureRepository;
 
 	@Override
 	public List<ReferentialMeasure> getAllReferentialMeasures() {
 		List<ReferentialMeasure> refmeasureslist = new ArrayList<ReferentialMeasure>();
-		measureRefRepository.findAll().forEach(refmeasureslist::add);
+		referentialMeasureRepository.findAll().forEach(refmeasureslist::add);
 
 		return refmeasureslist;
 	}
@@ -35,7 +37,7 @@ public class ReferentialMeasureServiceImpl implements ReferentialMeasureService 
 			// FIXME: action non autorisee
 			return;
 		}
-		measureRefRepository.save(refMeasu);
+		referentialMeasureRepository.save(refMeasu);
 
 	}
 
@@ -45,13 +47,13 @@ public class ReferentialMeasureServiceImpl implements ReferentialMeasureService 
 			// FIXME: action non autorisee
 			return;
 		}
-		measureRefRepository.save(refMeasu);
+		referentialMeasureRepository.save(refMeasu);
 
 	}
 
 	@Override
 	public void removeMeasureRef(ReferentialMeasure refMeasu) {
-		measureRefRepository.delete(refMeasu);
+		referentialMeasureRepository.delete(refMeasu);
 
 	}
 

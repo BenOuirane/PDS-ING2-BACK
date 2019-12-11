@@ -12,11 +12,11 @@ import com.application.aled.entity.ReferentialBracelet;
 public interface ReferentialBraceletRepository extends CrudRepository<ReferentialBracelet, String> {
 	
 	
-	@SuppressWarnings("unchecked")
+	/*@SuppressWarnings("unchecked")
 	public ReferentialBracelet save(ReferentialBracelet refbracelet);
 	public void findByRefBracId(ReferentialBracelet refbracelet);
 	List<ReferentialBracelet> findByName (String namebracelet);
 	List<ReferentialBracelet> findByBrand (String brand);
 	List<ReferentialBracelet> findByWipDate(Timestamp wipdate);
-	
+	*/
 }

@@ -16,4 +16,6 @@ import com.application.aled.entity.Resident;
 @Repository
 public interface ResidentRepository extends CrudRepository<Resident, String> {
 
+	//Resident findById(String id);
+
 }

@@ -6,6 +6,8 @@ package com.application.aled.service;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.application.aled.entity.ReferentialBracelet;
 import com.application.aled.repository.ReferentialBraceletRepository;
 
@@ -13,16 +15,18 @@ import com.application.aled.repository.ReferentialBraceletRepository;
  * @author ISMAIL EL HAMMOUD
  *
  */
+
+@Service
 public class ReferentialBraceletServiceImpl implements ReferentialBraceletService {
 
 	@Autowired
-	private ReferentialBraceletRepository braceletRepository;
+	private ReferentialBraceletRepository referentialBraceletRepository;
 
 	@Override
 	public List<ReferentialBracelet> getAllReferentialBracelets() {
 		List<ReferentialBracelet> refbraceletlist = new ArrayList<ReferentialBracelet>();
 
-		braceletRepository.findAll().forEach(refbraceletlist::add);
+		referentialBraceletRepository.findAll().forEach(refbraceletlist::add);
 		return refbraceletlist;
 	}
 
@@ -32,23 +36,24 @@ public class ReferentialBraceletServiceImpl implements ReferentialBraceletServic
 			// FIXME: action non autorisee
 			return;
 		}
-		braceletRepository.save(refBrac);
+		referentialBraceletRepository.save(refBrac);
 
 	}
 
 	@Override
 	public void updateBraceletRef(ReferentialBracelet refBrac) {
 		if (refBrac == null) {
+			
 			// FIXME: action non autorisee
 			return;
 		}
-		braceletRepository.save(refBrac);
+		referentialBraceletRepository.save(refBrac);
 
 	}
 
 	@Override
 	public void removeBraceletRef(ReferentialBracelet refBrac) {
-		braceletRepository.delete(refBrac);
+		referentialBraceletRepository.delete(refBrac);
 
 	}
 

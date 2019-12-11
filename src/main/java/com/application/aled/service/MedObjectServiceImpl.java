@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.application.aled.entity.Measure;
 import com.application.aled.entity.MedObject;
@@ -16,6 +17,8 @@ import com.application.aled.repository.MedObjectRepository;
  * @author ISMAIL EL HAMMOUD
  *
  */
+
+@Service
 public class MedObjectServiceImpl implements MedObjectService {
 	@Autowired
 	MedObjectRepository medObjectRepository;

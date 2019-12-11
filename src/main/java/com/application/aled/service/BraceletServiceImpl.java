@@ -2,9 +2,12 @@
  * 
  */
 package com.application.aled.service;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.application.aled.entity.Bracelet;
 import com.application.aled.repository.BraceletRepository;
 
@@ -12,27 +15,35 @@ import com.application.aled.repository.BraceletRepository;
  * @author ISMAIL EL HAMMOUD
  *
  */
+@Service
 public class BraceletServiceImpl implements BraceletService {
 	@Autowired
-	BraceletRepository braceletObjrepository;
+	BraceletRepository braceletRepository;
 
 	@Override
 	public List<Bracelet> getAllBracelets() {
 		List<Bracelet> idbraceletlist = new ArrayList<Bracelet>();
 
-		braceletObjrepository.findAll().forEach(idbraceletlist::add);
+		braceletRepository.findAll().forEach(idbraceletlist::add);
 		return idbraceletlist;
 	}
 
 	@Override
 	public void addBracelet(Bracelet idBrac) {
 		if (idBrac == null) {
+			idBrac = new Bracelet();
+			idBrac.setId("Bracelet1_" + System.currentTimeMillis());
+			idBrac.setIdResident("AK");
+			idBrac.setLastSentData(LocalDateTime.now());
+			idBrac.setRefBracelet("Fitbit01");
+					
 			// FIXME: action non autorisee
 			return;
 		}
-		braceletObjrepository.save(idBrac);
+		braceletRepository.save(idBrac);
 
 	}
+	
 		
 
 	@Override
@@ -41,14 +52,14 @@ public class BraceletServiceImpl implements BraceletService {
 			// FIXME: action non autorisee
 			return;
 		}
-		braceletObjrepository.save(idBrac);
+		braceletRepository.save(idBrac);
 
 	}
 
 
 	@Override
 	public void removeBracelet(Bracelet idBrac) {
-		braceletObjrepository.delete(idBrac);
+		braceletRepository.delete(idBrac);
 		
 	}
 

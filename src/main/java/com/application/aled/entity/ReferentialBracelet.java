@@ -23,7 +23,7 @@ import java.sql.Timestamp;
 /* 
 	This entity will be the table of Referential Bracelet
 	Its attributes will be the following columns
-	Evevy change in the backend side will impact the table 
+	Every change in the backend side will impact the table 
 	structure
 */
 @XmlRootElement(name="referentialBracelet")
@@ -131,6 +131,10 @@ public class ReferentialBracelet {
 		this.optionWaterProofYN = optionWaterProofYN;
 		this.optioncardiacFrequency = optioncardiacFrequency;
 		this.optionGPS = optionGPS;
+	}
+
+	public ReferentialBracelet() {
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override

@@ -6,6 +6,8 @@ package com.application.aled.service;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.application.aled.entity.ReferentialPosition;
 import com.application.aled.repository.ReferentialPositionRepository;
 
@@ -13,15 +15,16 @@ import com.application.aled.repository.ReferentialPositionRepository;
  * @author ISMAIL EL HAMMOUD
  *
  */
+@Service
 public class ReferentialPositionServiceImpl implements ReferentialPositionService {
 	@Autowired
-	ReferentialPositionRepository positionsRefRepository;
+	ReferentialPositionRepository referentialPositionRepository;
 
 	@Override
 	public List<ReferentialPosition> getAllReferentialPositions() {
 		List<ReferentialPosition> refpositionslist = new ArrayList<ReferentialPosition>();
 
-		positionsRefRepository.findAll().forEach(refpositionslist::add);
+		referentialPositionRepository.findAll().forEach(refpositionslist::add);
 		return refpositionslist;
 	}
 
@@ -32,7 +35,7 @@ public class ReferentialPositionServiceImpl implements ReferentialPositionServic
 
 			return;
 		}
-		positionsRefRepository.save(refPosi);
+		referentialPositionRepository.save(refPosi);
 
 	}
 
@@ -42,13 +45,13 @@ public class ReferentialPositionServiceImpl implements ReferentialPositionServic
 			// FIXME: action non autorisee
 			return;
 		}
-		positionsRefRepository.save(refPosi);
+		referentialPositionRepository.save(refPosi);
 
 	}
 
 	@Override
 	public void removePositionRef(ReferentialPosition refPosi) {
-		positionsRefRepository.delete(refPosi);
+		referentialPositionRepository.delete(refPosi);
 	}
 
 }

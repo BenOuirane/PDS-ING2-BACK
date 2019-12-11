@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.application.aled.entity.ReferentialResident;
 import com.application.aled.repository.ReferentialResidentRepository;
@@ -15,16 +16,17 @@ import com.application.aled.repository.ReferentialResidentRepository;
  * @author ISMAIL EL HAMMOUD
  *
  */
+@Service
 public class ReferentialResidentServiceImpl implements ReferentialResidentService {
 
 	@Autowired
-	private ReferentialResidentRepository residentRepository;
+	private ReferentialResidentRepository referentialResidentRepository;
 
 	@Override
 	public List<ReferentialResident> getAllReferentialResidents() {
 		List<ReferentialResident> refresidentslist = new ArrayList<ReferentialResident>();
 
-		residentRepository.findAll().forEach(refresidentslist::add);
+		referentialResidentRepository.findAll().forEach(refresidentslist::add);
 		return refresidentslist;
 	}
 
@@ -34,7 +36,7 @@ public class ReferentialResidentServiceImpl implements ReferentialResidentServic
 			// FIXME: action non autorisee
 			return;
 		}
-		residentRepository.save(refResi);
+		referentialResidentRepository.save(refResi);
 
 	}
 
@@ -44,12 +46,12 @@ public class ReferentialResidentServiceImpl implements ReferentialResidentServic
 			// FIXME: action non autorisee
 			return;
 		}
-		residentRepository.save(refResi);
+		referentialResidentRepository.save(refResi);
 	}
 
 	@Override
 	public void removeResidentRef(ReferentialResident refResi) {
-		residentRepository.delete(refResi);
+		referentialResidentRepository.delete(refResi);
 
 	}
 

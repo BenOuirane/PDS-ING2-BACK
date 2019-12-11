@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.application.aled.entity.Measure;
 import com.application.aled.entity.ReferentialPosition;
@@ -16,6 +17,7 @@ import com.application.aled.repository.MeasureRepository;
  * @author ISMAIL EL HAMMOUD
  *
  */
+@Service
 public class MeasureServiceImpl implements MeasureService {
 	@Autowired
 	MeasureRepository measureRepository;

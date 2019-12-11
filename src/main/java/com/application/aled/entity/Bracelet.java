@@ -1,6 +1,7 @@
 package com.application.aled.entity;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,7 +30,7 @@ public class Bracelet {
 	private String idResident;
 
 	@Column(name = "last_sent")
-	private Timestamp lastSentData;
+	private LocalDateTime lastSentData;
 
 	@Column(name = "ref_bracelet")
 	private String refBracelet;
@@ -50,11 +51,11 @@ public class Bracelet {
 		this.idResident = idResident;
 	}
 
-	public Timestamp getLastSentData() {
+	public LocalDateTime getLastSentData() {
 		return lastSentData;
 	}
 
-	public void setLastSentData(Timestamp lastSentData) {
+	public void setLastSentData(LocalDateTime lastSentData) {
 		this.lastSentData = lastSentData;
 	}
 
@@ -72,12 +73,15 @@ public class Bracelet {
 				+ refBracelet + "]";
 	}
 
-	public Bracelet(String id, String idResident, Timestamp lastSentData, String refBracelet) {
+	public Bracelet(String id, String idResident, LocalDateTime lastSentData, String refBracelet) {
 		super();
 		this.id = id;
 		this.idResident = idResident;
 		this.lastSentData = lastSentData;
 		this.refBracelet = refBracelet;
+	}
+	public Bracelet() {
+		
 	}
 	
 
