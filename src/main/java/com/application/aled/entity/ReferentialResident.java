@@ -27,7 +27,7 @@ public class ReferentialResident {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ref_resident")
-	private String refresident;
+	private int refresident;
 
 	@Column(name = "first_name")
 	private String firstName;
@@ -47,7 +47,7 @@ public class ReferentialResident {
 	@Column(name = "date_arrived")
 	private LocalDateTime dateArrived;
 
-	public ReferentialResident(String refresident, String firstName, String lastName, String phonenumber,
+	public ReferentialResident(int refresident, String firstName, String lastName, String phonenumber,
 			String roomNumber, String controlLevel, LocalDateTime dateArrived) {
 		super();
 		this.refresident = refresident;
@@ -59,11 +59,11 @@ public class ReferentialResident {
 		this.dateArrived = dateArrived;
 	}
 
-	public String getRefresident() {
+	public int getRefresident() {
 		return refresident;
 	}
 
-	public void setRefresident(String refresident) {
+	public void setRefresident(int refresident) {
 		this.refresident = refresident;
 	}
 

@@ -26,7 +26,7 @@ public class ReferentialPosition {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ref_position")
-	private String id;
+	private int id;
 
 	@Column(name = "name")
 	private String name;
@@ -34,7 +34,7 @@ public class ReferentialPosition {
 	@Column(name = "surface")
 	private Double surface;
 
-	public ReferentialPosition(String id, String name, Double surface, String emplacementPosition, LocalDateTime wipDate,
+	public ReferentialPosition(int id, String name, Double surface, String emplacementPosition, LocalDateTime wipDate,
 			LocalDateTime upDate) {
 		super();
 		this.id = id;
@@ -78,11 +78,11 @@ public class ReferentialPosition {
 		this.upDate = upDate;
 	}
 
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -116,7 +116,7 @@ public class ReferentialPosition {
 				+ emplacementPosition + ", wipDate=" + wipDate + ", upDate=" + upDate + "]";
 	}
 
-	public ReferentialPosition(String id, String name, Double surface, String emplacement) {
+	public ReferentialPosition(int id, String name, Double surface, String emplacement) {
 		super();
 		this.id = id;
 		this.name = name;

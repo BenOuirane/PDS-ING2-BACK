@@ -16,6 +16,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 	structure
 */
 
+import sun.launcher.resources.launcher;
+
 @XmlRootElement(name="bracelet")
 @Entity
 @Table(name = "bracelet")
@@ -24,7 +26,7 @@ public class Bracelet {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "mc_address")
-	private String id;
+	private long id;
 
 	@Column(name = "id_resident")
 	private String idResident;
@@ -35,11 +37,11 @@ public class Bracelet {
 	@Column(name = "ref_bracelet")
 	private String refBracelet;
 
-	public String getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -73,7 +75,7 @@ public class Bracelet {
 				+ refBracelet + "]";
 	}
 
-	public Bracelet(String id, String idResident, LocalDateTime lastSentData, String refBracelet) {
+	public Bracelet(long id, String idResident, LocalDateTime lastSentData, String refBracelet) {
 		super();
 		this.id = id;
 		this.idResident = idResident;

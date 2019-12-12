@@ -31,11 +31,11 @@ public class BraceletServiceImpl implements BraceletService {
 	@Override
 	public void addBracelet(Bracelet idBrac) {
 		if (idBrac == null) {
-			idBrac = new Bracelet();
+		/*	idBrac = new Bracelet();
 			idBrac.setId("Bracelet1_" + System.currentTimeMillis());
 			idBrac.setIdResident("AK");
 			idBrac.setLastSentData(LocalDateTime.now());
-			idBrac.setRefBracelet("Fitbit01");
+			idBrac.setRefBracelet("Fitbit01");*/
 					
 			// FIXME: action non autorisee
 			return;

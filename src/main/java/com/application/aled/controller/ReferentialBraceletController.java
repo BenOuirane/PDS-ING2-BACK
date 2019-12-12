@@ -37,7 +37,7 @@ public class ReferentialBraceletController {
 	public void createDataMock(){
 		for (int i=1; i<100; i++) {
 			ReferentialBracelet refbracelet = new ReferentialBracelet();
-			refbracelet.setId("BRFI01_" + System.currentTimeMillis());
+			refbracelet.setId(System.currentTimeMillis());
 			refbracelet.setBrandBracelet("Fitbit0" + i);
 			refbracelet.setNameBracelet("BRAFI");
 			refbracelet.setOptioncardiacFrequency(true);
@@ -46,7 +46,9 @@ public class ReferentialBraceletController {
 			refbracelet.setOptionWaterProofYN(true);
 			refbracelet.setUpDate(null);
 			refbracelet.setWipDate(null);
+			
 		}
+
 	}
 
 	

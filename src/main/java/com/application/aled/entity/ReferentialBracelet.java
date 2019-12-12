@@ -33,7 +33,8 @@ public class ReferentialBracelet {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private String id;
+	@Column(name = "refbracelet")
+	private long id;
 
 	@Column(name = "name")
 	private String nameBracelet;
@@ -44,11 +45,11 @@ public class ReferentialBracelet {
 	@Column(name = "wip_date")
 	private LocalDateTime wipDate;
 
-	public String getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -120,7 +121,7 @@ public class ReferentialBracelet {
 	@Column(name = "is_gps")
 	private boolean optionGPS;
 
-	public ReferentialBracelet(String id, String nameBracelet, String brandBracelet, LocalDateTime wipDate,
+	public ReferentialBracelet(long id, String nameBracelet, String brandBracelet, LocalDateTime wipDate,
 			LocalDateTime upDate, boolean optionWaterProofYN, boolean optioncardiacFrequency, boolean optionGPS) {
 		super();
 		this.id = id;

@@ -32,6 +32,6 @@ public class Resident {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_resident")
-	private String id;
+	private int id;
 
 }

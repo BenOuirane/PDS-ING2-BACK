@@ -37,4 +37,10 @@ public class ReferentialResidentController {
 
 		return refresidents;
 	}
+	@GetMapping("/referential_resident")
+	public List<ReferentialResident> findByIdResident(ReferentialResident idResident){
+		System.out.println("Getting IdResident..");
+		List<ReferentialResident> idResidents = referentialResidentService.findByIdResident();
+		return idResidents;
+	}
 }

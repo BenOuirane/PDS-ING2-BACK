@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "position")
 public class Position {
 	
-	public Position(String id, double lat_pos, double long_pos, String ref_pos, LocalDateTime date_pos) {
+	public Position(int id, double lat_pos, double long_pos, String ref_pos, LocalDateTime date_pos) {
 		super();
 		this.id = id;
 		this.lat_pos = lat_pos;
@@ -42,7 +42,7 @@ public class Position {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_position")
-	private String id;
+	private int id;
 
 	@Column(name = "latitude")
 	private double lat_pos;
@@ -72,11 +72,11 @@ public class Position {
 		this.date_pos = date_pos;
 	}
 
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

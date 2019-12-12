@@ -23,4 +23,6 @@ public interface ReferentialResidentService {
 	void updateResidentRef(ReferentialResident refResi);
 
 	void removeResidentRef(ReferentialResident refResi);
+
+	public List<ReferentialResident> findByIdResident();
 }

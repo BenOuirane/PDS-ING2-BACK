@@ -14,5 +14,5 @@ import com.application.aled.entity.ReferentialResident;
  */
 @Repository
 public interface ReferentialResidentRepository extends CrudRepository<ReferentialResident, String> {
-
+	public void findByIdResident(ReferentialResident idResident);
 }

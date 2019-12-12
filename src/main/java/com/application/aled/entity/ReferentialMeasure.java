@@ -27,7 +27,7 @@ public class ReferentialMeasure {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ref_measure")
-	private String refMeasure;
+	private int refMeasure;
 
 	@Column(name = "type_measure")
 	private String typeMeasure;
@@ -47,7 +47,7 @@ public class ReferentialMeasure {
 				+ typeMeasure + ", LevelMeasure=" + LevelMeasure + ", wipDate=" + wipDate + ", upDate=" + upDate + "]";
 	}
 
-	public void setRefMeasure(String refMeasure) {
+	public void setRefMeasure(int refMeasure) {
 		this.refMeasure = refMeasure;
 	}
 
