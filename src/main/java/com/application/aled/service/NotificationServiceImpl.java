@@ -6,6 +6,9 @@ import com.application.aled.repository.NotificationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
 @Service
 public class NotificationServiceImpl implements NotificationService {
 
@@ -31,7 +34,7 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Override
     public Notification[] getNotifications(long receiver) {
-        Notification[] _notifications = repository.findByReceiver(receiver);
+        Notification[] _notifications = repository.findByReceiverOrderByDateDesc(receiver);
         return _notifications;
     }
 
