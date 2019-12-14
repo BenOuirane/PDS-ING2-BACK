@@ -33,6 +33,10 @@ public class Position {
 		this.date_pos = date_pos;
 	}
 
+	public Position() {
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public String toString() {
 		return "Position [id=" + id + ", lat_pos=" + lat_pos + ", long_pos=" + long_pos + ", ref_pos=" + ref_pos
@@ -41,7 +45,7 @@ public class Position {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_position")
+	@Column(name = "id_position", nullable = false, unique = true)
 	private int id;
 
 	@Column(name = "latitude")

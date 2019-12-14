@@ -26,7 +26,7 @@ public class ReferentialMeasure {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ref_measure")
+	@Column(name = "ref_measure", nullable = false)
 	private int refMeasure;
 
 	@Column(name = "type_measure")

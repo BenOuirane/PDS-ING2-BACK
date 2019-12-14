@@ -33,7 +33,7 @@ public class ReferentialBracelet {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "refbracelet")
+	@Column(name = "refbracelet", nullable = false)
 	private long id;
 
 	@Column(name = "name")

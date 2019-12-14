@@ -54,5 +54,13 @@ public class ReferentialResidentServiceImpl implements ReferentialResidentServic
 		referentialResidentRepository.delete(refResi);
 
 	}
+	
+	public ReferentialResident getResidentById(int refResi) throws NullPointerException {
+		System.out.println("Getting the reference of the Resident");
+		ReferentialResident ref = referentialResidentRepository.findById(refResi).get();
+		return ref;
+	}
+
+	
 
 }

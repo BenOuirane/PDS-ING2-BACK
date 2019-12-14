@@ -13,7 +13,7 @@ import com.application.aled.service.ReferentialMeasureService;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/")
+@RequestMapping("/api")
 public class ReferentialMeasureController {
 
 	@Autowired

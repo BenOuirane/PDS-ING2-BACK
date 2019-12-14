@@ -16,18 +16,27 @@ import javax.xml.bind.annotation.XmlRootElement;
 	structure
 */
 
-import sun.launcher.resources.launcher;
+import com.sun.org.apache.xml.internal.resolver.readers.TR9401CatalogReader;
 
-@XmlRootElement(name="bracelet")
+
 @Entity
 @Table(name = "bracelet")
 public class Bracelet {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "mc_address")
 	private long id;
+	
+	@Column(name = "mc_address", nullable = false, unique = true)
+	private long mcAddress;
 
+	public long getMcAddress() {
+		return mcAddress;
+	}
+
+	public void setMcAddress(long mcAddress) {
+		this.mcAddress = mcAddress;
+	}
 	@Column(name = "id_resident")
 	private String idResident;
 
@@ -75,16 +84,16 @@ public class Bracelet {
 				+ refBracelet + "]";
 	}
 
-	public Bracelet(long id, String idResident, LocalDateTime lastSentData, String refBracelet) {
-		super();
+	
+	public Bracelet(long id, long mcAddress, String idResident, LocalDateTime lastSentData, String refBracelet) {
 		this.id = id;
+		this.mcAddress = mcAddress;
 		this.idResident = idResident;
 		this.lastSentData = lastSentData;
 		this.refBracelet = refBracelet;
 	}
-	public Bracelet() {
-		
-	}
+
+	public Bracelet() { }
 	
 
 }

@@ -17,7 +17,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 	structure
 */
 
-@XmlRootElement(name="medicalObject")
 @Entity
 @Table(name = "medical_object")
 public class MedObject {

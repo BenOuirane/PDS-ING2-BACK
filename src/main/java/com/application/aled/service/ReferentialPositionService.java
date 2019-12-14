@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.application.aled.entity.ReferentialPosition;
+import com.application.aled.entity.ReferentialResident;
 
 
 
@@ -19,5 +20,7 @@ public interface ReferentialPositionService {
 	void updatePositionRef(ReferentialPosition refPosi);
 
 	void removePositionRef(ReferentialPosition refPosi);
+	public ReferentialPosition getPositionById(int refPosi);
+
 
 }

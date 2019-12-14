@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
+//import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /* 
@@ -21,44 +21,46 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name="referentialResident")
 @Entity
-@Table(name = "referential_resident")
+//@Table(name = "referential_resident")
 public class ReferentialResident {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ref_resident")
+	@Column(name = "ref_resident", nullable = false, unique = true)
 	private int refresident;
+
 
 	@Column(name = "first_name")
 	private String firstName;
-
+	
 	@Column(name = "last_name")
 	private String LastName;
-
-	@Column(name = "phone_number")
-	private String phonenumber;
-
-	@Column(name = "room_number")
-	private String roomNumber;
 
 	@Column(name = "control_level")
 	private String controlLevel;
 
 	@Column(name = "date_arrived")
 	private LocalDateTime dateArrived;
+	
+	@Column(name = "phone_number")
+	private String phonenumber;
+
+	@Column(name = "room_number")
+	private String roomNumber;
+
 
 	public ReferentialResident(int refresident, String firstName, String lastName, String phonenumber,
 			String roomNumber, String controlLevel, LocalDateTime dateArrived) {
-		super();
 		this.refresident = refresident;
 		this.firstName = firstName;
-		LastName = lastName;
+		this.LastName = lastName;
 		this.phonenumber = phonenumber;
 		this.roomNumber = roomNumber;
 		this.controlLevel = controlLevel;
 		this.dateArrived = dateArrived;
 	}
 
+	public ReferentialResident() {}
 	public int getRefresident() {
 		return refresident;
 	}
@@ -115,15 +117,8 @@ public class ReferentialResident {
 		this.dateArrived = dateArrived;
 	}
 
-	@Override
-	public String toString() {
-		return "ReferentialBracelet [refresident=" + refresident + ", firstName=" + firstName + ", LastName=" + LastName
-				+ ", phonenumber=" + phonenumber + ", roomNumber=" + roomNumber + ", controlLevel=" + controlLevel
-				+ ", dateArrived=" + dateArrived + ", getRefresident()=" + getRefresident() + ", getFirstName()="
-				+ getFirstName() + ", getLastName()=" + getLastName() + ", getPhonenumber()=" + getPhonenumber()
-				+ ", getRoomNumber()=" + getRoomNumber() + ", getControlLevel()=" + getControlLevel()
-				+ ", getDateArrived()=" + getDateArrived() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
-				+ ", toString()=" + super.toString() + "]";
-	}
+
+	
+
 
 }

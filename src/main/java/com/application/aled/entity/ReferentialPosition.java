@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class ReferentialPosition {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ref_position")
+	@Column(name = "ref_position", nullable = false, unique= true)
 	private int id;
 
 	@Column(name = "name")
@@ -123,5 +123,7 @@ public class ReferentialPosition {
 		this.surface = surface;
 		this.emplacementPosition = emplacement;
 	}
+
+	public ReferentialPosition() {}
 
 }

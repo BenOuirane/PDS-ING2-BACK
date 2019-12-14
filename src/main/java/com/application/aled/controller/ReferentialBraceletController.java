@@ -18,7 +18,7 @@ import com.application.aled.service.ReferentialBraceletService;
  */
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/")
+@RequestMapping("/api")
 public class ReferentialBraceletController {
 
 	@Autowired
@@ -33,6 +33,8 @@ public class ReferentialBraceletController {
 		return refbracelets;
 	}
 	
+	/// the following method will allow us to generate several referential bracelet
+	// it will help us to mock data
 	@GetMapping("/generate_referential_bracelet")
 	public void createDataMock(){
 		for (int i=1; i<100; i++) {

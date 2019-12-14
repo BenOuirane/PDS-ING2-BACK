@@ -13,7 +13,7 @@ import com.application.aled.service.BraceletService;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/")
+@RequestMapping("/api")
 public class BraceletController {
 
 	@Autowired

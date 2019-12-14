@@ -18,7 +18,6 @@ import com.application.aled.repository.MeasureRepository;
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/api")
-
 public class MeasureController {
 
 	@Autowired

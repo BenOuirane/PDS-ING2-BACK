@@ -18,14 +18,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 */
 
 
-@XmlRootElement(name="measure")
 @Entity
 @Table(name = "measure")
 public class Measure {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_measure")
+	@Column(name = "id_measure", nullable = false)
 	private long id;
 
 	@Column(name = "count_sleep")

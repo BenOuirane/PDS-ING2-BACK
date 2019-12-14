@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Resident {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_resident")
+	@Column(name = "id_resident", nullable = false)
 	private int id;
 
 }

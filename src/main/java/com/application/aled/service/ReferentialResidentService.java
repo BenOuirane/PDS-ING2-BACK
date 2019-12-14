@@ -19,10 +19,9 @@ public interface ReferentialResidentService {
 	public List<ReferentialResident> getAllReferentialResidents();
 
 	void addResidentRef(ReferentialResident refResi);
-
 	void updateResidentRef(ReferentialResident refResi);
 
 	void removeResidentRef(ReferentialResident refResi);
 
-	public List<ReferentialResident> findByIdResident();
+	public ReferentialResident getResidentById(int iDResi);
 }

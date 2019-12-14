@@ -13,6 +13,11 @@ import com.application.aled.entity.ReferentialResident;
  *
  */
 @Repository
-public interface ReferentialResidentRepository extends CrudRepository<ReferentialResident, String> {
-	public void findByIdResident(ReferentialResident idResident);
+public interface ReferentialResidentRepository extends CrudRepository<ReferentialResident, Integer> {
+	//ReferentialResident findByIdResident(int refResi);
+	/*static ReferentialResident refResident(int refResi) {
+		// TODO Auto-generated method stub
+		return null;
+	}// throws NullPointerException */
+
 }
