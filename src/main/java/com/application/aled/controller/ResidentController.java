@@ -17,6 +17,7 @@ public class ResidentController {
     public ResidentController(ResidentRepository residentRepository) {
         super();
         this.residentRepository = residentRepository;
+        
     }
 
     @GetMapping(value = "/resident")

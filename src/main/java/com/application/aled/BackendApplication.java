@@ -22,6 +22,7 @@ public class BackendApplication implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 
+		
 		Random rand = new Random();
 		String[] firstName = {"MOUNIER", "VERNET", "TAPIFFO", "DENIS", "DUPONT", "DUMUR", "HALTIER", "MORRY", "DUBOIS", "DELATOUR", "DUCHEMIN", "PIPER", "WALKER", "TONY", "DUCELIER", "DEROSNE", "BERIAT", "DUFOUR", "TUNDER", "WOLF"};
 		String[] lastName = {"Celine", "Mathilde", "Carine", "Jean", "Jacques", "Aristote", "Christian", "Jeanne", "Adeline", "Edouard", "Sullin", "Gisele", "Caroline", "Judith", "Pauline", "Noemie", "Manuel", "thibault", "Frederic", "Sarah"};

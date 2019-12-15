@@ -20,6 +20,7 @@ public class Resident implements Serializable {
     private  int  IdResidence;
     private  int  idRoom;
     private  int  idMedicalFolder;
+    
     //@OneToMany(mappedBy = "resident", fetch = FetchType.LAZY)
     //private Collection<Object> objects;
     @OneToOne
