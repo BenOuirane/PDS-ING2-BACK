@@ -25,9 +25,8 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public List<User> getUsers() {
-        System.out.println("Get all Users...");
-
         List<User> users = new ArrayList<>();
+
         repository.findAll().forEach(users::add);
 
         return users;
@@ -35,7 +34,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User userLogin(String username, String password) throws NullPointerException {
-        System.out.println("Login User....");
+        System.out.println("Login user " + username + " and password " + password);
 
         User user = repository.findByUsernameAndPassword(username, password);
 
@@ -47,7 +46,7 @@ public class UserServiceImpl implements UserService {
         System.out.println("Finding users with role : " + role);
 
         List<User> users = new ArrayList<>();
-        repository.findAllByRole(role).forEach(users::add);;
+        repository.findAllByRole(role).forEach(users::add);
 
         return users;
     }

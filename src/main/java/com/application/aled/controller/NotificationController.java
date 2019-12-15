@@ -17,6 +17,7 @@ public class NotificationController {
 
     @PutMapping("/notification/create")
     public Notification createNotification(@RequestBody Notification notification){
+        System.out.println("Call createNotification");
 
         Notification _notification = notificationService.addNotification(notification);
 
@@ -25,6 +26,7 @@ public class NotificationController {
 
     @PutMapping("/notifications/list")
     public Notification[] getNotification(@RequestBody long userId){
+        System.out.println("Call getNotification");
 
         Notification[] _notifications = notificationService.getNotifications(userId);
 
@@ -33,6 +35,7 @@ public class NotificationController {
 
     @PutMapping("/notifications/update")
     public Notification[] updateNotificationState(@RequestBody long userId){
+        System.out.println("Call updateNotificationState");
 
         Notification[] _notifications = notificationService.updateStateByReceiver(userId);
 

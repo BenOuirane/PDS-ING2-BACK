@@ -17,6 +17,8 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Override
     public Notification addNotification(Notification notification) {
+        System.out.println("Adding notification : " + notification.toString());
+
         Notification _notification = new Notification();
 
         _notification.setState("PENDING");
@@ -34,12 +36,17 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Override
     public Notification[] getNotifications(long receiver) {
+        System.out.println("Getting notifications of : " + receiver);
+
         Notification[] _notifications = repository.findByReceiverOrderByDateDesc(receiver);
+
         return _notifications;
     }
 
     @Override
     public Notification[] updateStateByReceiver(long receiver) {
+        System.out.println("Updating state to 'SEEN' for the notifications of : " + receiver);
+
         Notification[] notificationFound =  repository.findByStateAndReceiver("PENDING", receiver);
 
         for (Notification notification : notificationFound) {
