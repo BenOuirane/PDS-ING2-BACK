@@ -7,8 +7,8 @@ import com.application.aled.entity.User;
 public interface NotificationService {
     Notification addNotification(Notification notification);
 
-    Notification[] getNotifications(long receiver);
+    Notification[] getNotifications(User receiver);
 
-    Notification[] updateStateByReceiver(long receiver);
+    Notification[] updateStateByReceiver(User receiver);
 
 }
