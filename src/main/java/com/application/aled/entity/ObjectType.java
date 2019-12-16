@@ -4,6 +4,6 @@ public enum ObjectType {
     ALARMCLOCK,
     LAMP,
     SHUTTER,
-    COFFEE,
+    COFFEEMACHINE,
     OVEN
 }
