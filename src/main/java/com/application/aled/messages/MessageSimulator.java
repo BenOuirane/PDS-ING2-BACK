@@ -22,7 +22,6 @@ public class MessageSimulator {
     }
 
     public static void main(String[] args) throws IOException {
-        Thread app = new Thread();
         MessageSimulator ms = new MessageSimulator();
         String obj="<message>" +
                 "    <mac_address>00-1E-33-1D-6A-79</mac_address>" +
