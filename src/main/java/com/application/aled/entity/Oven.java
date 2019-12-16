@@ -1,0 +1,120 @@
+package com.application.aled.entity;
+
+import com.application.aled.controller.exception.CustomHandler;
+
+import javax.persistence.*;
+import java.sql.Timestamp;
+
+@Entity
+@Table(name="oven")
+public class Oven {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long idOven;
+
+    @Column(name = "effectiveTemp")
+    private int effectiveTemp;
+
+    @Column(name = "programTemp")
+    private int programTemp;
+
+    @Column(name = "scheduleTime")
+    private Timestamp scheduleTime;
+
+    @Column(name = "status")
+    private boolean status;
+
+    @Column(name = "mode")
+    private String mode;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(unique = true)
+    private Object object;
+
+    public Oven() {
+
+    }
+
+    public Oven(int effectiveTemp, int programTemp, Timestamp scheduleTime, boolean status, Object object) {
+        this.effectiveTemp = effectiveTemp;
+        this.programTemp = programTemp;
+        this.scheduleTime = scheduleTime;
+        this.status = status;
+        this.object = object;
+    }
+
+    public long getIdOven() {
+        return idOven;
+    }
+
+    public void setIdOven(long idOven) {
+        this.idOven = idOven;
+    }
+
+    public int getEffectiveTemp() {
+        return effectiveTemp;
+    }
+
+    public void setEffectiveTemp(int effectiveTemp) {
+        this.effectiveTemp = effectiveTemp;
+    }
+
+    public int getProgramTemp() {
+        return programTemp;
+    }
+
+    public void setProgramTemp(int programTemp) {
+        this.programTemp = programTemp;
+    }
+
+    public Timestamp getScheduleTime() {
+        return scheduleTime;
+    }
+
+    public void setScheduleTime(Timestamp scheduleTime) {
+        this.scheduleTime = scheduleTime;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public Object getObject() {
+        return object;
+    }
+
+    public void setObject(Object object) {
+        this.object = object;
+    }
+
+    public String getMode() {
+        return mode;
+    }
+
+    public void setMode(String mode) {
+        for (ModeType modeType : ModeType.values()) {
+            if(mode.equals(modeType.name())){
+                this.mode = mode;
+                return;
+            }
+        }
+        throw new CustomHandler("Mode Type not respected");
+    }
+
+    @Override
+    public String toString() {
+        return "Oven{" +
+                "idOven=" + idOven +
+                ", effectiveTemp=" + effectiveTemp +
+                ", programTemp=" + programTemp +
+                ", scheduleTime=" + scheduleTime +
+                ", status=" + status +
+                ", object=" + object +
+                '}';
+    }
+}

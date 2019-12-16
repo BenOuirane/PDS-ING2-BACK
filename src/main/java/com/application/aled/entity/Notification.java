@@ -10,6 +10,7 @@ import java.util.Date;
 @Entity
 @Table(name = "notification")
 public class Notification {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
