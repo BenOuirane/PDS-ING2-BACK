@@ -20,6 +20,15 @@ public class Shutter {
     @Column(name = "status")
     private boolean status;
 
+    @Column(name = "statusUsine")
+    private boolean statusUsine;
+
+    @Column(name = "hourOnUsine")
+    private Timestamp hourOnUsine;
+
+    @Column(name = "hourOffUsine")
+    private Timestamp hourOffUsine;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(unique = true)
     private Object object;
@@ -28,10 +37,13 @@ public class Shutter {
 
     }
 
-    public Shutter(Timestamp hourOn, Timestamp hourOff, boolean status, Object object) {
+    public Shutter(Timestamp hourOn, Timestamp hourOff, boolean status, boolean statusUsine, Timestamp hourOnUsine, Timestamp hourOffUsine, Object object) {
         this.hourOn = hourOn;
         this.hourOff = hourOff;
         this.status = status;
+        this.statusUsine = statusUsine;
+        this.hourOnUsine = hourOnUsine;
+        this.hourOffUsine = hourOffUsine;
         this.object = object;
     }
 
@@ -67,6 +79,30 @@ public class Shutter {
         this.status = status;
     }
 
+    public boolean isStatusUsine() {
+        return statusUsine;
+    }
+
+    public void setStatusUsine(boolean statusUsine) {
+        this.statusUsine = statusUsine;
+    }
+
+    public Timestamp getHourOnUsine() {
+        return hourOnUsine;
+    }
+
+    public void setHourOnUsine(Timestamp hourOnUsine) {
+        this.hourOnUsine = hourOnUsine;
+    }
+
+    public Timestamp getHourOffUsine() {
+        return hourOffUsine;
+    }
+
+    public void setHourOffUsine(Timestamp hourOffUsine) {
+        this.hourOffUsine = hourOffUsine;
+    }
+
     public Object getObject() {
         return object;
     }
@@ -82,6 +118,9 @@ public class Shutter {
                 ", hourOn=" + hourOn +
                 ", hourOff=" + hourOff +
                 ", status=" + status +
+                ", statusUsine=" + statusUsine +
+                ", hourOnUsine=" + hourOnUsine +
+                ", hourOffUsine=" + hourOffUsine +
                 ", object=" + object +
                 '}';
     }

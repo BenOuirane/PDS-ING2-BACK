@@ -20,6 +20,15 @@ public class CoffeeMachine {
     @Column(name = "status")
     private boolean status;
 
+    @Column(name = "nbCapsuleUsine")
+    private int nbCapsuleUsine;
+
+    @Column(name = "scheduleCoffeeUsine")
+    private Timestamp scheduleCoffeeUsine;
+
+    @Column(name = "statusUsine")
+    private boolean statusUsine;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(unique = true)
     private Object object;
@@ -28,10 +37,13 @@ public class CoffeeMachine {
 
     }
 
-    public CoffeeMachine(int nbCapsule, Timestamp scheduleCoffee, boolean status, Object object) {
+    public CoffeeMachine(int nbCapsule, Timestamp scheduleCoffee, boolean status, int nbCapsuleUsine, Timestamp scheduleCoffeeUsine, boolean statusUsine, Object object) {
         this.nbCapsule = nbCapsule;
         this.scheduleCoffee = scheduleCoffee;
         this.status = status;
+        this.nbCapsuleUsine = nbCapsuleUsine;
+        this.scheduleCoffeeUsine = scheduleCoffeeUsine;
+        this.statusUsine = statusUsine;
         this.object = object;
     }
 
@@ -67,6 +79,30 @@ public class CoffeeMachine {
         this.status = status;
     }
 
+    public int getNbCapsuleUsine() {
+        return nbCapsuleUsine;
+    }
+
+    public void setNbCapsuleUsine(int nbCapsuleUsine) {
+        this.nbCapsuleUsine = nbCapsuleUsine;
+    }
+
+    public Timestamp getScheduleCoffeeUsine() {
+        return scheduleCoffeeUsine;
+    }
+
+    public void setScheduleCoffeeUsine(Timestamp scheduleCoffeeUsine) {
+        this.scheduleCoffeeUsine = scheduleCoffeeUsine;
+    }
+
+    public boolean isStatusUsine() {
+        return statusUsine;
+    }
+
+    public void setStatusUsine(boolean statusUsine) {
+        this.statusUsine = statusUsine;
+    }
+
     public Object getObject() {
         return object;
     }
@@ -82,6 +118,9 @@ public class CoffeeMachine {
                 ", nbCapsule=" + nbCapsule +
                 ", scheduleCoffee=" + scheduleCoffee +
                 ", status=" + status +
+                ", nbCapsuleUsine=" + nbCapsuleUsine +
+                ", scheduleCoffeeUsine=" + scheduleCoffeeUsine +
+                ", statusUsine=" + statusUsine +
                 ", object=" + object +
                 '}';
     }

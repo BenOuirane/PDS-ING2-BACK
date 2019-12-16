@@ -32,16 +32,29 @@ public class Oven {
     @JoinColumn(unique = true)
     private Object object;
 
+    @Column(name = "programTempUsine")
+    private int programTempUsine;
+
+    @Column(name = "statusUsine")
+    private boolean statusUsine;
+
+    @Column(name = "scheduleTimeUsine")
+    private Timestamp scheduleTimeUsine;
+
     public Oven() {
 
     }
 
-    public Oven(int effectiveTemp, int programTemp, Timestamp scheduleTime, boolean status, Object object) {
+    public Oven(int effectiveTemp, int programTemp, Timestamp scheduleTime, boolean status, String mode, Object object, int programTempUsine, boolean statusUsine, Timestamp scheduleTimeUsine) {
         this.effectiveTemp = effectiveTemp;
         this.programTemp = programTemp;
         this.scheduleTime = scheduleTime;
         this.status = status;
+        this.mode = mode;
         this.object = object;
+        this.programTempUsine = programTempUsine;
+        this.statusUsine = statusUsine;
+        this.scheduleTimeUsine = scheduleTimeUsine;
     }
 
     public long getIdOven() {
@@ -92,6 +105,30 @@ public class Oven {
         this.object = object;
     }
 
+    public int getProgramTempUsine() {
+        return programTempUsine;
+    }
+
+    public void setProgramTempUsine(int programTempUsine) {
+        this.programTempUsine = programTempUsine;
+    }
+
+    public boolean isStatusUsine() {
+        return statusUsine;
+    }
+
+    public void setStatusUsine(boolean statusUsine) {
+        this.statusUsine = statusUsine;
+    }
+
+    public Timestamp getScheduleTimeUsine() {
+        return scheduleTimeUsine;
+    }
+
+    public void setScheduleTimeUsine(Timestamp scheduleTimeUsine) {
+        this.scheduleTimeUsine = scheduleTimeUsine;
+    }
+
     public String getMode() {
         return mode;
     }
@@ -114,7 +151,11 @@ public class Oven {
                 ", programTemp=" + programTemp +
                 ", scheduleTime=" + scheduleTime +
                 ", status=" + status +
+                ", mode='" + mode + '\'' +
                 ", object=" + object +
+                ", programTempUsine=" + programTempUsine +
+                ", statusUsine=" + statusUsine +
+                ", scheduleTimeUsine=" + scheduleTimeUsine +
                 '}';
     }
 }
