@@ -5,6 +5,7 @@ import com.application.aled.messages.ServerAcceptor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import javax.annotation.PostConstruct;
 import java.io.IOException;
 
 /*
@@ -14,6 +15,15 @@ import java.io.IOException;
 public class BackendApplication {
 
 	public static void main(String[] args) throws IOException {
+
+
+
+		/**
+		 * This line start the application for users
+		 */
+		SpringApplication.run(BackendApplication.class, args);
+
+
 		/*TODO launch both parts
 		ServerAcceptor.receiveMessage();
 		MessageSimulator ms = new MessageSimulator();
@@ -29,12 +39,23 @@ public class BackendApplication {
 		}
 		System.err.println("done");
 		*/
-
-
-		/**
-		 * This line start the application for users
-		 */
-		SpringApplication.run(BackendApplication.class, args);
-
 	}
+	/*
+	@PostConstruct
+	private void init(){
+		System.err.println("application is running");
+		ServerAcceptor.receiveMessage();
+		MessageSimulator ms = new MessageSimulator();
+		String obj="<message>" +
+				"    <mac_address>00-1E-33-1D-6A-79</mac_address>" +
+				"        <effective_temperature>100</effective_temperature>" +
+				"    <programmed_temperature>200</programmed_temperature>" +
+				"</message>";
+		try {
+			ms.sendMessage(obj);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.err.println("done");
+	}*/
 }

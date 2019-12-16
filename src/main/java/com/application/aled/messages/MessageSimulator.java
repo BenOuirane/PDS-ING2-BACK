@@ -18,6 +18,7 @@ public class MessageSimulator {
 
         oos.close();
         socket.close();
+        System.out.println("message is sent");
     }
 
     public static void main(String[] args) throws IOException {
@@ -25,7 +26,7 @@ public class MessageSimulator {
         MessageSimulator ms = new MessageSimulator();
         String obj="<message>" +
                 "    <mac_address>00-1E-33-1D-6A-79</mac_address>" +
-                "        <effective_temperature>100</effective_temperature>" +
+                "        <effective_temperature>400</effective_temperature>" +
                 "    <programmed_temperature>200</programmed_temperature>" +
                 "</message>";
         ms.sendMessage(obj);

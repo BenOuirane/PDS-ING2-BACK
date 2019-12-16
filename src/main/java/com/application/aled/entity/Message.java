@@ -34,6 +34,7 @@ public class Message {
     @Column(name = "dateTime")
     private Timestamp dateTime;
 
+
     public long getId() {
         return id;
     }

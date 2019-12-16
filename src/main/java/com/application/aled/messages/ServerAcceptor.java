@@ -4,6 +4,9 @@ import java.io.*;
 
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.Connection;
+import java.sql.DriverManager;
+
 /**
  * This class receive message in xml format and it gives it to the XmlReader
  */
@@ -45,11 +48,13 @@ public class ServerAcceptor {
 
         try {
             str = (String) ois.readObject();
+            System.out.println("message received: "+str);
 
         } catch(IOException | ClassNotFoundException e) {
             System.err.println("Erreur lors de la lecture : " + e);
             System.exit(-1);
         }
+
         /**
          *
          * We transmit the xml string to the Xml reader to analyse and stock its information
@@ -57,6 +62,7 @@ public class ServerAcceptor {
          **/
         XmlController xmlReader = new XmlController();
         xmlReader.xmlTranslate(str);
+
 
         // Fermeture des flux et des sockets
         try {
@@ -73,5 +79,7 @@ public class ServerAcceptor {
         ServerAcceptor serverAcceptor = new ServerAcceptor();
         serverAcceptor.receiveMessage();
     }
+
+
 }
 
