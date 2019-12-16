@@ -41,6 +41,9 @@ public class Lamp {
     @Column(name = "intensityUsine")
     private int intensityUsine;
 
+    @Column(name = "colorUsine")
+    private String colorUsine;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(unique = true)
     private Object object;
@@ -49,12 +52,13 @@ public class Lamp {
 
     }
 
-    public Lamp(boolean status, Timestamp hourOn, Timestamp hourOff, int intensity, String color, boolean statusUsine, Timestamp hourOnUsine, Timestamp hourOffUsine, int intensityUsine, Object object) {
+    public Lamp(boolean status, Timestamp hourOn, Timestamp hourOff, int intensity, String color, String colorUsine, boolean statusUsine, Timestamp hourOnUsine, Timestamp hourOffUsine, int intensityUsine, Object object) {
         this.status = status;
         this.hourOn = hourOn;
         this.hourOff = hourOff;
         this.intensity = intensity;
         this.color = color;
+        this.colorUsine = colorUsine;
         this.statusUsine = statusUsine;
         this.hourOnUsine = hourOnUsine;
         this.hourOffUsine = hourOffUsine;
@@ -116,6 +120,20 @@ public class Lamp {
         throw new CustomHandler("Color Type not respected");
     }
 
+    public String getColorUsine() {
+        return colorUsine;
+    }
+
+    public void setColorUsine(String colorUsine) {
+        for (ColorType colorType : ColorType.values()) {
+            if(colorUsine.equals(colorType.name())){
+                this.colorUsine = colorUsine;
+                return;
+            }
+        }
+        throw new CustomHandler("Color Type not respected");
+    }
+
     public boolean isStatusUsine() {
         return statusUsine;
     }
@@ -165,6 +183,7 @@ public class Lamp {
                 ", hourOff=" + hourOff +
                 ", intensity=" + intensity +
                 ", color='" + color + '\'' +
+                ", colorUsine='" + colorUsine + '\'' +
                 ", statusUsine=" + statusUsine +
                 ", hourOnUsine=" + hourOnUsine +
                 ", hourOffUsine=" + hourOffUsine +

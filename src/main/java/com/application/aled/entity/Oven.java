@@ -32,6 +32,9 @@ public class Oven {
     @JoinColumn(unique = true)
     private Object object;
 
+    @Column(name = "modeUsine")
+    private String modeUsine;
+
     @Column(name = "programTempUsine")
     private int programTempUsine;
 
@@ -45,12 +48,13 @@ public class Oven {
 
     }
 
-    public Oven(int effectiveTemp, int programTemp, Timestamp scheduleTime, boolean status, String mode, Object object, int programTempUsine, boolean statusUsine, Timestamp scheduleTimeUsine) {
+    public Oven(int effectiveTemp, int programTemp, Timestamp scheduleTime, boolean status, String mode, String modeUsine, Object object, int programTempUsine, boolean statusUsine, Timestamp scheduleTimeUsine) {
         this.effectiveTemp = effectiveTemp;
         this.programTemp = programTemp;
         this.scheduleTime = scheduleTime;
         this.status = status;
         this.mode = mode;
+        this.modeUsine = modeUsine;
         this.object = object;
         this.programTempUsine = programTempUsine;
         this.statusUsine = statusUsine;
@@ -143,6 +147,20 @@ public class Oven {
         throw new CustomHandler("Mode Type not respected");
     }
 
+    public String getModeUsine() {
+        return modeUsine;
+    }
+
+    public void setModeUsine(String modeUsine) {
+        for (ModeType modeType : ModeType.values()) {
+            if(modeUsine.equals(modeType.name())){
+                this.modeUsine = modeUsine;
+                return;
+            }
+        }
+        throw new CustomHandler("Mode Type not respected");
+    }
+
     @Override
     public String toString() {
         return "Oven{" +
@@ -152,6 +170,7 @@ public class Oven {
                 ", scheduleTime=" + scheduleTime +
                 ", status=" + status +
                 ", mode='" + mode + '\'' +
+                ", modeUsine='" + modeUsine + '\'' +
                 ", object=" + object +
                 ", programTempUsine=" + programTempUsine +
                 ", statusUsine=" + statusUsine +
