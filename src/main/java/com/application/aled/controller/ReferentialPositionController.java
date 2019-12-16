@@ -1,10 +1,12 @@
 package com.application.aled.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.auditing.CurrentDateTimeProvider;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +22,7 @@ import com.application.aled.service.ReferentialPositionService;
 @CrossOrigin(origins = "*")
 @RequestMapping("/api")
 public class ReferentialPositionController {
-
+	private int i =1;
 	static final Logger logger = LogManager.getLogger(ReferentialPositionController.class.getName());
 	@Autowired
 	ReferentialPositionService referentialPositionService;
@@ -56,14 +58,14 @@ public class ReferentialPositionController {
 	@RequestMapping( value = "/generate_referential_position", method = RequestMethod.POST)
 	public ResponseEntity<Void> createDataMock() {
 		 logger.info("Generating positions into the referential...");
-		for (int i=1; i<100; i++) {
+		for ( i=1; i<100; i++) {
 			ReferentialPosition refposition = new ReferentialPosition();
 			refposition.setId(i++);
-			refposition.setName("Piece _" + i);
-			refposition.setSurface(1.2+ i);
+			refposition.setName("Piece" + Math.random());
+			refposition.setSurface(5.2);
 			refposition.setEmplacement("1");
-			refposition.setWipDate(null);
-			refposition.setUpDate(null);
+			refposition.setWipDate(LocalDateTime.now());
+			refposition.setUpDate(LocalDateTime.now());
 			referentialPositionService.addPositionRef(refposition);
 			}
 		 logger.info("Positions were generated into the referential...");
@@ -71,6 +73,19 @@ public class ReferentialPositionController {
 
 	}
 	
+	@RequestMapping(value ="/update_referential_position" , method = RequestMethod.POST)
+	public ResponseEntity<Void> updateDataMock() {
+		
+		for ( i=1; i<50; i++) {
+			 logger.info("Update position into the referential...");
+			ReferentialPosition refposition = new ReferentialPosition();
+			refposition.setEmplacement("2");
+			refposition.setName("Couloir");
+			referentialPositionService.addPositionRef(refposition);
+		}
+		// logger.info("Position is updated ...");
+		return ResponseEntity.ok().build();
+	}
 	
 	
 }

@@ -18,7 +18,6 @@ public interface ReferentialPositionService {
 	void addPositionRef(ReferentialPosition refPosi);
 
 	void updatePositionRef(ReferentialPosition refPosi);
-
 	void removePositionRef(ReferentialPosition refPosi);
 	public ReferentialPosition getPositionById(int refPosi);
 

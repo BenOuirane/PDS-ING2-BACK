@@ -43,8 +43,8 @@ public class PositionServiceImpl implements PositionService {
 			return;
 		}
 		positionRepository.save(idPos);
-		//positionRepository.save(new Position("CUS1",1.250, 25.55,"Cuisine1",2016.11.16.06.43.19));
-		
+		// positionRepository.save(new Position("CUS1",1.250,
+		// 25.55,"Cuisine1",2016.11.16.06.43.19));
 
 	}
 
@@ -62,12 +62,13 @@ public class PositionServiceImpl implements PositionService {
 	@Override
 	public void removePosition(Position idPos) {
 		positionRepository.delete(idPos);
-		
 	}
 
 	@Override
-	public Position getPosition(String id) {
-	return null;
-	//return positionRepository.findById(id);
+	public Position getPositionById(int idpos) {
+		System.out.println("Getting position...");
+		Position pos = positionRepository.findById(idpos).get();
+		return pos;
 	}
+
 }
