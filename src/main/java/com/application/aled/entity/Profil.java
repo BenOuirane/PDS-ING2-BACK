@@ -1,3 +1,4 @@
+
 package com.application.aled.entity;
 
 import java.util.List;
@@ -8,13 +9,15 @@ import javax.persistence.Id;
 
 @Entity
 public class Profil {
-	
+
 	@Id
 	private long id;
-	
+	/**
+
+
 	@Column(name = "firstname")
 	private String name;
-	
+
 	private TypeProfil typeProfil;
 	
 	@Column(name = "profil")
@@ -61,5 +64,5 @@ public class Profil {
 	public void setListTypeProfil(List<TypeProfil> listTypeProfil) {
 		this.listTypeProfil = listTypeProfil;
 	}
-	
+	*/
 }

@@ -6,6 +6,7 @@
 
 package com.application.aled.repository;
 import com.application.aled.entity.Candidate;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Repository;
  * we must also define a CandidateRepository interface
  */
 @Repository
-public interface CandidateRepository extends CrudRepository<Candidate, Long> {
+public interface CandidateRepository extends JpaRepository<Candidate, String> {
+    Candidate findBymail( String  mail);
 
         }

@@ -6,33 +6,50 @@
  */
 package com.application.aled.entity;
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.util.Date;
+
+
 
 @Entity
 @Table(name = "candidate")
-public class Candidate {
+@IdClass(Candidate.class)
+public class Candidate  implements Serializable {
 
 
     /**
      * declaration of class attributes
      */
 
-    @Id
+
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="id")
+    @Id
     private Long  id;
     @Column(name = "lastname")
+    @NotBlank(message = "please enter your lastname")
+    @Size(min=2, message = "your lastname must be wrong enter atleast 2 characters")
     private String  lastname;
     @Column(name = "firstname")
+    @NotBlank(message = "please enter your firstname")
+    @Size(min=2, message = "your lastname must be wrong enter atleast 2 characters")
     private String  firstname;
     @Column(name = "e_mail")
-    private String  e_mail;
+    @NotBlank(message = "please enter an email")
+    @Email(message = "please enter a valid Email")
+    @Id
+    private String  mail;
     @Column(name = "birth_date")
+    @NotNull(message = "please enter your birth_date")
     private Date birth_date;
     @Column(name = "sexe")
+    @NotBlank(message = "please choose your gender")
     private String sexe;
-    @Column(name = "profil")
-    @Enumerated(EnumType.STRING)
-    private TypeProfil profils;
+
 
 
     /**
@@ -89,16 +106,16 @@ public class Candidate {
      *  Method that recovers the candidate's e_mail
      * @return e_mail
      */
-    public String getE_mail() {
-        return e_mail;
+    public String getMail() {
+        return mail;
     }
 
     /**
      * M Method that initializes the candidate's e_mail
-     * @param e_mail
+     * @param mail
      */
-    public void setE_mail(String e_mail) {
-        this.e_mail = e_mail;
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
     /**
@@ -134,40 +151,26 @@ public class Candidate {
         this.sexe = sexe;
     }
 
-    /**
-     *  Method that recovers the candidate's profil
-     * @return profil
-     */
-    public TypeProfil getProfil() {
-        return profils;
-    }
 
-    /**
-     * M Method that initializes the candidate's profil
-     * @param profil
-     */
-    public void setProfil(TypeProfil profil) {
-        this.profils = profil;
-    }
 
     /**
      * Constructors who take parameters, which is used to initialize attributes.
      * @param lastname
      * @param firstname
-     * @param e_mail
+     * @param mail
      * @param birth_date
      * @param sexe
-     * @param profil
+
      */
 
 
-    public Candidate(String lastname, String firstname, String e_mail, Date birth_date, String sexe, TypeProfil profil) {
+    public Candidate(String lastname, String firstname, String mail, Date birth_date, String sexe) {
         this.lastname = lastname;
         this.firstname = firstname;
-        this.e_mail = e_mail;
+        this.mail = mail;
         this.birth_date = birth_date;
         this.sexe = sexe;
-        this.profils = profil;
+
     }
 
     /**
@@ -188,10 +191,10 @@ public class Candidate {
                 "id=" + id +
                 ", lastname='" + lastname + '\'' +
                 ", firstname='" + firstname + '\'' +
-                ", e_mail='" + e_mail + '\'' +
+                ", mail='" + mail + '\'' +
                 ", birth_date=" + birth_date +
                 ", sexe='" + sexe + '\'' +
-                ", profil=" + profils +
+
                 '}';
     }
 }
