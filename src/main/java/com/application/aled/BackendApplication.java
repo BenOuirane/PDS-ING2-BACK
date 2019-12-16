@@ -15,27 +15,14 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
  * SpringBootApplication that will be launched
  */
 @SpringBootApplication
-public class BackendApplication extends SpringBootServletInitializer{
+public class BackendApplication extends SpringBootServletInitializer {
 
 	public static void main(String[] args) throws IOException {
-		
+
 		SpringApplication.run(BackendApplication.class, args);
 
 		System.out.println("Application is running :)");
 
 	}
 
-	@PostConstruct
-	@Transactional
-	public void init(){
-		System.err.println("application is running");
-		ServerAcceptor.receiveMessage();
-		MessageSimulator ms = new MessageSimulator();
-		try {
-			ms.sendMessage();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		System.err.println("done");
-	}
 }

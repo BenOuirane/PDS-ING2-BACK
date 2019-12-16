@@ -11,13 +11,22 @@ import java.sql.DriverManager;
  * This class receive message in xml format and it gives it to the XmlReader
  */
 public class ServerAcceptor {
+    public ServerAcceptor() throws IOException {
+        final String chemin = "src/main/resources/logFile.txt";
+        final File fichier = new File(chemin);
+        writer = new FileWriter(fichier);
+    }
 
+    public static FileWriter writer;
     public static final int portEcoute = 5001;
 
-    public static void receiveMessage() {
+    public void receiveMessage() {
         // Création de la socket serveur
         ServerSocket socketServeur = null;
         String str = null;
+        String str2 = null;
+        String str3 = null;
+
         try {
             socketServeur = new ServerSocket(portEcoute);
         } catch(IOException e) {
@@ -47,21 +56,30 @@ public class ServerAcceptor {
         // We waiting and receive an message which coming from an object
             try {
                 str = (String) ois.readObject();
+                str2 = (String) ois.readObject();
+                str3 = (String) ois.readObject();
+
                 System.out.println("message received: " + str);
 
-            } catch (IOException | ClassNotFoundException e) {
-                System.err.println("Erreur lors de la lecture : " + e);
-                System.exit(-1);
-            }
+
 
             /**
              *
              * We transmit the xml string to the Xml reader to analyse and stock its information
              *
              **/
+
+
+
             XmlController xmlReader = new XmlController();
             xmlReader.xmlTranslate(str);
-
+            xmlReader.xmlTranslate(str2);
+            xmlReader.xmlTranslate(str3);
+            writer.close();
+            } catch (IOException | ClassNotFoundException e) {
+                System.err.println("Erreur lors de la lecture : " + e);
+                System.exit(-1);
+            }
 
         // Fermeture des flux et des sockets
         try {
@@ -74,7 +92,7 @@ public class ServerAcceptor {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         ServerAcceptor serverAcceptor = new ServerAcceptor();
         serverAcceptor.receiveMessage();
     }

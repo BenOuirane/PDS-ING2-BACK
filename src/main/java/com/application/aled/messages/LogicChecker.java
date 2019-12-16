@@ -1,5 +1,6 @@
 package com.application.aled.messages;
 
+import com.application.aled.configuration.Simulation;
 import com.application.aled.entity.Message;
 
 import java.io.File;
@@ -17,34 +18,35 @@ public class LogicChecker {
         final File fichier = new File(chemin);
         final FileWriter writer;
         try {
-            writer = new FileWriter(fichier);
-            writer.write("we analyse the oven " + message.getMac_address() + "\n");
+            writer = ServerAcceptor.writer;
+            writer.write("--------------------------------NEW OBJECT TO ANALYSE---------------------------------\n");
+            writer.write("We analyse the oven " + message.getMac_address() + "\n");
 
 
             /**
              * create a jdbc connection
              **/
             PostgreSQLJDBC jdbcc = new PostgreSQLJDBC();
-            Statement statment = jdbcc.connection.createStatement();
+            Statement statment = jdbcc.connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             /**
              * Get all messages sended by this object
              **/
             ResultSet rs = statment.executeQuery("SELECT * FROM MESSAGES WHERE mac_address = '" + message.getMac_address() + "'");
-            rs.next();
+            rs.last();
             int effective_temperature = rs.getInt("effective_temperature");
             int programmed_temperature = rs.getInt("programmed_temperature");
             Timestamp dateTime = rs.getTimestamp("date_Time");
             if (message.getEffective_temperature() > 300 || message.getEffective_temperature() < 15) {
                 System.out.println("Effective_temperature is too high or too low");
-                writer.write("The effective temperature is suspicious\n");
-                writer.close();
+                writer.write("The effective temperature is suspicious ("+message.getEffective_temperature()+"°C)\n\n");
+                //writer.close();
                 return false;
             }
 
             if (message.getProgrammed_temperature() > 290 || message.getProgrammed_temperature() < 15) {
                 System.out.println("Programmed_temperature is too high or too low");
-                writer.write("The programmed temperature is suspicious\n");
-                writer.close();
+                writer.write("The programmed temperature is suspicious ("+message.getProgrammed_temperature()+"°C)\n\n");
+                //writer.close();
                 return false;
             }
 
@@ -52,20 +54,24 @@ public class LogicChecker {
             long dataLongDatetime = dateTime.getTime();
             long timeDifference = messageLongDateTime - dataLongDatetime;
             int temperatureDifference = message.getEffective_temperature() - rs.getInt("effective_temperature");
-            System.out.println("Time de difference = " + timeDifference);
+            System.out.println("Time de difference = " + timeDifference/1000.00+" seconds");
             System.out.println("Temperature difference = " + temperatureDifference);
-            if (temperatureDifference / (timeDifference / 360000) > 1200) {
+            double warmPower= (double) temperatureDifference / (timeDifference/1000) ;
+            System.out.println("Warm = " + warmPower);
+
+            if (warmPower > 0.5||warmPower<-0.5) {
                 System.out.println("temperature grow too quickly");
-                writer.write("The grow of temperature is suspicious\n");
-                writer.close();
+                writer.write("The grow of temperature is suspicious\n\n");
+                //writer.close();
                 return false;
             }
             statment.close();
-            writer.write("The programmed temperature is okey ("+ message.getEffective_temperature()+") \n");
+            System.out.println("Message accepted");
+            writer.write("The programmed temperature is okey ("+ message.getEffective_temperature()+"°C) \n");
             writer.write("The effective temperature is okey ("+ message.getEffective_temperature()+" °C)\n");
             writer.write("The grow of temperature is okey\n");
-            writer.write("This oven is working, the message is saved\n");
-            writer.close();
+            writer.write("This oven is working, the message is saved\n\n");
+            //writer.close();
 
         } catch (IOException e) {
             System.out.println("Impossible to create file");
