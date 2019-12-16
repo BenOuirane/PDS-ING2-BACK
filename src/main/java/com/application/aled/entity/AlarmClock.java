@@ -15,7 +15,7 @@ public class AlarmClock {
     private Timestamp alarm;
 
     @Column(name = "radioHrz")
-    private int radioHrz;
+    private float radioHrz;
 
     @Column(name = "radioStatus")
     private boolean radioStatus;
@@ -30,7 +30,7 @@ public class AlarmClock {
     private Timestamp alarmUsine;
 
     @Column(name = "radioHrtzUsine")
-    private int radioHrtzUsine;
+    private float radioHrtzUsine;
 
     @Column(name = "radioStatusUsine")
     private boolean radioStatusUsine;
@@ -75,11 +75,11 @@ public class AlarmClock {
         this.alarm = alarm;
     }
 
-    public int getRadioHrz() {
+    public float getRadioHrz() {
         return radioHrz;
     }
 
-    public void setRadioHrz(int radioHrz) {
+    public void setRadioHrz(float radioHrz) {
         this.radioHrz = radioHrz;
     }
 
@@ -115,11 +115,11 @@ public class AlarmClock {
         this.alarmUsine = alarmUsine;
     }
 
-    public int getRadioHrtzUsine() {
+    public float getRadioHrtzUsine() {
         return radioHrtzUsine;
     }
 
-    public void setRadioHrtzUsine(int radioHrtzUsine) {
+    public void setRadioHrtzUsine(float radioHrtzUsine) {
         this.radioHrtzUsine = radioHrtzUsine;
     }
 

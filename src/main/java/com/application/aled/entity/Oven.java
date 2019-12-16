@@ -41,6 +41,9 @@ public class Oven {
     @Column(name = "statusUsine")
     private boolean statusUsine;
 
+    @Column(name = "effectiveTempUsine")
+    private int effectiveTempUsine;
+
     @Column(name = "scheduleTimeUsine")
     private Timestamp scheduleTimeUsine;
 
@@ -48,7 +51,7 @@ public class Oven {
 
     }
 
-    public Oven(int effectiveTemp, int programTemp, Timestamp scheduleTime, boolean status, String mode, String modeUsine, Object object, int programTempUsine, boolean statusUsine, Timestamp scheduleTimeUsine) {
+    public Oven(int effectiveTemp, int programTemp, Timestamp scheduleTime, boolean status, String mode, String modeUsine, Object object, int programTempUsine, boolean statusUsine, Timestamp scheduleTimeUsine, int effectiveTempUsine) {
         this.effectiveTemp = effectiveTemp;
         this.programTemp = programTemp;
         this.scheduleTime = scheduleTime;
@@ -58,6 +61,7 @@ public class Oven {
         this.object = object;
         this.programTempUsine = programTempUsine;
         this.statusUsine = statusUsine;
+        this.effectiveTempUsine = effectiveTempUsine;
         this.scheduleTimeUsine = scheduleTimeUsine;
     }
 
@@ -113,6 +117,14 @@ public class Oven {
         return programTempUsine;
     }
 
+    public int getEffectiveTempUsine() {
+        return effectiveTempUsine;
+    }
+
+    public void setEffectiveTempUsine(int effectiveTempUsine) {
+        this.effectiveTempUsine = effectiveTempUsine;
+    }
+
     public void setProgramTempUsine(int programTempUsine) {
         this.programTempUsine = programTempUsine;
     }
@@ -166,6 +178,7 @@ public class Oven {
         return "Oven{" +
                 "idOven=" + idOven +
                 ", effectiveTemp=" + effectiveTemp +
+                ", effectiveTempUsine=" + effectiveTempUsine +
                 ", programTemp=" + programTemp +
                 ", scheduleTime=" + scheduleTime +
                 ", status=" + status +
