@@ -45,23 +45,22 @@ public class ServerAcceptor {
         }
 
         // We waiting and receive an message which coming from an object
+            try {
+                str = (String) ois.readObject();
+                System.out.println("message received: " + str);
 
-        try {
-            str = (String) ois.readObject();
-            System.out.println("message received: "+str);
+            } catch (IOException | ClassNotFoundException e) {
+                System.err.println("Erreur lors de la lecture : " + e);
+                System.exit(-1);
+            }
 
-        } catch(IOException | ClassNotFoundException e) {
-            System.err.println("Erreur lors de la lecture : " + e);
-            System.exit(-1);
-        }
-
-        /**
-         *
-         * We transmit the xml string to the Xml reader to analyse and stock its information
-         *
-         **/
-        XmlController xmlReader = new XmlController();
-        xmlReader.xmlTranslate(str);
+            /**
+             *
+             * We transmit the xml string to the Xml reader to analyse and stock its information
+             *
+             **/
+            XmlController xmlReader = new XmlController();
+            xmlReader.xmlTranslate(str);
 
 
         // Fermeture des flux et des sockets

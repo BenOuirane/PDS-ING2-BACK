@@ -4,6 +4,7 @@ import com.application.aled.messages.MessageSimulator;
 import com.application.aled.messages.ServerAcceptor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
@@ -15,12 +16,22 @@ import java.io.IOException;
 public class BackendApplication {
 
 	public static void main(String[] args) throws IOException {
+		/***
 
 
-
-		/**
+		ServerAcceptor.receiveMessage();
+		MessageSimulator ms = new MessageSimulator();
+		try {
+			System.err.println("try to simulate message");
+			ms.sendMessage();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.err.println("done");
+		/*
 		 * This line start the application for users
 		 */
+
 		SpringApplication.run(BackendApplication.class, args);
 
 
@@ -40,9 +51,10 @@ public class BackendApplication {
 		System.err.println("done");
 		*/
 	}
-	/*
+
 	@PostConstruct
-	private void init(){
+	@Transactional
+	public void init(){
 		System.err.println("application is running");
 		ServerAcceptor.receiveMessage();
 		MessageSimulator ms = new MessageSimulator();
@@ -52,10 +64,10 @@ public class BackendApplication {
 				"    <programmed_temperature>200</programmed_temperature>" +
 				"</message>";
 		try {
-			ms.sendMessage(obj);
+			ms.sendMessage();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		System.err.println("done");
-	}*/
+	}
 }
