@@ -25,11 +25,30 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public List<User> getUsers() {
-        System.out.println("Get all Users...");
-
         List<User> users = new ArrayList<>();
+
         repository.findAll().forEach(users::add);
 
         return users;
     }
+
+    @Override
+    public User userLogin(String username, String password) throws NullPointerException {
+        System.out.println("Login user " + username + " and password " + password);
+
+        User user = repository.findByUsernameAndPassword(username, password);
+
+        return user;
+    }
+
+    @Override
+    public List<User> getUserByRole(String role) {
+        System.out.println("Finding users with role : " + role);
+
+        List<User> users = new ArrayList<>();
+        repository.findAllByRole(role).forEach(users::add);
+
+        return users;
+    }
+
 }

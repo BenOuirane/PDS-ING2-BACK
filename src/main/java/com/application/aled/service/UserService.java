@@ -14,4 +14,8 @@ public interface UserService {
 
     public List<User> getUsers();
 
+    public User userLogin(String username, String password);
+
+    public List<User> getUserByRole(String role);
+
 }
