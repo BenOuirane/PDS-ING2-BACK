@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.application.aled.controller.exception.CustomHandler;
 import com.application.aled.entity.RoleType;
 
 /*
@@ -31,13 +32,13 @@ public class User {
 	@Column(name = "lastname")
 	private String lastname;
 
-	@Column(name= "username", unique = true)
+	@Column(name = "username", unique = true)
 	private String username;
 
-	@Column(name= "password")
+	@Column(name = "password")
 	private String password;
 
-	@Column(name="role")
+	@Column(name = "role")
 	private String role;
 
 	public User() {
@@ -45,11 +46,11 @@ public class User {
 	}
 
 	public User(String firstname, String lastname, String username, String password, String role) {
-		this.firstname=firstname;
-		this.lastname=lastname;
-		this.username=username;
-		this.password=password;
-		this.role=role;
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.username = username;
+		this.password = password;
+		this.role = role;
 	}
 
 	/**
@@ -133,22 +134,20 @@ public class User {
 	 * @param role the password to set
 	 */
 	public void setRole(String role) {
-		if(role != RoleType.values().toString()){
-			throw new ClassCastException();
-		} else {
-			this.role = role;
+		for (RoleType roleType : RoleType.values()) {
+			if(role.equals(roleType.name())){
+				this.role = role;
+				return;
+			}
+
+		
 		}
+		throw new CustomHandler("RoleType not respected");
 	}
 
 	@Override
 	public String toString() {
-		return "User{" +
-				"id=" + id +
-				", firstname='" + firstname + '\'' +
-				", lastname='" + lastname + '\'' +
-				", username='" + username + '\'' +
-				", password='" + password + '\'' +
-				", role='" + role + '\'' +
-				'}';
+		return "User{" + "id=" + id + ", firstname='" + firstname + '\'' + ", lastname='" + lastname + '\''
+				+ ", username='" + username + '\'' + ", password='" + password + '\'' + ", role='" + role + '\'' + '}';
 	}
 }
