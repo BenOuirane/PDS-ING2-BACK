@@ -1,0 +1,19 @@
+package com.application.aled.entity;
+
+public enum TypeProfil {
+    SICK,
+    NO_SICK,
+    SELF_RULING,
+    NO_SELF_RULING,
+    ATHLETIC,
+    NO_ATHLETIC,
+    SOCIABLE,
+    NO_SOCIABLE,
+    LIKE_GAMES,
+    LIKE_COOKING,
+    LIKE_REST,
+    GOOD_SOCIAL_STATE,
+    BAD_SOCIAL_STATE,
+    GOOD_FINANCIAL_STATEMENT,
+    BAD_FINANCIAL_STATEMENT
+}
