@@ -3,12 +3,7 @@
  */
 package com.application.aled.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -33,5 +28,9 @@ public class Resident {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_resident", nullable = false)
 	private int id;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(unique = true)
+	private User user;
 
 }

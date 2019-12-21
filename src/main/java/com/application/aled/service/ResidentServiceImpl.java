@@ -6,6 +6,7 @@ package com.application.aled.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.application.aled.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -59,6 +60,11 @@ public class ResidentServiceImpl implements ResidentService {
 	public void removeResident(Resident idResi) {
 		residentRepository.delete(idResi);
 
+	}
+
+	@Override
+	public Resident getResidentByUser(User user) {
+		return residentRepository.findByUser(user);
 	}
 
 }

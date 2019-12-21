@@ -5,6 +5,7 @@ package com.application.aled.service;
 
 import java.util.List;
 
+import com.application.aled.entity.User;
 import org.springframework.stereotype.Service;
 
 import com.application.aled.entity.Resident;
@@ -22,4 +23,6 @@ public interface ResidentService {
 	void updateResident(Resident idResi);
 
 	void removeResident(Resident idResi);
+
+	public Resident getResidentByUser(User user);
 }
