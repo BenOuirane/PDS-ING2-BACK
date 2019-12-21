@@ -6,9 +6,8 @@ package com.application.aled.service;
 import java.util.List;
 
 import com.application.aled.entity.User;
-import org.springframework.stereotype.Service;
 
-import com.application.aled.entity.Resident;
+import com.application.aled.entity.Residents;
 
 /**
  * @author ISMAIL EL HAMMOUD
@@ -16,13 +15,13 @@ import com.application.aled.entity.Resident;
  */
 
 public interface ResidentService {
-	public List<Resident> getAllResidents();
+	public List<Residents> getAllResidents();
 
-	void addResident(Resident idResi);
+	void addResident(Residents idResi);
 
-	void updateResident(Resident idResi);
+	void updateResident(Residents idResi);
 
-	void removeResident(Resident idResi);
+	void removeResident(Residents idResi);
 
-	public Resident getResidentByUser(User user);
+	public Residents getResidentByUser(User user);
 }

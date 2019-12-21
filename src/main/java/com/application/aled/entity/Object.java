@@ -1,7 +1,8 @@
 package com.application.aled.entity;
 
 import com.application.aled.controller.exception.CustomHandler;
-import org.hibernate.annotations.JoinColumnOrFormula;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -25,18 +26,19 @@ public class Object {
     @Column(name = "objectType")
     private String objectType;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(unique = true)
-    private Room room;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "id_rooms", nullable = true)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Rooms rooms;
 
     public Object() { }
 
-    public Object(boolean state, String macAddress, String ipAddress, String objectType, Room room) {
+    public Object(boolean state, String macAddress, String ipAddress, String objectType, Rooms room) {
         this.state = state;
         this.macAddress = macAddress;
         this.ipAddress = ipAddress;
         this.objectType = objectType;
-        this.room = room;
+        this.rooms = room;
     }
 
     public long getId() {
@@ -75,9 +77,9 @@ public class Object {
         return objectType;
     }
 
-    public Room getRoom() { return room;}
+    public Rooms getRoom() { return rooms;}
 
-    public void setRoom(Room room){ this.room = room;}
+    public void setRoom(Rooms room){ this.rooms = room;}
 
     public void setObjectType(String objectType) {
         for (ObjectType object : ObjectType.values()) {
@@ -97,7 +99,7 @@ public class Object {
                 ", macAddress='" + macAddress + '\'' +
                 ", ipAddress='" + ipAddress + '\'' +
                 ", objectType='" + objectType + '\'' +
-                ", room='" + room + '\'' +
+                ", room='" + rooms + '\'' +
                 '}';
     }
 }

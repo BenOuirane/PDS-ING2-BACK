@@ -4,16 +4,12 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name="room")
-public class Room {
+@Table(name="rooms")
+public class Rooms {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idRoom;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(unique = true)
-    private Resident resident;
-
     @Column(name = "roomNumber")
-    private Timestamp roomNumber;
+    private int roomNumber;
 }
