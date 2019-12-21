@@ -1,6 +1,7 @@
 package com.application.aled.entity;
 
 import com.application.aled.controller.exception.CustomHandler;
+import org.hibernate.annotations.JoinColumnOrFormula;
 
 import javax.persistence.*;
 
@@ -24,13 +25,18 @@ public class Object {
     @Column(name = "objectType")
     private String objectType;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(unique = true)
+    private Room room;
+
     public Object() { }
 
-    public Object(boolean state, String macAddress, String ipAddress, String objectType) {
+    public Object(boolean state, String macAddress, String ipAddress, String objectType, Room room) {
         this.state = state;
         this.macAddress = macAddress;
         this.ipAddress = ipAddress;
         this.objectType = objectType;
+        this.room = room;
     }
 
     public long getId() {
@@ -69,6 +75,10 @@ public class Object {
         return objectType;
     }
 
+    public Room getRoom() { return room;}
+
+    public void setRoom(Room room){ this.room = room;}
+
     public void setObjectType(String objectType) {
         for (ObjectType object : ObjectType.values()) {
             if(objectType.equals(object.name())){
@@ -87,6 +97,7 @@ public class Object {
                 ", macAddress='" + macAddress + '\'' +
                 ", ipAddress='" + ipAddress + '\'' +
                 ", objectType='" + objectType + '\'' +
+                ", room='" + room + '\'' +
                 '}';
     }
 }
