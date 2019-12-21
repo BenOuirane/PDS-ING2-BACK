@@ -30,7 +30,7 @@ public class Oven {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(unique = true)
-    private Object object;
+    private Objects objects;
 
     @Column(name = "modeUsine")
     private String modeUsine;
@@ -51,14 +51,14 @@ public class Oven {
 
     }
 
-    public Oven(int effectiveTemp, int programTemp, Timestamp scheduleTime, boolean status, String mode, String modeUsine, Object object, int programTempUsine, boolean statusUsine, Timestamp scheduleTimeUsine, int effectiveTempUsine) {
+    public Oven(int effectiveTemp, int programTemp, Timestamp scheduleTime, boolean status, String mode, String modeUsine, Objects objects, int programTempUsine, boolean statusUsine, Timestamp scheduleTimeUsine, int effectiveTempUsine) {
         this.effectiveTemp = effectiveTemp;
         this.programTemp = programTemp;
         this.scheduleTime = scheduleTime;
         this.status = status;
         this.mode = mode;
         this.modeUsine = modeUsine;
-        this.object = object;
+        this.objects = objects;
         this.programTempUsine = programTempUsine;
         this.statusUsine = statusUsine;
         this.effectiveTempUsine = effectiveTempUsine;
@@ -105,12 +105,12 @@ public class Oven {
         this.status = status;
     }
 
-    public Object getObject() {
-        return object;
+    public Objects getObjects() {
+        return objects;
     }
 
-    public void setObject(Object object) {
-        this.object = object;
+    public void setObjects(Objects objects) {
+        this.objects = objects;
     }
 
     public int getProgramTempUsine() {
@@ -184,7 +184,7 @@ public class Oven {
                 ", status=" + status +
                 ", mode='" + mode + '\'' +
                 ", modeUsine='" + modeUsine + '\'' +
-                ", object=" + object +
+                ", object=" + objects +
                 ", programTempUsine=" + programTempUsine +
                 ", statusUsine=" + statusUsine +
                 ", scheduleTimeUsine=" + scheduleTimeUsine +

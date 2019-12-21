@@ -6,11 +6,11 @@ package com.application.aled.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.application.aled.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.application.aled.entity.Measure;
-import com.application.aled.entity.Resident;
+import com.application.aled.entity.Residents;
 import com.application.aled.repository.ResidentRepository;
 
 /**
@@ -25,8 +25,8 @@ public class ResidentServiceImpl implements ResidentService {
 	@Autowired
 	ResidentRepository residentRepository;
 	@Override
-	public List<Resident> getAllResidents() {
-		List<Resident> reslist = new ArrayList<Resident>();
+	public List<Residents> getAllResidents() {
+		List<Residents> reslist = new ArrayList<Residents>();
 
 		residentRepository.findAll().forEach(reslist::add);
 		return reslist;
@@ -34,7 +34,7 @@ public class ResidentServiceImpl implements ResidentService {
 
 
 	@Override
-	public void addResident(Resident idResi) {
+	public void addResident(Residents idResi) {
 		if (idResi == null) {
 			// FIXME: action non autorisee
 
@@ -45,7 +45,7 @@ public class ResidentServiceImpl implements ResidentService {
 	}
 
 	@Override
-	public void updateResident(Resident idResi) {
+	public void updateResident(Residents idResi) {
 		if (idResi == null) {
 			// FIXME: action non autorisee
 
@@ -56,9 +56,14 @@ public class ResidentServiceImpl implements ResidentService {
 	}
 
 	@Override
-	public void removeResident(Resident idResi) {
+	public void removeResident(Residents idResi) {
 		residentRepository.delete(idResi);
 
+	}
+
+	@Override
+	public Residents getResidentByUser(User user) {
+		return residentRepository.findByUser(user);
 	}
 
 }

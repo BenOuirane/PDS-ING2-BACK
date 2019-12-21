@@ -31,20 +31,20 @@ public class Shutter {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(unique = true)
-    private Object object;
+    private Objects objects;
 
     public Shutter() {
 
     }
 
-    public Shutter(Timestamp hourOn, Timestamp hourOff, boolean status, boolean statusUsine, Timestamp hourOnUsine, Timestamp hourOffUsine, Object object) {
+    public Shutter(Timestamp hourOn, Timestamp hourOff, boolean status, boolean statusUsine, Timestamp hourOnUsine, Timestamp hourOffUsine, Objects objects) {
         this.hourOn = hourOn;
         this.hourOff = hourOff;
         this.status = status;
         this.statusUsine = statusUsine;
         this.hourOnUsine = hourOnUsine;
         this.hourOffUsine = hourOffUsine;
-        this.object = object;
+        this.objects = objects;
     }
 
     public long getIdShutter() {
@@ -103,12 +103,12 @@ public class Shutter {
         this.hourOffUsine = hourOffUsine;
     }
 
-    public Object getObject() {
-        return object;
+    public Objects getObjects() {
+        return objects;
     }
 
-    public void setObject(Object object) {
-        this.object = object;
+    public void setObjects(Objects objects) {
+        this.objects = objects;
     }
 
     @Override
@@ -121,7 +121,7 @@ public class Shutter {
                 ", statusUsine=" + statusUsine +
                 ", hourOnUsine=" + hourOnUsine +
                 ", hourOffUsine=" + hourOffUsine +
-                ", object=" + object +
+                ", object=" + objects +
                 '}';
     }
 }
