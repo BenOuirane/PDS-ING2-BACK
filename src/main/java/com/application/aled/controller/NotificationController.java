@@ -25,19 +25,19 @@ public class NotificationController {
     }
 
     @PutMapping("/notifications/list")
-    public Notification[] getNotification(@RequestBody User user){
+    public Notification[] getNotification(@RequestBody long userId){
         System.out.println("Call getNotification");
 
-        Notification[] _notifications = notificationService.getNotifications(user);
+        Notification[] _notifications = notificationService.getNotifications(userId);
 
         return _notifications;
     }
 
     @PutMapping("/notifications/update")
-    public Notification[] updateNotificationState(@RequestBody User user){
+    public Notification[] updateNotificationState(@RequestBody long userId){
         System.out.println("Call updateNotificationState");
 
-        Notification[] _notifications = notificationService.updateStateByReceiver(user);
+        Notification[] _notifications = notificationService.updateStateByReceiver(userId);
 
         return _notifications;
     }

@@ -20,39 +20,19 @@ public class CoffeeMachine {
     @Column(name = "status")
     private boolean status;
 
-    @Column(name = "waterLevel")
-    private int waterLevel;
-
-    @Column(name = "nbCapsuleUsine")
-    private int nbCapsuleUsine;
-
-    @Column(name = "scheduleCoffeeUsine")
-    private Timestamp scheduleCoffeeUsine;
-
-    @Column(name = "statusUsine")
-    private boolean statusUsine;
-
-    @Column(name = "waterLevelUsine")
-    private int waterLevelUsine;
-
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(unique = true)
-    private Objects objects;
+    private Object object;
 
     public CoffeeMachine() {
 
     }
 
-    public CoffeeMachine(int nbCapsule, Timestamp scheduleCoffee, boolean status, int waterLevel, int nbCapsuleUsine, Timestamp scheduleCoffeeUsine, boolean statusUsine, int waterLevelUsine, Objects objects) {
+    public CoffeeMachine(int nbCapsule, Timestamp scheduleCoffee, boolean status, Object object) {
         this.nbCapsule = nbCapsule;
         this.scheduleCoffee = scheduleCoffee;
         this.status = status;
-        this.waterLevel = waterLevel;
-        this.nbCapsuleUsine = nbCapsuleUsine;
-        this.scheduleCoffeeUsine = scheduleCoffeeUsine;
-        this.statusUsine = statusUsine;
-        this.waterLevelUsine = waterLevelUsine;
-        this.objects = objects;
+        this.object = object;
     }
 
     public long getIdCoffee() {
@@ -87,52 +67,12 @@ public class CoffeeMachine {
         this.status = status;
     }
 
-    public int getNbCapsuleUsine() {
-        return nbCapsuleUsine;
+    public Object getObject() {
+        return object;
     }
 
-    public void setNbCapsuleUsine(int nbCapsuleUsine) {
-        this.nbCapsuleUsine = nbCapsuleUsine;
-    }
-
-    public Timestamp getScheduleCoffeeUsine() {
-        return scheduleCoffeeUsine;
-    }
-
-    public void setScheduleCoffeeUsine(Timestamp scheduleCoffeeUsine) {
-        this.scheduleCoffeeUsine = scheduleCoffeeUsine;
-    }
-
-    public boolean isStatusUsine() {
-        return statusUsine;
-    }
-
-    public void setStatusUsine(boolean statusUsine) {
-        this.statusUsine = statusUsine;
-    }
-
-    public Objects getObjects() {
-        return objects;
-    }
-
-    public void setObjects(Objects objects) {
-        this.objects = objects;
-    }
-
-    public int getWaterLevel() {
-        return waterLevel;
-    }
-
-    public void setWaterLevel(int waterLevel) {
-        this.waterLevel = waterLevel;
-    }
-
-    public int getWaterLevelUsine() {
-        return waterLevelUsine;
-    }
-
-    public void setWaterLevelUsine(int waterLevelUsine) {
-        this.waterLevelUsine = waterLevelUsine;
+    public void setObject(Object object) {
+        this.object = object;
     }
 
     @Override
@@ -142,12 +82,7 @@ public class CoffeeMachine {
                 ", nbCapsule=" + nbCapsule +
                 ", scheduleCoffee=" + scheduleCoffee +
                 ", status=" + status +
-                ", waterLevel=" + waterLevel +
-                ", nbCapsuleUsine=" + nbCapsuleUsine +
-                ", scheduleCoffeeUsine=" + scheduleCoffeeUsine +
-                ", statusUsine=" + statusUsine +
-                ", waterLevelUsine=" + waterLevelUsine +
-                ", object=" + objects +
+                ", object=" + object +
                 '}';
     }
 }

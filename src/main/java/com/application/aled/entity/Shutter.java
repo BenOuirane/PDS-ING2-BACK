@@ -20,31 +20,19 @@ public class Shutter {
     @Column(name = "status")
     private boolean status;
 
-    @Column(name = "statusUsine")
-    private boolean statusUsine;
-
-    @Column(name = "hourOnUsine")
-    private Timestamp hourOnUsine;
-
-    @Column(name = "hourOffUsine")
-    private Timestamp hourOffUsine;
-
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(unique = true)
-    private Objects objects;
+    private Object object;
 
     public Shutter() {
 
     }
 
-    public Shutter(Timestamp hourOn, Timestamp hourOff, boolean status, boolean statusUsine, Timestamp hourOnUsine, Timestamp hourOffUsine, Objects objects) {
+    public Shutter(Timestamp hourOn, Timestamp hourOff, boolean status, Object object) {
         this.hourOn = hourOn;
         this.hourOff = hourOff;
         this.status = status;
-        this.statusUsine = statusUsine;
-        this.hourOnUsine = hourOnUsine;
-        this.hourOffUsine = hourOffUsine;
-        this.objects = objects;
+        this.object = object;
     }
 
     public long getIdShutter() {
@@ -79,36 +67,12 @@ public class Shutter {
         this.status = status;
     }
 
-    public boolean isStatusUsine() {
-        return statusUsine;
+    public Object getObject() {
+        return object;
     }
 
-    public void setStatusUsine(boolean statusUsine) {
-        this.statusUsine = statusUsine;
-    }
-
-    public Timestamp getHourOnUsine() {
-        return hourOnUsine;
-    }
-
-    public void setHourOnUsine(Timestamp hourOnUsine) {
-        this.hourOnUsine = hourOnUsine;
-    }
-
-    public Timestamp getHourOffUsine() {
-        return hourOffUsine;
-    }
-
-    public void setHourOffUsine(Timestamp hourOffUsine) {
-        this.hourOffUsine = hourOffUsine;
-    }
-
-    public Objects getObjects() {
-        return objects;
-    }
-
-    public void setObjects(Objects objects) {
-        this.objects = objects;
+    public void setObject(Object object) {
+        this.object = object;
     }
 
     @Override
@@ -118,10 +82,7 @@ public class Shutter {
                 ", hourOn=" + hourOn +
                 ", hourOff=" + hourOff +
                 ", status=" + status +
-                ", statusUsine=" + statusUsine +
-                ", hourOnUsine=" + hourOnUsine +
-                ", hourOffUsine=" + hourOffUsine +
-                ", object=" + objects +
+                ", object=" + object +
                 '}';
     }
 }

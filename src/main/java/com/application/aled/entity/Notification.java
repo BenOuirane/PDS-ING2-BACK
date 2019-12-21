@@ -15,9 +15,8 @@ public class Notification {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "sender", referencedColumnName = "id")
-    private User sender;
+    @Column(name = "sender")
+    private long sender;
 
     @Column(name = "title")
     private String title;
@@ -25,9 +24,8 @@ public class Notification {
     @Column(name = "message")
     private String message;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "receiver", referencedColumnName = "id")
-    private User receiver;
+    @Column(name = "receiver")
+    private long receiver;
 
     @CreationTimestamp
     private Date date;
@@ -44,6 +42,16 @@ public class Notification {
     public Notification() {
     }
 
+    public Notification(long sender, String title, String message, long receiver, String state, String type, String customData) {
+        this.sender = sender;
+        this.title = title;
+        this.message = message;
+        this.receiver = receiver;
+        this.state = state;
+        this.type = type;
+        this.customData = customData;
+    }
+
     public long getId() {
         return id;
     }
@@ -52,11 +60,11 @@ public class Notification {
         this.id = id;
     }
 
-    public User getSender() {
+    public long getSender() {
         return sender;
     }
 
-    public void setSender(User sender) {
+    public void setSender(long sender) {
         this.sender = sender;
     }
 
@@ -76,11 +84,11 @@ public class Notification {
         this.message = message;
     }
 
-    public User getReceiver() {
+    public long getReceiver() {
         return receiver;
     }
 
-    public void setReceiver(User receiver) {
+    public void setReceiver(long receiver) {
         this.receiver = receiver;
     }
 
@@ -94,14 +102,6 @@ public class Notification {
 
     public String getState() {
         return state;
-    }
-
-    public String getCustomData() {
-        return customData;
-    }
-
-    public void setCustomData(String customData) {
-        this.customData = customData;
     }
 
     public void setState(String state) {
@@ -128,6 +128,14 @@ public class Notification {
         throw new CustomHandler("Notification Type not respected");
     }
 
+    public String getCustomData() {
+        return customData;
+    }
+
+    public void setCustomData(String customData) {
+        this.customData = customData;
+    }
+
     @Override
     public String toString() {
         return "Notification{" +
@@ -139,7 +147,7 @@ public class Notification {
                 ", date=" + date +
                 ", state='" + state + '\'' +
                 ", type='" + type + '\'' +
-                ", customData='" + customData + '\'' +
+                ", customData=" + customData +
                 '}';
     }
 }
