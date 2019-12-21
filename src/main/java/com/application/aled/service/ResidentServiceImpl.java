@@ -28,7 +28,7 @@ public class ResidentServiceImpl implements ResidentService {
 	public List<Residents> getAllResidents() {
 		List<Residents> reslist = new ArrayList<Residents>();
 
-		residentRepository.findAll().forEach(reslist::add);
+		//residentRepository.findAll().forEach(reslist::add);
 		return reslist;
 	}
 
@@ -40,7 +40,7 @@ public class ResidentServiceImpl implements ResidentService {
 
 			return;
 		}
-		residentRepository.save(idResi);
+		//residentRepository.save(idResi);
 
 	}
 
@@ -51,13 +51,13 @@ public class ResidentServiceImpl implements ResidentService {
 
 			return;
 		}
-		residentRepository.save(idResi);
+		//residentRepository.save(idResi);
 
 	}
 
 	@Override
 	public void removeResident(Residents idResi) {
-		residentRepository.delete(idResi);
+		//residentRepository.delete(idResi);
 
 	}
 
