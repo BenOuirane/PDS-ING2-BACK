@@ -1,0 +1,103 @@
+package com.application.aled.entity;
+
+import java.time.LocalDateTime;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+
+
+
+/* 
+	This entity will be the table of Position
+	Its attributes will be the following columns
+	Every change in the backend side will impact the table 
+	structure
+*/
+
+@XmlRootElement(name="position")
+@Entity
+@Table(name = "position")
+public class Position {
+	
+	public Position(int id, double lat_pos, double long_pos, String ref_pos, LocalDateTime date_pos) {
+		super();
+		this.id = id;
+		this.lat_pos = lat_pos;
+		this.long_pos = long_pos;
+		this.ref_pos = ref_pos;
+		this.date_pos = date_pos;
+	}
+
+	public Position() {
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public String toString() {
+		return "Position [id=" + id + ", lat_pos=" + lat_pos + ", long_pos=" + long_pos + ", ref_pos=" + ref_pos
+				+ ", date_pos=" + date_pos + "]";
+	}
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_position", nullable = false, unique = true)
+	private int id;
+
+	@Column(name = "latitude")
+	private double lat_pos;
+
+	@Column(name = "longitude")
+	private double long_pos;
+
+	@Column(name = "ref_position")
+	private String ref_pos;
+
+	@Column(name = "date")
+	private LocalDateTime date_pos;
+
+	public String getRef_pos() {
+		return ref_pos;
+	}
+
+	public void setRef_pos(String ref_pos) {
+		this.ref_pos = ref_pos;
+	}
+
+	public LocalDateTime getDate_pos() {
+		return date_pos;
+	}
+
+	public void setDate_pos(LocalDateTime date_pos) {
+		this.date_pos = date_pos;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public double getLong_pos() {
+		return long_pos;
+	}
+
+	public void setLong_pos(double long_pos) {
+		this.long_pos = long_pos;
+	}
+
+	public double getLat_pos() {
+		return lat_pos;
+	}
+
+	public void setLat_pos(double lat_pos) {
+		this.lat_pos = lat_pos;
+	}
+
+}
