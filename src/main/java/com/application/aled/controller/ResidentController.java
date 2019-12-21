@@ -13,7 +13,7 @@ public class ResidentController {
 
     @Autowired
     private ResidentRepository residentRepository;
-
+    /*
     public ResidentController(ResidentRepository residentRepository) {
         super();
         this.residentRepository = residentRepository;
@@ -40,6 +40,7 @@ public class ResidentController {
         res.setIdResident(idResident);
         return residentRepository.save(res);
     }
+    */
 
     @DeleteMapping(value = "/resident/{idResident}")
     public void deleteCategory(@PathVariable(name = "idResident") Long idResident) {

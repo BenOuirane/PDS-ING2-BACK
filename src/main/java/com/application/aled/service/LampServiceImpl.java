@@ -16,6 +16,6 @@ public class LampServiceImpl implements LampService {
     @Override
     public List<Lamp> getLamp(Objects objects) {
         System.out.println("Getting lamp for object : " + objects);
-        return lampRepository.getLampByObject(objects);
+        return lampRepository.getLampByObjects(objects);
     }
 }
