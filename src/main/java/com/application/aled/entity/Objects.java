@@ -1,12 +1,14 @@
 package com.application.aled.entity;
 
 import com.application.aled.controller.exception.CustomHandler;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "objects")
-public class Object {
+public class Objects {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,13 +26,19 @@ public class Object {
     @Column(name = "objectType")
     private String objectType;
 
-    public Object() { }
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "id_rooms", nullable = true)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Rooms rooms;
 
-    public Object(boolean state, String macAddress, String ipAddress, String objectType) {
+    public Objects() { }
+
+    public Objects(boolean state, String macAddress, String ipAddress, String objectType, Rooms room) {
         this.state = state;
         this.macAddress = macAddress;
         this.ipAddress = ipAddress;
         this.objectType = objectType;
+        this.rooms = room;
     }
 
     public long getId() {
@@ -69,6 +77,10 @@ public class Object {
         return objectType;
     }
 
+    public Rooms getRoom() { return rooms;}
+
+    public void setRoom(Rooms room){ this.rooms = room;}
+
     public void setObjectType(String objectType) {
         for (ObjectType object : ObjectType.values()) {
             if(objectType.equals(object.name())){
@@ -87,6 +99,7 @@ public class Object {
                 ", macAddress='" + macAddress + '\'' +
                 ", ipAddress='" + ipAddress + '\'' +
                 ", objectType='" + objectType + '\'' +
+                ", room='" + rooms + '\'' +
                 '}';
     }
 }

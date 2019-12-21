@@ -30,18 +30,39 @@ public class Oven {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(unique = true)
-    private Object object;
+    private Objects objects;
+
+    @Column(name = "modeUsine")
+    private String modeUsine;
+
+    @Column(name = "programTempUsine")
+    private int programTempUsine;
+
+    @Column(name = "statusUsine")
+    private boolean statusUsine;
+
+    @Column(name = "effectiveTempUsine")
+    private int effectiveTempUsine;
+
+    @Column(name = "scheduleTimeUsine")
+    private Timestamp scheduleTimeUsine;
 
     public Oven() {
 
     }
 
-    public Oven(int effectiveTemp, int programTemp, Timestamp scheduleTime, boolean status, Object object) {
+    public Oven(int effectiveTemp, int programTemp, Timestamp scheduleTime, boolean status, String mode, String modeUsine, Objects objects, int programTempUsine, boolean statusUsine, Timestamp scheduleTimeUsine, int effectiveTempUsine) {
         this.effectiveTemp = effectiveTemp;
         this.programTemp = programTemp;
         this.scheduleTime = scheduleTime;
         this.status = status;
-        this.object = object;
+        this.mode = mode;
+        this.modeUsine = modeUsine;
+        this.objects = objects;
+        this.programTempUsine = programTempUsine;
+        this.statusUsine = statusUsine;
+        this.effectiveTempUsine = effectiveTempUsine;
+        this.scheduleTimeUsine = scheduleTimeUsine;
     }
 
     public long getIdOven() {
@@ -84,12 +105,44 @@ public class Oven {
         this.status = status;
     }
 
-    public Object getObject() {
-        return object;
+    public Objects getObjects() {
+        return objects;
     }
 
-    public void setObject(Object object) {
-        this.object = object;
+    public void setObjects(Objects objects) {
+        this.objects = objects;
+    }
+
+    public int getProgramTempUsine() {
+        return programTempUsine;
+    }
+
+    public int getEffectiveTempUsine() {
+        return effectiveTempUsine;
+    }
+
+    public void setEffectiveTempUsine(int effectiveTempUsine) {
+        this.effectiveTempUsine = effectiveTempUsine;
+    }
+
+    public void setProgramTempUsine(int programTempUsine) {
+        this.programTempUsine = programTempUsine;
+    }
+
+    public boolean isStatusUsine() {
+        return statusUsine;
+    }
+
+    public void setStatusUsine(boolean statusUsine) {
+        this.statusUsine = statusUsine;
+    }
+
+    public Timestamp getScheduleTimeUsine() {
+        return scheduleTimeUsine;
+    }
+
+    public void setScheduleTimeUsine(Timestamp scheduleTimeUsine) {
+        this.scheduleTimeUsine = scheduleTimeUsine;
     }
 
     public String getMode() {
@@ -106,15 +159,35 @@ public class Oven {
         throw new CustomHandler("Mode Type not respected");
     }
 
+    public String getModeUsine() {
+        return modeUsine;
+    }
+
+    public void setModeUsine(String modeUsine) {
+        for (ModeType modeType : ModeType.values()) {
+            if(modeUsine.equals(modeType.name())){
+                this.modeUsine = modeUsine;
+                return;
+            }
+        }
+        throw new CustomHandler("Mode Type not respected");
+    }
+
     @Override
     public String toString() {
         return "Oven{" +
                 "idOven=" + idOven +
                 ", effectiveTemp=" + effectiveTemp +
+                ", effectiveTempUsine=" + effectiveTempUsine +
                 ", programTemp=" + programTemp +
                 ", scheduleTime=" + scheduleTime +
                 ", status=" + status +
-                ", object=" + object +
+                ", mode='" + mode + '\'' +
+                ", modeUsine='" + modeUsine + '\'' +
+                ", object=" + objects +
+                ", programTempUsine=" + programTempUsine +
+                ", statusUsine=" + statusUsine +
+                ", scheduleTimeUsine=" + scheduleTimeUsine +
                 '}';
     }
 }
