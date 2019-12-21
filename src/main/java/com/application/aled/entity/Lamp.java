@@ -1,11 +1,9 @@
 package com.application.aled.entity;
 
 import com.application.aled.controller.exception.CustomHandler;
-import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.Date;
 
 @Entity
 @Table(name = "lamp")
@@ -46,13 +44,13 @@ public class Lamp {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(unique = true)
-    private Object object;
+    private Objects objects;
 
     public Lamp() {
 
     }
 
-    public Lamp(boolean status, Timestamp hourOn, Timestamp hourOff, int intensity, String color, String colorUsine, boolean statusUsine, Timestamp hourOnUsine, Timestamp hourOffUsine, int intensityUsine, Object object) {
+    public Lamp(boolean status, Timestamp hourOn, Timestamp hourOff, int intensity, String color, String colorUsine, boolean statusUsine, Timestamp hourOnUsine, Timestamp hourOffUsine, int intensityUsine, Objects objects) {
         this.status = status;
         this.hourOn = hourOn;
         this.hourOff = hourOff;
@@ -63,7 +61,7 @@ public class Lamp {
         this.hourOnUsine = hourOnUsine;
         this.hourOffUsine = hourOffUsine;
         this.intensityUsine = intensityUsine;
-        this.object = object;
+        this.objects = objects;
     }
 
     public long getIdLamp() {
@@ -166,12 +164,12 @@ public class Lamp {
         this.intensityUsine = intensityUsine;
     }
 
-    public Object getObject() {
-        return object;
+    public Objects getObjects() {
+        return objects;
     }
 
-    public void setObject(Object object) {
-        this.object = object;
+    public void setObjects(Objects objects) {
+        this.objects = objects;
     }
 
     @Override
@@ -188,7 +186,7 @@ public class Lamp {
                 ", hourOnUsine=" + hourOnUsine +
                 ", hourOffUsine=" + hourOffUsine +
                 ", intensityUsine=" + intensityUsine +
-                ", object=" + object +
+                ", object=" + objects +
                 '}';
     }
 }

@@ -40,13 +40,13 @@ public class AlarmClock {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(unique = true)
-    private Object object;
+    private Objects objects;
 
     public AlarmClock() {
 
     }
 
-    public AlarmClock(Timestamp alarm, int radioHrz, boolean radioStatus, boolean alarmStatus, Timestamp time, Timestamp alarmUsine, int radioHrtzUsine, boolean radioStatusUsine, boolean alarmStatusUsine, Object object) {
+    public AlarmClock(Timestamp alarm, int radioHrz, boolean radioStatus, boolean alarmStatus, Timestamp time, Timestamp alarmUsine, int radioHrtzUsine, boolean radioStatusUsine, boolean alarmStatusUsine, Objects objects) {
         this.alarm = alarm;
         this.radioHrz = radioHrz;
         this.radioStatus = radioStatus;
@@ -56,7 +56,7 @@ public class AlarmClock {
         this.radioHrtzUsine = radioHrtzUsine;
         this.radioStatusUsine = radioStatusUsine;
         this.alarmStatusUsine = alarmStatusUsine;
-        this.object = object;
+        this.objects = objects;
     }
 
     public long getIdAlarmClock() {
@@ -139,12 +139,12 @@ public class AlarmClock {
         this.alarmStatusUsine = alarmStatusUsine;
     }
 
-    public Object getObject() {
-        return object;
+    public Objects getObjects() {
+        return objects;
     }
 
-    public void setObject(Object object) {
-        this.object = object;
+    public void setObjects(Objects objects) {
+        this.objects = objects;
     }
 
     @Override
@@ -160,7 +160,7 @@ public class AlarmClock {
                 ", radioHrtzUsine=" + radioHrtzUsine +
                 ", radioStatusUsine=" + radioStatusUsine +
                 ", alarmStatusUsine=" + alarmStatusUsine +
-                ", object=" + object +
+                ", object=" + objects +
                 '}';
     }
 }

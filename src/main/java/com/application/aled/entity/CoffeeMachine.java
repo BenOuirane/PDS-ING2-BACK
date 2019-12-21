@@ -37,13 +37,13 @@ public class CoffeeMachine {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(unique = true)
-    private Object object;
+    private Objects objects;
 
     public CoffeeMachine() {
 
     }
 
-    public CoffeeMachine(int nbCapsule, Timestamp scheduleCoffee, boolean status, int waterLevel, int nbCapsuleUsine, Timestamp scheduleCoffeeUsine, boolean statusUsine, int waterLevelUsine, Object object) {
+    public CoffeeMachine(int nbCapsule, Timestamp scheduleCoffee, boolean status, int waterLevel, int nbCapsuleUsine, Timestamp scheduleCoffeeUsine, boolean statusUsine, int waterLevelUsine, Objects objects) {
         this.nbCapsule = nbCapsule;
         this.scheduleCoffee = scheduleCoffee;
         this.status = status;
@@ -52,7 +52,7 @@ public class CoffeeMachine {
         this.scheduleCoffeeUsine = scheduleCoffeeUsine;
         this.statusUsine = statusUsine;
         this.waterLevelUsine = waterLevelUsine;
-        this.object = object;
+        this.objects = objects;
     }
 
     public long getIdCoffee() {
@@ -111,12 +111,12 @@ public class CoffeeMachine {
         this.statusUsine = statusUsine;
     }
 
-    public Object getObject() {
-        return object;
+    public Objects getObjects() {
+        return objects;
     }
 
-    public void setObject(Object object) {
-        this.object = object;
+    public void setObjects(Objects objects) {
+        this.objects = objects;
     }
 
     public int getWaterLevel() {
@@ -147,7 +147,7 @@ public class CoffeeMachine {
                 ", scheduleCoffeeUsine=" + scheduleCoffeeUsine +
                 ", statusUsine=" + statusUsine +
                 ", waterLevelUsine=" + waterLevelUsine +
-                ", object=" + object +
+                ", object=" + objects +
                 '}';
     }
 }

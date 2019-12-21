@@ -1,6 +1,6 @@
 package com.application.aled.service;
 
-import com.application.aled.entity.Object;
+import com.application.aled.entity.Objects;
 import com.application.aled.entity.Rooms;
 import com.application.aled.repository.ObjectRepository;
 import java.util.List;
@@ -11,7 +11,7 @@ public class ObjectServiceImpl implements ObjectService {
     @Autowired
     ObjectRepository objectRepository;
 
-    public List<Object> getObjectByRoom(Rooms room) {
+    public List<Objects> getObjectByRoom(Rooms room) {
        return objectRepository.findByRooms(room);
     }
 }

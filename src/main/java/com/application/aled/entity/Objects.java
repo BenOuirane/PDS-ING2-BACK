@@ -8,7 +8,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "objects")
-public class Object {
+public class Objects {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,9 +31,9 @@ public class Object {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Rooms rooms;
 
-    public Object() { }
+    public Objects() { }
 
-    public Object(boolean state, String macAddress, String ipAddress, String objectType, Rooms room) {
+    public Objects(boolean state, String macAddress, String ipAddress, String objectType, Rooms room) {
         this.state = state;
         this.macAddress = macAddress;
         this.ipAddress = ipAddress;
