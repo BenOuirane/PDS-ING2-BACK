@@ -1,10 +1,8 @@
 package com.application.aled.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.application.aled.controller.exception.CustomHandler;
-import com.application.aled.service.UserService;
 import com.application.aled.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -69,7 +67,7 @@ public class UserController {
 	}
 
 	@PutMapping(value = "/users/")
-	public List<User> getResidents(@RequestBody String role) {
+	public List<User> getUsersByRole(@RequestBody String role) {
 		System.out.println("Call getResidents");
 
 		List<User> users = userService.getUserByRole(role);
