@@ -8,6 +8,10 @@ import java.util.List;
 
 public interface LampRepository extends CrudRepository<Lamp, Long> {
 
+<<<<<<< Updated upstream
     List<Lamp> getLampByObject(Objects objects);
+=======
+    List<Lamp> findAllByObjects(Objects objects);
+>>>>>>> Stashed changes
 
 }
