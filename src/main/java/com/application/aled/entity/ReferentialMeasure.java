@@ -1,6 +1,8 @@
 package com.application.aled.entity;
 
 
+//this entity will be disabled until for the sprint 2
+
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;

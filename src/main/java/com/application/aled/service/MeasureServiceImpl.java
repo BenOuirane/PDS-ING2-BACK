@@ -17,6 +17,8 @@ import com.application.aled.repository.MeasureRepository;
  * @author ISMAIL EL HAMMOUD
  *
  */
+
+//this impl will be removed
 @Service
 public class MeasureServiceImpl implements MeasureService {
 	@Autowired

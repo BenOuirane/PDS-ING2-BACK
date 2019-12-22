@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.application.aled.entity.Measure;
 import com.application.aled.repository.MeasureRepository;
 
+
+//this controller will be removed
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/api")

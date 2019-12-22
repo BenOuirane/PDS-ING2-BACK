@@ -16,6 +16,7 @@ import com.application.aled.repository.ReferentialResidentRepository;
  * @author ISMAIL EL HAMMOUD
  *
  */
+//this impl will be removed
 @Service
 public class ReferentialResidentServiceImpl implements ReferentialResidentService {
 

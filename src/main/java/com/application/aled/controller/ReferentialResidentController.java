@@ -26,6 +26,8 @@ import com.application.aled.service.ReferentialResidentService;
  *
  */
 
+//this controller will be removed
+
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/api")

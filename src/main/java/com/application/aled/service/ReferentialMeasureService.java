@@ -16,6 +16,8 @@ import com.application.aled.entity.ReferentialMeasure;
 
 
 
+//this service will be removed
+
 
 public interface ReferentialMeasureService {
 	public List<ReferentialMeasure> getAllReferentialMeasures();

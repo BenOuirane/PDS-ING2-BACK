@@ -5,6 +5,8 @@ import org.springframework.stereotype.Repository;
 
 import com.application.aled.entity.Measure;
 
+
+//this repo will be removed
 @Repository
 public interface MeasureRepository extends CrudRepository<Measure, String> {
 

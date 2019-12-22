@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.application.aled.entity.ReferentialMeasure;
 import com.application.aled.service.ReferentialMeasureService;
 
+
+//this controller will be removed
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/api")

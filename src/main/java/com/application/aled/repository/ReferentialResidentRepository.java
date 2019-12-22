@@ -12,6 +12,7 @@ import com.application.aled.entity.ReferentialResident;
  * @author ISMAIL EL HAMMOUD
  *
  */
+//this repo will be removed
 @Repository
 public interface ReferentialResidentRepository extends CrudRepository<ReferentialResident, Integer> {
 	//ReferentialResident findByIdResident(int refResi);

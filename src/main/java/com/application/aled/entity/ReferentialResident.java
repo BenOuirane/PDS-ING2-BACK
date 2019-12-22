@@ -10,6 +10,9 @@ import javax.persistence.Id;
 //import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
+
+//this entity will be removed as discussed with another team member working
+// on the same env
 /* 
 	This entity will be the table of Referential Bracelet
 	Its attributes will be the following columns

@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
-
+//this entity will be disabled until for the sprint 2
 
 /* 
 	This entity will be the table of Measure

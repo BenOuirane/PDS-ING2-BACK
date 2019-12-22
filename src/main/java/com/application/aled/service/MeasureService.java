@@ -8,6 +8,8 @@ import com.application.aled.entity.Measure;
 
 
 
+//this service will be removed
+
 public interface MeasureService {
 
 	public List<Measure> getAllMeasures();

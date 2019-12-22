@@ -15,6 +15,8 @@ import com.application.aled.entity.ReferentialResident;
  */
 
 
+//this service will be removed
+
 public interface ReferentialResidentService {
 	public List<ReferentialResident> getAllReferentialResidents();
 

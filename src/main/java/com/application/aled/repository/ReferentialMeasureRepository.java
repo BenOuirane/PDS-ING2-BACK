@@ -12,6 +12,9 @@ import com.application.aled.entity.ReferentialMeasure;
  * @author ISMAIL EL HAMMOUD
  *
  */
+
+//this repo will be removed
+
 @Repository
 public interface ReferentialMeasureRepository extends CrudRepository<ReferentialMeasure, String> {
 
