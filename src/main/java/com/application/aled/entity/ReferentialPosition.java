@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
 
 
 /* 
@@ -19,7 +18,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 */
 
 
-@XmlRootElement(name="referentialPosition")
 @Entity
 @Table(name = "referential_position")
 public class ReferentialPosition {
