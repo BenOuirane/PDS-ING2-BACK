@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import com.application.aled.entity.ReferentialLocation;
 import com.application.aled.entity.Position;
-import com.application.aled.entity.ReferentialPosition;
 import com.application.aled.repository.LocationRepository;
 
 /**

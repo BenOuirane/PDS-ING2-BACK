@@ -24,7 +24,7 @@ import com.application.aled.entity.Position;
 @RequestMapping("/api")
 public class PositionController {
 	
-	static final Logger logger = LogManager.getLogger(ReferentialPositionController.class.getName());
+	static final Logger logger = LogManager.getLogger(PositionController.class.getName());
 
 	@Autowired
 	PositionService positionService;
