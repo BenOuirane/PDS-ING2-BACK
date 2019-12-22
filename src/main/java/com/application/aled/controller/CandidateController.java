@@ -41,7 +41,7 @@ public class CandidateController {
     @GetMapping("/candidates")
     public List<Candidate> getAllCandidates() {
 
-        System.out.println("Get all Customers...");
+        System.out.println("Get all Candidats...");
 
         List<Candidate> candidates = new ArrayList<>();
         candidateRepository.findAll().forEach(candidates::add);
