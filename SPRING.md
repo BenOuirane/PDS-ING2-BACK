@@ -20,3 +20,8 @@ Pour lancer l'application en local sur Eclipse :
 - Run l'application : voir le tutoriel https://stackoverflow.com/questions/23677808/how-to-run-spring-boot-web-application-in-eclipse-itself
 
 Modification pour test Jenkins
+
+- Nous ne pouvons pas automatiser les builds d'une manière structurée. Selon nos exigences, prédéfinies dans le SDP nous avons anticipé le lancement automatique de build après chaque Push. Or nous ne sommes plus en mesure de le respecter car la version de Git Community(version gratuite) ne supporte pas ce type de fonctionnalités
+
+- Les team-members doivent alors de lancer un build manuel après chaque push
+- D'autres pistes en train de se faire explorer par les différents team-members

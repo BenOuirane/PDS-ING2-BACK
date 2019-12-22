@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Date;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -61,14 +63,45 @@ public class XmlController {
             Date date= new Date();
             long time = date.getTime();
             message.setDateTime(new Timestamp(time));
-            System.out.println(message);
+            System.out.println("message = "+ message);
 
             /*
             We save the new message into table message
              */
-            messageRepository.save(message);
+
+            /**
+             *
+             * Analyse the logic of the message
+             **/
+            boolean isLogic = LogicChecker.check(message);
+            if(!isLogic){
+                System.out.println("there is an logic error");
+                Statement sta = PostgreSQLJDBC.connection.createStatement();
+                sta.executeUpdate("INSERT INTO public.failure("
+                        +"begin_date, mac_address, message)"
+                        +"VALUES ('"+message.getDateTime()+"','"+message.getMac_address()+"' ,'the message is not logic')");
+                return;
+
+
+            }
+
+
+
+            //TODO make a better insert
+
+            /**
+             * insert the message into the database
+             */
+
+
+            Statement sta = PostgreSQLJDBC.connection.createStatement();
+            sta.executeUpdate("INSERT INTO public.messages("
+                    +"date_time, effective_temperature, mac_address, programmed_temperature)"
+                    +"VALUES ('"+message.getDateTime()+"',"+message.getEffective_temperature()+",'"+message.getMac_address()+"' ,"+message.getProgrammed_temperature()+")");
+
+            //messageRepository.save(message);
         }
-        catch (JAXBException e)
+        catch (JAXBException | SQLException e)
         {
             e.printStackTrace();
         }
