@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface ObjectRepository extends CrudRepository<Objects, Long> {
 
-    public List<Objects> findByRooms(Rooms room);
+    List<Objects> findByRooms(Rooms room);
 
 }

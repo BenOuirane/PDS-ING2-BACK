@@ -12,11 +12,8 @@ import org.springframework.stereotype.Service;
 
 import com.application.aled.entity.Residents;
 import com.application.aled.repository.ResidentRepository;
+import org.springframework.transaction.annotation.Transactional;
 
-/**
- * @author ISMAIL EL HAMMOUD
- *
- */
 
 @Service
 public class ResidentServiceImpl implements ResidentService {
@@ -62,8 +59,11 @@ public class ResidentServiceImpl implements ResidentService {
 	}
 
 	@Override
+	@Transactional
 	public Residents getResidentByUser(User user) {
-		return residentRepository.findByUser(user);
+		Residents _resident = residentRepository.findByUser(user);
+		System.out.println("getResidentByUser" + _resident.toString());
+		return _resident;
 	}
 
 }
