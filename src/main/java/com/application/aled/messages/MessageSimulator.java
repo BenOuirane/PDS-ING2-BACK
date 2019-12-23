@@ -26,17 +26,22 @@ public class MessageSimulator {
                 "    <programmed_temperature>200</programmed_temperature>" +
                 "</message>";
 
-        socket = new Socket(InetAddress.getLocalHost(), portNumber);
-        ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
-        oos.writeObject(obj);
+        //socket = new Socket(InetAddress.getLocalHost(), portNumber);
+        //ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+        XmlController xmlController = new XmlController();
+        xmlController.xmlTranslate(obj);
+        //oos.writeObject(obj);
         Thread.sleep(2000);
-        oos.writeObject(obj2);
+        //oos.writeObject(obj2);
+        xmlController.xmlTranslate(obj2);
         Thread.sleep(2000);
-        oos.writeObject(obj3);
+        //oos.writeObject(obj3);
+        xmlController.xmlTranslate(obj3);
 
 
-        oos.close();
-        socket.close();
+
+       // oos.close();
+        //socket.close();
         System.out.println("message is sent");
     }
 

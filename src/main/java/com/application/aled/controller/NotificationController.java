@@ -34,7 +34,7 @@ public class NotificationController {
     }
 
     @PutMapping("/notifications/update")
-    public Notification[] updateNotificationState(@RequestBody User user){
+    public Notification[] updateNotificationsState(@RequestBody User user){
         System.out.println("Call updateNotificationState");
 
         Notification[] _notifications = notificationService.updateStateByReceiver(user);

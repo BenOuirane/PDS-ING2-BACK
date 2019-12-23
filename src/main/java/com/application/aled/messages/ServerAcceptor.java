@@ -12,7 +12,7 @@ import java.sql.DriverManager;
  */
 public class ServerAcceptor {
     public ServerAcceptor() throws IOException {
-        final String chemin = "src/main/resources/logFile.txt";
+        final String chemin = "../logFile.txt";
         final File fichier = new File(chemin);
         writer = new FileWriter(fichier);
     }

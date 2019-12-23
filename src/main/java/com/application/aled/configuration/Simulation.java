@@ -37,7 +37,7 @@ public class Simulation {
         };
         System.out.println("Message sent to the server");
         t.start();
-        t2.start();
+        //t2.start();
         System.err.println("done");
     }
 }

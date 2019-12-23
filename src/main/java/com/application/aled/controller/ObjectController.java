@@ -15,7 +15,7 @@ import java.util.List;
 @RequestMapping("/api")
 public class ObjectController {
 
-    @Autowired
+    //@Autowired
     ObjectServiceImpl objectService;
 
     @PutMapping("/object/list")
