@@ -19,12 +19,8 @@ public class LampServiceImpl implements LampService {
     @Override
     public List<Lamp> getLamp(Objects objects) {
         System.out.println("Getting lamp for object : " + objects);
-<<<<<<< Updated upstream
-        return lampRepository.getLampByObject(objects);
-=======
         List<Lamp> lamps = new ArrayList<>();
         lampRepository.findAllByObjects(objects).forEach(lamps::add);
         return lamps;
->>>>>>> Stashed changes
     }
 }

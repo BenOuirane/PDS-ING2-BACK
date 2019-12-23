@@ -18,10 +18,6 @@ import java.util.List;
 public class ResidentController {
 
     @Autowired
-<<<<<<< Updated upstream
-    private ResidentRepository residentRepository;
-
-=======
     private ResidentServiceImpl residentService;
     /*
 >>>>>>> Stashed changes
