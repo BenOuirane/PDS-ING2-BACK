@@ -12,15 +12,16 @@ import java.sql.*;
 public class LogicChecker {
     public static boolean check(Message message) throws SQLException {
         /*
-        Create a log file
+        Create a log file /home/aled/logFile.txt
          */
-        final String chemin = "src/main/resources/logFile.txt";
+        final String chemin = "/home/aled/logFile.txt";
         final File fichier = new File(chemin);
         final FileWriter writer;
         try {
             writer = ServerAcceptor.writer;
             writer.write("--------------------------------NEW OBJECT TO ANALYSE---------------------------------\n");
             writer.write("We analyse the oven " + message.getMac_address() + "\n");
+            writer.write("Date of the message " + message.getDateTime() + "\n");
 
 
             /**

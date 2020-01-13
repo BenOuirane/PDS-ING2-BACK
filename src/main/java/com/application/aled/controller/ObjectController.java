@@ -15,15 +15,16 @@ import java.util.List;
 @RequestMapping("/api")
 public class ObjectController {
 
-    @Autowired
+    //@Autowired
     ObjectServiceImpl objectService;
 
     @PutMapping("/object/list")
     public List<Objects> getAllObject(@RequestBody Rooms rooms){
         System.out.println("Call createNotification");
-
-        List<Objects> objects = objectService.getObjectByRoom(rooms);
-        return objects;
+        List<Objects> _objects = objectService.getObjectByRoom(rooms);
+        return _objects;
     }
+
+
 
 }

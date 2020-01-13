@@ -2,24 +2,67 @@ package com.application.aled.controller;
 
 import com.application.aled.entity.Residents;
 import com.application.aled.entity.User;
+import com.application.aled.repository.ResidentRepository;
+import com.application.aled.entity.Resident;
 import com.application.aled.service.ResidentService;
+import com.application.aled.service.ResidentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = "*")
+import java.util.Collection;
+import java.util.List;
+
+@CrossOrigin("*")
 @RestController
-@RequestMapping("/api")
+@RequestMapping(value = "/api")
 public class ResidentController {
 
     @Autowired
-    ResidentService residentService;
+    private ResidentServiceImpl residentService;
 
-    @PutMapping("/Resident/singleton")
-    public Residents getResident(@RequestBody User user){
+    @PutMapping(value = "/resident/singleton")
+    public Residents getResident(@RequestBody User user) {
         System.out.println("Call getResident");
-
-         return residentService.getResidentByUser(user);
+        Residents _resident = residentService.getResidentByUser(user);
+        System.out.println("getResident" + _resident);
+        return _resident;
     }
 
+    private ResidentRepository residentRepository;
+    /*
+    public ResidentController(ResidentRepository residentRepository) {
+        super();
+        this.residentRepository = residentRepository;
+        
+    }
+
+    @GetMapping(value = "/resident")
+    Collection<Resident> resident(){
+        return residentRepository.findAll();
+    }
+
+    @GetMapping(value = "/resident/{idResident}")
+    public Resident residentById(@PathVariable(name = "idResident") Long idResident){
+        return residentRepository.findById(idResident).get();
+    }
+
+    @PostMapping(value = "/resident")
+    public Resident saveCategory(@RequestBody Resident res){
+        return residentRepository.save(res);
+    }
+
+    @PutMapping(value = "/resident/{idResident}")
+    public Resident updateCategory(@PathVariable(name = "idResident") Long idResident, @RequestBody Resident res) {
+        res.setIdResident(idResident);
+        return residentRepository.save(res);
+    }
+    */
+
+    @DeleteMapping(value = "/resident/{idResident}")
+    public void deleteCategory(@PathVariable(name = "idResident") Long idResident) {
+        residentRepository.deleteById(idResident);
+    }
 
 }
+
+

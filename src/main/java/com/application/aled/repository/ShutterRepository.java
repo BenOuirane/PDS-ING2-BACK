@@ -1,13 +1,13 @@
 package com.application.aled.repository;
 
+
 import com.application.aled.entity.Objects;
-import com.application.aled.entity.Rooms;
+import com.application.aled.entity.Shutter;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface ObjectRepository extends CrudRepository<Objects, Long> {
+public interface ShutterRepository extends CrudRepository<Shutter, Long> {
 
-    List<Objects> findByRooms(Rooms room);
-
+    List<Shutter> findAllByObjects(Objects objects);
 }

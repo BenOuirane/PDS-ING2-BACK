@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface LampRepository extends CrudRepository<Lamp, Long> {
 
-    List<Lamp> getLampByObject(Objects objects);
+    List<Lamp> findAllByObjects(Objects objects);
 
 }

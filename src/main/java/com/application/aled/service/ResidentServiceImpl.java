@@ -12,11 +12,8 @@ import org.springframework.stereotype.Service;
 
 import com.application.aled.entity.Residents;
 import com.application.aled.repository.ResidentRepository;
+import org.springframework.transaction.annotation.Transactional;
 
-/**
- * @author ISMAIL EL HAMMOUD
- *
- */
 
 @Service
 public class ResidentServiceImpl implements ResidentService {
@@ -24,46 +21,13 @@ public class ResidentServiceImpl implements ResidentService {
 	
 	@Autowired
 	ResidentRepository residentRepository;
-	@Override
-	public List<Residents> getAllResidents() {
-		List<Residents> reslist = new ArrayList<Residents>();
-
-		residentRepository.findAll().forEach(reslist::add);
-		return reslist;
-	}
-
 
 	@Override
-	public void addResident(Residents idResi) {
-		if (idResi == null) {
-			// FIXME: action non autorisee
-
-			return;
-		}
-		residentRepository.save(idResi);
-
-	}
-
-	@Override
-	public void updateResident(Residents idResi) {
-		if (idResi == null) {
-			// FIXME: action non autorisee
-
-			return;
-		}
-		residentRepository.save(idResi);
-
-	}
-
-	@Override
-	public void removeResident(Residents idResi) {
-		residentRepository.delete(idResi);
-
-	}
-
-	@Override
+	@Transactional
 	public Residents getResidentByUser(User user) {
-		return residentRepository.findByUser(user);
+		Residents _resident = residentRepository.findByUser(user);
+		System.out.println("getResidentByUser" + _resident.toString());
+		return _resident;
 	}
 
 }

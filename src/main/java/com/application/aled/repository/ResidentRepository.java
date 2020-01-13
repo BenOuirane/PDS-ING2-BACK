@@ -1,22 +1,11 @@
-/**
- * 
- */
 package com.application.aled.repository;
 
+import com.application.aled.entity.Resident;
+import com.application.aled.entity.Residents;
 import com.application.aled.entity.User;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
 
-import com.application.aled.entity.Residents;
-
-/**
- * @author ISMAIL EL HAMMOUD
- *
- */
-
-@Repository
-public interface ResidentRepository extends CrudRepository<Residents, String> {
-
-	Residents findByUser(User user);
-
+public interface  ResidentRepository extends CrudRepository<Residents,Long> {
+    Residents findByUser(User user);
 }
+

@@ -1,6 +1,9 @@
 package com.application.aled.entity;
 
 import com.application.aled.controller.exception.CustomHandler;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -26,9 +29,11 @@ public class Objects {
     @Column(name = "objectType")
     private String objectType;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    //Many object to one room
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "id_rooms", nullable = true)
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
     private Rooms rooms;
 
     public Objects() { }
@@ -38,9 +43,16 @@ public class Objects {
         this.macAddress = macAddress;
         this.ipAddress = ipAddress;
         this.objectType = objectType;
-        this.rooms = room;
+        this.rooms = rooms;
     }
 
+    public Rooms getRooms() {
+        return rooms;
+    }
+
+    public void setRooms(Rooms rooms) {
+        this.rooms = rooms;
+    }
     public long getId() {
         return id;
     }
@@ -49,7 +61,7 @@ public class Objects {
         this.id = id;
     }
 
-    public boolean isState() {
+    public boolean getState() {
         return state;
     }
 
@@ -77,9 +89,6 @@ public class Objects {
         return objectType;
     }
 
-    public Rooms getRoom() { return rooms;}
-
-    public void setRoom(Rooms room){ this.rooms = room;}
 
     public void setObjectType(String objectType) {
         for (ObjectType object : ObjectType.values()) {
@@ -99,7 +108,7 @@ public class Objects {
                 ", macAddress='" + macAddress + '\'' +
                 ", ipAddress='" + ipAddress + '\'' +
                 ", objectType='" + objectType + '\'' +
-                ", room='" + rooms + '\'' +
+                ", rooms='" + /*rooms + */ '\'' +
                 '}';
     }
 }
