@@ -28,6 +28,11 @@ public class BraceletController {
 		return bracelets;
 	}
 	
-	
+	@GetMapping("/bracelets/byid")
+	public List<Bracelet> findBraceletById() {
+		Bracelet idbracelet = braceletService.findBraceletById();
+		return idbracelet;
+	}
+
 
 }

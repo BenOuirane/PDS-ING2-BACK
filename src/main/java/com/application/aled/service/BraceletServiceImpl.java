@@ -5,6 +5,9 @@ package com.application.aled.service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +30,8 @@ public class BraceletServiceImpl implements BraceletService {
 		braceletRepository.findAll().forEach(idbraceletlist::add);
 		return idbraceletlist;
 	}
+	
+
 
 	@Override
 	public void addBracelet(Bracelet idBrac) {
@@ -44,7 +49,6 @@ public class BraceletServiceImpl implements BraceletService {
 
 	}
 	
-		
 
 	@Override
 	public void updateBracelet(Bracelet idBrac) {
@@ -63,4 +67,14 @@ public class BraceletServiceImpl implements BraceletService {
 		
 	}
 
+
+	@Override
+	public Bracelet getBraceletById(Bracelet idBrac) {
+		Bracelet bracelet=  braceletRepository.findBraceletById(idBrac);
+		return bracelet;
+		
+	}
+
+	
+	
 }
