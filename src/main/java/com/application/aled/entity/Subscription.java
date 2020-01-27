@@ -1,14 +1,10 @@
 package com.application.aled.entity;
 
-import java.util.Arrays;
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "subscriptions")
@@ -21,11 +17,17 @@ public class Subscription {
 	@Column(name = "name")
 	private String name;
 
-	@Column(name = "objects")
-	private Objects[] objects;
+	@ManyToOne(fetch = FetchType.LAZY, optional = true)
+	@JoinColumn(name = "id_objects", nullable = true)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	@JsonIgnore
+	private Objects objects;
 
-	@Column(name = "services")
-	private Services[] services;
+	@ManyToOne(fetch = FetchType.LAZY, optional = true)
+	@JoinColumn(name = "id_services", nullable = true)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	@JsonIgnore
+	private Services services;
 
 	@Column(name = "price")
 	private int price;
@@ -34,7 +36,7 @@ public class Subscription {
 
 	}
 
-	public Subscription(String name, Objects[] objects, Services[] services, int price) {
+	public Subscription(String name, Objects objects, Services services, int price) {
 		super();
 		this.name = name;
 		this.objects = objects;
@@ -66,26 +68,26 @@ public class Subscription {
 		this.price = price;
 	}
 
-	public Objects[] getObject() {
+	public Objects getObject() {
 		return objects;
 	}
 
-	public void setObject(Objects[] objects) {
+	public void setObject(Objects objects) {
 		this.objects = objects;
 	}
 
-	public Services[] getService() {
+	public Services getService() {
 		return services;
 	}
 
-	public void setService(Services[] services) {
+	public void setService(Services services) {
 		this.services = services;
 	}
 
 	@Override
 	public String toString() {
-		return "Subscription [id=" + id + ", name=" + name + ", price=" + price + ", object=" + Arrays.toString(objects)
-				+ ", service=" + Arrays.toString(services) + "]";
+		return "Subscription [id=" + id + ", name=" + name + ", price=" + price + ", object=" + objects
+				+ ", service=" + services + "]";
 	}
 
 }
