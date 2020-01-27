@@ -14,5 +14,5 @@ public interface BraceletRepository extends CrudRepository<Bracelet, String> {
 	//public Bracelet save(Bracelet idbracelet);
 	//public void findByRefBracId(Bracelet idbracelet);
 	//List<Bracelet> findByWipDate(Timestamp lastsentdata);
-	
+	public Bracelet findBraceletById(Bracelet idbracelet);
 }
