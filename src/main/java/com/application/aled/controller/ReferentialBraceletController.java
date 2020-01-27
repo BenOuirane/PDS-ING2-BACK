@@ -33,9 +33,7 @@ public class ReferentialBraceletController {
 		return refbracelets;
 	}
 	
-	/// the following method will allow us to generate several referential bracelet
-	// it will help us to mock data
-	//@GetMapping("/generate_referential_bracelet")
+	
 	
 
 	
