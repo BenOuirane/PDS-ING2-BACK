@@ -7,7 +7,13 @@ import com.application.aled.entity.MedicalMeasurementType;
 import com.application.aled.service.BraceletService;
 import com.application.aled.service.MedicalMeasurementTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
+@Component //bean injectable
 public class MedicalMeasurementDTOConvertor {
 
     @Autowired
@@ -24,7 +30,16 @@ public class MedicalMeasurementDTOConvertor {
         MedicalMeasurementType medicalMeasurementType= medicalMeasurementTypeService.getMedicalMeasurementTypeById(medicalMeasurementDTO.getMedicalMeasurementType_id());
         medicalMeasurement.setMedicalMeasurementType(medicalMeasurementType);
 
-        Bracelet bracelet= braceletService.g
+        Bracelet bracelet= braceletService.getBraceletById(medicalMeasurementDTO.getBracelet_id());
+        medicalMeasurement.setBracelet(bracelet);
+
+        LocalDate currentDate = LocalDate.now();
+        LocalTime currentTime = LocalTime.now();
+        LocalDateTime currentDateAndTime = LocalDateTime.of(currentDate, currentTime);
+
+        medicalMeasurement.setMeasurementDateAndTime(currentDateAndTime);
+
+        return medicalMeasurement;
     }
 
 }
