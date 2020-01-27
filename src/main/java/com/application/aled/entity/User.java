@@ -11,13 +11,6 @@ import javax.persistence.Table;
 import com.application.aled.controller.exception.CustomHandler;
 import com.application.aled.entity.RoleType;
 
-/*
- * The class 'user' has three attributes 
- * will become the table 'users' with three columns :
- * - Id --> This will automaticaly be a sequence on our database
- * - Firstname
- * - Lastname
- */
 @Entity
 @Table(name = "users")
 public class User {
@@ -25,12 +18,6 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-
-	@Column(name = "firstname")
-	private String firstname;
-
-	@Column(name = "lastname")
-	private String lastname;
 
 	@Column(name = "username", unique = true)
 	private String username;
@@ -45,9 +32,7 @@ public class User {
 
 	}
 
-	public User(String firstname, String lastname, String username, String password, String role) {
-		this.firstname = firstname;
-		this.lastname = lastname;
+	public User(String username, String password, String role) {
 		this.username = username;
 		this.password = password;
 		this.role = role;
@@ -65,34 +50,6 @@ public class User {
 	 */
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	/**
-	 * @return the firstname
-	 */
-	public String getFirstname() {
-		return firstname;
-	}
-
-	/**
-	 * @param firstname the firstname to set
-	 */
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
-	}
-
-	/**
-	 * @return the lastname
-	 */
-	public String getLastname() {
-		return lastname;
-	}
-
-	/**
-	 * @param lastname the lastname to set
-	 */
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
 	}
 
 	/**
@@ -147,7 +104,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User{" + "id=" + id + ", firstname='" + firstname + '\'' + ", lastname='" + lastname + '\''
+		return "User{" + "id=" + id + '\''
 				+ ", username='" + username + '\'' + ", password='" + password + '\'' + ", role='" + role + '\'' + '}';
 	}
 }
