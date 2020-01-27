@@ -13,7 +13,7 @@ public interface BraceletService {
 
 	public List<Bracelet> getAllBracelets();
 	
-	Bracelet getBraceletById(Bracelet idBrac);
+	Bracelet getBraceletById(Long idBrac);
 	
 	void addBracelet(Bracelet idBrac);
 

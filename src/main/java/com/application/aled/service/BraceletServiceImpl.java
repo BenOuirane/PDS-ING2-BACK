@@ -69,8 +69,13 @@ public class BraceletServiceImpl implements BraceletService {
 
 
 	@Override
-	public Bracelet getBraceletById(Bracelet idBrac) {
+	/*public Bracelet getBraceletById(Bracelet idBrac) {
 		Bracelet bracelet=  braceletRepository.findBraceletById(idBrac);
+		return bracelet;
+		
+	}*/
+	public Bracelet getBraceletById(Long idBrac) {
+		Bracelet bracelet = braceletRepository.findBraceletById(idBrac);
 		return bracelet;
 		
 	}
