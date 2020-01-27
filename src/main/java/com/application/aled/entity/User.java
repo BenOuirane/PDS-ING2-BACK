@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.application.aled.controller.exception.CustomHandler;
 import com.application.aled.entity.RoleType;
 
 /*
@@ -133,11 +134,15 @@ public class User {
 	 * @param role the password to set
 	 */
 	public void setRole(String role) {
-		if (role != RoleType.values().toString()) {
-			throw new ClassCastException();
-		} else {
-			this.role = role;
+		for (RoleType roleType : RoleType.values()) {
+			if(role.equals(roleType.name())){
+				this.role = role;
+				return;
+			}
+
+		
 		}
+		throw new CustomHandler("RoleType not respected");
 	}
 
 	@Override

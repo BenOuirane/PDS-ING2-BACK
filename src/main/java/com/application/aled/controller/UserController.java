@@ -1,16 +1,15 @@
 package com.application.aled.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.application.aled.controller.exception.CustomHandler;
-import com.application.aled.service.UserService;
 import com.application.aled.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.application.aled.entity.User;
 import com.application.aled.repository.UserRepository;
+
 
 /*
  * Annotation Cross Origins :
@@ -27,8 +26,8 @@ import com.application.aled.repository.UserRepository;
  * Here, we have http://{localhost} or {172.31.254.61}/api/...
  */
 
-@RestController
 @CrossOrigin(origins = "*")
+@RestController
 @RequestMapping("/api")
 public class UserController {
 
@@ -38,54 +37,43 @@ public class UserController {
 	@Autowired
 	UserServiceImpl userService;
 
-	/*
-	 * Annotation GetMapping : GetMapping gives us the route to get to the
-	 * getAllUsers() function : Here, we have http://{localhost} or
-	 * {172.31.254.61}/api/users
-	 */
 	@GetMapping("/users")
 	public List<User> getAllUsers() {
-		System.out.println("Get all Users...");
+		System.out.println("Call getAllUsers");
 
 		List<User> users = userService.getUsers();
 
 		return users;
 	}
 
-	/*
-	 * Annotation @PostMapping :
-	 * 
-	 * @PostMapping gives us the route to get to the postUser() function : Here, we
-	 * have http://{localhost} or {172.31.254.61}/api/users/create
-	 */
-
-	/*
-	 * Annotation @RequestBody : With this annotation, we say that our request (from
-	 * the fronend app) will have a user in his body and that it will be our
-	 * parameter for this function
-	 */
 	@PostMapping(value = "/users/create")
 	public User postUser(@RequestBody User user) {
-		System.out.println("Adding a user...");
-
-		User _user = repository.save(new User(user.getFirstname(), user.getLastname(), user.getUsername(),
-				user.getPassword(), user.getRole()));
+		User _user = repository.save(new User(user.getFirstname(), user.getLastname(), user.getUsername(), user.getPassword(), user.getRole()));
 
 		return _user;
 	}
 
 	@PutMapping(value = "/user/login")
 	public User loginUser(@RequestBody User user) throws Exception {
-		System.out.println("Login a user...");
+		System.out.println("Call loginUser");
 
 		User _user = userService.userLogin(user.getUsername(), user.getPassword());
 
-		if (_user == null) {
+		if(_user == null){
 			throw new CustomHandler("User not found");
 		} else {
-			System.out.println(_user.toString());
 			return _user;
 		}
 	}
 
+	@PutMapping(value = "/users/")
+	public List<User> getUsersByRole(@RequestBody String role) {
+		System.out.println("Call getResidents");
+
+		List<User> users = userService.getUserByRole(role);
+
+		return users;
+	}
+
 }
+

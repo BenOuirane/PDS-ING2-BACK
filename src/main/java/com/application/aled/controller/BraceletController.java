@@ -18,7 +18,8 @@ public class BraceletController {
 
 	@Autowired
 	BraceletService braceletService;
-	@GetMapping("/bracelets")
+	
+	@GetMapping("/bracelets/list")
 	public List<Bracelet> getAllBracelets() {
 		System.out.println("Get all Bracelets...");
 
