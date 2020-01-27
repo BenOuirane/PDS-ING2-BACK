@@ -48,7 +48,7 @@ public class UserController {
 
 	@PostMapping(value = "/users/create")
 	public User postUser(@RequestBody User user) {
-		User _user = repository.save(new User(user.getFirstname(), user.getLastname(), user.getUsername(), user.getPassword(), user.getRole()));
+		User _user = repository.save(new User(user.getUsername(), user.getPassword(), user.getRole()));
 
 		return _user;
 	}
