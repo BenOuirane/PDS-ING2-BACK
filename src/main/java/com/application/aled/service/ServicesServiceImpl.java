@@ -3,10 +3,12 @@ package com.application.aled.service;
 import com.application.aled.entity.Services;
 import com.application.aled.repository.ServicesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class ServicesServiceImpl implements ServicesService {
 
     @Autowired

@@ -7,21 +7,17 @@ import com.application.aled.repository.ObjectRepository;
 import com.application.aled.repository.ServicesRepository;
 import com.application.aled.repository.SubscriptionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class SubscriptionServiceImpl implements SubscriptionService {
 
     @Autowired
     SubscriptionRepository subscriptionRepository;
-
-    @Autowired
-    ServicesRepository servicesRepository;
-
-    @Autowired
-    ObjectRepository objectRepository;
 
     @Override
     public Subscription getSubscription(String name) {
@@ -38,11 +34,11 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         return subscriptions;
     }
 
-    @Transactional
+    //@Transactional
     public List<Subscription> getSubscriptionByService(Services service) {
-        List<Subscription> subscriptions;
-        Services serviceFound = servicesRepository.findByName(service.getName());
-        subscriptions = subscriptionRepository.findByService(service);
+        System.out.println("Finding subscriptions with service : " + service);
+        List<Subscription> subscriptions = new ArrayList<>();
+        subscriptionRepository.findByServices(service).forEach(subscriptions::add);
 
         System.out.println("Subscription by service : " + subscriptions);
         return subscriptions;
@@ -50,10 +46,11 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 
     @Transactional
     public List<Subscription> getSubscriptionByObject(Objects object) {
-        List<Subscription> subscriptions;
-        subscriptions = subscriptionRepository.findByObject(object);
+        System.out.println("Finding subscriptions with object : " + object);
+        List<Subscription> subscriptions = new ArrayList<>();
+        subscriptionRepository.findByObjects(object).forEach(subscriptions::add);
 
-        System.out.println("Subscription by service : " + subscriptions);
+        System.out.println("Subscription by object : " + subscriptions);
         return subscriptions;
     }
 

@@ -16,9 +16,6 @@ import java.util.List;
 public class SubscriptionController {
 
     @Autowired
-    SubscriptionRepository subscriptionRepository;
-
-    @Autowired
     SubscriptionServiceImpl subscriptionService;
 
     @GetMapping("/subscription")
@@ -32,15 +29,15 @@ public class SubscriptionController {
     @PutMapping("/subscriprion/list")
     public Subscription getSubscription(String name){
         System.out.println("Call getSubscription");
-        Subscription subscription = subscriptionRepository.findByName(name);
+        Subscription subscription = subscriptionService.getSubscription(name);
 
         return subscription;
     }
 
     @PutMapping("/subscription/service")
-    public List<Subscription> getSubscriptionByService(@RequestBody Services service){
+    public List<Subscription> getSubscriptionByService(@RequestBody Services services){
         System.out.println("Call getSubscriptionByService");
-        List<Subscription> subscriptions = subscriptionService.getSubscriptionByService(service);
+        List<Subscription> subscriptions = subscriptionService.getSubscriptionByService(services);
 
         return subscriptions;
     }

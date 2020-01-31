@@ -11,8 +11,8 @@ public interface SubscriptionRepository extends CrudRepository<Subscription, Lon
 
     Subscription findByName(String name);
 
-    List<Subscription> findByService(Services service);
+    List<Subscription> findByServices(Services service);
 
-    List<Subscription> findByObject(Objects Object);
+    List<Subscription> findByObjects(Objects object);
 
 }
