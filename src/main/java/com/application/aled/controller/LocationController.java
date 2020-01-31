@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.application.aled.controller.exception.CustomHandler;
-import com.application.aled.entity.Position;
 import com.application.aled.entity.ReferentialLocation;
 import com.application.aled.service.LocationService;
 

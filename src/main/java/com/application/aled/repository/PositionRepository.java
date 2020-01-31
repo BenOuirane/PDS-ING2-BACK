@@ -5,10 +5,10 @@ import java.time.LocalDateTime;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import com.application.aled.entity.Position;
 
 @Repository
-public interface PositionRepository extends CrudRepository<Position, Integer> {
+public interface PositionRepository{} 
+ 	//extends CrudRepository<Position, Integer> 
 
 	//@SuppressWarnings("unchecked")
 	//public Position save(Position position);
@@ -18,4 +18,4 @@ public interface PositionRepository extends CrudRepository<Position, Integer> {
    // List<Position> findBy(String n);
    // List<Position> 
 
-}
+

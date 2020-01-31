@@ -17,13 +17,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.application.aled.controller.exception.CustomHandler;
-import com.application.aled.entity.Position;
 
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/api")
 public class PositionController {
-	
+	/*
 	static final Logger logger = LogManager.getLogger(PositionController.class.getName());
 
 	@Autowired
@@ -72,7 +71,7 @@ public class PositionController {
 		logger.info("Positions were generated into position table...");
 		return ResponseEntity.ok().build();
 	}
-	
+	*/
 	
 	
 

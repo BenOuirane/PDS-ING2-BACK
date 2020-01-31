@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.application.aled.entity.ReferentialLocation;
-import com.application.aled.entity.Position;
 import com.application.aled.repository.LocationRepository;
 
 /**
