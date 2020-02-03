@@ -40,6 +40,23 @@ public class Resident implements Serializable {
 
 	public Resident() {
 	}
+	public Resident(String firstName, String lastName,  int age, Rooms room, User user, Residence residence, MedicalFolder medicalFolder){
+		this.firstName =firstName;
+		this.lastName = lastName;
+		this.age =age;
+		this.room = room;
+		this.user = user;
+		this.residence = residence;
+		this.medicalFolder = medicalFolder;
+	}
+
+	public Resident(String firstName, String lastName,  int age, Rooms room, User user){
+		this.firstName =firstName;
+		this.lastName = lastName;
+		this.age =age;
+		this.room = room;
+		this.user = user;
+	}
 
 	public Subscription getSubscription() {
 		return subscription;
