@@ -26,7 +26,7 @@ public class SubscriptionController {
         return subscriptions;
     }
 
-    @PutMapping("/subscriprion/list")
+    @PutMapping("/subscription/")
     public Subscription getSubscription(String name){
         System.out.println("Call getSubscription");
         Subscription subscription = subscriptionService.getSubscription(name);
