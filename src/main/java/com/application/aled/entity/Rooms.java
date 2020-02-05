@@ -17,7 +17,6 @@ public class Rooms {
     private int roomNumber;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "rooms")
-
     private List<Objects> objects;
 
     public Rooms() {
@@ -56,6 +55,7 @@ public class Rooms {
         return "Rooms{" +
                 "idRoom=" + idRoom +
                 ", roomNumber=" + roomNumber +
+                ", objects=" + objects +
                 '}';
     }
 }
