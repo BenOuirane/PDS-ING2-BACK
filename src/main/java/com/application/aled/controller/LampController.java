@@ -26,7 +26,8 @@ public class LampController {
 
     @PutMapping("/lamp/updateParam")
     public boolean updateLampes(@RequestBody Lamp lamp){
-        System.out.println("Call updateLampes");
+        System.out.println(lamp.getObjects().getRooms() + "rooms");
+        System.out.println("Call updateLampes :" + lamp.toString());
         return lampService.updateLamp(lamp);
     }
 
