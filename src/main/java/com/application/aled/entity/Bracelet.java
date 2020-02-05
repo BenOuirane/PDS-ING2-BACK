@@ -87,5 +87,7 @@ public class Bracelet {
 
 	public Bracelet() { }
 	
+	
+	//TODO add PK and FK 
 
 }

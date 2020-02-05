@@ -30,4 +30,6 @@ public class Area {
 	public Area() {}
 	
 	
+	//TODO add PK and FK 
+	
 }
