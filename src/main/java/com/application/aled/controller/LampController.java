@@ -11,7 +11,7 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api")
-public class LampControlller {
+public class LampController {
 
     @Autowired
     LampServiceImpl lampService;
@@ -26,7 +26,7 @@ public class LampControlller {
 
     @PutMapping ("/lamp/updateParam")
     public boolean updateLampes(@RequestBody Lamp lamp){
-        System.out.println("Call controller.updateLampes");
+        System.out.println("Call updateLampes");
         return lampService.updateLamp(lamp);
     }
 
