@@ -86,6 +86,11 @@ public class Bracelet {
 	}
 
 	public Bracelet() { }
+
+	public Bracelet(long id, long mcAddress){
+		this.id = id;
+		this.mcAddress = mcAddress;
+	}
 	
 
 }

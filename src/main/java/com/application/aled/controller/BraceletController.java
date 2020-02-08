@@ -29,9 +29,9 @@ public class BraceletController {
 	}
 	
 	@GetMapping("/bracelets/byid")
-	public List<Bracelet> findBraceletById() {
-		Bracelet idbracelet = braceletService.findBraceletById();
-		return idbracelet;
+	public Bracelet findBraceletById(Long id) {
+		Bracelet idbracelet = braceletService.getBraceletById(id);
+		return  idbracelet;
 	}
 
 

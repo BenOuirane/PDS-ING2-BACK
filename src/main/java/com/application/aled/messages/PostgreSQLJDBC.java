@@ -15,8 +15,8 @@ public class PostgreSQLJDBC {
         try {
             Class.forName("org.postgresql.Driver");
             connection = DriverManager //10.1.2.2:5432  172.31.254.61:5433
-                    .getConnection("jdbc:postgresql://172.31.254.61:5433/application_test",
-                            "postgres", "root");
+                    .getConnection("jdbc:postgresql://localhost:5432/application_test",
+                            "postgres", "admin");
         } catch (Exception e) {
             e.printStackTrace();
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
