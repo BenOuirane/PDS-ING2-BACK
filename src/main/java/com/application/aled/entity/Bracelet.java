@@ -1,14 +1,13 @@
 package com.application.aled.entity;
 
 import java.time.LocalDateTime;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
+import javax.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
@@ -89,5 +88,10 @@ public class Bracelet {
 	
 	
 	//TODO add PK and FK 
-
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name= "id_resident", unique = true )
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	@JsonIgnore
+	private Resident residents;
+	
 }

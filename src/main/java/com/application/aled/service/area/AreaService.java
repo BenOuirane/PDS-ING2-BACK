@@ -1,4 +1,4 @@
-package com.application.aled.service;
+package com.application.aled.service.area;
 import com.application.aled.entity.Area;
 
 import java.util.List;

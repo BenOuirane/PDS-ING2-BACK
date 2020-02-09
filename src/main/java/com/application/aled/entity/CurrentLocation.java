@@ -5,70 +5,53 @@ package com.application.aled.entity;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-
+import javax.persistence.*;
 /**
  * @author ISMAIL EL HAMMOUD
  *
  */
+
+
+
+
 @Entity
 @Table(name = "current_location")
 public class CurrentLocation  implements Serializable {
 
+
+	
+	/*@ManyToOne(fetch = FetchType.LAZY, optional = true)
+	@JoinColumn(name = "id_bracelet", nullable = true)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	@JsonIgnore
+	private Bracelet bracelets;*/
+	
+	
 	@Id
-	@Column(name = "id_bracelet")
-	private int id_bracelet;
+    @ManyToOne
+    @JoinColumn
+    private Bracelet bracelets;
 	
+	 @Id
+	 @ManyToOne
+	 @JoinColumn
+	 private Area areas;
 	
-	@Column(name = "date")
-	private LocalDateTime date;
+	 private LocalDateTime 	crossDate;
+
+	/*@ManyToOne(fetch = FetchType.LAZY, optional = true)
+	@JoinColumn(name = "code_area", nullable = true)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	@JsonIgnore
+	private Area areas;*/
 	
-	
-	@Column(name = "id_location")
-	private int id_location;
-	
-	public CurrentLocation(int id_bracelet, LocalDateTime date, int id_location) {
+	public CurrentLocation(Bracelet bracelets, LocalDateTime crossDate, Area areas) {
 		super();
-		this.id_bracelet = id_bracelet;
-		this.date = date;
-		this.id_location = id_location;
+		this.bracelets = bracelets;
+		this.crossDate = crossDate;
+		this.areas= areas;
+		
 	}
 	public CurrentLocation(){}
-
-	@Override
-	public String toString() {
-		return "CurrentLocation [id_bracelet=" + id_bracelet + ", date=" + date + ", id_location=" + id_location + "]";
-	}
-
-	public int getId_bracelet() {
-		return id_bracelet;
-	}
-
-	public void setId_bracelet(int id_bracelet) {
-		this.id_bracelet = id_bracelet;
-	}
-
-	public LocalDateTime getDate() {
-		return date;
-	}
-
-	public void setDate(LocalDateTime date) {
-		this.date = date;
-	}
-
-	public int getId_location() {
-		return id_location;
-	}
-
-	public void setId_location(int id_location) {
-		this.id_location = id_location;
-	}
-
 	
 }

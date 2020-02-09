@@ -1,4 +1,4 @@
-package com.application.aled.service;
+package com.application.aled.service.bracelet;
 
 import java.util.List;
 

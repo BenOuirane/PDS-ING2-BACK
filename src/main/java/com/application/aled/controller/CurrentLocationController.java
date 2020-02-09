@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.application.aled.controller.exception.CustomHandler;
 import com.application.aled.entity.CurrentLocation;
-import com.application.aled.service.CurrentLocationService;
+import com.application.aled.service.location.CurrentLocationService;
 
 /**
  * @author ISMAIL EL HAMMOUD
@@ -57,7 +57,7 @@ public class CurrentLocationController {
 			}
 	}
 
-	@RequestMapping(value = "/generate_currentlocations", method = RequestMethod.POST)
+	/*@RequestMapping(value = "/generate_currentlocations", method = RequestMethod.POST)
 	public ResponseEntity<Void> createDataMock() {
 		System.out.println("generating locations");
 
@@ -65,10 +65,9 @@ public class CurrentLocationController {
 			CurrentLocation currentlocation = new CurrentLocation();
 			currentlocation.setId_bracelet(i);
 			currentlocation.setDate(LocalDateTime.now());
-			currentlocation.setId_location(i+1);
 			currentLocationService.addLocation(currentlocation);
 		}
 		return ResponseEntity.ok().build();
 			
-	}
+	}*/
 }

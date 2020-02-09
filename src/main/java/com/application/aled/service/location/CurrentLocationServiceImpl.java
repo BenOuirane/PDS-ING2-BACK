@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.application.aled.service;
+package com.application.aled.service.location;
 
 import java.util.ArrayList;
 import java.util.List;

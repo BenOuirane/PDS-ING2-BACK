@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.application.aled.entity.ReferentialBracelet;
-import com.application.aled.service.ReferentialBraceletService;
+import com.application.aled.service.referential.bracelet.ReferentialBraceletService;
 
 /**
  * @author ISMAIL EL HAMMOUD
@@ -26,6 +26,8 @@ public class ReferentialBraceletController {
 
 	@GetMapping("/Referential_Bracelet")
 	public List<ReferentialBracelet> getAllReferentialBracelet() {
+		//TODO remove sysout and add logs
+
 		System.out.println("Get all Referential Measures...");
 
 		List<ReferentialBracelet> refbracelets = referentialBraceletService.getAllReferentialBracelets();

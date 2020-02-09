@@ -1,4 +1,4 @@
-package com.application.aled.service;
+package com.application.aled.service.area;
 
 import java.util.ArrayList;
 import java.util.List;

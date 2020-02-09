@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.application.aled.entity.Bracelet;
-import com.application.aled.service.BraceletService;
+import com.application.aled.service.bracelet.BraceletService;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -21,6 +21,7 @@ public class BraceletController {
 	
 	@GetMapping("/bracelets/list")
 	public List<Bracelet> getAllBracelets() {
+		//TODO remove sysout and add logs
 		System.out.println("Get all Bracelets...");
 
 		List<Bracelet> bracelets = braceletService.getAllBracelets();
