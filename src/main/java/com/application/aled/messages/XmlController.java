@@ -5,7 +5,6 @@ import com.application.aled.repository.MessageRepository;
 import com.application.aled.service.MessageServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.SQLException;
@@ -73,7 +72,7 @@ public class XmlController {
              *
              * Analyse the logic of the message
              **/
-            boolean isLogic = LogicChecker.check(message);
+            boolean isLogic = LogicCheckerController.check(message);
             if(!isLogic){
                 System.out.println("there is an logic error");
                 Statement sta = PostgreSQLJDBC.connection.createStatement();

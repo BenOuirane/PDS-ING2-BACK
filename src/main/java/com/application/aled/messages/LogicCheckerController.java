@@ -1,15 +1,30 @@
 package com.application.aled.messages;
 
-import com.application.aled.configuration.Simulation;
 import com.application.aled.entity.Message;
+import com.application.aled.entity.Objects;
+import com.application.aled.repository.MessageRepository;
+import com.application.aled.service.MessageService;
+import com.application.aled.service.MessageServiceImpl;
+import com.application.aled.service.ObjectService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.*;
+import java.util.List;
 
-public class LogicChecker {
+@Controller
+public class LogicCheckerController {
+    @Autowired
+    MessageRepository messageRepository;
+    @Autowired
+    MessageServiceImpl messageService;
+    @Autowired
+    ObjectService objectService;
+
+
     public static boolean check(Message message) throws SQLException {
         /*
         Create a log file /home/aled/logFile.txt
@@ -18,7 +33,7 @@ public class LogicChecker {
         final File fichier = new File(chemin);
         final FileWriter writer;
         try {
-            writer = ServerAcceptor.writer;
+            writer = ServerAcceptor.fileWriter;
             writer.write("--------------------------------NEW OBJECT TO ANALYSE---------------------------------\n");
             writer.write("We analyse the oven " + message.getMac_address() + "\n");
             writer.write("Date of the message " + message.getDateTime() + "\n");
@@ -80,5 +95,10 @@ public class LogicChecker {
 
         }
         return true;
+    }
+    public void waitingTimeChecker(){
+       List<Message> messageList = messageService.getMessages();
+       List<Objects> objectsList = objectService.getObjectsByState(true);
+
     }
 }
