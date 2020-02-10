@@ -30,15 +30,15 @@ public class Objects {
     private String objectType;
 
     //Many object to one room
-    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @ManyToOne(fetch = FetchType.EAGER, optional = true)
     @JoinColumn(name = "id_rooms", nullable = true)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
+    //@JsonIgnore
     private Rooms rooms;
 
     public Objects() { }
 
-    public Objects(boolean state, String macAddress, String ipAddress, String objectType, Rooms room) {
+    public Objects(boolean state, String macAddress, String ipAddress, String objectType, Rooms rooms) {
         this.state = state;
         this.macAddress = macAddress;
         this.ipAddress = ipAddress;
@@ -108,7 +108,7 @@ public class Objects {
                 ", macAddress='" + macAddress + '\'' +
                 ", ipAddress='" + ipAddress + '\'' +
                 ", objectType='" + objectType + '\'' +
-                ", rooms='" + /*rooms + */ '\'' +
+                ", rooms='" + rooms +  '\'' +
                 '}';
     }
 }

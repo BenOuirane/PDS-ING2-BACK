@@ -18,9 +18,8 @@ public class ShutterController {
 
     @PutMapping("/shutter/list")
     public List<Shutter> getShutter(@RequestBody Objects objects){
-        System.out.println("Call getShutter" + objects);
         List<Shutter> shutters =  shutterService.getShutter(objects);
-        System.out.println("Call getShutter 2 " + shutters);
+        System.out.println("Call getShutter " + shutters);
         return shutters;
 
     }

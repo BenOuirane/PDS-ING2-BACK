@@ -27,12 +27,9 @@ public class ObjectServiceImpl implements ObjectService {
     RoomRepository roomRepository;
 
 
-    @Transactional
     public List<Objects> getObjectByRoom(Rooms room) {
        List <Objects> objects = new ArrayList<Objects>();
-       Rooms roomFound = roomRepository.findById(room.getIdRoom()).orElse(room);
-       objects = objectRepository.findByRooms(room);
-
+       objectRepository.findByRooms(room).forEach(objects::add);
        System.out.println("getObjectByRoom" + objects);
        return objects;
     }
