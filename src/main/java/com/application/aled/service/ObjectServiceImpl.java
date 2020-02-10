@@ -34,5 +34,11 @@ public class ObjectServiceImpl implements ObjectService {
        return objects;
     }
 
+    public List<Objects> getObjectByState(boolean state) {
+        List <Objects> objects = new ArrayList<Objects>();
+        objectRepository.findByState(state).forEach(objects::add);
+        System.out.println("getObjectByRoom" + objects);
+        return objects;
+    }
 
 }
