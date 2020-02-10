@@ -1,6 +1,10 @@
 package com.application.aled.entity;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "profil")
@@ -19,6 +23,23 @@ public class Profil {
 
     @Column(name = "typeProfil2")
     private String typeProfil2;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_services", nullable = true)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    //@JsonIgnore
+    private List<Objects> objects;
+
+    public Profil(){
+
+    }
+
+    public Profil(String name, String typeProfil1, String typeProfil2, List<Objects> objects) {
+        this.name = name;
+        this.typeProfil1 = typeProfil1;
+        this.typeProfil2 = typeProfil2;
+        this.objects = objects;
+    }
 
     public long getId() {
         return id;
@@ -60,6 +81,14 @@ public class Profil {
                 return;
             }
         }
+    }
+
+    public List<Objects> getObjects() {
+        return objects;
+    }
+
+    public void setObjects(List<Objects> objects) {
+        this.objects = objects;
     }
 
     @Override
