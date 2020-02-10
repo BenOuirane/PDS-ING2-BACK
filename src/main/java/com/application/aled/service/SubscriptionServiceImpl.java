@@ -34,7 +34,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         return subscriptions;
     }
 
-    //@Transactional
+    @Transactional
     public List<Subscription> getSubscriptionByService(Services service) {
         System.out.println("Finding subscriptions with service : " + service);
         List<Subscription> subscriptions = new ArrayList<>();

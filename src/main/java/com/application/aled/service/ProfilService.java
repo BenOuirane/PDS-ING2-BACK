@@ -1,8 +1,12 @@
 package com.application.aled.service;
 
+import com.application.aled.entity.Objects;
 import com.application.aled.entity.Profil;
+import org.springframework.data.repository.CrudRepository;
+
+import java.util.List;
 
 public interface ProfilService {
 
-    public Profil getObject(String typeProfil1);
+    List<Profil> getProfilByObject(Objects object);
 }
