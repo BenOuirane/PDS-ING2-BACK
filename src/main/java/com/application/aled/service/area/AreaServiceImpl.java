@@ -3,22 +3,21 @@ package com.application.aled.service.area;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.application.aled.entity.Area;
 import com.application.aled.repository.AreaRepository;
+import com.application.aled.repository.CurrentAreaRepository;
 
 public class AreaServiceImpl implements AreaService {
-
+	@Autowired
+	AreaRepository areaRepository;
+	
 	@Override
 	public List<Area> getAllAreas() {
 		List<Area> arealist = new ArrayList<Area>();
-		//AreaRepository.findAll();
-		return null;
-	}
-
-	@Override
-	public Area getAreaByName(String name) {
-		// TODO Auto-generated method stub
-		return null;
+		areaRepository.findAll().forEach(arealist::add);
+		return arealist;
 	}
 
 	@Override
@@ -29,14 +28,24 @@ public class AreaServiceImpl implements AreaService {
 
 	@Override
 	public void updateArea(Area area) {
-		// TODO Auto-generated method stub
+		if (area == null) {
+			// FIXME: action non autorisee
+			return;
+		}
+		areaRepository.save(area);
+
+	}
+		
+	@Override
+	public void removeArea(Area area) {
+		areaRepository.delete(area);
 		
 	}
 
 	@Override
-	public void removeArea(Area area) {
+	public Area getAreasById(int code) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 }

@@ -6,7 +6,7 @@ import java.util.List;
 public interface AreaService {
 	
 	public List<Area> getAllAreas();
-	public Area getAreaByName(String name);
+	public Area getAreasById(int code);
 	void addArea (Area area);
 	void updateArea (Area area);
 	void removeArea (Area area);

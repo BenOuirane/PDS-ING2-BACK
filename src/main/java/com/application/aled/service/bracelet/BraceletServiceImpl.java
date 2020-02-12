@@ -64,21 +64,17 @@ public class BraceletServiceImpl implements BraceletService {
 	@Override
 	public void removeBracelet(Bracelet idBrac) {
 		braceletRepository.delete(idBrac);
-		
+		// FIXME: unauthorized action
+
 	}
 
 
 	@Override
-	/*public Bracelet getBraceletById(Bracelet idBrac) {
-		Bracelet bracelet=  braceletRepository.findBraceletById(idBrac);
-		return bracelet;
-		
-	}*/
 	public Bracelet getBraceletById(Long idBrac) {
 		Bracelet bracelet = braceletRepository.findBraceletById(idBrac);
 		return bracelet;
-		
 	}
+
 
 	
 	

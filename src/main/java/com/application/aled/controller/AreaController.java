@@ -20,6 +20,7 @@ import java.util.List;
 public class AreaController {
 
 	
+	static final Logger logger = LogManager.getLogger(AreaController.class.getName());
 	
 	@Autowired
 	AreaService areaService;
@@ -27,10 +28,17 @@ public class AreaController {
 	
 	@GetMapping("/areas/list")
 	public List<Area> getAreas() {
-	 List<Area> areas = areaService.getAllAreas();
-	 return areas;
+		logger.info("Getting all areas from area table...");
+		List<Area> areas = areaService.getAllAreas();
+		logger.info("Positions well extracted from area table ...");
+		return areas;
 
 	}
+	
+	
+	//TODO add the other methods
+	
+	
 	
 	/*@GetMapping("/area/map")
 	public List<Area> getAllAreas(@RequestBody String areas){
@@ -43,4 +51,9 @@ public class AreaController {
 		Area areaName = areaService.findAreaByName();
 		return areaName;
 	}*/
+	
+	
+	
+	
+	//TODO add the other methods once it's confirmed with profs
 }

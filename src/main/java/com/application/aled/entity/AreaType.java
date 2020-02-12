@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 
 
-@Entity
+@Entity(name="AreaType")
 @Table(name ="area_type")
 public class AreaType {
 

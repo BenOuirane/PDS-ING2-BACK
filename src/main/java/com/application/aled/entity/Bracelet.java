@@ -1,9 +1,15 @@
 package com.application.aled.entity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+
 import javax.persistence.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.mapping.Set;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -37,6 +43,16 @@ public class Bracelet {
 	@Column(name = "ref_bracelet")
 	private String refBracelet;
 
+	 @OneToMany(
+		        mappedBy = "bracelet",
+		        cascade = CascadeType.ALL,
+		        orphanRemoval = true
+		    )
+    private List<CurrentArea> bracelets = new ArrayList<>();
+
+	public Bracelet() {}
+	
+	
 	public long getId() {
 		return id;
 	}
@@ -83,10 +99,7 @@ public class Bracelet {
 		this.lastSentData = lastSentData;
 		this.refBracelet = refBracelet;
 	}
-
-	public Bracelet() { }
-	
-	
+	 
 	//TODO add PK and FK 
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name= "id_resident", unique = true )
