@@ -34,5 +34,11 @@ public class ObjectServiceImpl implements ObjectService {
        return objects;
     }
 
+    public List<Objects> getObjects() {
+        List <Objects> objects = new ArrayList<Objects>();
+        objectRepository.findAll().forEach(objects::add);
+        return objects;
+    }
+
 
 }

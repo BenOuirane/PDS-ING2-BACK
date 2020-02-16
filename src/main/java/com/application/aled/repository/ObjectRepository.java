@@ -10,4 +10,6 @@ public interface ObjectRepository extends CrudRepository<Objects, Long> {
 
     List<Objects> findByRooms(Rooms room);
 
+    List<Objects> findAll();
+
 }

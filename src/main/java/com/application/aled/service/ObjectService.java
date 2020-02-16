@@ -7,4 +7,6 @@ import java.util.List;
 public interface ObjectService {
 
     List<Objects> getObjectByRoom(Rooms room);
+
+    List<Objects> getObjects();
 }
