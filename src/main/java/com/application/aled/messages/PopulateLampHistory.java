@@ -1,26 +1,45 @@
 package com.application.aled.messages;
 
-import com.application.aled.entity.LampHistory;
+import com.application.aled.entity.history.LampHistory;
 import com.application.aled.entity.Objects;
-import com.application.aled.entity.ObjectsHistory;
+import com.application.aled.entity.history.ObjectsHistory;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class PopulateLampHistory {
+    Random random = new Random();
 
-    public List<LampHistory> createLampHistory(List<Objects> objectsList, Date weekAgo) {
+    String[] colorArray = {"YELLOW", "GREEN", "BLUE", "WHITE"};
+
+    public List<LampHistory> createLampHistory(List<Objects> objectsList, Date date, int numberPerDayAndObject, int hourTopLimit, int hourBottomLimit) {
+        PopulateObjectsHistory populateObjectsHistory = new PopulateObjectsHistory();
+        List<ObjectsHistory> objectsHistoriesLampsMorning = populateObjectsHistory.setMessagesTimestamps(objectsList, date, numberPerDayAndObject, hourTopLimit, hourBottomLimit);
+
         List<LampHistory> lampHistories = new ArrayList<LampHistory>();
 
-        // Getting messages timestamps
-        PopulateObjectsHistory populateObjectsHistory = new PopulateObjectsHistory();
-        List<ObjectsHistory> objectsHistoriesLampsMorning = populateObjectsHistory.setMessagesTimestamps(objectsList.subList(0,3) , weekAgo, 6, 9, 7);
+        for (ObjectsHistory objectHisto : objectsHistoriesLampsMorning) {
+            LampHistory lampMessage;
 
-        for (ObjectsHistory objectsHistory : objectsHistoriesLampsMorning) {
-            lampHistories.add(new LampHistory("null", "null", objectsHistory.getMessageTimestamp(), objectsHistory.getObject()));
+            if(objectHisto.getColumnData() != "power"){
+                boolean randomBoolean = random.nextBoolean();
+                int randomColor = random.nextInt(colorArray.length - 1);
+                int randomIntensity = random.nextInt(10) * 10;
+
+                if (randomBoolean){
+                    populateObjectsHistory.setMessageData(objectHisto, "color", colorArray[randomColor]);
+                } else {
+                    populateObjectsHistory.setMessageData(objectHisto, "intensity", String.valueOf(randomIntensity));
+                }
+
+            }
+
+            lampMessage = new LampHistory(objectHisto.getData(), objectHisto.getColumnData(), objectHisto.getMessageTimestamp(), objectHisto.getObject());
+            System.out.println(lampMessage.toString());
+
+            lampHistories.add(lampMessage);
         }
 
+        lampHistories.sort(Comparator.comparing(LampHistory::getMessageTimestamp));
         return lampHistories;
     }
 

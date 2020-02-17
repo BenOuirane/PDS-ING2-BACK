@@ -1,4 +1,6 @@
-package com.application.aled.entity;
+package com.application.aled.entity.history;
+
+import com.application.aled.entity.Objects;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -8,24 +10,16 @@ import java.sql.Timestamp;
 public class LampHistory extends ObjectsHistory {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long idLampHistory;
-
-    @Column(name = "data")
-    private String data;
-
-    @Column(name = "columnData")
-    private String columnData;
-
 
     public LampHistory() {
         super();
     }
 
     public LampHistory(String data, String columnData, Timestamp messageTimestamp, Objects object) {
-        super(messageTimestamp, object);
-        this.data = data;
-        this.columnData = columnData;
+        super(data, columnData, messageTimestamp, object);
+
     }
 
     public long getIdLampHistory() {
@@ -36,29 +30,13 @@ public class LampHistory extends ObjectsHistory {
         this.idLampHistory = idLampHistory;
     }
 
-    public String getData() {
-        return data;
-    }
-
-    public void setData(String data) {
-        this.data = data;
-    }
-
-    public String getColumnData() {
-        return columnData;
-    }
-
-    public void setColumnData(String columnData) {
-        this.columnData = columnData;
-    }
-
 
     @Override
     public String toString() {
         return "LampHistory{" +
                 "idLampHistory=" + idLampHistory +
-                ", data='" + data + '\'' +
-                ", columnData='" + columnData + '\'' +
+                ", data='" + super.getData() + '\'' +
+                ", columnData='" + super.getColumnData() + '\'' +
                 ", messageTimestamp=" + super.getMessageTimestamp() +
                 ", object=" + super.getObject().toString() +
                 '}';

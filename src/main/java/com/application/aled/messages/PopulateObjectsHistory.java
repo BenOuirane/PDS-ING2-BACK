@@ -1,7 +1,7 @@
 package com.application.aled.messages;
 
 import com.application.aled.entity.Objects;
-import com.application.aled.entity.ObjectsHistory;
+import com.application.aled.entity.history.ObjectsHistory;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -17,55 +17,68 @@ public class PopulateObjectsHistory {
 
         Map<Long, Integer> messagesLeftToDo = new HashMap<Long, Integer>();
 
-        int messagesPerDayGlobal = numberPerDayAndObject * objectsList.size();
-
         for (Objects objects : objectsList) {
             messagesLeftToDo.put(objects.getId(), numberPerDayAndObject);
         }
 
         while (maximumDate.before(now)) {
-            int hours = random.nextInt(hourTopLimit - hourBottomLimit) + hourBottomLimit;
-            maximumDate.setHours(hours);
+            for (Objects object : objectsList) {
+                List<ObjectsHistory> orderTime = new ArrayList<ObjectsHistory>();
+                while (messagesLeftToDo.get(object.getId()) > 0) {
 
-            int minutes = random.nextInt(59);
-            maximumDate.setMinutes(minutes);
+                    int hours = random.nextInt(hourTopLimit - hourBottomLimit) + hourBottomLimit;
+                    maximumDate.setHours(hours);
 
-            int seconds = random.nextInt(59);
-            maximumDate.setSeconds(seconds);
+                    int minutes = random.nextInt(59);
+                    maximumDate.setMinutes(minutes);
 
-            int indexArray = random.nextInt(objectsList.size());
-            Objects objectSelected = objectsList.get(indexArray);
+                    int seconds = random.nextInt(59);
+                    maximumDate.setSeconds(seconds);
 
-            if (messagesLeftToDo.get(objectSelected.getId()) > 0) {
-                Timestamp historyTime = new Timestamp(maximumDate.getTime());
-                ObjectsHistory messageHistory = new ObjectsHistory(historyTime, objectSelected);
+                    Timestamp historyTime = new Timestamp(maximumDate.getTime());
 
-                historyList.add(messageHistory);
+                    ObjectsHistory messageHistory = new ObjectsHistory("toDo", "toDo", historyTime, object);
 
-                // Message counters - 1
-                messagesLeftToDo.replace(objectSelected.getId(), (messagesLeftToDo.get(objectSelected.getId()) - 1));
-                messagesPerDayGlobal--;
+                    orderTime.add(messageHistory);
 
-                //System.out.println("Message history " + messageHistory.toString());
+                    // Message counters - 1
+                    messagesLeftToDo.replace(object.getId(), (messagesLeftToDo.get(object.getId()) - 1));
 
-            } else {
-                messagesLeftToDo.remove(objectSelected);
+                    //System.out.println("Message history " + messageHistory.toString());
+                }
+
+                orderTime.sort(Comparator.comparing(ObjectsHistory::getMessageTimestamp));
+
+                int index = 0;
+                for (ObjectsHistory objectHisto : orderTime) {
+                    if(index == 0) {
+                        setMessageData(objectHisto, "power", "on");
+                    } else if (index == numberPerDayAndObject - 1){
+                        setMessageData(objectHisto, "power", "off");
+                    }
+                    index++;
+                    historyList.add(objectHisto);
+                }
+
+                messagesLeftToDo.remove(object);
             }
 
-            if(messagesPerDayGlobal == 0){
-                messagesPerDayGlobal = numberPerDayAndObject * objectsList.size();
+            long nextDay = maximumDate.getTime()+1*24*60*60*1000;
 
-                long nextDay = maximumDate.getTime()+1*24*60*60*1000;
+            maximumDate = new Date(nextDay);
 
-                maximumDate = new Date(nextDay);
-
-                for (Objects objects : objectsList) {
-                    messagesLeftToDo.put(objects.getId(), numberPerDayAndObject);
-                }
+            for (Objects objects : objectsList) {
+                messagesLeftToDo.put(objects.getId(), numberPerDayAndObject);
             }
         }
 
-        historyList.sort(Comparator.comparing(ObjectsHistory::getMessageTimestamp));
         return historyList;
+    }
+
+    public ObjectsHistory setMessageData(ObjectsHistory objectHisto, String columnData, String data){
+        objectHisto.setColumnData(columnData);
+        objectHisto.setData(data);
+
+        return objectHisto;
     }
 }

@@ -9,4 +9,6 @@ public interface ObjectService {
     List<Objects> getObjectByRoom(Rooms room);
 
     List<Objects> getObjects();
+
+    List<Objects> getObjectsByObjectType(String objectType);
 }

@@ -40,5 +40,12 @@ public class ObjectServiceImpl implements ObjectService {
         return objects;
     }
 
+    @Override
+    public List<Objects> getObjectsByObjectType(String objectType) {
+        List <Objects> objects = new ArrayList<Objects>();
+        objectRepository.findByObjectType(objectType).forEach(objects::add);
+        return objects;
+    }
+
 
 }

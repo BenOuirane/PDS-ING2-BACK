@@ -1,6 +1,6 @@
-package com.application.aled.entity;
+package com.application.aled.entity.history;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.application.aled.entity.Objects;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -10,21 +10,45 @@ import java.sql.Timestamp;
 @MappedSuperclass
 public class ObjectsHistory {
 
+    @Column(name = "data")
+    private String data;
+
+    @Column(name = "columnData")
+    private String columnData;
+
+
     @Column(name = "messageTimestamp")
     private Timestamp messageTimestamp;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "id_objects", nullable = true)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
     private Objects object;
 
     public ObjectsHistory() {
     }
 
-    public ObjectsHistory(Timestamp messageTimestamp, Objects object) {
+    public ObjectsHistory(String data, String columnData, Timestamp messageTimestamp, Objects object) {
+        this.data = data;
+        this.columnData = columnData;
         this.messageTimestamp = messageTimestamp;
         this.object = object;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public String getColumnData() {
+        return columnData;
+    }
+
+    public void setColumnData(String columnData) {
+        this.columnData = columnData;
     }
 
     public Timestamp getMessageTimestamp() {
@@ -46,7 +70,9 @@ public class ObjectsHistory {
     @Override
     public String toString() {
         return "ObjectsHistory{" +
-                "messageTimestamp=" + messageTimestamp +
+                "data='" + data + '\'' +
+                ", columnData='" + columnData + '\'' +
+                ", messageTimestamp=" + messageTimestamp +
                 ", object=" + object +
                 '}';
     }

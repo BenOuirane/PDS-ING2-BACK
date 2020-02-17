@@ -12,4 +12,6 @@ public interface ObjectRepository extends CrudRepository<Objects, Long> {
 
     List<Objects> findAll();
 
+    List<Objects> findByObjectType(String objectType);
+
 }
