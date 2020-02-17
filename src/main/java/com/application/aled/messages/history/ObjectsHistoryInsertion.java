@@ -1,4 +1,4 @@
-package com.application.aled.messages;
+package com.application.aled.messages.history;
 
 import com.application.aled.entity.history.LampHistory;
 import com.application.aled.entity.Objects;
@@ -48,6 +48,7 @@ public class ObjectsHistoryInsertion {
             lampHistoryService.addHistory(lampHistory);
         }
 
+
         /*List<ObjectsHistory> objectsHistoriesLampsMorning = populateHistory.setMessagesTimestamps(objects.subList(0,3) , weekAgo, 6, 9, 7);
         List<ObjectsHistory> objectsHistoriesLampsEvening = populateHistory.setMessagesTimestamps(objects.subList(0,3) , weekAgo, 6, 22, 19);
 
@@ -57,7 +58,7 @@ public class ObjectsHistoryInsertion {
         List<ObjectsHistory> objectsHistoriesShutterMorning = populateHistory.setMessagesTimestamps(objects.subList(7,11) , weekAgo, 2, 9, 7);
         List<ObjectsHistory> objectsHistoriesShutterEvening = populateHistory.setMessagesTimestamps(objects.subList(7,11) , weekAgo, 2, 20, 19);
 
-        List<ObjectsHistory> objectsHistoriesCoffeeMachine = populateHistory.setMessagesTimestamps(objects.subList(11,14) , weekAgo, 2, 9, 7);
+        List<ObjectsHistory> objectsHistoriesCoffeeMachine = populateHistory.setMessagesTimestamps(objects.subList(11,14) , weekAgo, 3, 9, 7);
 
         List<ObjectsHistory> objectsHistoriesAlarmClockMorning = populateHistory.setMessagesTimestamps(objects.subList(3,7) , weekAgo, 3, 9, 7);
         List<ObjectsHistory> objectsHistoriesAlarmClockEvening = populateHistory.setMessagesTimestamps(objects.subList(3,7) , weekAgo, 3, 19, 18);*/

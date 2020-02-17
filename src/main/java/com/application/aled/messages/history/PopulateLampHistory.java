@@ -1,4 +1,4 @@
-package com.application.aled.messages;
+package com.application.aled.messages.history;
 
 import com.application.aled.entity.history.LampHistory;
 import com.application.aled.entity.Objects;
