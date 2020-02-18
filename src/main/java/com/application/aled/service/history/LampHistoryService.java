@@ -1,4 +1,4 @@
-package com.application.aled.service;
+package com.application.aled.service.history;
 
 import com.application.aled.entity.history.LampHistory;
 

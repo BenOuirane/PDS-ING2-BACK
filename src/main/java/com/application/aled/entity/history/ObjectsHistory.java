@@ -10,6 +10,10 @@ import java.sql.Timestamp;
 @MappedSuperclass
 public class ObjectsHistory {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+
     @Column(name = "data")
     private String data;
 
@@ -33,6 +37,14 @@ public class ObjectsHistory {
         this.columnData = columnData;
         this.messageTimestamp = messageTimestamp;
         this.object = object;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getData() {
@@ -70,6 +82,7 @@ public class ObjectsHistory {
     @Override
     public String toString() {
         return "ObjectsHistory{" +
+                "id='" + id + '\'' +
                 "data='" + data + '\'' +
                 ", columnData='" + columnData + '\'' +
                 ", messageTimestamp=" + messageTimestamp +

@@ -1,14 +1,19 @@
 package com.application.aled.messages.history;
 
-import com.application.aled.entity.history.LampHistory;
+import com.application.aled.entity.history.*;
 import com.application.aled.entity.Objects;
-import com.application.aled.service.LampHistoryServiceImpl;
+import com.application.aled.service.history.AlarmClockHistoryServiceImpl;
+import com.application.aled.service.history.CoffeeMachineHistoryServiceImpl;
+import com.application.aled.service.history.LampHistoryServiceImpl;
 import com.application.aled.service.ObjectServiceImpl;
 
+import com.application.aled.service.history.ShutterHistoryServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -21,47 +26,98 @@ public class ObjectsHistoryInsertion {
     @Autowired
     LampHistoryServiceImpl lampHistoryService;
 
+    @Autowired
+    ShutterHistoryServiceImpl shutterHistoryService;
+
+    @Autowired
+    CoffeeMachineHistoryServiceImpl coffeeHistoryService;
+
+    @Autowired
+    AlarmClockHistoryServiceImpl alarmHistoryService;
+
     @PostConstruct
     public void createObjectHistories(){
         Date weekAgo = new Date();
-
-        List<Objects> lamps = objectService.getObjectsByObjectType("LAMP");
 
         long minusWeek = weekAgo.getTime()-7*24*60*60*1000;
 
         weekAgo = new Date(minusWeek);
 
+        PopulateObjectsHistory populateObjectsHistory = new PopulateObjectsHistory();
+
+        List<Objects> lamps = objectService.getObjectsByObjectType("LAMP");
+        List<Objects> shutters = objectService.getObjectsByObjectType("SHUTTER");
+        List<Objects> coffees = objectService.getObjectsByObjectType("COFFEEMACHINE");
+        List<Objects> alarms = objectService.getObjectsByObjectType("ALARMCLOCK");
+
+        List<Objects> ovens = objectService.getObjectsByObjectType("OVEN"); // TODO
+
+
         /* ------ LAMPS ------ */
-        PopulateLampHistory populateLampHistory = new PopulateLampHistory();
+        List<ObjectsHistory> morningLampHistory = populateObjectsHistory.createObjectsRecords(lamps, weekAgo, 4, 6, 9, true);
+        List<ObjectsHistory> eveningLampHistory = populateObjectsHistory.createObjectsRecords(lamps, weekAgo, 4, 20, 22, true);
 
-        List<LampHistory> morningLampHistory = populateLampHistory.createLampHistory(lamps, weekAgo, 4, 9, 6);
         lampHistoryService.emptyTable();
 
-        for (LampHistory lampHistory : morningLampHistory) {
+        for (ObjectsHistory objectsHistory : sortList(morningLampHistory, eveningLampHistory)) {
+            LampHistory lampHistory = new LampHistory(objectsHistory.getColumnData(), objectsHistory.getData(), objectsHistory.getMessageTimestamp(), objectsHistory.getObject());
             lampHistoryService.addHistory(lampHistory);
         }
 
-        List<LampHistory> eveningLampHistory = populateLampHistory.createLampHistory(lamps, weekAgo, 4, 22, 20);
-        lampHistoryService.emptyTable();
+        /* ------ SHUTTERS ------ */
+        List<ObjectsHistory> morningShutterHistory = populateObjectsHistory.createObjectsRecords(shutters , weekAgo, 1, 7, 9, false);
+        List<ObjectsHistory> eveningShutterHistory = populateObjectsHistory.createObjectsRecords(shutters , weekAgo, 1, 19,  20, false);
 
-        for (LampHistory lampHistory : eveningLampHistory) {
-            lampHistoryService.addHistory(lampHistory);
+        shutterHistoryService.emptyTable();
+
+        for (ObjectsHistory objectsHistory : sortList(morningShutterHistory, eveningShutterHistory)) {
+            ShutterHistory shutterHistory = new ShutterHistory(objectsHistory.getColumnData(), objectsHistory.getData(), objectsHistory.getMessageTimestamp(), objectsHistory.getObject());
+            shutterHistoryService.addHistory(shutterHistory);
         }
 
+        /* ------ COFFEEMACHINE ------ */
+        List<ObjectsHistory> allCoffeerHistories = new ArrayList<ObjectsHistory>();
+        List<ObjectsHistory> objectsHistoriesCoffeeMachine = populateObjectsHistory.createObjectsRecords(coffees, weekAgo, 3, 7, 9, true);
 
-        /*List<ObjectsHistory> objectsHistoriesLampsMorning = populateHistory.setMessagesTimestamps(objects.subList(0,3) , weekAgo, 6, 9, 7);
-        List<ObjectsHistory> objectsHistoriesLampsEvening = populateHistory.setMessagesTimestamps(objects.subList(0,3) , weekAgo, 6, 22, 19);
+        coffeeHistoryService.emptyTable();
 
+        for (ObjectsHistory objectsHistory : objectsHistoriesCoffeeMachine) {
+            CoffeeMachineHistory coffeeMachineHistory = new CoffeeMachineHistory(objectsHistory.getColumnData(), objectsHistory.getData(), objectsHistory.getMessageTimestamp(), objectsHistory.getObject());
+            coffeeHistoryService.addHistory(coffeeMachineHistory);
+        }
+
+        /* ------ ALARMCLOCK ------ */
+        List<ObjectsHistory> morningAlarmHistory = populateObjectsHistory.createObjectsRecords(alarms, weekAgo, 3, 7, 9, false);
+        List<ObjectsHistory> eveningAlarmHistory = populateObjectsHistory.createObjectsRecords(alarms, weekAgo, 3, 18, 19, false);
+
+        alarmHistoryService.emptyTable();
+
+        for (ObjectsHistory objectsHistory : sortList(morningAlarmHistory, eveningAlarmHistory)) {
+            AlarmClockHistory alarmHistory = new AlarmClockHistory(objectsHistory.getColumnData(), objectsHistory.getData(), objectsHistory.getMessageTimestamp(), objectsHistory.getObject());
+            alarmHistoryService.addHistory(alarmHistory);
+        }
+
+        /*
         List<ObjectsHistory> objectsHistoriesOvenLunch = populateHistory.setMessagesTimestamps(objects.subList(14,17) , weekAgo, 4, 13, 12);
         List<ObjectsHistory> objectsHistoriesOvenDinner = populateHistory.setMessagesTimestamps(objects.subList(14,17) , weekAgo, 4, 19, 18);
-
-        List<ObjectsHistory> objectsHistoriesShutterMorning = populateHistory.setMessagesTimestamps(objects.subList(7,11) , weekAgo, 2, 9, 7);
-        List<ObjectsHistory> objectsHistoriesShutterEvening = populateHistory.setMessagesTimestamps(objects.subList(7,11) , weekAgo, 2, 20, 19);
-
-        List<ObjectsHistory> objectsHistoriesCoffeeMachine = populateHistory.setMessagesTimestamps(objects.subList(11,14) , weekAgo, 3, 9, 7);
-
-        List<ObjectsHistory> objectsHistoriesAlarmClockMorning = populateHistory.setMessagesTimestamps(objects.subList(3,7) , weekAgo, 3, 9, 7);
-        List<ObjectsHistory> objectsHistoriesAlarmClockEvening = populateHistory.setMessagesTimestamps(objects.subList(3,7) , weekAgo, 3, 19, 18);*/
+        */
 
     }
+
+    public List<ObjectsHistory> sortList(List<ObjectsHistory> list1, List<ObjectsHistory> list2){
+        List<ObjectsHistory> sortedList = new ArrayList<ObjectsHistory>();
+
+        for (ObjectsHistory objectsHistory : list1) {
+            sortedList.add(objectsHistory);
+        }
+
+        for (ObjectsHistory objectsHistory : list2) {
+            sortedList.add(objectsHistory);
+        }
+
+        sortedList.sort(Comparator.comparing(ObjectsHistory::getMessageTimestamp));
+
+        return sortedList;
+    }
+
 }

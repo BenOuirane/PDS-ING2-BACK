@@ -9,10 +9,6 @@ import java.sql.Timestamp;
 @Table(name="alarmClockHistory")
 public class AlarmClockHistory extends ObjectsHistory {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long idAlarmClock;
-
     public AlarmClockHistory() {
         super();
     }
@@ -22,23 +18,8 @@ public class AlarmClockHistory extends ObjectsHistory {
 
     }
 
-    public long getIdLampHistory() {
-        return idAlarmClock;
-    }
-
-    public void setIdLampHistory(long idAlarmClock) {
-        this.idAlarmClock = idAlarmClock;
-    }
-
-
     @Override
     public String toString() {
-        return "LampHistory{" +
-                "idLampHistory=" + idAlarmClock +
-                ", data='" + super.getData() + '\'' +
-                ", columnData='" + super.getColumnData() + '\'' +
-                ", messageTimestamp=" + super.getMessageTimestamp() +
-                ", object=" + super.getObject().toString() +
-                '}';
+        return super.toString();
     }
 }

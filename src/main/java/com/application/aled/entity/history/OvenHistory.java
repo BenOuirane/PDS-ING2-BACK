@@ -6,15 +6,14 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name="shutterHistory")
-public class ShutterHistory extends ObjectsHistory {
+@Table(name="ovenHistory")
+public class OvenHistory extends ObjectsHistory {
 
-
-    public ShutterHistory() {
+    public OvenHistory() {
         super();
     }
 
-    public ShutterHistory(String data, String columnData, Timestamp messageTimestamp, Objects object) {
+    public OvenHistory(String data, String columnData, Timestamp messageTimestamp, Objects object) {
         super(data, columnData, messageTimestamp, object);
 
     }

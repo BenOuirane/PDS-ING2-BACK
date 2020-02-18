@@ -9,10 +9,6 @@ import java.sql.Timestamp;
 @Table(name="lampHistory")
 public class LampHistory extends ObjectsHistory {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long idLampHistory;
-
     public LampHistory() {
         super();
     }
@@ -22,23 +18,8 @@ public class LampHistory extends ObjectsHistory {
 
     }
 
-    public long getIdLampHistory() {
-        return idLampHistory;
-    }
-
-    public void setIdLampHistory(long idLampHistory) {
-        this.idLampHistory = idLampHistory;
-    }
-
-
     @Override
     public String toString() {
-        return "LampHistory{" +
-                "idLampHistory=" + idLampHistory +
-                ", data='" + super.getData() + '\'' +
-                ", columnData='" + super.getColumnData() + '\'' +
-                ", messageTimestamp=" + super.getMessageTimestamp() +
-                ", object=" + super.getObject().toString() +
-                '}';
+        return super.toString();
     }
 }

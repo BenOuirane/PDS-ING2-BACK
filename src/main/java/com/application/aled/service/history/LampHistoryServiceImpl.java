@@ -1,7 +1,7 @@
-package com.application.aled.service;
+package com.application.aled.service.history;
 
 import com.application.aled.entity.history.LampHistory;
-import com.application.aled.repository.LampHistoryRepository;
+import com.application.aled.repository.history.LampHistoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,9 +13,9 @@ public class LampHistoryServiceImpl implements LampHistoryService {
 
     @Override
     public LampHistory addHistory(LampHistory lampHistory) {
-        LampHistory LH = lampHistoryRepository.save(lampHistory);
+        LampHistory lampRecord = lampHistoryRepository.save(lampHistory);
 
-        return LH;
+        return lampRecord;
     }
 
     @Override
