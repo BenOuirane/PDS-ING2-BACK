@@ -1,9 +1,13 @@
 package com.application.aled.service.history;
 
+import com.application.aled.entity.Rooms;
 import com.application.aled.entity.history.LampHistory;
 import com.application.aled.repository.history.LampHistoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class LampHistoryServiceImpl implements LampHistoryService {
@@ -21,5 +25,13 @@ public class LampHistoryServiceImpl implements LampHistoryService {
     @Override
     public void emptyTable() {
         lampHistoryRepository.deleteAll();
+    }
+
+    @Override
+    public List<LampHistory> getLampHistoryByRoom(Rooms room) {
+        List<LampHistory> lampHistories = new ArrayList<LampHistory>();
+        lampHistoryRepository.findByObject_Rooms(room).forEach(lampHistories::add);
+
+        return lampHistories;
     }
 }

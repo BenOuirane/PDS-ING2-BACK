@@ -2,12 +2,9 @@ package com.application.aled.messages.history;
 
 import com.application.aled.entity.history.*;
 import com.application.aled.entity.Objects;
-import com.application.aled.service.history.AlarmClockHistoryServiceImpl;
-import com.application.aled.service.history.CoffeeMachineHistoryServiceImpl;
-import com.application.aled.service.history.LampHistoryServiceImpl;
+import com.application.aled.service.history.*;
 import com.application.aled.service.ObjectServiceImpl;
 
-import com.application.aled.service.history.ShutterHistoryServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -35,6 +32,10 @@ public class ObjectsHistoryInsertion {
     @Autowired
     AlarmClockHistoryServiceImpl alarmHistoryService;
 
+    // OVEN TODO
+    //@Autowired
+    //OvenHistoryServiceImpl ovenHistoryService;
+
     @PostConstruct
     public void createObjectHistories(){
         Date weekAgo = new Date();
@@ -50,7 +51,7 @@ public class ObjectsHistoryInsertion {
         List<Objects> coffees = objectService.getObjectsByObjectType("COFFEEMACHINE");
         List<Objects> alarms = objectService.getObjectsByObjectType("ALARMCLOCK");
 
-        List<Objects> ovens = objectService.getObjectsByObjectType("OVEN"); // TODO
+        //List<Objects> ovens = objectService.getObjectsByObjectType("OVEN");
 
 
         /* ------ LAMPS ------ */

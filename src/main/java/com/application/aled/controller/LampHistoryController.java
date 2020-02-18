@@ -1,0 +1,27 @@
+package com.application.aled.controller;
+
+import com.application.aled.entity.Rooms;
+import com.application.aled.entity.history.LampHistory;
+import com.application.aled.service.history.LampHistoryServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@CrossOrigin(origins = "*")
+@RestController
+@RequestMapping("/api")
+public class LampHistoryController {
+
+    @Autowired
+    LampHistoryServiceImpl lampHistoryService;
+
+    @PutMapping("/history/lamp")
+    public List<LampHistory> getHistoryLamps(@RequestBody Rooms room){
+        List<LampHistory> lamp =  lampHistoryService.getLampHistoryByRoom(room);
+
+        return lamp;
+
+    }
+
+}
