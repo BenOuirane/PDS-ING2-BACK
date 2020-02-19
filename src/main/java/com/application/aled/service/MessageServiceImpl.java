@@ -30,6 +30,7 @@ public class MessageServiceImpl implements MessageService {
         logger.info("Get all messages...");
         List<Message> messages = new ArrayList<>();
         repository.findAll().forEach(messages::add);
+        logger.info("messages"+ messages);
         return messages;
     }
 
@@ -38,6 +39,7 @@ public class MessageServiceImpl implements MessageService {
         List<Message> messages = new ArrayList<>();
         //Message message = repository.findByObjects(objects);
         repository.findByObjects(objects).forEach(messages::add);
+        logger.info("getMessageByObject return messages :"+ messages);
         return messages;
     }
 }
