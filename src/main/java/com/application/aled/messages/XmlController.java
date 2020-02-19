@@ -77,8 +77,11 @@ public class XmlController {
                 System.out.println("there is an logic error");
                 Statement sta = PostgreSQLJDBC.connection.createStatement();
                 sta.executeUpdate("INSERT INTO public.failure("
-                        +"begin_date, mac_address, message)"
-                        +"VALUES ('"+message.getDateTime()+"','"+message.getMac_address()+"' ,'the message is not logic')");
+                        +"begin_date, message)"
+                        //                        +"begin_date, mac_address, message)"
+                        //TODO: change query put the object in the failure table
+                        +"VALUES ('"+message.getDateTime()+"','the message is not logic')");
+                        //+"VALUES ('"+message.getDateTime()+"','"+message.getMac_address()+"' ,'the message is not logic')");
                 return;
 
 
@@ -95,9 +98,10 @@ public class XmlController {
 
             Statement sta = PostgreSQLJDBC.connection.createStatement();
             sta.executeUpdate("INSERT INTO public.messages("
-                    +"date_time, effective_temperature, mac_address, programmed_temperature)"
-                    +"VALUES ('"+message.getDateTime()+"',"+message.getEffective_temperature()+",'"+message.getMac_address()+"' ,"+message.getProgrammed_temperature()+")");
-
+                    +"date_time, effective_temperature, programmed_temperature)"
+                    //+"date_time, effective_temperature, mac_address, programmed_temperature)"
+                    +"VALUES ('"+message.getDateTime()+"',"+message.getEffective_temperature()+","+message.getProgrammed_temperature()+")");
+                    //                    +"VALUES ('"+message.getDateTime()+"',"+message.getEffective_temperature()+",'"+message.getMac_address()+"' ,"+message.getProgrammed_temperature()+")");
             //messageRepository.save(message);
         }
         catch (JAXBException | SQLException e)

@@ -3,7 +3,6 @@ package com.application.aled.messages;
 import com.application.aled.entity.Message;
 import com.application.aled.entity.Objects;
 import com.application.aled.repository.MessageRepository;
-import com.application.aled.service.MessageService;
 import com.application.aled.service.MessageServiceImpl;
 import com.application.aled.service.ObjectService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +23,7 @@ public class LogicCheckerController {
     @Autowired
     ObjectService objectService;
 
-
+    //class unused for the moment
     public static boolean check(Message message) throws SQLException {
         /*
         Create a log file /home/aled/logFile.txt
@@ -35,7 +34,8 @@ public class LogicCheckerController {
         try {
             writer = ServerAcceptor.fileWriter;
             writer.write("--------------------------------NEW OBJECT TO ANALYSE---------------------------------\n");
-            writer.write("We analyse the oven " + message.getMac_address() + "\n");
+            //TODO get mac address from a repository
+            //writer.write("We analyse the oven " + message.getMac_address() + "\n");
             writer.write("Date of the message " + message.getDateTime() + "\n");
 
 
@@ -47,7 +47,9 @@ public class LogicCheckerController {
             /**
              * Get all messages sended by this object
              **/
-            ResultSet rs = statment.executeQuery("SELECT * FROM MESSAGES WHERE mac_address = '" + message.getMac_address() + "'");
+
+            //TODO change query to get messages from an object
+            ResultSet rs = statment.executeQuery("SELECT * FROM MESSAGES  INNER JOIN WHERE mac_address = ''");
             rs.last();
             int effective_temperature = rs.getInt("effective_temperature");
             int programmed_temperature = rs.getInt("programmed_temperature");
@@ -96,9 +98,5 @@ public class LogicCheckerController {
         }
         return true;
     }
-    public void waitingTimeChecker(){
-       List<Message> messageList = messageService.getMessages();
-       List<Objects> objectsList = objectService.getObjectsByState(true);
 
-    }
 }
