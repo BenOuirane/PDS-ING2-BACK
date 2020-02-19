@@ -25,12 +25,11 @@ public class LampServiceImpl implements LampService {
     @Override
     public boolean updateLamp(Lamp lamp) {
         System.out.println("Update lamp param...");
-        System.out.println("Room" + lamp.getObjects().getRooms());
         try{
             lampRepository.save(lamp);
             return true;
         }catch (Exception e){
-            System.out.println("La lampe n'a pas été correctement mise à jour...! => Error : service.lampServiceImpl");
+            System.out.println("La lampe n'a pas été correctement mise à jour...! => Error : service.LampServiceImpl");
             System.out.println(e.getMessage());
             return false;
         }
