@@ -11,4 +11,8 @@ public interface ObjectService {
     List<Objects> getObjects();
 
     List<Objects> getObjectsByObjectType(String objectType);
+
+    List<Objects> getObjectByState(boolean state);
+
+
 }
