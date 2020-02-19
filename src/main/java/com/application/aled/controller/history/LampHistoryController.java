@@ -1,4 +1,4 @@
-package com.application.aled.controller;
+package com.application.aled.controller.history;
 
 import com.application.aled.entity.Rooms;
 import com.application.aled.entity.history.LampHistory;
@@ -18,9 +18,9 @@ public class LampHistoryController {
 
     @PutMapping("/history/lamp")
     public List<LampHistory> getHistoryLamps(@RequestBody long id){
-        List<LampHistory> lamp =  lampHistoryService.getLampHistoryByObjectsId(id);
+        List<LampHistory> lamps =  lampHistoryService.getLampHistoryByObjectsId(id);
 
-        return lamp;
+        return lamps;
 
     }
 

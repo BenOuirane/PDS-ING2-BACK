@@ -38,11 +38,11 @@ public class ObjectsHistoryInsertion {
 
     @PostConstruct
     public void createObjectHistories(){
-        Date weekAgo = new Date();
+        Date fiveDaysAgo = new Date();
 
-        long minusWeek = weekAgo.getTime()-7*24*60*60*1000;
+        long minusWeek = fiveDaysAgo.getTime()-5*24*60*60*1000;
 
-        weekAgo = new Date(minusWeek);
+        fiveDaysAgo = new Date(minusWeek);
 
         PopulateObjectsHistory populateObjectsHistory = new PopulateObjectsHistory();
 
@@ -55,8 +55,8 @@ public class ObjectsHistoryInsertion {
 
 
         /* ------ LAMPS ------ */
-        List<ObjectsHistory> morningLampHistory = populateObjectsHistory.createObjectsRecords(lamps, weekAgo, 4, 6, 9, true);
-        List<ObjectsHistory> eveningLampHistory = populateObjectsHistory.createObjectsRecords(lamps, weekAgo, 4, 20, 22, true);
+        List<ObjectsHistory> morningLampHistory = populateObjectsHistory.createObjectsRecords(lamps, fiveDaysAgo, 3, 6, 9, true);
+        List<ObjectsHistory> eveningLampHistory = populateObjectsHistory.createObjectsRecords(lamps, fiveDaysAgo, 3, 20, 22, true);
 
         lampHistoryService.emptyTable();
 
@@ -66,8 +66,8 @@ public class ObjectsHistoryInsertion {
         }
 
         /* ------ SHUTTERS ------ */
-        List<ObjectsHistory> morningShutterHistory = populateObjectsHistory.createObjectsRecords(shutters , weekAgo, 1, 7, 9, false);
-        List<ObjectsHistory> eveningShutterHistory = populateObjectsHistory.createObjectsRecords(shutters , weekAgo, 1, 19,  20, false);
+        List<ObjectsHistory> morningShutterHistory = populateObjectsHistory.createObjectsRecords(shutters , fiveDaysAgo, 1, 7, 9, false);
+        List<ObjectsHistory> eveningShutterHistory = populateObjectsHistory.createObjectsRecords(shutters , fiveDaysAgo, 1, 19,  20, false);
 
         shutterHistoryService.emptyTable();
 
@@ -77,8 +77,7 @@ public class ObjectsHistoryInsertion {
         }
 
         /* ------ COFFEEMACHINE ------ */
-        List<ObjectsHistory> allCoffeerHistories = new ArrayList<ObjectsHistory>();
-        List<ObjectsHistory> objectsHistoriesCoffeeMachine = populateObjectsHistory.createObjectsRecords(coffees, weekAgo, 3, 7, 9, true);
+        List<ObjectsHistory> objectsHistoriesCoffeeMachine = populateObjectsHistory.createObjectsRecords(coffees, fiveDaysAgo, 3, 7, 9, true);
 
         coffeeHistoryService.emptyTable();
 
@@ -88,8 +87,8 @@ public class ObjectsHistoryInsertion {
         }
 
         /* ------ ALARMCLOCK ------ */
-        List<ObjectsHistory> morningAlarmHistory = populateObjectsHistory.createObjectsRecords(alarms, weekAgo, 3, 7, 9, false);
-        List<ObjectsHistory> eveningAlarmHistory = populateObjectsHistory.createObjectsRecords(alarms, weekAgo, 3, 18, 19, false);
+        List<ObjectsHistory> morningAlarmHistory = populateObjectsHistory.createObjectsRecords(alarms, fiveDaysAgo, 2, 7, 9, false);
+        List<ObjectsHistory> eveningAlarmHistory = populateObjectsHistory.createObjectsRecords(alarms, fiveDaysAgo, 2, 18, 19, false);
 
         alarmHistoryService.emptyTable();
 
