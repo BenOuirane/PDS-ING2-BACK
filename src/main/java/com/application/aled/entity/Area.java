@@ -33,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "area")
 //@NaturalIdCache
-//@Cache(	usage = CacheConcurrencyStrategy.READ_WRITE)
+//@Cache(	usage = CacheConcurrencyStrategy.READ_ONLY)
 public class Area implements Serializable {
 	
 	@Id
@@ -44,10 +44,8 @@ public class Area implements Serializable {
 	private String name;
 	
 	 @OneToMany(
-		        mappedBy = "area",
-		        cascade = CascadeType.ALL,
-		        orphanRemoval = true
-		    )
+		        mappedBy = "area"
+    )
 	private List<CurrentArea> areas = new ArrayList<>();
 	
 		 
@@ -64,7 +62,6 @@ public class Area implements Serializable {
 	    }
 	@ManyToOne(fetch = FetchType.LAZY, optional = true)
 	@JoinColumn(name = "code_area", nullable = true)
-	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JsonIgnore
 	private AreaType areatype;
 

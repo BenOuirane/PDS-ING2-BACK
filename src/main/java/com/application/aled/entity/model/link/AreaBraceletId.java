@@ -1,9 +1,9 @@
 package com.application.aled.entity.model.link;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Objects;
 import javax.persistence.*;
-import javax.persistence.Embeddable;
 
 @Embeddable
 public class AreaBraceletId implements Serializable {
@@ -11,10 +11,21 @@ public class AreaBraceletId implements Serializable {
 	@Column(name="bracelet_id")
 	private Long braceletId;
 	
-	@Column(name="bracelet_id")
+	@Column(name="area_id")
 	private String areaId;
 	
-	private AreaBraceletId() {}
+	@Column(name = "crossDate")
+    private LocalDateTime createdOn = LocalDateTime.now();
+	
+	public LocalDateTime getCreatedOn() {
+		return createdOn;
+	}
+
+	public void setCreatedOn(LocalDateTime createdOn) {
+		this.createdOn = createdOn;
+	}
+
+	public AreaBraceletId() {}
 	
 	public  AreaBraceletId(Long braceletId,String areaId ) {
 		this.areaId=areaId;

@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.List;
 
 import javax.persistence.*;
+
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.mapping.Set;
@@ -17,6 +19,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
+@Cacheable
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @Table(name = "bracelet")
 public class Bracelet {
 
@@ -34,8 +38,6 @@ public class Bracelet {
 	public void setMcAddress(long mcAddress) {
 		this.mcAddress = mcAddress;
 	}
-	@Column(name = "id_resident")
-	private String idResident;
 
 	@Column(name = "last_sent")
 	private LocalDateTime lastSentData;
@@ -48,7 +50,23 @@ public class Bracelet {
 		        cascade = CascadeType.ALL,
 		        orphanRemoval = true
 		    )
-    private List<CurrentArea> bracelets = new ArrayList<>();
+    private List<CurrentArea> currentArea = new ArrayList<>();
+
+	public List<CurrentArea> getCurrentArea() {
+		return currentArea;
+	}
+
+	public void setCurrentArea(List<CurrentArea> currentArea) {
+		this.currentArea = currentArea;
+	}
+
+	public Resident getResidents() {
+		return residents;
+	}
+
+	public void setResidents(Resident residents) {
+		this.residents = residents;
+	}
 
 	public Bracelet() {}
 	
@@ -61,13 +79,7 @@ public class Bracelet {
 		this.id = id;
 	}
 
-	public String getIdResident() {
-		return idResident;
-	}
 
-	public void setIdResident(String idResident) {
-		this.idResident = idResident;
-	}
 
 	public LocalDateTime getLastSentData() {
 		return lastSentData;
@@ -87,7 +99,7 @@ public class Bracelet {
 
 	@Override
 	public String toString() {
-		return "Bracelet [id=" + id + ", idResident=" + idResident + ", lastSentData=" + lastSentData + ", refBracelet="
+		return "Bracelet [id=" + id + ", idResident=" + ", lastSentData=" + lastSentData + ", refBracelet="
 				+ refBracelet + "]";
 	}
 
@@ -95,7 +107,7 @@ public class Bracelet {
 	public Bracelet(long id, long mcAddress, String idResident, LocalDateTime lastSentData, String refBracelet) {
 		this.id = id;
 		this.mcAddress = mcAddress;
-		this.idResident = idResident;
+		//this.idResident = idResident;
 		this.lastSentData = lastSentData;
 		this.refBracelet = refBracelet;
 	}

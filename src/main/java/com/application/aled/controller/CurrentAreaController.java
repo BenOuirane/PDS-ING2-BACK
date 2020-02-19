@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.application.aled.controller.exception.CustomHandler;
 import com.application.aled.entity.CurrentArea;
@@ -35,11 +36,13 @@ public class CurrentAreaController {
 	CurrentAreaService currentAreaService;
 
 	@GetMapping("/currentlocations")
-	public List<CurrentArea> getAllLocation() {
+	@ResponseBody
+	public ResponseEntity<List<CurrentArea>> getAllLocation() {
 		logger.info("Getting all current areas from current area table...");
 		List<CurrentArea> locations = currentAreaService.getAllAreas();
 		logger.info("Positions well extracted from current area table ...");
-		return locations;
+		//TODO here we use a design pattern called XXX 
+		return ResponseEntity.ok(locations);
 	}
 
 	@GetMapping("/currentlocation/{locationId}")
@@ -48,7 +51,7 @@ public class CurrentAreaController {
 		CurrentArea _idlocation  = currentAreaService.getCurrentAreaById(Integer.parseInt(locationId));
 		if (_idlocation == null) {
 				
-				throw new CustomHandler("Position not found");
+				throw new CustomHandler("Area not found");
 			} else {
 				logger.info(_idlocation.toString());
 				return _idlocation;

@@ -8,9 +8,9 @@ import com.application.aled.entity.Area;
 
 @Repository
 public interface AreaRepository extends CrudRepository<Area, String> {
-	public Area findAreaByName(String name);
-	public Area getAreaDetails(Area area);
-	public Area findAreaByCode(Integer code);
+	//public Area findAreaByName(String name);
+	//public Area getAreaDetails(Area area);
+	//public Area findAreaByCode(Integer code);
 
 	
 }

@@ -28,7 +28,7 @@ public class MessageSimulator {
 
         //socket = new Socket(InetAddress.getLocalHost(), portNumber);
         //ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
-        XmlController xmlController = new XmlController();
+        /*XmlController xmlController = new XmlController();
         xmlController.xmlTranslate(obj);
         //oos.writeObject(obj);
         Thread.sleep(2000);
@@ -37,6 +37,7 @@ public class MessageSimulator {
         Thread.sleep(2000);
         //oos.writeObject(obj3);
         xmlController.xmlTranslate(obj3);
+        */
 
 
 

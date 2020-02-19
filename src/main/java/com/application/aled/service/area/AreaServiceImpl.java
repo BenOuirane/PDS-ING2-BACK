@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.application.aled.entity.Area;
 import com.application.aled.repository.AreaRepository;
 import com.application.aled.repository.CurrentAreaRepository;
 
+@Service
 public class AreaServiceImpl implements AreaService {
 	@Autowired
 	AreaRepository areaRepository;

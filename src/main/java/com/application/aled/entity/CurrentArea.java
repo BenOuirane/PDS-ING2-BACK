@@ -17,6 +17,7 @@ import com.application.aled.entity.model.link.AreaBraceletId;
 @Table(name = "current_area")
 public class CurrentArea  implements Serializable {
 	
+	
 	@EmbeddedId
 	private AreaBraceletId id; 
 
@@ -25,41 +26,61 @@ public class CurrentArea  implements Serializable {
     @MapsId("braceletId")
     private Bracelet bracelet;
 	
+	public AreaBraceletId getId() {
+		return id;
+	}
+
+	public void setId(AreaBraceletId id) {
+		this.id = id;
+	}
+
+	public Bracelet getBracelet() {
+		return bracelet;
+	}
+
+	public void setBracelet(Bracelet bracelet) {
+		this.bracelet = bracelet;
+	}
+
+	public Area getArea() {
+		return area;
+	}
+
+	public void setArea(Area area) {
+		this.area = area;
+	}
+
 	@ManyToOne(fetch = FetchType.LAZY)
     @MapsId("areaId")
-    private Area  area;
+    private Area area;
 	
-	@Column(name = "crossDate")
-    private LocalDateTime createdOn = LocalDateTime.now();
+	
 	
 	public CurrentArea() {}
+
 	public CurrentArea (Area area, Bracelet bracelet) {
 		this.area=area;
 		this.bracelet=bracelet;
 		//this.id = new AreaBraceletId(Are
 	}
 	
-	@Id
-    @ManyToOne
-    @JoinColumn
-    private Bracelet bracelets;
 	
-	 @Id
-	 @ManyToOne
-	 @JoinColumn
-	 private Area areas;
-	
-	 private LocalDateTime 	crossDate;
+	 //private LocalDateTime 	crossDate;
 
 	
 	
-	public CurrentArea(Bracelet bracelets, LocalDateTime crossDate, Area areas) {
-		super();
-		this.bracelets = bracelets;
-		this.crossDate = crossDate;
-		this.areas= areas;
-		
+	
+	public LocalDateTime getCreatedOn() {
+		return id.getCreatedOn();
+	}
+
+	public void setCreatedOn(LocalDateTime createdOn) {
+		//this.createdOn = createdOn;
 	}
 	
+	public Long getBraceletId() {
+		return id.getBraceletId();
+	}
+
 	
 }
