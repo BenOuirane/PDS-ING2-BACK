@@ -61,7 +61,7 @@ public class ObjectsHistoryInsertion {
         lampHistoryService.emptyTable();
 
         for (ObjectsHistory objectsHistory : sortList(morningLampHistory, eveningLampHistory)) {
-            LampHistory lampHistory = new LampHistory(objectsHistory.getColumnData(), objectsHistory.getData(), objectsHistory.getMessageTimestamp(), objectsHistory.getObject());
+            LampHistory lampHistory = new LampHistory(objectsHistory.getData(), objectsHistory.getColumnData(), objectsHistory.getMessageTimestamp(), objectsHistory.getObject());
             lampHistoryService.addHistory(lampHistory);
         }
 
@@ -72,7 +72,7 @@ public class ObjectsHistoryInsertion {
         shutterHistoryService.emptyTable();
 
         for (ObjectsHistory objectsHistory : sortList(morningShutterHistory, eveningShutterHistory)) {
-            ShutterHistory shutterHistory = new ShutterHistory(objectsHistory.getColumnData(), objectsHistory.getData(), objectsHistory.getMessageTimestamp(), objectsHistory.getObject());
+            ShutterHistory shutterHistory = new ShutterHistory(objectsHistory.getData(), objectsHistory.getColumnData(), objectsHistory.getMessageTimestamp(), objectsHistory.getObject());
             shutterHistoryService.addHistory(shutterHistory);
         }
 
@@ -83,7 +83,7 @@ public class ObjectsHistoryInsertion {
         coffeeHistoryService.emptyTable();
 
         for (ObjectsHistory objectsHistory : objectsHistoriesCoffeeMachine) {
-            CoffeeMachineHistory coffeeMachineHistory = new CoffeeMachineHistory(objectsHistory.getColumnData(), objectsHistory.getData(), objectsHistory.getMessageTimestamp(), objectsHistory.getObject());
+            CoffeeMachineHistory coffeeMachineHistory = new CoffeeMachineHistory(objectsHistory.getData(), objectsHistory.getColumnData(), objectsHistory.getMessageTimestamp(), objectsHistory.getObject());
             coffeeHistoryService.addHistory(coffeeMachineHistory);
         }
 
@@ -94,7 +94,7 @@ public class ObjectsHistoryInsertion {
         alarmHistoryService.emptyTable();
 
         for (ObjectsHistory objectsHistory : sortList(morningAlarmHistory, eveningAlarmHistory)) {
-            AlarmClockHistory alarmHistory = new AlarmClockHistory(objectsHistory.getColumnData(), objectsHistory.getData(), objectsHistory.getMessageTimestamp(), objectsHistory.getObject());
+            AlarmClockHistory alarmHistory = new AlarmClockHistory(objectsHistory.getData(), objectsHistory.getColumnData(), objectsHistory.getMessageTimestamp(), objectsHistory.getObject());
             alarmHistoryService.addHistory(alarmHistory);
         }
 

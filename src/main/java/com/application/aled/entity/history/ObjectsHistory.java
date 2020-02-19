@@ -1,6 +1,7 @@
 package com.application.aled.entity.history;
 
 import com.application.aled.entity.Objects;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -20,13 +21,13 @@ public class ObjectsHistory {
     @Column(name = "columnData")
     private String columnData;
 
-
     @Column(name = "messageTimestamp")
     private Timestamp messageTimestamp;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "id_objects", nullable = true)
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
     private Objects object;
 
     public ObjectsHistory() {

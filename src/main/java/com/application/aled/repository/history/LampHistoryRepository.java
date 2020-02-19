@@ -10,6 +10,6 @@ public interface LampHistoryRepository extends JpaRepository<LampHistory,Long> {
     @Override
     void deleteAll();
 
-    List<LampHistory> findByObject_Rooms(Rooms room);
+    List<LampHistory> findByObject_Id(long id);
 }
 

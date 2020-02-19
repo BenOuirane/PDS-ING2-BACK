@@ -28,9 +28,9 @@ public class LampHistoryServiceImpl implements LampHistoryService {
     }
 
     @Override
-    public List<LampHistory> getLampHistoryByRoom(Rooms room) {
+    public List<LampHistory> getLampHistoryByObjectsId(long id) {
         List<LampHistory> lampHistories = new ArrayList<LampHistory>();
-        lampHistoryRepository.findByObject_Rooms(room).forEach(lampHistories::add);
+        lampHistoryRepository.findByObject_Id(id).forEach(lampHistories::add);
 
         return lampHistories;
     }

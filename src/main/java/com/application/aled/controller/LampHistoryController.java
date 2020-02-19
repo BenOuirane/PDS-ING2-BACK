@@ -17,8 +17,8 @@ public class LampHistoryController {
     LampHistoryServiceImpl lampHistoryService;
 
     @PutMapping("/history/lamp")
-    public List<LampHistory> getHistoryLamps(@RequestBody Rooms room){
-        List<LampHistory> lamp =  lampHistoryService.getLampHistoryByRoom(room);
+    public List<LampHistory> getHistoryLamps(@RequestBody long id){
+        List<LampHistory> lamp =  lampHistoryService.getLampHistoryByObjectsId(id);
 
         return lamp;
 

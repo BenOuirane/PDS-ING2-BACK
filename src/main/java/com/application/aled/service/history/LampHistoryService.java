@@ -12,5 +12,5 @@ public interface LampHistoryService {
 
     public void emptyTable();
 
-    public List<LampHistory> getLampHistoryByRoom(Rooms room);
+    public List<LampHistory> getLampHistoryByObjectsId(long id);
 }
