@@ -1,9 +1,8 @@
 package com.application.aled.service;
 
 import com.application.aled.entity.Failure;
-import com.application.aled.entity.Message;
+import com.application.aled.entity.Objects;
 import com.application.aled.repository.FailureRepository;
-import com.application.aled.repository.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,12 +33,12 @@ public class FailureServiceImpl implements FailureService {
 
         return failures;
     }
-    public Failure mac_address(String mac_address) throws NullPointerException {
-        System.out.println("Search failure of a mac address");
+    public List<Failure> getFailureByObject(Objects objects) throws NullPointerException {
+        System.out.println("Search failure of a connected object");
 
-        Failure failure = repository.findByMacAddress(mac_address);
+        List<Failure> failures = repository.findByObjects(objects);
 
-        return failure;
+        return failures;
     }
 }
 

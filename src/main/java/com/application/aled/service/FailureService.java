@@ -1,6 +1,7 @@
 package com.application.aled.service;
 
 import com.application.aled.entity.Failure;
+import com.application.aled.entity.Objects;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,5 +10,5 @@ import java.util.List;
 public interface FailureService {
     public List<Failure> getFailures();
 
-    public Failure mac_address(String mac_address); //TODO implement this method
+    public List<Failure> getFailureByObject(Objects objects); //TODO implement this method
 }
