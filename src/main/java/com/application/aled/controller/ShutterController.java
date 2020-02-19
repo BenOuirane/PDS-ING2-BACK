@@ -1,5 +1,6 @@
 package com.application.aled.controller;
 
+
 import com.application.aled.entity.Objects;
 import com.application.aled.entity.Shutter;
 import com.application.aled.service.ShutterServiceImpl;
@@ -22,5 +23,11 @@ public class ShutterController {
         System.out.println("Call getShutter " + shutters);
         return shutters;
 
+    }
+
+    @PutMapping("/shutter/updateParam")
+    public boolean updateShutters(@RequestBody Shutter shutter){
+        System.out.println("Call updateShutters :" + shutter.toString());
+        return shutterService.updateShutter(shutter);
     }
 }
