@@ -7,6 +7,7 @@ import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.*;
+import java.util.logging.Logger;
 
 public class PopulateObjectsHistory {
 
@@ -17,6 +18,7 @@ public class PopulateObjectsHistory {
 
     private static DecimalFormat decimalFormat = new DecimalFormat("#.#");
 
+    //Logger logger = Logger.getLogger("com.application.aled.messages.history.PopulateObjectsHistory");
 
     public List<ObjectsHistory> createObjectsRecords(List<Objects> objectsToRecord, Date historyStartDate, int numberPerDayAndObject, int hourBottomLimit, int hourTopLimit, boolean power) {
         List<ObjectsHistory> historyList = new ArrayList<ObjectsHistory>();
@@ -54,7 +56,7 @@ public class PopulateObjectsHistory {
 
                     countMessagesLeftToDo.replace(objectToRecord.getId(), messageLeftToDo - 1);
 
-                    //System.out.println("Message history " + messageRecord.toString());
+                    //logger.info("Message history " + messageRecord.toString());
                 }
 
                 orderedListByDate.sort(Comparator.comparing(ObjectsHistory::getMessageTimestamp));

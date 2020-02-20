@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Component
 public class ObjectsHistoryInsertion {
@@ -38,6 +39,8 @@ public class ObjectsHistoryInsertion {
 
     @PostConstruct
     public void createObjectHistories(){
+        Logger logger = Logger.getLogger("com.application.aled.messages.history.ObjectsHistoryInsertion");
+
         Date fiveDaysAgo = new Date();
 
         long minusWeek = fiveDaysAgo.getTime()-5*24*60*60*1000;
@@ -96,6 +99,8 @@ public class ObjectsHistoryInsertion {
             AlarmClockHistory alarmHistory = new AlarmClockHistory(objectsHistory.getData(), objectsHistory.getColumnData(), objectsHistory.getMessageTimestamp(), objectsHistory.getObject());
             alarmHistoryService.addHistory(alarmHistory);
         }
+
+        logger.info("Inserting history finished");
 
         /*
         List<ObjectsHistory> objectsHistoriesOvenLunch = populateHistory.setMessagesTimestamps(objects.subList(14,17) , weekAgo, 4, 13, 12);
