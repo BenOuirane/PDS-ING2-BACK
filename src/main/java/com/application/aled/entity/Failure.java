@@ -11,8 +11,9 @@ public class Failure {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "mac_address")
-    private String macAddress;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(unique = true)
+    private Objects objects;
 
     @Column(name = "message")
     private String message;
@@ -29,14 +30,6 @@ public class Failure {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public String getMacAddress() {
-        return macAddress;
-    }
-
-    public void setMacAddress(String macAddress) {
-        this.macAddress = macAddress;
     }
 
     public String getMessage() {
@@ -63,11 +56,19 @@ public class Failure {
         this.end_date = end_date;
     }
 
+    public Objects getObjects() {
+        return objects;
+    }
+
+    public void setObjects(Objects objects) {
+        this.objects = objects;
+    }
+
     @Override
     public String toString() {
         return "Failure{" +
                 "id=" + id +
-                ", macAddress='" + macAddress + '\'' +
+                ", objects=" + objects +
                 ", message='" + message + '\'' +
                 ", begin_date=" + begin_date +
                 ", end_date=" + end_date +

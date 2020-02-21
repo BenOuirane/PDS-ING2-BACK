@@ -22,8 +22,9 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "mac_address")
-    private String macAddress;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(unique = true)
+    private Objects objects;
 
     @Column(name = "effective_temperature")
     private int effective_temperature;
@@ -43,13 +44,9 @@ public class Message {
         this.id = id;
     }
 
-    public String getMac_address() {
-        return macAddress;
-    }
+    public Objects getObjects() { return objects;}
 
-    public void setMac_address(String mac_address) {
-        this.macAddress = mac_address;
-    }
+    public void setObjects(Objects objects) { this.objects = objects;}
 
     public int getEffective_temperature() {
         return effective_temperature;
@@ -79,10 +76,10 @@ public class Message {
     public String toString() {
         return "Message{" +
                 "id=" + id +
-                ", mac_address='" + macAddress + '\'' +
-                ", effective_temperature='" + effective_temperature + '\'' +
-                ", programmed_temperature='" + programmed_temperature + '\'' +
-                ", dateTime='" + dateTime + '\'' +
+                ", objects=" + objects +
+                ", effective_temperature=" + effective_temperature +
+                ", programmed_temperature=" + programmed_temperature +
+                ", dateTime=" + dateTime +
                 '}';
     }
 }
