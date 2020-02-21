@@ -5,6 +5,8 @@ import com.application.aled.dto.convertors.MedicalMeasurementDTOConvertor;
 import com.application.aled.entity.MedicalMeasurement;
 import com.application.aled.service.MedicalMeasurementService;
 import com.application.aled.service.MedicalMeasurementTypeService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +21,8 @@ public class MedicalMeasurementController {
     MedicalMeasurementDTOConvertor measurementDTOConvertor;
     @Autowired
     MedicalMeasurementTypeService measurementTypeService;
+
+    static final Logger logger = LogManager.getLogger(MedicalMeasurementController.class.getName());
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public MedicalMeasurement createMedicalMeasurement(@RequestBody MedicalMeasurementDTO measurementDTO){
