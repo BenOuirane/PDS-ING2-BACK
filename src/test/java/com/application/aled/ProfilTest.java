@@ -15,6 +15,8 @@ import org.mockito.junit.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class ProfilTest {
 
+    //Statement state = conn.createStatement();
+
     @Mock
     ProfilRepository profil;
 
@@ -27,9 +29,9 @@ public class ProfilTest {
     }
 
     @Test(expected = CustomHandler.class)
-    public void assertObjectsEnum(){
+    public void assertObjectsEnum() {
         Profil _profil = new Profil();
-        //_profil.setObjects("LAMP");
     }
+        //("INSERT INTO profil VALUES(sociable, SOCIABLE, GOOD_SOCIAL_STATE, LAMP)");
 
 }
