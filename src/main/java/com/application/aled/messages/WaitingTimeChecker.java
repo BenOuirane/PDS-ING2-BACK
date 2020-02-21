@@ -42,19 +42,15 @@ public class WaitingTimeChecker {
     ShutterHistoryService shutterHistoryService;
     @Autowired
     AlarmClockHistoryService alarmClockHistoryService;
-    //Test de mort
-    @Autowired
-    UserRepository userRepository;
 
-    /*@Autowired
-    LampRepository lampRepository;*/
+
     Logger logger = Logger.getLogger("com.application.aled.messages.WaitingTimeChecker");
 
-    //@Async("threadPoolTaskExecutor")
+    @Async("threadPoolTaskExecutor")
     public void launchVerification(){
         while (true) {
             try {
-                Thread.sleep(10000);
+                Thread.sleep(30000);
                 logger.info("System starting check time for all objects ");
 
                 //List<Message> messageList = messageService.getMessages();
@@ -63,12 +59,9 @@ public class WaitingTimeChecker {
                     Timestamp timestamp;
                     boolean timeRelevant = false;
                     timeRelevant = checkTime(objectToCheck);
-                    System.out.println("time relevant"+timeRelevant);
                     if (!timeRelevant) {
-                        //Failure failure = new Failure(objectToCheck, "off", new Timestamp(System.currentTimeMillis()));
-                        //Failure failure1 = new Failure(objectToCheck,"off", new Timestamp(System.currentTimeMillis()),null);
-                        //failureService.addFailure(failure1);
-                        //userRepository.save();
+                        Failure failure1 = new Failure("off", new Timestamp(System.currentTimeMillis()),null,objectToCheck);
+                        failureService.addFailure(failure1);
                     }
                 }
 

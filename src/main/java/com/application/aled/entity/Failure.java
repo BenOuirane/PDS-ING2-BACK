@@ -11,10 +11,6 @@ public class Failure {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "object_id")
-    private Objects objects;
-
     @Column(name = "message")
     private String message;
 
@@ -23,6 +19,17 @@ public class Failure {
 
     @Column(name = "end_date")
     private Timestamp end_date;
+
+    @ManyToOne
+    @JoinColumn(name = "object_id")
+    private Objects objects;
+
+    public Failure(String message, Timestamp begin_date, Timestamp end_date, Objects objects) {
+        this.message = message;
+        this.begin_date = begin_date;
+        this.end_date = end_date;
+        this.objects = objects;
+    }
 
     public long getId() {
         return id;
