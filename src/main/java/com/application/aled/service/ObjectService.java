@@ -14,5 +14,7 @@ public interface ObjectService {
 
     List<Objects> getObjectByState(boolean state);
 
+    Objects updateObjects(Objects objects);
+
 
 }

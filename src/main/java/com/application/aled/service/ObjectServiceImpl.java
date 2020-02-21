@@ -55,4 +55,10 @@ public class ObjectServiceImpl implements ObjectService {
         return objects;
     }
 
+    @Override
+    public Objects updateObjects(Objects objects) {
+        Objects _objects = objectRepository.save(objects);
+        return _objects;
+    }
+
 }

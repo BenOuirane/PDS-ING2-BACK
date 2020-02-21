@@ -62,6 +62,9 @@ public class WaitingTimeChecker {
                     if (!timeRelevant) {
                         Failure failure1 = new Failure("off", new Timestamp(System.currentTimeMillis()),null,objectToCheck);
                         failureService.addFailure(failure1);
+                        objectToCheck.setState(false);
+                        objectService.updateObjects(objectToCheck);
+                        logger.warning("Object state set to off and failure registered");
                     }
                 }
 
