@@ -6,9 +6,9 @@ import com.application.aled.service.history.*;
 import com.application.aled.service.ObjectServiceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
@@ -37,9 +37,11 @@ public class ObjectsHistoryInsertion {
     //@Autowired
     //OvenHistoryServiceImpl ovenHistoryService;
 
-    @PostConstruct
+
+    @Async
     public void createObjectHistories(){
         Logger logger = Logger.getLogger("com.application.aled.messages.history.ObjectsHistoryInsertion");
+        logger.info("Inserting history started");
 
         Date fiveDaysAgo = new Date();
 
