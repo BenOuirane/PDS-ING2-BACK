@@ -8,6 +8,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "objects")
@@ -35,6 +36,9 @@ public class Objects {
     @OnDelete(action = OnDeleteAction.CASCADE)
     //@JsonIgnore
     private Rooms rooms;
+
+    @OneToMany(mappedBy = "objects")
+    private List<Failure> failures;
 
     public Objects() { }
 

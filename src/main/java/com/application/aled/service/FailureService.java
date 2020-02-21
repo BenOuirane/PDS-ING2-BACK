@@ -11,4 +11,6 @@ public interface FailureService {
     public List<Failure> getFailures();
 
     public List<Failure> getFailureByObject(Objects objects); //TODO implement this method
+
+    public Failure addFailure(Failure failure);
 }

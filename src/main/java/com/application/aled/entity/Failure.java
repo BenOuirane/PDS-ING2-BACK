@@ -11,8 +11,8 @@ public class Failure {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(unique = true)
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "object_id")
     private Objects objects;
 
     @Column(name = "message")

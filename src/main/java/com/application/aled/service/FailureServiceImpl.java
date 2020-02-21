@@ -18,7 +18,7 @@ public class FailureServiceImpl implements FailureService {
     They will be our base for the rest of the service
      */
     @Autowired
-    private FailureRepository repository;
+    FailureRepository repository;
 
     /*
     Here we use the 'findAll()' to create a custom getFailures()
@@ -39,6 +39,12 @@ public class FailureServiceImpl implements FailureService {
         List<Failure> failures = repository.findByObjects(objects);
 
         return failures;
+    }
+
+    @Override
+    public Failure addFailure(Failure failure) {
+        Failure failureRecord = repository.save(failure);
+        return failureRecord;
     }
 }
 
