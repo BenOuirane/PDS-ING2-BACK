@@ -1,6 +1,9 @@
 package com.application.aled.entity;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.sql.Timestamp;
 
 @Entity
@@ -13,7 +16,9 @@ public class Failure {
 
     @Column(name = "message")
     private String message;
-
+    
+    @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "begin_date")
     private Timestamp begin_date;
 

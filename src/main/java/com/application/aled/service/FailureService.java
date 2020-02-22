@@ -13,4 +13,12 @@ public interface FailureService {
     public List<Failure> getFailureByObject(Objects objects); //TODO implement this method
 
     public Failure addFailure(Failure failure);
+    
+    public List<Failure> getFailuresByYear(int year);
+
+    public List<Failure> getFailuresByYearAndMonth(int year, int month);
+
+    public List<Failure> getFailuresByDay(int year, int month, int day);
+
+	
 }

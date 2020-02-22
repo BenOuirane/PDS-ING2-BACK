@@ -46,5 +46,33 @@ public class FailureServiceImpl implements FailureService {
         Failure failureRecord = repository.save(failure);
         return failureRecord;
     }
+    @Override
+    public List<Failure> getFailuresByYear(int year) throws NullPointerException{
+
+        List<Failure> failuresbyyear = new ArrayList<>();
+      
+        repository.findFailuresByYear(year).forEach(failuresbyyear::add);
+        
+        return failuresbyyear; }
+        
+    @Override
+    public List<Failure> getFailuresByYearAndMonth(int year, int month) throws NullPointerException{
+        
+        List<Failure> failuresbyyear_month = new ArrayList<>();
+        repository.findFailuresByYearAndMonth(year, month).forEach(failuresbyyear_month::add);
+        return failuresbyyear_month; }
+
+    @Override
+    public List<Failure> getFailuresByDay(int year, int month, int day) throws NullPointerException{
+
+        List<Failure> failuresbyday = new ArrayList<>();
+        repository.findFailuresByDay(year, month, day).forEach(failuresbyday::add);
+        return failuresbyday; }
+
+	
+
+
 }
+
+
 
