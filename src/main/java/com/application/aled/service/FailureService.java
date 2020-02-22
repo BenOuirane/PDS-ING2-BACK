@@ -10,4 +10,12 @@ public interface FailureService {
     public List<Failure> getFailures();
 
     public Failure mac_address(String mac_address); //TODO implement this method
+    
+    public List<Failure> getFailuresByYear(int year);
+
+    public List<Failure> getFailuresByYearAndMonth(int year, int month);
+
+    public List<Failure> getFailuresByDay(int year, int month, int day);
+
+	
 }
