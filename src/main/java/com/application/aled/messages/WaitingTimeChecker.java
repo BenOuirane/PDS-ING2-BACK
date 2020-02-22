@@ -13,6 +13,7 @@ import com.application.aled.service.history.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,7 +23,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
-@Service
+@Component
 public class WaitingTimeChecker {
     @Autowired
     MessageRepository messageRepository;
@@ -46,7 +47,7 @@ public class WaitingTimeChecker {
 
     Logger logger = Logger.getLogger("com.application.aled.messages.WaitingTimeChecker");
 
-    @Async("threadPoolTaskExecutor")
+    @Async/*("threadPoolTaskExecutor")*/
     public void launchVerification(){
         while (true) {
             try {

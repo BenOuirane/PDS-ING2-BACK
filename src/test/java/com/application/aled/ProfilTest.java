@@ -12,11 +12,18 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
-@RunWith(MockitoJUnitRunner.class)
+//@RunWith(MockitoJUnitRunner.class)
 public class ProfilTest {
 
+    /**
+     *
+     * Class taken from test.java.com.application.aled
+     *
+     * TODO : Author could correct this poor little unit test
+     */
     //Statement state = conn.createStatement();
 
+            /*
     @Mock
     ProfilRepository profil;
 
@@ -34,4 +41,6 @@ public class ProfilTest {
     }
         //("INSERT INTO profil VALUES(sociable, SOCIABLE, GOOD_SOCIAL_STATE, LAMP)");
 
+
+             */
 }
