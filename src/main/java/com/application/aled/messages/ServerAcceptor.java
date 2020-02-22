@@ -1,95 +1,79 @@
 package com.application.aled.messages;
-import javax.sql.rowset.spi.XmlReader;
 import java.io.*;
 
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.sql.Connection;
-import java.sql.DriverManager;
+import java.util.logging.Logger;
 
 /**
- * This class receive message in xml format and it gives it to the XmlReader
+ * This class receive message in xml format and it gives it to the XmlReader by the method xmlTranslate
  */
 public class ServerAcceptor {
+
+    static Logger logServerAcceptor = Logger.getLogger("com.application.aled.message.ServerAcceptor");
     public ServerAcceptor() throws IOException {
-        final String chemin = "../logFile.txt";
-        final File fichier = new File(chemin);
-        writer = new FileWriter(fichier);
+        final String logFilePath = "../logFile.txt";
+        final File logFile = new File(logFilePath);
+        fileWriter = new FileWriter(logFile);
     }
 
-    public static FileWriter writer;
-    public static final int portEcoute = 5001;
+    public static FileWriter fileWriter;
+    public static final int portListen = 5001;
 
     public void receiveMessage() {
-        // Création de la socket serveur
-        ServerSocket socketServeur = null;
+        // Create server socket to receive messages
+        ServerSocket socketServer = null;
         String str = null;
         String str2 = null;
         String str3 = null;
 
         try {
-            socketServeur = new ServerSocket(portEcoute);
+            socketServer = new ServerSocket(portListen);
         } catch(IOException e) {
-            System.err.println("Création de la socket impossible : " + e);
-            System.exit(-1);
+            logServerAcceptor.severe("Impossible to create server socket : " + e);
         }
 
         // waiting a client connection
         Socket socketClient = null;
         try {
-            socketClient = socketServeur.accept();
+            socketClient = socketServer.accept();
         } catch(IOException e) {
-            System.err.println("Erreur lors de l'attente d'une connexion : " + e);
-            System.exit(-1);
+            logServerAcceptor.severe("Erreur lors de l'attente d'une connexion : " + e);
         }
 
         // Associate input stream
         ObjectInputStream ois = null;
         try {
             ois = new ObjectInputStream(socketClient.getInputStream());
-
         } catch(IOException e) {
-            System.err.println("Association des flux impossible : " + e);
-            System.exit(-1);
+            logServerAcceptor.severe("Impossible to associate stream to the socket: " + e);
         }
 
         // We waiting and receive an message which coming from an object
             try {
-                str = (String) ois.readObject();
-                str2 = (String) ois.readObject();
-                str3 = (String) ois.readObject();
-
-                System.out.println("message received: " + str);
-
-
-
-            /**
-             *
-             * We transmit the xml string to the Xml reader to analyse and stock its information
-             *
-             **/
-
-
-
-            XmlController xmlReader = new XmlController();
-            xmlReader.xmlTranslate(str);
-            xmlReader.xmlTranslate(str2);
-            xmlReader.xmlTranslate(str3);
-            writer.close();
+                XmlController xmlReader = new XmlController();
+                while (true) {
+                    str = (String) ois.readObject();
+                    logServerAcceptor.info("message received: " + str);
+                    /**
+                     * We transmit the xml string to the Xml reader to analyse and stock its information
+                     **/
+                    xmlReader.xmlTranslate(str);
+                }
             } catch (IOException | ClassNotFoundException e) {
-                System.err.println("Erreur lors de la lecture : " + e);
-                System.exit(-1);
+                logServerAcceptor.severe("Erreur lors de la lecture : " + e);
+            }finally {
+                try {
+                    fileWriter.close();
+                    ois.close();
+                    socketClient.close();
+                    socketServer.close();
+                } catch(IOException e) {
+                    logServerAcceptor.severe("Error during stream and socket closing : " + e);
+                }
             }
 
-        // Fermeture des flux et des sockets
-        try {
-            ois.close();
-            socketClient.close();
-            socketServeur.close();
-        } catch(IOException e) {
-            System.err.println("Erreur lors de la fermeture des flux et des sockets : " + e);
-            System.exit(-1);
-        }
+
     }
 
     public static void main(String[] args) throws IOException {

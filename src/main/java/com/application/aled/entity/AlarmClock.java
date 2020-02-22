@@ -23,9 +23,6 @@ public class AlarmClock {
     @Column(name = "alarmStatus")
     private boolean alarmStatus;
 
-    @Column(name = "time")
-    private Timestamp time;
-
     @Column(name = "alarmUsine")
     private Timestamp alarmUsine;
 
@@ -46,12 +43,11 @@ public class AlarmClock {
 
     }
 
-    public AlarmClock(Timestamp alarm, int radioHrz, boolean radioStatus, boolean alarmStatus, Timestamp time, Timestamp alarmUsine, int radioHrtzUsine, boolean radioStatusUsine, boolean alarmStatusUsine, Objects objects) {
+    public AlarmClock(Timestamp alarm, int radioHrz, boolean radioStatus, boolean alarmStatus, Timestamp alarmUsine, int radioHrtzUsine, boolean radioStatusUsine, boolean alarmStatusUsine, Objects objects) {
         this.alarm = alarm;
         this.radioHrz = radioHrz;
         this.radioStatus = radioStatus;
         this.alarmStatus = alarmStatus;
-        this.time = time;
         this.alarmUsine = alarmUsine;
         this.radioHrtzUsine = radioHrtzUsine;
         this.radioStatusUsine = radioStatusUsine;
@@ -97,14 +93,6 @@ public class AlarmClock {
 
     public void setAlarmStatus(boolean alarmStatus) {
         this.alarmStatus = alarmStatus;
-    }
-
-    public Timestamp getTime() {
-        return time;
-    }
-
-    public void setTime(Timestamp time) {
-        this.time = time;
     }
 
     public Timestamp getAlarmUsine() {
@@ -155,7 +143,6 @@ public class AlarmClock {
                 ", radioHrz=" + radioHrz +
                 ", radioStatus=" + radioStatus +
                 ", alarmStatus=" + alarmStatus +
-                ", time=" + time +
                 ", alarmUsine=" + alarmUsine +
                 ", radioHrtzUsine=" + radioHrtzUsine +
                 ", radioStatusUsine=" + radioStatusUsine +

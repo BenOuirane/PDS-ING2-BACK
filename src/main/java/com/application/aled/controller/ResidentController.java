@@ -22,7 +22,7 @@ public class ResidentController {
     public Resident getResident(@RequestBody User user) {
         System.out.println("Call getResident");
         Resident _resident = residentService.getResidentByUser(user);
-        System.out.println("getResident" + _resident);
+        System.out.println("getResident :" + _resident);
         return _resident;
     }
 

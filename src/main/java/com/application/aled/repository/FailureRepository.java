@@ -6,12 +6,18 @@ import com.application.aled.entity.Message;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
+
+import com.application.aled.entity.Objects;
+
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface FailureRepository extends CrudRepository<Failure, Long> {
-    Failure findByMacAddress(String mac_address);
+
+
     @Query("select f from Failure f where year(f.begin_date) = ?1")
     List<Failure> findFailuresByYear(int year);
 
@@ -20,4 +26,7 @@ public interface FailureRepository extends CrudRepository<Failure, Long> {
 
     @Query("select f from Failure f where year(f.begin_date) = ?1 and month(f.begin_date)= ?2 and day(f.begin_date)= ?3")
     List<Failure> findFailuresByDay(int year, int month, int date);
+
+    List<Failure> findByObjects(Objects objects);
+
 }

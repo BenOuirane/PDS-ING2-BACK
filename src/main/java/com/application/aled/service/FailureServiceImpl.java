@@ -1,9 +1,8 @@
 package com.application.aled.service;
 
 import com.application.aled.entity.Failure;
-import com.application.aled.entity.Message;
+import com.application.aled.entity.Objects;
 import com.application.aled.repository.FailureRepository;
-import com.application.aled.repository.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +18,7 @@ public class FailureServiceImpl implements FailureService {
     They will be our base for the rest of the service
      */
     @Autowired
-    private FailureRepository repository;
+    FailureRepository repository;
 
     /*
     Here we use the 'findAll()' to create a custom getFailures()
@@ -34,12 +33,18 @@ public class FailureServiceImpl implements FailureService {
 
         return failures;
     }
-    public Failure mac_address(String mac_address) throws NullPointerException {
-        System.out.println("Search failure of a mac address");
+    public List<Failure> getFailureByObject(Objects objects) throws NullPointerException {
+        System.out.println("Search failure of a connected object");
 
-        Failure failure = repository.findByMacAddress(mac_address);
+        List<Failure> failures = repository.findByObjects(objects);
 
-        return failure;
+        return failures;
+    }
+
+    @Override
+    public Failure addFailure(Failure failure) {
+        Failure failureRecord = repository.save(failure);
+        return failureRecord;
     }
     @Override
     public List<Failure> getFailuresByYear(int year) throws NullPointerException{
@@ -63,6 +68,8 @@ public class FailureServiceImpl implements FailureService {
         List<Failure> failuresbyday = new ArrayList<>();
         repository.findFailuresByDay(year, month, day).forEach(failuresbyday::add);
         return failuresbyday; }
+
+	
 
 
 }
