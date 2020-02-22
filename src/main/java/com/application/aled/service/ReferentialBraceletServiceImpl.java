@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.application.aled.service.referential.bracelet;
+package com.application.aled.service;
 
 import java.util.ArrayList;
 import java.util.List;

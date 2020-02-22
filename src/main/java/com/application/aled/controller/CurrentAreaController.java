@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.application.aled.controller.exception.CustomHandler;
 import com.application.aled.entity.CurrentArea;
-import com.application.aled.service.location.CurrentAreaService;
+import com.application.aled.service.CurrentAreaService;
 
 /**
  * @author ISMAIL EL HAMMOUD

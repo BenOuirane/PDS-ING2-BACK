@@ -30,6 +30,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  *
  */
 
+
+//TODO Activate the cache once all dev is done
 @Entity
 @Table(name = "area")
 //@NaturalIdCache
@@ -38,7 +40,7 @@ public class Area implements Serializable {
 	
 	@Id
 	@GeneratedValue
-	private Long id;
+	private Long area_id;
 	
 	@NaturalId
 	private String name;
@@ -65,12 +67,70 @@ public class Area implements Serializable {
 	@JsonIgnore
 	private AreaType areatype;
 
-	public Long getId() {
-		return id;
+
+
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((area_id == null) ? 0 : area_id.hashCode());
+		result = prime * result + ((areas == null) ? 0 : areas.hashCode());
+		result = prime * result + ((areatype == null) ? 0 : areatype.hashCode());
+		result = prime * result + ((id_capteur == null) ? 0 : id_capteur.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((surface == null) ? 0 : surface.hashCode());
+		return result;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Area other = (Area) obj;
+		if (area_id == null) {
+			if (other.area_id != null)
+				return false;
+		} else if (!area_id.equals(other.area_id))
+			return false;
+		if (areas == null) {
+			if (other.areas != null)
+				return false;
+		} else if (!areas.equals(other.areas))
+			return false;
+		if (areatype == null) {
+			if (other.areatype != null)
+				return false;
+		} else if (!areatype.equals(other.areatype))
+			return false;
+		if (id_capteur == null) {
+			if (other.id_capteur != null)
+				return false;
+		} else if (!id_capteur.equals(other.id_capteur))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (surface == null) {
+			if (other.surface != null)
+				return false;
+		} else if (!surface.equals(other.surface))
+			return false;
+		return true;
+	}
+
+	public Long getArea_id() {
+		return area_id;
+	}
+
+	public void setArea_id(Long area_id) {
+		this.area_id = area_id;
 	}
 
 	public String getName() {
@@ -114,48 +174,6 @@ public class Area implements Serializable {
 	}
 
 	
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Area other = (Area) obj;
-		if (areas == null) {
-			if (other.areas != null)
-				return false;
-		} else if (!areas.equals(other.areas))
-			return false;
-		if (areatype == null) {
-			if (other.areatype != null)
-				return false;
-		} else if (!areatype.equals(other.areatype))
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (id_capteur == null) {
-			if (other.id_capteur != null)
-				return false;
-		} else if (!id_capteur.equals(other.id_capteur))
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		if (surface == null) {
-			if (other.surface != null)
-				return false;
-		} else if (!surface.equals(other.surface))
-			return false;
-		return true;
-	}
 
 	
 	

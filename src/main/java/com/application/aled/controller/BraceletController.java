@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.application.aled.controller.exception.CustomHandler;
 import com.application.aled.entity.Bracelet;
-import com.application.aled.service.bracelet.BraceletService;
+import com.application.aled.service.BraceletService;
 
 @RestController
 @CrossOrigin(origins = "*")

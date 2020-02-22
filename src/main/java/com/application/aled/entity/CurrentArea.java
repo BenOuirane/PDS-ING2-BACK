@@ -51,7 +51,7 @@ public class CurrentArea  implements Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("areaId")
+    @MapsId("code_area")
     private Area area;
 	
 	

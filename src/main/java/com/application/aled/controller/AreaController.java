@@ -15,7 +15,7 @@ import org.apache.logging.log4j.Logger;
 import com.application.aled.controller.exception.CustomHandler;
 import com.application.aled.entity.Area;
 import com.application.aled.entity.Bracelet;
-import com.application.aled.service.area.AreaService;
+import com.application.aled.service.AreaService;
 
 import java.util.List;
 

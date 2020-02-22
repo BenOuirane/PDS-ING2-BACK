@@ -115,8 +115,9 @@ public class Bracelet {
 	//TODO add PK and FK 
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name= "id_resident", unique = true )
-	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JsonIgnore
 	private Resident residents;
 	
+
+
 }

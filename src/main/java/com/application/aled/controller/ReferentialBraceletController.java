@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.application.aled.entity.ReferentialBracelet;
-import com.application.aled.service.referential.bracelet.ReferentialBraceletService;
+import com.application.aled.service.ReferentialBraceletService;
 
 /**
  * @author ISMAIL EL HAMMOUD

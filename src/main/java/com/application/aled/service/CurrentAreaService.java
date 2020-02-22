@@ -1,4 +1,4 @@
-package com.application.aled.service.location;
+package com.application.aled.service;
 
 import java.util.List;
 
