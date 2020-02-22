@@ -20,4 +20,8 @@ public interface BraceletService {
 	void updateBracelet(Bracelet idBrac);
 
 	void removeBracelet(Bracelet idBrac);
+
+	Bracelet getBraceletByRefBracelet(String nameBrac);
+
+
 }

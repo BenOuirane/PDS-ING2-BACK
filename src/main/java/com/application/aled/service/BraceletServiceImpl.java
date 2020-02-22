@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import com.application.aled.entity.MedicalMeasurementType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -74,10 +75,16 @@ public class BraceletServiceImpl implements BraceletService {
 		return bracelet;
 		
 	}*/
+
 	public Bracelet getBraceletById(Long idBrac) {
 		Bracelet bracelet = braceletRepository.findBraceletById(idBrac);
 		return bracelet;
 		
+	}
+
+	@Override
+	public Bracelet getBraceletByRefBracelet(String name) {
+		return this.braceletRepository.findBraceletByRefBracelet(name);
 	}
 
 	
