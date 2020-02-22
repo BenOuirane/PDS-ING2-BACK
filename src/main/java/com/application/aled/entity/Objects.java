@@ -8,6 +8,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "objects")
@@ -30,15 +31,18 @@ public class Objects {
     private String objectType;
 
     //Many object to one room
-    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @ManyToOne(fetch = FetchType.EAGER, optional = true)
     @JoinColumn(name = "id_rooms", nullable = true)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
+    //@JsonIgnore
     private Rooms rooms;
+
+    @OneToMany(mappedBy = "objects")
+    private List<Failure> failures;
 
     public Objects() { }
 
-    public Objects(boolean state, String macAddress, String ipAddress, String objectType, Rooms room) {
+    public Objects(boolean state, String macAddress, String ipAddress, String objectType, Rooms rooms) {
         this.state = state;
         this.macAddress = macAddress;
         this.ipAddress = ipAddress;
@@ -108,7 +112,7 @@ public class Objects {
                 ", macAddress='" + macAddress + '\'' +
                 ", ipAddress='" + ipAddress + '\'' +
                 ", objectType='" + objectType + '\'' +
-                ", rooms='" + /*rooms + */ '\'' +
+                ", rooms='" + rooms +  '\'' +
                 '}';
     }
 }

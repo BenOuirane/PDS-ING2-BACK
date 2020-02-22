@@ -1,6 +1,9 @@
 package com.application.aled.entity;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.sql.Timestamp;
 
 @Entity
@@ -11,17 +14,27 @@ public class Failure {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "mac_address")
-    private String macAddress;
-
     @Column(name = "message")
     private String message;
-
+    
+    @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "begin_date")
     private Timestamp begin_date;
 
     @Column(name = "end_date")
     private Timestamp end_date;
+
+    @ManyToOne
+    @JoinColumn(name = "object_id")
+    private Objects objects;
+
+    public Failure(String message, Timestamp begin_date, Timestamp end_date, Objects objects) {
+        this.message = message;
+        this.begin_date = begin_date;
+        this.end_date = end_date;
+        this.objects = objects;
+    }
 
     public long getId() {
         return id;
@@ -29,14 +42,6 @@ public class Failure {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public String getMacAddress() {
-        return macAddress;
-    }
-
-    public void setMacAddress(String macAddress) {
-        this.macAddress = macAddress;
     }
 
     public String getMessage() {
@@ -63,11 +68,19 @@ public class Failure {
         this.end_date = end_date;
     }
 
+    public Objects getObjects() {
+        return objects;
+    }
+
+    public void setObjects(Objects objects) {
+        this.objects = objects;
+    }
+
     @Override
     public String toString() {
         return "Failure{" +
                 "id=" + id +
-                ", macAddress='" + macAddress + '\'' +
+                ", objects=" + objects +
                 ", message='" + message + '\'' +
                 ", begin_date=" + begin_date +
                 ", end_date=" + end_date +

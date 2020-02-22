@@ -29,7 +29,7 @@ public class LampServiceImpl implements LampService {
             lampRepository.save(lamp);
             return true;
         }catch (Exception e){
-            System.out.println("La lampe n'a pas été correctement mise à jour...! => Error : service.lampServiceImpl");
+            System.out.println("La lampe n'a pas été correctement mise à jour...! => Error : service.LampServiceImpl");
             System.out.println(e.getMessage());
             return false;
         }

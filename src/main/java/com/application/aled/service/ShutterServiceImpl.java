@@ -1,5 +1,6 @@
 package com.application.aled.service;
 
+
 import com.application.aled.entity.Objects;
 import com.application.aled.entity.Shutter;
 import com.application.aled.repository.ShutterRepository;
@@ -20,5 +21,18 @@ public class ShutterServiceImpl implements ShutterService{
         List<Shutter> shutters = new ArrayList<>();
         shutterRepository.findAllByObjects(objects).forEach(shutters::add);
         return shutters;
+    }
+
+    @Override
+    public boolean updateShutter(Shutter shutter) {
+        System.out.println("Update shutter param...");
+        try{
+            shutterRepository.save(shutter);
+            return true;
+        }catch (Exception e){
+            System.out.println("Le volet n'a pas été correctement mis à jour...! => Error : service.ShutterServiceImpl");
+            System.out.println(e.getMessage());
+            return false;
+        }
     }
 }

@@ -1,0 +1,32 @@
+#FIXME : add the database address instead of localhost and the name of the final database
+
+
+#OLD DB #FIXME to be deleted
+#spring.datasource.url=jdbc:postgresql://172.31.254.61:5433/application_test
+#spring.datasource.url=jdbc:postgresql://10.1.2.2:5432/aled_db
+
+# CONNEXION EXT => >BDD DEV
+spring.datasource.url=jdbc:postgresql://172.31.254.61:5433/aled_db
+# DEPLOYMENT ADDRESS :
+#spring.datasource.url=jdbc:postgresql://10.1.2.2:5432/aled_db
+
+spring.datasource.username=postgres
+spring.datasource.password=root
+
+
+spring.jpa.generate-ddl=true
+spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation=true
+hibernate.jdbc.lob.non_contextual_creation=true
+spring.jpa.hibernate.ddl-auto =update
+#testing connection
+
+
+###For local db to run test ##
+
+#spring.datasource.url=jdbc:mysql://localhost:3306/application_test?serverTimezone=UTC
+
+#spring.datasource.username=root
+#spring.datasource.password=
+#spring.jpa.generate-ddl=true
+#spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation=true
+#hibernate.jdbc.lob.non_contextual_creation=true

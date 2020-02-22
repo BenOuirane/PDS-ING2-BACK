@@ -33,7 +33,7 @@ import com.application.aled.repository.UserRepository;
 @RestController
 @RequestMapping("/api")
 public class UserController {
-	static final Logger logger = LogManager.getLogger(CurrentAreaController.class.getName());
+	static final Logger logger = LogManager.getLogger(UserController.class.getName());
 
 	@Autowired
 	UserRepository repository;

@@ -1,5 +1,6 @@
 package com.application.aled.controller;
 
+
 import com.application.aled.entity.Objects;
 import com.application.aled.entity.Shutter;
 import com.application.aled.service.ShutterServiceImpl;
@@ -18,10 +19,15 @@ public class ShutterController {
 
     @PutMapping("/shutter/list")
     public List<Shutter> getShutter(@RequestBody Objects objects){
-        System.out.println("Call getShutter" + objects);
         List<Shutter> shutters =  shutterService.getShutter(objects);
-        System.out.println("Call getShutter 2 " + shutters);
+        System.out.println("Call getShutter " + shutters);
         return shutters;
 
+    }
+
+    @PutMapping("/shutter/updateParam")
+    public boolean updateShutters(@RequestBody Shutter shutter){
+        System.out.println("Call updateShutters :" + shutter.toString());
+        return shutterService.updateShutter(shutter);
     }
 }

@@ -16,24 +16,12 @@ public class Rooms {
     @Column(name = "roomNumber")
     private int roomNumber;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "rooms")
-
-    private List<Objects> objects;
-
     public Rooms() {
     }
-    public Rooms(int roomNumber, List<Objects> objects){
+    public Rooms(int roomNumber){
         this.roomNumber = roomNumber;
-        this.objects = objects;
     }
 
-   public List<Objects> getObjects() {
-        return objects;
-    }
-
-    public void setObjects(List<Objects> objects) {
-        this.objects = objects;
-    }
 
     public int getRoomNumber() {
         return roomNumber;
