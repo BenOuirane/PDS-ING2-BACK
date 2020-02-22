@@ -22,11 +22,8 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
  * SpringBootApplication that will be launched
  */
 @SpringBootApplication
-@EnableAsync
 public class BackendApplication extends SpringBootServletInitializer/* implements CommandLineRunner */{
 
-	@Autowired
-	private WaitingTimeChecker waitingTimeChecker;
 
 	public static void main(String[] args) throws IOException {
 
@@ -35,20 +32,5 @@ public class BackendApplication extends SpringBootServletInitializer/* implement
 		System.out.println("Application is running :)");
 
 	}
-	/*@Bean("threadPoolTaskExecutor")
-	public TaskExecutor getAsyncExecutor() {
-		ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-		executor.setCorePoolSize(20);
-		executor.setMaxPoolSize(1000);
-		executor.setWaitForTasksToCompleteOnShutdown(true);
-		executor.setThreadNamePrefix("Async-");
-		return executor;
-	}
-	@Override
-	public void run(String...args) throws Exception {
-		// Start the clock
-		long start = System.currentTimeMillis();
-		waitingTimeChecker.launchVerification();
-
-	}*/
+	
 }
