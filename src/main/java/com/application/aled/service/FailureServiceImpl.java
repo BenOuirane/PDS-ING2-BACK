@@ -67,5 +67,5 @@ public class FailureServiceImpl implements FailureService {
 
 }
 
-}
+
 
