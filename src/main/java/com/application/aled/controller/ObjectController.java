@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -18,9 +19,11 @@ public class ObjectController {
     @Autowired
     ObjectServiceImpl objectService;
 
+    Logger logger = Logger.getLogger("com.application.aled.controller.ObjectController");
+
     @PutMapping("/object/list")
     public List<Objects> getAllObject(@RequestBody Rooms rooms){
-        System.out.println("Call getAllObject :" + rooms.toString());
+        logger.info("Call getAllObject :" + rooms.toString());
         List<Objects> _objects = objectService.getObjectByRoom(rooms);
         return _objects;
     }

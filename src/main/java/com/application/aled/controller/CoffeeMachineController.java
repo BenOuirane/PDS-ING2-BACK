@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -16,10 +17,12 @@ public class CoffeeMachineController {
     @Autowired
     CoffeeMachineServiceImpl coffeeMachineService;
 
+    Logger logger = Logger.getLogger("com.application.aled.controller.CoffeeMachineController");
+
     @PutMapping("/coffeeMachine/list")
     public List<CoffeeMachine> getCoffeeMachine(@RequestBody Objects objects){
         List<CoffeeMachine> coffeeMachines =  coffeeMachineService.getCoffeeMachine(objects);
-        System.out.println("Call getCoffeeMachine" + coffeeMachines);
+        logger.info("Call getCoffeeMachine" + coffeeMachines);
         return coffeeMachines;
 
     }

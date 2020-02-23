@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.sql.Timestamp;
 
+
 @Entity
 @Table(name = "failure")
 public class Failure {
@@ -16,8 +17,7 @@ public class Failure {
 
     @Column(name = "message")
     private String message;
-    
-    @Temporal(TemporalType.TIMESTAMP)
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "begin_date")
     private Timestamp begin_date;
@@ -28,6 +28,8 @@ public class Failure {
     @ManyToOne
     @JoinColumn(name = "object_id")
     private Objects objects;
+
+    public Failure(){}
 
     public Failure(String message, Timestamp begin_date, Timestamp end_date, Objects objects) {
         this.message = message;
