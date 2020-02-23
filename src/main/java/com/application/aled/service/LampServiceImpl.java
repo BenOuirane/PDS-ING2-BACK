@@ -8,15 +8,19 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
+
 @Service
 public class LampServiceImpl implements LampService {
 
     @Autowired
     LampRepository lampRepository;
 
+    Logger logger = Logger.getLogger("com.application.aled.controller.LampServiceImpl");
+
     @Override
     public List<Lamp> getLamp(Objects objects) {
-        System.out.println("Getting lamp for object : " + objects);
+        logger.info("Getting lamp for object : " + objects);
         List<Lamp> lamps = new ArrayList<>();
         lampRepository.findAllByObjects(objects).forEach(lamps::add);
         return lamps;

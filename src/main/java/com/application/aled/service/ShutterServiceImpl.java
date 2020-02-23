@@ -9,15 +9,19 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Service
 public class ShutterServiceImpl implements ShutterService{
 
     @Autowired
     ShutterRepository shutterRepository;
+
+    Logger logger = Logger.getLogger("com.application.aled.controller.ResidentServiceImpl");
+
     @Override
     public List<Shutter> getShutter(Objects objects) {
-        System.out.println("Getting Shutter for object : " + objects);
+        logger.info("Getting Shutter for object : " + objects);
         List<Shutter> shutters = new ArrayList<>();
         shutterRepository.findAllByObjects(objects).forEach(shutters::add);
         return shutters;
@@ -25,13 +29,13 @@ public class ShutterServiceImpl implements ShutterService{
 
     @Override
     public boolean updateShutter(Shutter shutter) {
-        System.out.println("Update shutter param...");
+        logger.info("Update shutter param...");
         try{
             shutterRepository.save(shutter);
             return true;
         }catch (Exception e){
-            System.out.println("Le volet n'a pas été correctement mis à jour...! => Error : service.ShutterServiceImpl");
-            System.out.println(e.getMessage());
+            logger.info("Le volet n'a pas été correctement mis à jour...! => Error : service.ShutterServiceImpl");
+            logger.info(e.getMessage());
             return false;
         }
     }

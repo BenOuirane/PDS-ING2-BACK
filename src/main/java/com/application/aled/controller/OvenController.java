@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -17,11 +18,13 @@ public class OvenController {
     @Autowired
     OvenServiceImpl ovenService;
 
+    Logger logger = Logger.getLogger("com.application.aled.controller.OvenController");
+
     @PutMapping("/oven/list")
     public List<Oven> getOvens(@RequestBody Objects objects){
-        System.out.println("Call getOvensObject" + objects);
+        logger.info("Call getOvensObject" + objects);
         List<Oven> ovens =  ovenService.getOven(objects);
-        System.out.println("Call getOvens" + ovens);
+        logger.info("Call getOvens" + ovens);
         return ovens;
 
     }

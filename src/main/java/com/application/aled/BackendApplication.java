@@ -15,7 +15,7 @@ public class BackendApplication extends SpringBootServletInitializer{
 
 		SpringApplication.run(BackendApplication.class, args);
 
-		logger.config("Application is running :)");
+		logger.info("Application is initialized :)");
 	}
 	
 }
