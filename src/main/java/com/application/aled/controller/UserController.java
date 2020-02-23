@@ -39,8 +39,6 @@ public class UserController {
 
 	@GetMapping("/users")
 	public List<User> getAllUsers() {
-		System.out.println("Call getAllUsers");
-
 		List<User> users = userService.getUsers();
 
 		return users;
@@ -55,8 +53,6 @@ public class UserController {
 
 	@PutMapping(value = "/user/login")
 	public User loginUser(@RequestBody User user) throws Exception {
-		System.out.println("Call loginUser");
-
 		User _user = userService.userLogin(user.getUsername(), user.getPassword());
 
 		if(_user == null){
@@ -68,8 +64,6 @@ public class UserController {
 
 	@PutMapping(value = "/users/")
 	public List<User> getUsersByRole(@RequestBody String role) {
-		System.out.println("Call getResidents");
-
 		List<User> users = userService.getUserByRole(role);
 
 		return users;
