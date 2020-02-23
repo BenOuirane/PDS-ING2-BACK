@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
+import java.util.logging.Logger;
 
 @Component
 public class Simulation {
@@ -14,7 +15,10 @@ public class Simulation {
     @PostConstruct
     @Transactional
     public void init() throws IOException {
-        System.err.println("Simulation is running");
+        Logger logger = Logger.getLogger("com.application.aled.simulation");
+
+        logger.info("Simulation is running");
+
         ServerAcceptor serverAcceptor = new ServerAcceptor();
         MessageSimulator ms = new MessageSimulator();
         Thread t = new Thread(){
@@ -35,9 +39,9 @@ public class Simulation {
                 serverAcceptor.receiveMessage();
             }
         };
-        System.out.println("Message sent to the server");
+        logger.info("Message is sent to the server");
         t.start();
         //t2.start();
-        System.err.println("done");
+        logger.info("Done");
     }
 }

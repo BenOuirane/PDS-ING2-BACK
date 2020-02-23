@@ -34,8 +34,7 @@ public class MockDataMedicalController {
     MedicalMeasurementTypeService medicalMeasurementTypeService;
     @Autowired
     BraceletServiceImpl braceletService;
-    @Autowired
-    ResidentService residentService;
+
     @Autowired
     UserService userService;
 

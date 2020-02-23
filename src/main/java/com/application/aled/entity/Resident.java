@@ -18,29 +18,53 @@ public class Resident implements Serializable {
 	private String firstName;
 	private String lastName;
 	private  int  age;
-	private  int  idRoom;
-	private  int  idMedicalFolder;
+
+	@OneToOne(cascade = CascadeType.PERSIST, optional = true)
+	@JoinColumn(unique = true)
+	private Rooms room;
+
+	@OneToOne(cascade = CascadeType.ALL, optional = true)
+	@JoinColumn(unique = true)
+	private User user;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="idResidence")
 	private Residence residence;
-	//@OneToMany(mappedBy = "resident", fetch = FetchType.LAZY)
-	//private Collection<Object> objects;
+
 	@OneToOne
 	private MedicalFolder medicalFolder;
 
+	@OneToOne(cascade = CascadeType.ALL, optional = true)
+	@JoinColumn(unique = true)
+	private Subscription subscription;
+
 	public Resident() {
-		super();
 	}
-
-	public Resident( String firstName, String lastName, int age, int idRoom, int idMedicalFolder) {
-		this.firstName = firstName;
+	public Resident(String firstName, String lastName,  int age, Rooms room, User user, Residence residence, MedicalFolder medicalFolder){
+		this.firstName =firstName;
 		this.lastName = lastName;
-		this.age = age;
-
-		this.idRoom = idRoom;
-		this.idMedicalFolder = idMedicalFolder;
+		this.age =age;
+		this.room = room;
+		this.user = user;
+		this.residence = residence;
+		this.medicalFolder = medicalFolder;
 	}
 
+	public Resident(String firstName, String lastName,  int age, Rooms room, User user){
+		this.firstName =firstName;
+		this.lastName = lastName;
+		this.age =age;
+		this.room = room;
+		this.user = user;
+	}
+
+	public Subscription getSubscription() {
+		return subscription;
+	}
+
+	public void setSubscription(Subscription subscription) {
+		this.subscription = subscription;
+	}
 
 	public Long getIdResident() {
 		return idResident;
@@ -54,7 +78,7 @@ public class Resident implements Serializable {
 		return firstName;
 	}
 
-	public void setFirsName(String firstName) {
+	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
 
@@ -74,29 +98,29 @@ public class Resident implements Serializable {
 		this.age = age;
 	}
 
-	public int getIdRoom() {
-		return idRoom;
+	public Rooms getRoom() {
+		return room;
 	}
 
-	public void setIdRoom(int idRoom) {
-		this.idRoom = idRoom;
+	public void setRoom(Rooms room) {
+		this.room = room;
 	}
 
-	public int getIdMedicalFolder() {
-		return idMedicalFolder;
+	public User getUser() {
+		return user;
 	}
 
-	public void setIdMedicalFolder(int idMedicalFolder) {
-		this.idMedicalFolder = idMedicalFolder;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
-	/*public Collection<Object> getObjects() {
-		return objects;
+	public Residence getResidence() {
+		return residence;
 	}
 
-	public void setObjects(Collection<Object> objects) {
-		this.objects = objects;
-	}*/
+	public void setResidence(Residence residence) {
+		this.residence = residence;
+	}
 
 	public MedicalFolder getMedicalFolder() {
 		return medicalFolder;
@@ -110,14 +134,14 @@ public class Resident implements Serializable {
 	public String toString() {
 		return "Resident{" +
 				"idResident=" + idResident +
-				", firsName='" + firstName + '\'' +
+				", firstName='" + firstName + '\'' +
 				", lastName='" + lastName + '\'' +
 				", age=" + age +
-				//", getIdResidence=" + IdResidence +
-				", idRoom=" + idRoom +
-				", idMedicalFolder=" + idMedicalFolder +
-				//", objects=" + objects +
+				", room=" + room +
+				", user=" + user +
+				", residence=" + residence +
 				", medicalFolder=" + medicalFolder +
 				'}';
 	}
+
 }

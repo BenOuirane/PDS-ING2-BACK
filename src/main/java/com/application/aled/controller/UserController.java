@@ -39,8 +39,6 @@ public class UserController {
 
 	@GetMapping("/users")
 	public List<User> getAllUsers() {
-		System.out.println("Call getAllUsers");
-
 		List<User> users = userService.getUsers();
 
 		return users;
@@ -48,15 +46,13 @@ public class UserController {
 
 	@PostMapping(value = "/users/create")
 	public User postUser(@RequestBody User user) {
-		User _user = repository.save(new User(user.getFirstname(), user.getLastname(), user.getUsername(), user.getPassword(), user.getRole()));
+		User _user = repository.save(new User(user.getUsername(), user.getPassword(), user.getRole()));
 
 		return _user;
 	}
 
 	@PutMapping(value = "/user/login")
 	public User loginUser(@RequestBody User user) throws Exception {
-		System.out.println("Call loginUser");
-
 		User _user = userService.userLogin(user.getUsername(), user.getPassword());
 
 		if(_user == null){
@@ -68,8 +64,6 @@ public class UserController {
 
 	@PutMapping(value = "/users/")
 	public List<User> getUsersByRole(@RequestBody String role) {
-		System.out.println("Call getResidents");
-
 		List<User> users = userService.getUserByRole(role);
 
 		return users;

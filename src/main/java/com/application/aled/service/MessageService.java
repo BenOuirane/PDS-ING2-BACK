@@ -1,6 +1,7 @@
 package com.application.aled.service;
 
 import com.application.aled.entity.Message;
+import com.application.aled.entity.Objects;
 import com.application.aled.entity.User;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,7 @@ public interface MessageService {
 
     public List<Message> getMessages();
 
-    public Message mac_address(String mac_address); //TODO implement this method
+    public List<Message> getMessageByObject(Objects objects); //TODO implement this method
 
 }
 
