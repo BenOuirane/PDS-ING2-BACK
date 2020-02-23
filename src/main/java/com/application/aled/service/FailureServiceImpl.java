@@ -5,6 +5,7 @@ import com.application.aled.entity.Objects;
 import com.application.aled.repository.FailureRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.logging.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
