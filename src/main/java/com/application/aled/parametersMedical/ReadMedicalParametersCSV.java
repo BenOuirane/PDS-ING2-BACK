@@ -1,4 +1,4 @@
-package com.application.aled.controller;
+package com.application.aled.parametersMedical;
 
 
 import com.application.aled.entity.Bracelet;
@@ -19,7 +19,7 @@ public class ReadMedicalParametersCSV {
 
     List<String> braceletName;
     List<String> lstValues = Arrays.asList();
-    List<Bracelet> lstBracelet=new ArrayList<>();
+    public List<Bracelet> lstBracelet=new ArrayList<>();
     HashMap<String, List<String>> hsmp;
     Map<String, HashMap<String, List<String>>> hsmp2 ;
 
@@ -32,7 +32,7 @@ public class ReadMedicalParametersCSV {
 
     public void ReadingCSVfiles() {
 
-        String csvFile = "src/main/java/com/application/aled/controller/MedicalParameters.csv";
+        String csvFile = "src/main/java/com/application/aled/parametersMedical/MedicalParameters.csv";
         BufferedReader br = null;
         String line = "";
         String cvsSplitBy = ",";
