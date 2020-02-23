@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository repository;
 
-    Logger logger = Logger.getLogger("com.application.aled.controller.ResidentServiceImpl");
+    Logger logger = Logger.getLogger("com.application.aled.service.UserRepository");
 
     /*
     Here we use the 'findAll()' to create a custom getUsers()

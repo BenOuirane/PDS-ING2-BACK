@@ -16,7 +16,7 @@ public class CoffeeMachineServiceImpl implements CoffeeMachineService {
     @Autowired
     CoffeeMachineRepository coffeeMachineRepository;
 
-    Logger logger = Logger.getLogger("com.application.aled.controller.CoffeeMachineServiceImpl");
+    Logger logger = Logger.getLogger("com.application.aled.service.CoffeeMachineServiceImpl");
 
     @Override
     public List<CoffeeMachine> getCoffeeMachine(Objects objects) {

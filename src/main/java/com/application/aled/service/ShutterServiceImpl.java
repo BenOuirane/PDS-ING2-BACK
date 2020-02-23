@@ -17,7 +17,7 @@ public class ShutterServiceImpl implements ShutterService{
     @Autowired
     ShutterRepository shutterRepository;
 
-    Logger logger = Logger.getLogger("com.application.aled.controller.ResidentServiceImpl");
+    Logger logger = Logger.getLogger("com.application.aled.service.ShutterServiceImpl");
 
     @Override
     public List<Shutter> getShutter(Objects objects) {

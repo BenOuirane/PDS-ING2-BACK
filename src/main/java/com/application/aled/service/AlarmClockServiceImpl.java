@@ -17,7 +17,7 @@ public class AlarmClockServiceImpl implements AlarmClockService{
     @Autowired
     AlarmClockRepository alarmClockRepository;
 
-    Logger logger = Logger.getLogger("com.application.aled.controller.AlarmClockServiceImpl");
+    Logger logger = Logger.getLogger("com.application.aled.service.AlarmClockServiceImpl");
 
     public List<AlarmClock> getAlarmClock(Objects objects){
         logger.info("Getting alarmClocks for object : " + objects);

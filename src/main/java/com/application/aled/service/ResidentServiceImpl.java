@@ -21,7 +21,7 @@ public class ResidentServiceImpl implements ResidentService {
 	@Autowired
 	ResidentRepository residentRepository;
 
-	Logger logger = Logger.getLogger("com.application.aled.controller.ResidentServiceImpl");
+	Logger logger = Logger.getLogger("com.application.aled.service.ResidentServiceImpl");
 
 	@Override
 	@Transactional

@@ -16,7 +16,7 @@ public class LampServiceImpl implements LampService {
     @Autowired
     LampRepository lampRepository;
 
-    Logger logger = Logger.getLogger("com.application.aled.controller.LampServiceImpl");
+    Logger logger = Logger.getLogger("com.application.aled.service.LampServiceImpl");
 
     @Override
     public List<Lamp> getLamp(Objects objects) {
