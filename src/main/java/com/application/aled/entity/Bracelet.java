@@ -1,24 +1,33 @@
 package com.application.aled.entity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.mapping.Set;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
+@Cacheable
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @Table(name = "bracelet")
 public class Bracelet {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	
+
 	@Column(name = "mc_address", nullable = false, unique = true)
 	private long mcAddress;
 
@@ -29,14 +38,38 @@ public class Bracelet {
 	public void setMcAddress(long mcAddress) {
 		this.mcAddress = mcAddress;
 	}
-	@Column(name = "id_resident")
-	private String idResident;
 
 	@Column(name = "last_sent")
 	private LocalDateTime lastSentData;
 
 	@Column(name = "ref_bracelet")
 	private String refBracelet;
+
+	@OneToMany(
+			mappedBy = "bracelet",
+			cascade = CascadeType.ALL,
+			orphanRemoval = true
+	)
+	private List<CurrentArea> currentArea = new ArrayList<>();
+
+	public List<CurrentArea> getCurrentArea() {
+		return currentArea;
+	}
+
+	public void setCurrentArea(List<CurrentArea> currentArea) {
+		this.currentArea = currentArea;
+	}
+
+	public Resident getResidents() {
+		return residents;
+	}
+
+	public void setResidents(Resident residents) {
+		this.residents = residents;
+	}
+
+	public Bracelet() {}
+
 
 	public long getId() {
 		return id;
@@ -46,13 +79,7 @@ public class Bracelet {
 		this.id = id;
 	}
 
-	public String getIdResident() {
-		return idResident;
-	}
 
-	public void setIdResident(String idResident) {
-		this.idResident = idResident;
-	}
 
 	public LocalDateTime getLastSentData() {
 		return lastSentData;
@@ -72,25 +99,25 @@ public class Bracelet {
 
 	@Override
 	public String toString() {
-		return "Bracelet [id=" + id + ", idResident=" + idResident + ", lastSentData=" + lastSentData + ", refBracelet="
+		return "Bracelet [id=" + id + ", idResident=" + ", lastSentData=" + lastSentData + ", refBracelet="
 				+ refBracelet + "]";
 	}
 
-	
+
 	public Bracelet(long id, long mcAddress, String idResident, LocalDateTime lastSentData, String refBracelet) {
 		this.id = id;
 		this.mcAddress = mcAddress;
-		this.idResident = idResident;
+		//this.idResident = idResident;
 		this.lastSentData = lastSentData;
 		this.refBracelet = refBracelet;
 	}
 
-	public Bracelet() { }
+	//TODO add PK and FK
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name= "id_resident", unique = true )
+	@JsonIgnore
+	private Resident residents;
 
-	public Bracelet(long id, long mcAddress){
-		this.id = id;
-		this.mcAddress = mcAddress;
-	}
-	
+
 
 }

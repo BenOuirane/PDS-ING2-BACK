@@ -1,6 +1,4 @@
-/**
- *
- */
+
 package com.application.aled.service;
 
 import java.util.List;
@@ -19,3 +17,4 @@ public interface ResidentService {
 
 	public Resident getResidentByUser(User user);
 }
+

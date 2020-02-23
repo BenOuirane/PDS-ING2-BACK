@@ -58,7 +58,7 @@ public class ReadMedicalParametersCSV {
 
                 b.setRefBracelet(split[0]);
                 b.setMcAddress(Long.parseLong(split[1]));
-                b.setIdResident("");
+                //b.setIdResident("");
                 createifnotexistsbracelets(b);
             }
 
