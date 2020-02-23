@@ -1,11 +1,13 @@
 package com.application.aled.messages;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 
 public class MessageSimulator {
 
     public static final int portNumber = 5001;
+    Logger logger = Logger.getLogger("com.application.aled.messages.MessageSimulator");
     public void sendMessage() throws IOException, InterruptedException {
         String obj="<message>" +
                 "    <mac_address>00-1E-33-1D-6A-79</mac_address>" +
@@ -37,7 +39,7 @@ public class MessageSimulator {
 
 
 
-        System.out.println("message is sent");
+        logger.info("message is sent");
     }
 
     public static void main(String[] args) throws IOException, InterruptedException {

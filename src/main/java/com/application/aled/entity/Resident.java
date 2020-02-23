@@ -15,13 +15,21 @@ public class Resident implements Serializable {
 	@Id
 	@GeneratedValue
 	private Long idResident;
+
+	@Column(name = "firstName")
 	private String firstName;
+
+	@Column(name = "lastName")
 	private String lastName;
-	private  int  age;
+
+	@Column(name = "age")
+	private int age;
+
 
 	@OneToOne(cascade = CascadeType.PERSIST, optional = true)
 	@JoinColumn(unique = true)
 	private Rooms room;
+
 
 	@OneToOne(cascade = CascadeType.ALL, optional = true)
 	@JoinColumn(unique = true)
@@ -31,8 +39,10 @@ public class Resident implements Serializable {
 	@JoinColumn(name="idResidence")
 	private Residence residence;
 
+
 	@OneToOne
 	private MedicalFolder medicalFolder;
+
 
 	@OneToOne(cascade = CascadeType.ALL, optional = true)
 	@JoinColumn(unique = true)
