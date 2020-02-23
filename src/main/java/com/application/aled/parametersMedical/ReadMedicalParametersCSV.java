@@ -32,7 +32,7 @@ public class ReadMedicalParametersCSV {
 
     public void ReadingCSVfiles() {
 
-        String csvFile = "src/main/java/com/application/aled/parametersMedical/MedicalParameters.csv";
+        String csvFile = "src/main/resources/com/application/aled/support.files/MedicalParameters.csv";
         BufferedReader br = null;
         String line = "";
         String cvsSplitBy = ",";
