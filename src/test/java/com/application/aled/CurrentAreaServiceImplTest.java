@@ -40,4 +40,5 @@ public class CurrentAreaServiceImplTest {
 		CurrentArea _currentarea = new CurrentArea();
 		_currentarea.setCreatedOn(null);
 		}
+		
 }
