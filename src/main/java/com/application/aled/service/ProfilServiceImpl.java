@@ -14,12 +14,5 @@ public class ProfilServiceImpl implements ProfilService {
     @Autowired
     ProfilRepository profilRepository;
 
-    @Transactional
-    public List<Profil> getProfilByObject(Objects object) {
-        List<Profil> profil = new ArrayList<>();
-       // profilRepository.findByObjects(object).forEach(profil::add);
 
-        System.out.println("Profil by Object: " + profil);
-        return profil;
-    }
 }

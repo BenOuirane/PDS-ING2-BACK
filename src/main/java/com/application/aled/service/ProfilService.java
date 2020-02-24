@@ -8,5 +8,4 @@ import java.util.List;
 
 public interface ProfilService {
 
-    List<Profil> getProfilByObject(Objects object);
 }
