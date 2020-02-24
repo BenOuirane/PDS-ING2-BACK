@@ -24,6 +24,12 @@ public class RoomsController {
         List<Rooms> rooms = roomService.getRooms();
         return rooms;
     }
+    
+    @GetMapping(value = "/roomsize")
+    public int getAllRoomsize() {
+        int rooms = roomService.getRooms().size();
+        return rooms;
+    }
 }
 
 
