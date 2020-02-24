@@ -27,6 +27,14 @@ public class ObjectController {
         List<Objects> _objects = objectService.getObjectByRoom(rooms);
         return _objects;
     }
+    
+    @GetMapping(value = "/objectsize")
+    public int getAllObjectSize() {
+        logger.info("getting the total of all the objects");
+        int objects = objectService.getObjects().size();
+        return objects;
+    }
+
 
 
 
