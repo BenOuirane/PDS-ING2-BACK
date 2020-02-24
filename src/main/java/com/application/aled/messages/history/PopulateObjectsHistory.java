@@ -20,7 +20,7 @@ public class PopulateObjectsHistory {
 
     //Logger logger = Logger.getLogger("com.application.aled.messages.history.PopulateObjectsHistory");
 
-    public List<ObjectsHistory> createObjectsRecords(List<Objects> objectsToRecord, Date historyStartDate, int numberPerDayAndObject, int hourBottomLimit, int hourTopLimit, boolean power) {
+    public List<ObjectsHistory> createObjectsRecords(List<Objects> objectsToRecord, Date historyStartDate, int numberPerDayAndObject, int hourBottomLimit, int hourTopLimit, boolean power, boolean connected) {
         List<ObjectsHistory> historyList = new ArrayList<ObjectsHistory>();
 
         Map<Long, Integer> countMessagesLeftToDo = new HashMap<Long, Integer>();
@@ -86,6 +86,14 @@ public class PopulateObjectsHistory {
                 countMessagesLeftToDo.put(objects.getId(), numberPerDayAndObject);
             }
         }
+
+        if(connected) {
+            for (Objects objects : objectsToRecord) {
+                Timestamp currentTime =  new Timestamp(System.currentTimeMillis());
+                historyList.add(new ObjectsHistory("true", "connected",currentTime, objects));
+            }
+        }
+
 
         return historyList;
     }

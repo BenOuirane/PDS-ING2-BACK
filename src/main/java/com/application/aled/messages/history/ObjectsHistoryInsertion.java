@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
@@ -36,11 +37,11 @@ public class ObjectsHistoryInsertion {
     // OVEN TODO
     //@Autowired
     //OvenHistoryServiceImpl ovenHistoryService;
+    Logger logger = Logger.getLogger("com.application.aled.messages.history.ObjectsHistoryInsertion");
 
 
     @Async
     public void createObjectHistories(){
-        Logger logger = Logger.getLogger("com.application.aled.messages.history.ObjectsHistoryInsertion");
         logger.info("Inserting history started");
 
         Date fiveDaysAgo = new Date();
@@ -60,8 +61,8 @@ public class ObjectsHistoryInsertion {
 
 
         /* ------ LAMPS ------ */
-        List<ObjectsHistory> morningLampHistory = populateObjectsHistory.createObjectsRecords(lamps, fiveDaysAgo, 3, 6, 9, true);
-        List<ObjectsHistory> eveningLampHistory = populateObjectsHistory.createObjectsRecords(lamps, fiveDaysAgo, 3, 20, 22, true);
+        List<ObjectsHistory> morningLampHistory = populateObjectsHistory.createObjectsRecords(lamps, fiveDaysAgo, 3, 6, 9, true, false);
+        List<ObjectsHistory> eveningLampHistory = populateObjectsHistory.createObjectsRecords(lamps, fiveDaysAgo, 3, 20, 22, true, true);
 
         lampHistoryService.emptyTable();
 
@@ -71,8 +72,8 @@ public class ObjectsHistoryInsertion {
         }
 
         /* ------ SHUTTERS ------ */
-        List<ObjectsHistory> morningShutterHistory = populateObjectsHistory.createObjectsRecords(shutters , fiveDaysAgo, 1, 7, 9, false);
-        List<ObjectsHistory> eveningShutterHistory = populateObjectsHistory.createObjectsRecords(shutters , fiveDaysAgo, 1, 19,  20, false);
+        List<ObjectsHistory> morningShutterHistory = populateObjectsHistory.createObjectsRecords(shutters , fiveDaysAgo, 1, 7, 9, false, false);
+        List<ObjectsHistory> eveningShutterHistory = populateObjectsHistory.createObjectsRecords(shutters , fiveDaysAgo, 1, 19,  20, false, true);
 
         shutterHistoryService.emptyTable();
 
@@ -82,7 +83,7 @@ public class ObjectsHistoryInsertion {
         }
 
         /* ------ COFFEEMACHINE ------ */
-        List<ObjectsHistory> objectsHistoriesCoffeeMachine = populateObjectsHistory.createObjectsRecords(coffees, fiveDaysAgo, 3, 7, 9, true);
+        List<ObjectsHistory> objectsHistoriesCoffeeMachine = populateObjectsHistory.createObjectsRecords(coffees, fiveDaysAgo, 3, 7, 9, true, true);
 
         coffeeHistoryService.emptyTable();
 
@@ -92,8 +93,8 @@ public class ObjectsHistoryInsertion {
         }
 
         /* ------ ALARMCLOCK ------ */
-        List<ObjectsHistory> morningAlarmHistory = populateObjectsHistory.createObjectsRecords(alarms, fiveDaysAgo, 2, 7, 9, false);
-        List<ObjectsHistory> eveningAlarmHistory = populateObjectsHistory.createObjectsRecords(alarms, fiveDaysAgo, 2, 18, 19, false);
+        List<ObjectsHistory> morningAlarmHistory = populateObjectsHistory.createObjectsRecords(alarms, fiveDaysAgo, 2, 7, 9, false, false);
+        List<ObjectsHistory> eveningAlarmHistory = populateObjectsHistory.createObjectsRecords(alarms, fiveDaysAgo, 2, 18, 19, false, true);
 
         alarmHistoryService.emptyTable();
 
@@ -127,4 +128,60 @@ public class ObjectsHistoryInsertion {
         return sortedList;
     }
 
+    /***
+     * insert lines in database to signal that objects are connected
+     ***/
+    @Async
+    public void insertObjectAreConnected(){
+        logger.info("Insert connection history");
+        /**
+         * Get all objects
+         */
+        List<Objects> objectsList = new ArrayList<>();
+        objectsList = objectService.getObjectsByObjectType("");
+
+        /**
+         * Lamp history insert
+         **/
+        objectsList = objectService.getObjectsByObjectType("LAMP");
+        for (Objects objectToMock: objectsList) {
+            LampHistory lampHistory = new LampHistory();
+            lampHistory.setColumnData("connected");
+            lampHistory.setData("true");
+            lampHistory.setMessageTimestamp(new Timestamp(System.currentTimeMillis()));
+            lampHistory.setObject(objectToMock);
+            lampHistoryService.addHistory(lampHistory);
+            logger.info("Insert history for lamp "+objectToMock.getId());
+        }
+
+        /**
+         * AlarmClock history insert
+         **/
+        objectsList = objectService.getObjectsByObjectType("ALARMCLOCK");
+        for (Objects objectToMock: objectsList) {
+            AlarmClockHistory alarmClockHistory = new AlarmClockHistory();
+            alarmClockHistory.setColumnData("connected");
+            alarmClockHistory.setData("true");
+            alarmClockHistory.setMessageTimestamp(new Timestamp(System.currentTimeMillis()));
+            alarmClockHistory.setObject(objectToMock);
+            alarmHistoryService.addHistory(alarmClockHistory);
+            logger.info("Insert history for alarm clock "+objectToMock.getId());
+        }
+
+        /**
+         * Shutter history insert
+         */
+        objectsList = objectService.getObjectsByObjectType("SHUTTER");
+        for (Objects objectToMock: objectsList) {
+            ShutterHistory shutterHistory = new ShutterHistory();
+            shutterHistory.setColumnData("connected");
+            shutterHistory.setData("true");
+            shutterHistory.setMessageTimestamp(new Timestamp(System.currentTimeMillis()));
+            shutterHistory.setObject(objectToMock);
+            shutterHistoryService.addHistory(shutterHistory);
+            logger.info("Insert history for alarm shutter " + objectToMock.getId());
+        }
+        logger.info("Inserting history connected fished ");
+
+    }
 }
