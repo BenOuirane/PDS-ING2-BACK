@@ -13,7 +13,7 @@ public class Profil {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private long id_profil;
 
     @Column(name = "name")
     private String name;
@@ -25,7 +25,7 @@ public class Profil {
     private String typeProfil2;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_services", nullable = true)
+    @JoinColumn(name = "id_objects", nullable = true)
     @OnDelete(action = OnDeleteAction.CASCADE)
     //@JsonIgnore
     private List<Objects> objects;
@@ -42,7 +42,7 @@ public class Profil {
     }
 
     public long getId() {
-        return id;
+        return id_profil;
     }
 
     public String getName() {
@@ -53,8 +53,8 @@ public class Profil {
         return typeProfil1;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setId(long id_profil) {
+        this.id_profil = id_profil;
     }
 
     public void setName(String name) {
@@ -94,7 +94,7 @@ public class Profil {
     @Override
     public String toString() {
         return "Profil{" +
-                "id=" + id +
+                "id_profil=" + id_profil +
                 ", name='" + name + '\'' +
                 ", typeProfil1='" + typeProfil1 + '\'' +
                 ", typeProfil2='" + typeProfil2 + '\'' +
