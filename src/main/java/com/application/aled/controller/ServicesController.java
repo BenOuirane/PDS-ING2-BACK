@@ -27,7 +27,7 @@ public class ServicesController {
         return services;
     }
 
-    @PutMapping(value = "/services/")
+    @PutMapping(value = "/service")
     public Services getService(String name) {
         System.out.println("Call getService");
         Services service = servicesRepository.findByName(name);

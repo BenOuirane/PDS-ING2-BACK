@@ -18,14 +18,14 @@ public class ProfilController {
     @Autowired
     ProfilServiceImpl profilService;
 
-    @GetMapping("/subscription")
+    @GetMapping("/profils")
     public List<Profil> getAllProfil(){
         List<Profil> profil = profilService.getAllProfil();
 
         return profil;
     }
 
-    @GetMapping("/subscription/")
+    @GetMapping("/profil")
     public Profil getProfilByName(String name){
         Profil profil = profilService.getProfilByName(name);
 
