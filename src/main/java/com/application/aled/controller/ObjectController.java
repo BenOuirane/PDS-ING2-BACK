@@ -30,7 +30,7 @@ public class ObjectController {
     
     @GetMapping(value = "/objectsize")
     public int getAllObjectSize() {
-        logger.info("getting the total of all the objects);
+        logger.info("getting the total of all the objects");
         int objects = objectService.getObjects().size();
         return objects;
     }
