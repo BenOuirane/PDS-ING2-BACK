@@ -1,5 +1,6 @@
 package com.application.aled.controller;
 
+import com.application.aled.dto.MedicalMeasurementDTO;
 import com.application.aled.dto.convertors.MedicalMeasurementDTOConvertor;
 import com.application.aled.entity.*;
 import com.application.aled.parametersMedical.ReadMedicalParametersCSV;
@@ -51,7 +52,7 @@ public class MockDataMedicalController {
 
     //Liste des types de mesures que je vais utiliser pour la génération de mes mesures aléatoires
     List<String> measurementTypeNames = Arrays.asList("heart beat","glucose rate", "blood presure");
-
+    List<String> measurementTypeNames2 = Arrays.asList("glucose rate", "blood presure");
     List<Bracelet> listBracelet = new ArrayList<>();
 
     private ReadMedicalParametersCSV readerCSV;
@@ -60,14 +61,15 @@ public class MockDataMedicalController {
     private  int counter1 =0;
     private  int age;
 
+    Collection<Double> listMeasurements;
 
     /**
      * @Param numberOfRecords : le nombre de 'mesures effectuées' à génerer aléatoirement
      */
 
     @PostMapping
-    @RequestMapping({"/{numberOfRecords}", "/"})
-    public String generateRandomMeasurements(@PathVariable Optional<Integer> numberOfRecords) {
+    @RequestMapping({"/{nameBracelet}"})
+    public String generateRandomMeasurements(@PathVariable String nameBracelet) {
 
         String returnMessage = "Les données aléatoires n'ont pas été générées correctement";
         readerCSV =new ReadMedicalParametersCSV(braceletService);
@@ -89,15 +91,11 @@ public class MockDataMedicalController {
         valueUpdater = new Timer();
         //valueUpdater.schedule(createTimerTask(), 0, 100);
 
+        generateMeasurements();
 
-        //5. On créé les measurements
-        if (numberOfRecords.isPresent()) {
-            // on génére [numberOfRecords] enregistrements
-            generateMeasurements(numberOfRecords.get());
-        } else {
-            // 1 seul enregistrement
-            generateMeasurements(1);
-        }
+        System.out.println(nameBracelet);
+        System.out.println(getMeasurementByBracelet(nameBracelet));
+
 
         returnMessage = "Les données aléatoires n'ont été générées correctement";
         return returnMessage;
@@ -157,8 +155,32 @@ public class MockDataMedicalController {
 
     }
 
+    public Collection<Double> getMeasurementByBracelet(String nameBracelet){
 
-    private void generateMeasurements(int numberOfRecords) {
+
+
+              for (String s : measurementTypeNames)
+              {
+                for (Bracelet b : braceletService.getAllBracelets())
+                {
+                    if(b.getRefBracelet().equals(nameBracelet))
+                    {
+                        listMeasurements=new ArrayList<>();
+                        for (MedicalMeasurement mm : medicalMeasurementService.getAllMedicalMeasurements())
+                        {
+                            Double mv=mm.getMeasurementValue();
+                            listMeasurements.add(mv);
+                        }
+                        break;
+                    }
+                }
+            }
+
+            return listMeasurements;
+    }
+
+
+    private void generateMeasurements() {
 
 
 
@@ -172,19 +194,17 @@ public class MockDataMedicalController {
                         double value = 0.0;
 
 
-                        for (String s : measurementTypeNames)
+                        for (String s : measurementTypeNames2)
                         {
 
-                            if (s.equalsIgnoreCase("heart Beat")){
-                                continue;
-                            }
+
                             if (s.equalsIgnoreCase("blood pressure")) {
+                                System.out.println("presure min "+(readerCSV.getThresholdPresureMin(b)));
                                 value = getRandomMeasure(readerCSV.getThresholdPresureMin(b), readerCSV.getThresholdPresureMax(b), readerCSV.getStandarDeviation(b), readerCSV.getProgram(b), readerCSV.getNbOfValue(b))[i];
                             }
-                            else if (s.equalsIgnoreCase("glucose rate")) {
+                            if (s.equalsIgnoreCase("glucose rate")) {
                                 value = getRandomMeasure(readerCSV.getThresholdGlucoseMin(b), readerCSV.getThresholdGlucoseMax(b), readerCSV.getStandarDeviation(b), readerCSV.getProgram(b), readerCSV.getNbOfValue(b))[i];
                             }
-
 
                             MedicalMeasurement m = new MedicalMeasurement();
                             m.setMeasurementValue(value);
