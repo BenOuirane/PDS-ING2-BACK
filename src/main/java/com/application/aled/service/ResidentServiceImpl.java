@@ -1,8 +1,4 @@
-/**
- * 
- */
 package com.application.aled.service;
-
 import com.application.aled.entity.Resident;
 import com.application.aled.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;

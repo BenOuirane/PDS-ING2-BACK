@@ -1,3 +1,4 @@
+
 package com.application.aled.repository;
 
 import com.application.aled.entity.Resident;

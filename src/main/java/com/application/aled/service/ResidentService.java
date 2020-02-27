@@ -1,3 +1,4 @@
+
 /**
  * 
  */
@@ -19,3 +20,4 @@ public interface ResidentService {
 
 	public Resident getResidentByUser(User user);
 }
+
