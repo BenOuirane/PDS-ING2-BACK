@@ -18,7 +18,7 @@ public class CurrentAreaServiceImplTest {
 
 	@Mock 
 	CurrentAreaRepository currentarearepository;
-	
+	/*
 	@InjectMocks
 	CurrentAreaServiceImpl currentareaservice;
 	
@@ -40,5 +40,5 @@ public class CurrentAreaServiceImplTest {
 		CurrentArea _currentarea = new CurrentArea();
 		_currentarea.setCreatedOn(null);
 		}
-		
+*/		
 }

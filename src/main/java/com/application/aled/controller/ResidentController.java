@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.logging.Logger;
 
 @CrossOrigin("*")
 @RestController
@@ -19,13 +18,11 @@ public class ResidentController {
     @Autowired
     private ResidentServiceImpl residentService;
 
-    Logger logger = Logger.getLogger("com.application.aled.controller.ResidentController");
-
     @PutMapping(value = "/resident/singleton")
     public Resident getResident(@RequestBody User user) {
-        logger.info("Call getResident");
+        System.out.println("Call getResident");
         Resident _resident = residentService.getResidentByUser(user);
-        logger.info("getResident :" + _resident);
+        System.out.println("getResident :" + _resident);
         return _resident;
     }
 

@@ -6,7 +6,9 @@ import java.io.IOException;
 import java.util.logging.Logger;
 
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.context.annotation.ComponentScan;
 
+@ComponentScan
 @SpringBootApplication
 public class BackendApplication extends SpringBootServletInitializer{
 
