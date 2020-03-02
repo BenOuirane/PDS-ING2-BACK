@@ -2,15 +2,22 @@ package com.application.aled;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import java.io.IOException;
+import java.util.logging.Logger;
 
-/*
- * SpringBootApplication that will be launched
- */
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.context.annotation.ComponentScan;
+
+@ComponentScan
 @SpringBootApplication
-public class BackendApplication {
+public class BackendApplication extends SpringBootServletInitializer{
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
+		Logger logger = Logger.getLogger("com.application.aled.BackendApplication");
+
 		SpringApplication.run(BackendApplication.class, args);
-	}
 
+		logger.info("Application is initialized :)");
+	}
+	
 }

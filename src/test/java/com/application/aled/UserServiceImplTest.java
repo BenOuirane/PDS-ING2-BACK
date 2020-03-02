@@ -1,5 +1,7 @@
 package com.application.aled;
 
+import com.application.aled.controller.exception.CustomHandler;
+import com.application.aled.entity.Notification;
 import com.application.aled.entity.User;
 import com.application.aled.repository.UserRepository;
 import com.application.aled.service.UserServiceImpl;
@@ -47,5 +49,11 @@ public class UserServiceImplTest {
         // THEN
         //
         Assert.assertEquals(userList, userListTest);
+    }
+
+    @Test(expected = CustomHandler.class)
+    public void assertRoleEnum() {
+        User _user = new User();
+        _user.setRole("TOTO");
     }
 }

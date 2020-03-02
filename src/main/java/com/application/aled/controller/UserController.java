@@ -1,11 +1,12 @@
 package com.application.aled.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.application.aled.controller.exception.CustomHandler;
-import com.application.aled.service.UserService;
 import com.application.aled.service.UserServiceImpl;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,10 +29,11 @@ import com.application.aled.repository.UserRepository;
  * Here, we have http://{localhost} or {172.31.254.61}/api/...
  */
 
-@RestController
 @CrossOrigin(origins = "*")
+@RestController
 @RequestMapping("/api")
 public class UserController {
+	static final Logger logger = LogManager.getLogger(UserController.class.getName());
 
 	@Autowired
 	UserRepository repository;
@@ -39,53 +41,45 @@ public class UserController {
 	@Autowired
 	UserServiceImpl userService;
 
-	/*
-	 * Annotation GetMapping :
-	 * GetMapping gives us the route to get to the getAllUsers() function :
-	 * Here, we have http://{localhost} or {172.31.254.61}/api/users
-	 */
 	@GetMapping("/users")
 	public List<User> getAllUsers() {
-		System.out.println("Get all Users...");
-
+		logger.info("Getting all users  from user table...Call getAllUsers ");
 		List<User> users = userService.getUsers();
-
+		logger.info("Data extracted from user table...");
 		return users;
 	}
 
-	/*
-	 * Annotation @PostMapping :
-	 * @PostMapping gives us the route to get to the postUser() function :
-	 * Here, we have http://{localhost} or {172.31.254.61}/api/users/create
-	 */
-
-	/*
-	 * Annotation @RequestBody :
-	 * With this annotation, we say that our request (from the 
-	 * fronend app) will have a user in his body
-	 * and that it will be our parameter for this function
-	 */
 	@PostMapping(value = "/users/create")
 	public User postUser(@RequestBody User user) {
-		System.out.println("Adding a user...");
-
-		User _user = repository.save(new User(user.getFirstname(), user.getLastname(), user.getUsername(), user.getPassword(), user.getRole()));
+		User _user = repository.save(new User(user.getUsername(), user.getPassword(), user.getRole()));
 
 		return _user;
 	}
 
 	@PutMapping(value = "/user/login")
 	public User loginUser(@RequestBody User user) throws Exception {
-		System.out.println("Login a user...");
-
+		logger.info("Getting all users  from user table...Call getAllUsers ");
 		User _user = userService.userLogin(user.getUsername(), user.getPassword());
+		logger.info("Extracting data from the user table");
 
 		if(_user == null){
+			logger.error("Getting all users  from user table...Call getAllUsers ");
 			throw new CustomHandler("User not found");
+
 		} else {
-			System.out.println(_user.toString());
+			logger.info("Getting all users  from user table...Call getAllUsers ");
+
 			return _user;
 		}
 	}
 
+	@PutMapping(value = "/users/")
+	public List<User> getUsersByRole(@RequestBody String role) {
+		logger.info("Getting all users  from user table...Call getAllUsers ");
+		List<User> users = userService.getUserByRole(role);
+		logger.info("Extracting data from the user table");
+		return users;
+	}
+
 }
+
