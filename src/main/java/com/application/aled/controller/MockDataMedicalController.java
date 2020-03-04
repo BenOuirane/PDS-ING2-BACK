@@ -1,6 +1,6 @@
 package com.application.aled.controller;
 
-import com.application.aled.dto.MedicalMeasurementDTO;
+
 import com.application.aled.dto.convertors.MedicalMeasurementDTOConvertor;
 import com.application.aled.entity.*;
 import com.application.aled.parametersMedical.ReadMedicalParametersCSV;
@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
-import org.apache.logging.log4j.Logger;
+import java.util.logging.Logger;
 
 
 /**
@@ -39,9 +39,13 @@ public class MockDataMedicalController {
     @Autowired
     UserService userService;
 
+    Thread t1;
 
 
-    static final Logger logger = LogManager.getLogger(MockDataMedicalController.class.getName());
+
+
+    //Logger logger = LogManager.getLogger(MockDataMedicalController.class.getName());
+    java.util.logging.Logger logger = Logger.getLogger("com.application.aled.controller.MockDataMedicalController");
 
     //Liste des residents que je vais utilser
     List<String> residentsName = Arrays.asList("Christine", "Paul", "Vincent");
@@ -182,26 +186,36 @@ public class MockDataMedicalController {
 
     private void generateMeasurements() {
 
+        //using thread rather than timer because thread are more accurate easier and esto update time
+        // with method thread sleep()
+        generateBPM(listBracelet);
 
-
-                valueUpdater.schedule(createTimerTask(listBracelet), 0, 100);
-
+        //wait thread t1 is finish to start generate other value for other measurementType
+        try {
+            t1.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
                 for (Bracelet b : listBracelet)
                 {
 
-                    for (int i = 0; i < readerCSV.getNbOfValue(b); i++)
+                    for (String s : measurementTypeNames2)
                     {
-                        double value = 0.0;
 
-
-                        for (String s : measurementTypeNames2)
+                        for (int i = 0; i < readerCSV.getNbOfValue(b); i++)
                         {
-
+                            double value = 0.0;
+                            //sleep 1 secondes
+                            try {
+                                Thread.sleep(1000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
 
                             if (s.equalsIgnoreCase("blood pressure")) {
-                                System.out.println("presure min "+(readerCSV.getThresholdPresureMin(b)));
                                 value = getRandomMeasure(readerCSV.getThresholdPresureMin(b), readerCSV.getThresholdPresureMax(b), readerCSV.getStandarDeviation(b), readerCSV.getProgram(b), readerCSV.getNbOfValue(b))[i];
                             }
+
                             if (s.equalsIgnoreCase("glucose rate")) {
                                 value = getRandomMeasure(readerCSV.getThresholdGlucoseMin(b), readerCSV.getThresholdGlucoseMax(b), readerCSV.getStandarDeviation(b), readerCSV.getProgram(b), readerCSV.getNbOfValue(b))[i];
                             }
@@ -225,29 +239,29 @@ public class MockDataMedicalController {
 
     }
 
+    private void generateBPM( List<Bracelet> listBracelet){
 
-
-    private TimerTask createTimerTask ( List<Bracelet> listBracelet)
-    {
-
-        tsk = new TimerTask() {
+        t1= new Thread(new Runnable() {
             @Override
             public void run() {
                 int counter1=0;
 
-                for(Bracelet b : listBracelet) {
+                for(Bracelet b : listBracelet)
+                {
 
                     int NbValue = readerCSV.getNbOfValue(b);
                     Double value;
                     Double[] Tab = new Double[NbValue];
                     setAge((Integer) readerCSV.getAge(b));
+
                     while(counter1!=NbValue) {
 
 
                         Tab = MockDataMedicalController.this.getRandomMeasure(getTargetMaxRateMin(), getTargetMaxRateMax(), (int) readerCSV.getStandarDeviation(b), readerCSV.getProgram(b), readerCSV.getNbOfValue((b)));
 
                         MedicalMeasurement mf = new MedicalMeasurement();
-                        System.out.println("ceci est b " + b + "son bpm est "+ Tab[counter1]);
+
+                        logger.info("ceci est b " + b + "son bpm est "+ Tab[counter1]);
                         mf.setMeasurementValue(Tab[counter1]);
                         mf.setBracelet(b);
                         mf.setMedicalMeasurementType(MockDataMedicalController.this.medicalMeasurementTypeService.getMedicalMeasurementTypeByName("heart beat"));
@@ -257,26 +271,26 @@ public class MockDataMedicalController {
                         mf.setMeasurementDateAndTime(currentDateAndTime);
 
                         medicalMeasurementService.createMedicalMeasurement(mf);
-
+                        try {
+                            t1.sleep(100);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                         counter1++;
                     }
                     if (counter1 == NbValue) {
                         counter1 = 0;
-                        //continue;
-                        //cancel();
+
                     }
-                    cancel();
+
                 }
             }
-        };
-        return tsk;
+
+        });
+
+        t1.start();
 
     }
-
-
-
-
-
 
     public Double[] getRandomMeasure(double min, double max, int sd, String program, Integer nbOfValue) {
         Random r = new Random();
