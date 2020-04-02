@@ -25,4 +25,17 @@ public class AlarmClockServiceImpl implements AlarmClockService{
         alarmClockRepository.findAllByObjects(objects).forEach(alarmClocks::add);
         return alarmClocks;
     }
+
+    @Override
+    public boolean updateAlarmClock(AlarmClock alarmClock) {
+        logger.info("UpdateAlarmClock param...");
+        try{
+            alarmClockRepository.save(alarmClock);
+            return true;
+        }catch (Exception e){
+            logger.info("Le réveil n'a pas été correctement mis à jour...! => Error : service.AlarmClockServiceImpl");
+            logger.info(e.getMessage());
+            return false;
+        }
+    }
 }
