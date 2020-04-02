@@ -3,6 +3,7 @@ package com.application.aled.service;
 import com.application.aled.entity.Lamp;
 import com.application.aled.entity.Objects;
 import com.application.aled.entity.Oven;
+import com.application.aled.entity.Shutter;
 import com.application.aled.repository.OvenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,5 +25,18 @@ public class OvenServiceImpl implements OvenService {
         List<Oven> ovens = new ArrayList<>();
         ovenRepository.findAllByObjects(objects).forEach(ovens::add);
         return ovens;
+    }
+
+    @Override
+    public boolean updateOven(Oven oven) {
+        logger.info("Update oven param...");
+        try{
+            ovenRepository.save(oven);
+            return true;
+        }catch (Exception e){
+            logger.info("Le four n'a pas été correctement mis à jour...! => Error : service.OvenServiceImpl");
+            logger.info(e.getMessage());
+            return false;
+        }
     }
 }
