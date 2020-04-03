@@ -1,5 +1,6 @@
 package com.application.aled.controller;
 
+import com.application.aled.entity.Lamp;
 import com.application.aled.entity.Objects;
 import com.application.aled.entity.Oven;
 import com.application.aled.service.OvenServiceImpl;
@@ -26,6 +27,11 @@ public class OvenController {
         List<Oven> ovens =  ovenService.getOven(objects);
         logger.info("Call getOvens" + ovens);
         return ovens;
+    }
 
+    @PutMapping("/oven/updateParam")
+    public boolean updateOven(@RequestBody Oven oven){
+        logger.info("Call updateOven :" + oven.toString());
+        return ovenService.updateOven(oven);
     }
 }

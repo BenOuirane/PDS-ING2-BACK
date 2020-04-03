@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface CoffeeMachineService {
     List<CoffeeMachine> getCoffeeMachine(Objects objects);
+    boolean updateCoffeeMachine(CoffeeMachine coffeeMachine);
 }
