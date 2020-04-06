@@ -1,11 +1,11 @@
 package com.application.aled.service;
 
-import com.application.aled.entity.Lamp;
 import com.application.aled.entity.Objects;
 import com.application.aled.entity.Oven;
-import com.application.aled.entity.Shutter;
 import com.application.aled.repository.OvenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -13,7 +13,8 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @Service
-public class OvenServiceImpl implements OvenService {
+@EnableAsync (proxyTargetClass = true)
+public class OvenServiceImpl extends Thread  implements OvenService{
     @Autowired
     OvenRepository ovenRepository;
 
@@ -31,6 +32,20 @@ public class OvenServiceImpl implements OvenService {
     public boolean updateOven(Oven oven) {
         logger.info("Update oven param...");
         try{
+            if(oven.getStatus() == true && oven.getEffectiveTemp() != oven.getProgramTemp()){
+
+                if (Thread.currentThread().getName().equals("ChangeTemp") && Thread.currentThread().isAlive()){
+                    Thread.currentThread().interrupt();
+                }
+                run("ON", oven);
+            }
+            else if(oven.getStatus() == false && oven.getEffectiveTemp() != 0){
+                if (Thread.currentThread().getName().equals("ChangeTemp") && Thread.currentThread().isAlive()){
+                    Thread.currentThread().interrupt();
+                }
+                run("OFF", oven);
+            }
+
             ovenRepository.save(oven);
             return true;
         }catch (Exception e){
@@ -38,5 +53,39 @@ public class OvenServiceImpl implements OvenService {
             logger.info(e.getMessage());
             return false;
         }
+    }
+
+
+
+    @Async
+    public void run(String param, Oven oven) throws InterruptedException{
+        Thread.currentThread().setName("ChangeTemp");
+        if(param.equals("ON")){
+            if(oven.getEffectiveTemp() < oven.getProgramTemp()){
+                while(oven.getEffectiveTemp() < oven.getProgramTemp()) {
+                    oven.setEffectiveTemp(oven.getEffectiveTemp() + 1);
+                    ovenRepository.save(oven);
+                    Thread.sleep(500);
+                }
+            }
+            else if(oven.getEffectiveTemp() > oven.getProgramTemp()){
+                while (oven.getEffectiveTemp() > oven.getProgramTemp()) {
+                    oven.setEffectiveTemp((oven.getEffectiveTemp() - 1));
+                    ovenRepository.save(oven);
+                    Thread.sleep(500);
+                }
+            }
+        } else if (param.equals("OFF")){
+           while(oven.getEffectiveTemp() != 0){
+               oven.setEffectiveTemp((oven.getEffectiveTemp() -1));
+               ovenRepository.save(oven);
+               Thread.sleep(500);
+           }
+        }
+
+        if (Thread.currentThread().getName().equals("ChangeTemp") && Thread.currentThread().isAlive()){
+            Thread.currentThread().interrupt();
+        }
+
     }
 }
