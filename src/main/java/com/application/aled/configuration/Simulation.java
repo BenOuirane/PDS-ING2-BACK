@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 @Component
 public class Simulation {
 
-    @PostConstruct
+    //@PostConstruct
     @Transactional
     public void init() throws IOException {
         Logger logger = Logger.getLogger("com.application.aled.simulation");
