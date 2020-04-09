@@ -32,4 +32,11 @@ public class CoffeeMachineController {
         logger.info("Call updateCoffeeMachine :" + coffeeMachine.toString());
         return coffeeMachineService.updateCoffeeMachine(coffeeMachine);
     }
+
+    @PutMapping("/coffeeMachine/makeCoffee")
+    public boolean makeCoffee(@RequestBody CoffeeMachine coffeeMachine){
+        logger.info("Call makeCoffee :" + coffeeMachine.toString());
+        return coffeeMachineService.makeCoffee(coffeeMachine);
+    }
+
 }

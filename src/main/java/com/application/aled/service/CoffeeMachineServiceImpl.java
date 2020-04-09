@@ -39,4 +39,24 @@ public class CoffeeMachineServiceImpl implements CoffeeMachineService {
             return false;
         }
     }
+
+    @Override
+    public boolean makeCoffee(CoffeeMachine coffeeMachine){
+        logger.info("makeCoffee serviceImpl...");
+        try{
+            if(coffeeMachine.getNbCapsule() >= 1 && coffeeMachine.getWaterLevel() >=2) {
+                coffeeMachine.setStatus(true);
+                coffeeMachine.setNbCapsule(coffeeMachine.getNbCapsule() - 1);
+                coffeeMachine.setWaterLevel((int) coffeeMachine.getWaterLevel() - 2);
+                coffeeMachineRepository.save(coffeeMachine);
+                return true;
+            }
+            else
+                return false;
+        }catch (Exception e){
+            logger.info("La machine a café n'a pas été correctement mis à jour...! => Error : service.ShutterServiceImpl");
+            logger.info(e.getMessage());
+            return false;
+        }
+    }
 }
