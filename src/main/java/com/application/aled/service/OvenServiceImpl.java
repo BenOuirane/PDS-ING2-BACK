@@ -3,21 +3,21 @@ package com.application.aled.service;
 import com.application.aled.entity.Objects;
 import com.application.aled.entity.Oven;
 import com.application.aled.repository.OvenRepository;
+import com.application.aled.service.runnableservice.ScenarioTemp;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 @Service
 @EnableAsync(proxyTargetClass = true)
-public class OvenServiceImpl extends Thread implements OvenService {
+public class OvenServiceImpl implements OvenService {
     @Autowired
     OvenRepository ovenRepository;
+    private ScenarioTemp t;
 
     Logger logger = Logger.getLogger("com.application.aled.controller.OvenController");
 
@@ -28,7 +28,7 @@ public class OvenServiceImpl extends Thread implements OvenService {
         return ovens;
     }
 
-    Thread t = new Thread();
+
 
     @Override
     public boolean updateOven(Oven oven) {
@@ -36,12 +36,10 @@ public class OvenServiceImpl extends Thread implements OvenService {
         try {
             if (oven.getStatus() == true && oven.getEffectiveTemp() != oven.getProgramTemp()) {
                 try {
-                    if (t.isAlive()) {
-                        System.out.println("TREAD 1: " + t.getId() + t.getName() + t.isAlive());
-                        t.interrupt();
+                    if (t != null) {
+                        t.stop();
                     }
-                    System.out.println("TREAD 1: " + t.getId() + " " + t.getName() + " " +t.isAlive());
-                    run("ON", oven);
+                    t = new ScenarioTemp(oven, "ON", ovenRepository);
                 } catch (Exception e) {
                     logger.info("Le thread n'a pas été arrété correctement => Error : service.OvenServiceImpl");
                     logger.info(e.getMessage());
@@ -49,17 +47,15 @@ public class OvenServiceImpl extends Thread implements OvenService {
 
             } else if (oven.getStatus() == false && oven.getEffectiveTemp() != 0) {
                 try {
-                    if (t.currentThread().isAlive()) {
-                        t.interrupt();
+                    if (t != null) {
+                       t.stop();
                     }
-                    run("OFF", oven);
+                    t = new ScenarioTemp(oven, "OFF", ovenRepository);
                 } catch (Exception e) {
                     logger.info("Le thread n'a pas été arrété correctement => Error : service.OvenServiceImpl");
                     logger.info(e.getMessage());
                 }
-
             }
-
             ovenRepository.save(oven);
             return true;
         } catch (Exception e) {
@@ -69,33 +65,4 @@ public class OvenServiceImpl extends Thread implements OvenService {
         }
     }
 
-
-    @Async
-    public void run(String param, Oven oven) throws InterruptedException {
-        t.setName("ChangeTemp");
-        if (param.equals("ON")) {
-            if (oven.getEffectiveTemp() < oven.getProgramTemp()) {
-                while (oven.getEffectiveTemp() < oven.getProgramTemp()) {
-                    oven.setEffectiveTemp(oven.getEffectiveTemp() + 1);
-                    ovenRepository.save(oven);
-                    TimeUnit.SECONDS.sleep(3);
-                }
-            } else if (oven.getEffectiveTemp() > oven.getProgramTemp()) {
-                while (oven.getEffectiveTemp() > oven.getProgramTemp()) {
-                    oven.setEffectiveTemp((oven.getEffectiveTemp() - 1));
-                    ovenRepository.save(oven);
-                    TimeUnit.SECONDS.sleep(3);
-                }
-            }
-        } else if (param.equals("OFF")) {
-            while (oven.getEffectiveTemp() != 0) {
-                oven.setEffectiveTemp((oven.getEffectiveTemp() - 1));
-                ovenRepository.save(oven);
-                TimeUnit.SECONDS.sleep(3);
-            }
-        }
-
-        t.interrupt();
-
-    }
 }
