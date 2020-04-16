@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.application.aled.controller.exception.CustomHandler;
+import com.application.aled.entity.Bracelet;
 import com.application.aled.entity.CurrentArea;
 import com.application.aled.service.CurrentAreaService;
 
@@ -35,16 +36,19 @@ public class CurrentAreaController {
 	@Autowired
 	CurrentAreaService currentAreaService;
 
+	//TODO to send to audit
 	@GetMapping("/currentlocations")
 	@ResponseBody
 	public ResponseEntity<List<CurrentArea>> getAllLocation() {
 		logger.info("Getting all current areas from current area table...");
 		List<CurrentArea> locations = currentAreaService.getAllAreas();
 		logger.info("Positions well extracted from current area table ...");
-		//TODO here we use a design pattern called XXX 
+		//TODO here we use a design pattern 
 		return ResponseEntity.ok(locations);
 	}
 
+	
+	//TODO to send to audit
 	@GetMapping("/currentlocation/{locationId}")
 	public CurrentArea positionId(@PathVariable(name = "locationId") String locationId) throws NullPointerException {
 		logger.info("Getting this area" + locationId + "from current area table...");
@@ -71,6 +75,28 @@ public class CurrentAreaController {
 		return ResponseEntity.ok().build();
 			
 	}
+	@RequestMapping(path = "/track/{braceletId}/date/{crossDate}",  method=RequestMethod.GET)
+	public CurrentArea findBraceletArea(@PathVariable int braceletId, @PathVariable LocalDateTime crossDate)
+																throws NullPointerException {
+		logger.info("Getting bracelet by id..");
+		System.out.println("Here");
+		CurrentArea _braceletArea = currentAreaService.findAreaByBraceletIdAndCross_date(braceletId, crossDate);
+		System.out.println("here2");
+		if (_braceletArea == null) {
+			logger.error("There's no data in the table..");
+			throw new CustomHandler("Bracelet not found");
+
+		} else {
+			logger.info(_braceletArea.toString());
+			return _braceletArea;
+		}
+	}
+	
+	
+	
+	
+	
 	
 	//TODO add the other methods
+	//TODO sending to audit is not an emergency.. could be done at the end
 }

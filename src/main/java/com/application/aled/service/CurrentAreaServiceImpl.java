@@ -1,5 +1,6 @@
 package com.application.aled.service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +61,14 @@ public class CurrentAreaServiceImpl implements CurrentAreaService {
 	@Override
 	public CurrentArea getCurrentAreaById(int idarea) {
 		// FIXME: unauthorized action
+		return null;
+	}
+
+
+
+	@Override
+	public CurrentArea findAreaByBraceletIdAndCross_date(int braceletId, LocalDateTime cross_date) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 

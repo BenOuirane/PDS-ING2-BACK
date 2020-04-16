@@ -47,6 +47,7 @@ public class Bracelet {
 
 	 @OneToMany(
 		        mappedBy = "bracelet",
+		        fetch = FetchType.EAGER,
 		        cascade = CascadeType.ALL,
 		        orphanRemoval = true
 		    )
