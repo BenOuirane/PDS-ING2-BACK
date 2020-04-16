@@ -12,6 +12,7 @@ public interface CurrentAreaService {
 	public List<CurrentArea> getAllAreas();
 	
 	public CurrentArea getCurrentAreaById(int idarea);
+	public CurrentArea getCurrentAreaByBraceletId(Long idbrac);
 
 	void addArea(CurrentArea idarea);
 
@@ -19,6 +20,12 @@ public interface CurrentAreaService {
 
 	void removeArea(CurrentArea idarea);
 
-	public  CurrentArea findAreaByBraceletIdAndCross_date(int braceletId, LocalDateTime cross_date);
+	public List<CurrentArea> getAreasByYear(int year);
+
+	public List<CurrentArea> getAreasByYearAndMonth(int year, int month);
+
+	public List<CurrentArea> getAreasByDay(int year, int month, int day);
+
+	//public  CurrentArea findAreaByBraceletIdAndCross_date(int braceletId, LocalDateTime cross_date);
 
 }

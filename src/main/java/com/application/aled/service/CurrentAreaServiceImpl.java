@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.application.aled.entity.CurrentArea;
+import com.application.aled.entity.Failure;
 import com.application.aled.repository.CurrentAreaRepository;
 
 /**
@@ -67,10 +68,37 @@ public class CurrentAreaServiceImpl implements CurrentAreaService {
 
 
 	@Override
-	public CurrentArea findAreaByBraceletIdAndCross_date(int braceletId, LocalDateTime cross_date) {
+	public CurrentArea getCurrentAreaByBraceletId(Long idbrac) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
+
+	@Override
+	public List<CurrentArea> getAreasByYear(int year) throws NullPointerException{ 
+        List<CurrentArea> areasYear = new ArrayList<>();   
+        currentareaRepository.findAreaByYY(year).forEach(areasYear::add);
+		return areasYear;
+       
+	}
+
+
+
+	@Override
+	public List<CurrentArea> getAreasByYearAndMonth(int year, int month)  throws NullPointerException{
+        List<CurrentArea> areasYYMM = new ArrayList<>();
+        currentareaRepository.findAreaByYYMM(year, month).forEach(areasYYMM::add);
+        return areasYYMM;
+	}
+
+
+
+	@Override
+	public List<CurrentArea> getAreasByDay(int year, int month, int day)  throws NullPointerException{
+        List<CurrentArea> areasYYMMDD = new ArrayList<>();
+        currentareaRepository.findAreaByYYMMDD(year, month, day).forEach(areasYYMMDD::add);
+        return areasYYMMDD; }
 
 
 
