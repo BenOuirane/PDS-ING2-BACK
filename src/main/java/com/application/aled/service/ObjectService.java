@@ -1,7 +1,7 @@
 package com.application.aled.service;
 
-import com.application.aled.entity.Objects;
-import com.application.aled.entity.Rooms;
+import com.application.aled.entity.*;
+
 import java.util.List;
 
 public interface ObjectService {
@@ -16,5 +16,5 @@ public interface ObjectService {
 
     Objects updateObjects(Objects objects);
 
-
+    boolean scenarioLaunchService(ScenarioMyMorning scenarioMyMorning);
 }
