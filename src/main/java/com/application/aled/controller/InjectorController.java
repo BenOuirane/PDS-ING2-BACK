@@ -2,29 +2,24 @@ package com.application.aled.controller;
 
 import com.application.aled.entity.Failure;
 import com.application.aled.entity.Objects;
-import com.application.aled.entity.Profil;
 import com.application.aled.entity.history.*;
 import com.application.aled.service.FailureService;
 import com.application.aled.service.ObjectService;
-import com.application.aled.service.history.CoffeeMachineHistoryService;
-import com.application.aled.service.history.LampHistoryService;
-import com.application.aled.service.history.OvenHistoryService;
-import com.application.aled.service.history.ShutterHistoryService;
+import com.application.aled.service.history.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
-@CrossOrigin(origins = "*")
+
 @RestController
-@RequestMapping("/api")
+@CrossOrigin(origins = "*")
+@RequestMapping("/api/simulation")
 public class InjectorController {
+
+
     @Autowired
     ObjectService objectService;
     @Autowired
@@ -37,18 +32,20 @@ public class InjectorController {
     ShutterHistoryService shutterHistoryService;
     @Autowired
     CoffeeMachineHistoryService coffeeMachineHistoryService;
-
+    @Autowired
+    AlarmClockHistoryService alarmClockHistoryService;
 
     Logger logger = Logger.getLogger("com.application.aled.controller.InjectorController");
 
-    @GetMapping("/simulation1")
+    @GetMapping("")
     public List<Failure> getAllFailures(){
+        setFailureEndingDate();
         /*
-        Get all objects to simulate
+         *Get all objects to simulate
          */
         List<Objects> objectsList = objectService.getObjects();
         /**
-         create a recent message for each objects and switch error state at true.
+         **Create a recent message for each objects and switch error state at true.
          **/
         for(Objects objects: objectsList){
 
@@ -85,14 +82,34 @@ public class InjectorController {
                     coffeeMachineHistory.setObject(objects);
                     coffeeMachineHistoryService.addHistory(coffeeMachineHistory);
 
+                case "ALARMCLOCK":
+                    AlarmClockHistory alarmClockHistory = new AlarmClockHistory();
+                    alarmClockHistory.setColumnData("connected");
+                    alarmClockHistory.setData("true");
+                    alarmClockHistory.setMessageTimestamp(new Timestamp(System.currentTimeMillis()));
+                    alarmClockHistory.setObject(objects);
+                    alarmClockHistoryService.addHistory(alarmClockHistory);
 
 
             }
             objects.setState(true);
 
         }
-
+        logger.info("Insert histories of all objects");
         List<Failure> failures = failureService.getFailures();
         return failures;
+    }
+
+
+    /**
+     * Set ending date of unfinished failures with current timestamp
+     */
+    public void setFailureEndingDate(){
+        List<Failure> failures = failureService.getFailures();
+        for (Failure failure: failures
+             ) {
+            if (failure.getEnd_date() == null)
+                failure.setEnd_date(new Timestamp(System.currentTimeMillis()));
+        }
     }
 }
