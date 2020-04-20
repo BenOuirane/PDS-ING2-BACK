@@ -2,6 +2,7 @@ package com.application.aled.service;
 
 import com.application.aled.entity.CoffeeMachine;
 import com.application.aled.entity.Objects;
+import com.application.aled.entity.Shutter;
 import com.application.aled.repository.CoffeeMachineRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,5 +25,38 @@ public class CoffeeMachineServiceImpl implements CoffeeMachineService {
         List<CoffeeMachine> coffeeMachines = new ArrayList<>();
         coffeeMachineRepository.findAllByObjects(objects).forEach(coffeeMachines::add);
         return coffeeMachines;
+    }
+
+    @Override
+    public boolean updateCoffeeMachine(CoffeeMachine coffeeMachine) {
+        logger.info("Update CoffeeMachine param...");
+        try{
+            coffeeMachineRepository.save(coffeeMachine);
+            return true;
+        }catch (Exception e){
+            logger.info("La machine a café n'a pas été correctement mis à jour...! => Error : service.ShutterServiceImpl");
+            logger.info(e.getMessage());
+            return false;
+        }
+    }
+
+    @Override
+    public boolean makeCoffee(CoffeeMachine coffeeMachine){
+        logger.info("makeCoffee serviceImpl...");
+        try{
+            if(coffeeMachine.getNbCapsule() >= 1 && coffeeMachine.getWaterLevel() >=2) {
+                coffeeMachine.setStatus(true);
+                coffeeMachine.setNbCapsule(coffeeMachine.getNbCapsule() - 1);
+                coffeeMachine.setWaterLevel((int) coffeeMachine.getWaterLevel() - 2);
+                coffeeMachineRepository.save(coffeeMachine);
+                return true;
+            }
+            else
+                return false;
+        }catch (Exception e){
+            logger.info("La machine a café n'a pas été correctement mis à jour...! => Error : service.ShutterServiceImpl");
+            logger.info(e.getMessage());
+            return false;
+        }
     }
 }

@@ -2,6 +2,7 @@ package com.application.aled.controller;
 
 import com.application.aled.entity.CoffeeMachine;
 import com.application.aled.entity.Objects;
+import com.application.aled.entity.Shutter;
 import com.application.aled.service.CoffeeMachineServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,18 @@ public class CoffeeMachineController {
         List<CoffeeMachine> coffeeMachines =  coffeeMachineService.getCoffeeMachine(objects);
         logger.info("Call getCoffeeMachine" + coffeeMachines);
         return coffeeMachines;
-
     }
+
+    @PutMapping("/coffeeMachine/updateParam")
+    public boolean updateCoffeeMachine(@RequestBody CoffeeMachine coffeeMachine){
+        logger.info("Call updateCoffeeMachine :" + coffeeMachine.toString());
+        return coffeeMachineService.updateCoffeeMachine(coffeeMachine);
+    }
+
+    @PutMapping("/coffeeMachine/makeCoffee")
+    public boolean makeCoffee(@RequestBody CoffeeMachine coffeeMachine){
+        logger.info("Call makeCoffee :" + coffeeMachine.toString());
+        return coffeeMachineService.makeCoffee(coffeeMachine);
+    }
+
 }

@@ -8,4 +8,6 @@ import java.util.List;
 public interface AlarmClockService {
 
     List<AlarmClock> getAlarmClock(Objects objects);
+
+    boolean updateAlarmClock(AlarmClock alarmClock);
 }
