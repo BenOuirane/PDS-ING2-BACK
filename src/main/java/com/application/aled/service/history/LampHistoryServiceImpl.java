@@ -6,6 +6,7 @@ import com.application.aled.repository.history.LampHistoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,5 +34,15 @@ public class LampHistoryServiceImpl implements LampHistoryService {
         lampHistoryRepository.findByObject_Id(id).forEach(lampHistories::add);
 
         return lampHistories;
+    }
+
+    @Override
+    public List<LampHistory> getLampHistoryByObjectsIdAndColumnDataAndDateBetween(long id, String columnData, Timestamp start, Timestamp end) {
+        List<LampHistory> lampHistory = new ArrayList<LampHistory>();
+        System.out.println(start.getTime());
+        lampHistoryRepository.findByObject_IdAndColumnDataAndMessageTimestampLessThanEqualAndMessageTimestampGreaterThanEqual(id, columnData,  start,  end).forEach(lampHistory::add);
+        System.out.println(lampHistory);
+
+        return lampHistory;
     }
 }

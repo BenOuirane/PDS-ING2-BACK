@@ -1,11 +1,12 @@
 package com.application.aled.service.history;
 
-import com.application.aled.entity.history.LampHistory;
+import com.application.aled.entity.history.OvenHistory;
 import com.application.aled.entity.history.OvenHistory;
 import com.application.aled.repository.history.OvenHistoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,5 +34,15 @@ public class OvenHistoryServiceImpl implements OvenHistoryService {
         ovenHistoryRepository.findByObject_Id(id).forEach(ovenHistories::add);
 
         return ovenHistories;
+    }
+
+    @Override
+    public List<OvenHistory> getOvenHistoryByObjectsIdAndColumnDataAndDateBetween(long id, String columnData, Timestamp start, Timestamp end) {
+        List<OvenHistory> ovenHistory = new ArrayList<OvenHistory>();
+        System.out.println(start.getTime());
+        ovenHistoryRepository.findByObject_IdAndColumnDataAndMessageTimestampLessThanEqualAndMessageTimestampGreaterThanEqual(id, columnData,  start,  end).forEach(ovenHistory::add);
+        System.out.println(ovenHistory);
+
+        return ovenHistory;
     }
 }
