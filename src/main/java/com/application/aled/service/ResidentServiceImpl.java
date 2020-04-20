@@ -11,8 +11,10 @@ import org.springframework.stereotype.Service;
 import com.application.aled.repository.ResidentRepository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 
-@Service
+
+@Service(value = "resident_service")
 public class ResidentServiceImpl implements ResidentService {
 
 
@@ -25,6 +27,18 @@ public class ResidentServiceImpl implements ResidentService {
 		Resident _resident = residentRepository.findByUser(user);
 		System.out.println("getResidentByUser" + _resident.toString());
 		return _resident;
+	}
+	@Override
+	@Transactional
+	public List<Resident> getAllResidents(){
+
+		 return this.residentRepository.findAll();
+	}
+
+	@Override
+	public Resident getResidentById(Long id) {
+
+		return this.residentRepository.findById(id).get();
 	}
 
 }

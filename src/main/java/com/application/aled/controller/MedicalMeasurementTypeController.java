@@ -58,7 +58,7 @@ public class MedicalMeasurementTypeController {
 
         return this.medicalMeasurementTypeService.getMedicalMeasurementTypeById(id);
     }
-
+    @GetMapping("/list")
     public Collection<MedicalMeasurementType> getAllMedicalMeasurementTypes(){
 
         return this.medicalMeasurementTypeService.getAllMedicalMeasurementTypes();

@@ -12,7 +12,9 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
-
+@RestController
+@CrossOrigin(origins = "*")
+@RequestMapping("/api/medical_measurement")
 public class MedicalMeasurementController {
 
     @Autowired
@@ -68,7 +70,7 @@ public class MedicalMeasurementController {
     public MedicalMeasurement getMedicalMeasurement(@PathVariable(value="id") Long id){
         return this.measurementService.getMedicalMeasurementById(id);
     }
-    @GetMapping
+    @GetMapping("/list")
     public Collection<MedicalMeasurement> getAllMedicalMeasurements(){
         return this.measurementService.getAllMedicalMeasurements();
     }

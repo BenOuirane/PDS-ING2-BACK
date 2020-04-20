@@ -2,7 +2,12 @@ package com.application.aled.parametersMedical;
 
 
 import com.application.aled.entity.Bracelet;
+import com.application.aled.entity.Resident;
+import com.application.aled.entity.User;
+import com.application.aled.service.BraceletService;
 import com.application.aled.service.BraceletServiceImpl;
+import com.application.aled.service.ResidentServiceImpl;
+import com.application.aled.service.UserServiceImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -13,21 +18,25 @@ import java.io.IOException;
 import java.util.*;
 
 
+
+
 public class ReadMedicalParametersCSV {
 
     BraceletServiceImpl braceletService;
 
-    List<String> braceletName;
-    List<String> lstValues = Arrays.asList();
-    public List<Bracelet> lstBracelet=new ArrayList<>();
+    ResidentServiceImpl residentService;
+
+    private List<String> lstValues = Arrays.asList();
+    private List<Bracelet> lstBracelet=new ArrayList<>();
+    private List<Resident> listResidents = new ArrayList<>();
     HashMap<String, List<String>> hsmp;
-    Map<String, HashMap<String, List<String>>> hsmp2 ;
 
-    private String mac = "";
-    static final Logger logger = LogManager.getLogger(ReadMedicalParametersCSV.class.getName());
+    Logger logger = LogManager.getLogger(ReadMedicalParametersCSV.class.getName());
 
-    public ReadMedicalParametersCSV(BraceletServiceImpl braceletService) {
+    public ReadMedicalParametersCSV(BraceletServiceImpl braceletService, ResidentServiceImpl residentService) {
+
         this.braceletService=braceletService;
+        this.residentService=residentService;
     }
 
     public void ReadingCSVfiles() {
@@ -40,26 +49,19 @@ public class ReadMedicalParametersCSV {
         try {
 
             br = new BufferedReader(new FileReader(csvFile));
-            //System.out.println(br.readLine());
-            hsmp2=new HashMap<String, HashMap<String, List<String>>>();
 
-            while ((line = br.readLine()) != null) {
+            while ((line = br.readLine()) != null)
+            {
                 Bracelet b = new Bracelet();
 
                 String[] split = line.split(cvsSplitBy);
                 lstValues = new ArrayList<String>();
-                for (int i = 2; i < split.length; i++) {
-
+                for (int i = 1; i < split.length; i++)
+                {
                     lstValues.add(split[i]);
                 }
                 hsmp = new HashMap<String, List<String>>();
-                hsmp.put(split[1], lstValues);
-                hsmp2.put(split[0], hsmp);
-
-                b.setRefBracelet(split[0]);
-                b.setMcAddress(Long.parseLong(split[1]));
-                //b.setIdResident("");
-                createifnotexistsbracelets(b);
+                hsmp.put(split[0], lstValues);
             }
 
         } catch (FileNotFoundException e) {
@@ -79,147 +81,89 @@ public class ReadMedicalParametersCSV {
         }
     }
 
+    public List<Resident> getListResidents(){
 
-    private void createifnotexistsbracelets(Bracelet bracelet) {
-        //je vérifie si les bracelet avec lesquels je souhaite travailler existent.
-        //si ils n'existent pas, je les crée.
-
-        Boolean exist = false;
-        for (Bracelet b : braceletService.getAllBracelets()) {
-            if (b.getMcAddress() == bracelet.getMcAddress()) {
-                exist = true;
-                lstBracelet.add(b);
-                return;
-            }
-        }
-        if (!exist) {
-            braceletService.addBracelet(bracelet);
-            lstBracelet.add(bracelet);
-        }
-
-    }
-
-
-    public List<String> getBraceletName()
-    {
-        List<Double> valuesParameters=null;
-        List<Map.Entry<String, List<String>>> myList = null;
-        String name="";
-
-        for (Map.Entry<String, HashMap<String, List<String>>> en : hsmp2.entrySet()) {
-
-            braceletName.add(en.getKey());
-
-        }
-        return braceletName;
-    }
-
-    public String getMac(Bracelet b){
-
-        List<Double> valuesParameters=null;
-        List<Map.Entry<String, List<String>>> myList = null;
-        String mac="";
-
-        for (Map.Entry<String, HashMap<String, List<String>>> en : hsmp2.entrySet()) {
-
-            if (b.getRefBracelet() == en.getKey())
+        for (Map.Entry<String, List<String>> en : hsmp.entrySet())
+        {
+            for(Resident r : residentService.getAllResidents())
             {
-                Map<String, List<String>> map2 = en.getValue();
-                Set<Map.Entry<String, List<String>>> set2 = map2.entrySet();
-                myList = new ArrayList<>(set2);
-
-                for (Map.Entry<String, List<String>> ee : myList) {
-                    mac = ee.getKey();
-
+                if(en.getKey().equalsIgnoreCase(r.getLastName())){
+                    listResidents.add(r);
                 }
-
             }
         }
-
-        return mac;
+        return listResidents;
     }
 
-    public Object[] convertParameters(Bracelet b) {
+    public List<Bracelet> getListBracelets(){
+        for(Resident r : getListResidents()){
+            for(Bracelet b : braceletService.getAllBracelets()){
+                if(r.getIdResident().equals(b.getResidents().getIdResident())){
+                    lstBracelet.add(b);
+                }
+            }
+        }
+        return lstBracelet;
+    }
+
+
+
+    public Object[] retrieveParameters(Bracelet b)
+    {
 
         List<String> valuesParameters= new ArrayList<>();
-        List<Map.Entry<String, List<String>>> myList;
+        String name="";
 
-        for (Map.Entry<String, HashMap<String, List<String>>> en : hsmp2.entrySet()) {
-
-            if (b.getRefBracelet().equals(en.getKey()))
+        for (Map.Entry<String, List<String>> en : hsmp.entrySet())
+        {
+            if(en.getKey().equals(b.getResidents().getLastName()))
             {
-
-                Map<String, List<String>> map2 = en.getValue();
-                Set<Map.Entry<String, List<String>>> set2 = map2.entrySet();
-                myList = new ArrayList<>(set2);
-
-                for (Map.Entry<String, List<String>> ee : myList)
-                {
-                    if(ee.getKey().equals(String.valueOf(b.getMcAddress())))
-                    {
-                        valuesParameters = ee.getValue();
-                    }
-                }
-                return valuesParameters.toArray();
+                valuesParameters = en.getValue();
             }
 
-
         }
-
-        return null;
-    }
-
-    private void setMac(String mac) {
-        this.mac=mac;
+        return valuesParameters.toArray();
     }
 
 
     public String getProgram(Bracelet b){
 
-        return (String) convertParameters(b)[0];
+        return (String) retrieveParameters(b)[0];
     }
 
+    public int getThresholdPressureMin(Bracelet b){
 
-    public int getAge(Bracelet b)
-    {
-
-        return Integer.parseInt((String) convertParameters(b)[1]);
-
+        return Integer.parseInt((String) retrieveParameters(b)[1]);
     }
 
-    public int getThresholdPresureMin(Bracelet b){
+    public int getThresholdPressureMax(Bracelet b){
 
-        return Integer.parseInt((String) convertParameters(b)[2]);
-    }
-
-    public int getThresholdPresureMax(Bracelet b){
-
-        return Integer.parseInt((String) convertParameters(b)[3]);
+        return Integer.parseInt((String) retrieveParameters(b)[2]);
     }
 
     public Double getThresholdGlucoseMin(Bracelet b){
 
-        return Double.valueOf((String) convertParameters(b)[4]);
+        return Double.valueOf((String) retrieveParameters(b)[3]);
     }
 
     public Double getThresholdGlucoseMax(Bracelet b){
 
-        return Double.valueOf((String)(convertParameters(b)[5]));
+        return Double.valueOf((String)(retrieveParameters(b)[4]));
     }
 
     public int  getNbOfValue(Bracelet b){
 
-        return Integer.valueOf((String) convertParameters(b)[6]);
+        return Integer.valueOf((String) retrieveParameters(b)[5]);
     }
 
     public Long getTimeUpdate(Bracelet b){
 
-        Long timeUpdate= Long.valueOf((String) convertParameters(b)[7]);
+        Long timeUpdate= Long.valueOf((String) retrieveParameters(b)[6]);
         return timeUpdate;
     }
     public int getStandarDeviation(Bracelet b) {
 
-        return Integer.valueOf((String) convertParameters(b)[8]);
+        return Integer.valueOf((String) retrieveParameters(b)[7]);
     }
 
 

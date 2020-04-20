@@ -14,7 +14,9 @@ import com.application.aled.entity.User;
 
 public interface ResidentService {
 
-
 	public Resident getResidentByUser(User user);
+	public List<Resident> getAllResidents();
+
+	Resident getResidentById(Long id);
 }
 

@@ -2,12 +2,18 @@ package com.application.aled.controller;
 
 
 import com.application.aled.dto.convertors.MedicalMeasurementDTOConvertor;
-import com.application.aled.entity.*;
+import com.application.aled.entity.Bracelet;
+import com.application.aled.entity.MedicalMeasurement;
+import com.application.aled.entity.MedicalMeasurementType;
+import com.application.aled.entity.Resident;
 import com.application.aled.parametersMedical.ReadMedicalParametersCSV;
-import com.application.aled.service.*;
-import org.apache.logging.log4j.LogManager;
+import com.application.aled.service.BraceletServiceImpl;
+import com.application.aled.service.MedicalMeasurementService;
+import com.application.aled.service.MedicalMeasurementTypeService;
+import com.application.aled.service.ResidentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -35,88 +41,47 @@ public class MockDataMedicalController {
     MedicalMeasurementTypeService medicalMeasurementTypeService;
     @Autowired
     BraceletServiceImpl braceletService;
-
     @Autowired
-    UserService userService;
-
-    Thread t1;
-
-
-
+    ResidentServiceImpl residentService;
 
     //Logger logger = LogManager.getLogger(MockDataMedicalController.class.getName());
     java.util.logging.Logger logger = Logger.getLogger("com.application.aled.controller.MockDataMedicalController");
 
-    //Liste des residents que je vais utilser
-    List<String> residentsName = Arrays.asList("Christine", "Paul", "Vincent");
-
-    //Liste des bracelets que je vais utiliser pour la génération de mes mesures aléatoires
-    //List<Integer> braceletID = Arrays.asList(4, 5, 6);
-    //List<Integer> braceletID = new ArrayList<>();
-
     //Liste des types de mesures que je vais utiliser pour la génération de mes mesures aléatoires
-    List<String> measurementTypeNames = Arrays.asList("heart beat","glucose rate", "blood presure");
-    List<String> measurementTypeNames2 = Arrays.asList("glucose rate", "blood presure");
+    List<String> measurementTypeNames = Arrays.asList("heart beat","glucose rate", "blood pressure");
     List<Bracelet> listBracelet = new ArrayList<>();
+    List<Resident> listResidents =new ArrayList<>();
 
     private ReadMedicalParametersCSV readerCSV;
-    private Timer valueUpdater;
-    private TimerTask tsk;
-    private  int counter1 =0;
     private  int age;
+    private Thread t1;
+    private Thread t2;
+    private Thread t3;
+    private Collection<MedicalMeasurement> listMeasurements;
 
-    Collection<Double> listMeasurements;
-
-    /**
-     * @Param numberOfRecords : le nombre de 'mesures effectuées' à génerer aléatoirement
-     */
 
     @PostMapping
-    @RequestMapping({"/{nameBracelet}"})
-    public String generateRandomMeasurements(@PathVariable String nameBracelet) {
+    @RequestMapping({"/{nameResident}"})
+    public String generateRandomMeasurements(@PathVariable String nameResident) {
 
         String returnMessage = "Les données aléatoires n'ont pas été générées correctement";
-        readerCSV =new ReadMedicalParametersCSV(braceletService);
+        readerCSV =new ReadMedicalParametersCSV(braceletService, residentService);
         readerCSV.ReadingCSVfiles();
 
-        // Récupération de la list des bracelet en String pour pouvoir convertir si besoin en int ou Long en tant voulue
-        for(Bracelet b:readerCSV.lstBracelet){
-            listBracelet.add(b);
-        }
+        listResidents= readerCSV.getListResidents();
+        listBracelet=readerCSV.getListBracelets();
 
         // 1. On créé des Type de mesures s'ils n'existent pas encore en base
         createMeasurementTypes();
 
-        // 2. On créé les residents s'ils n'existent pas encore en base
-        //createResidents();
-
-
-        // 4. Timer
-        valueUpdater = new Timer();
-        //valueUpdater.schedule(createTimerTask(), 0, 100);
-
         generateMeasurements();
 
-        System.out.println(nameBracelet);
-        System.out.println(getMeasurementByBracelet(nameBracelet));
-
+        System.out.println(nameResident);
+        System.out.println(getMeasurementByResident(nameResident));
 
         returnMessage = "Les données aléatoires n'ont été générées correctement";
         return returnMessage;
     }
-
-    // ************resident***************************
-    private void createResidents() {
-        residentsName.forEach((residentname) -> createIfNotExistsResident(residentname));
-    }
-
-    private void createIfNotExistsResident(String residentname) {
-
-        User u = null;
-        //pour le moment pas de methode pour creer un user et pouvoir l'affecter à un patient ???
-        //u=userService.
-    }
-
 
     //******Types de Mesures**********//
     private void createMeasurementTypes() {
@@ -143,7 +108,7 @@ public class MockDataMedicalController {
                 shortFormUnit = "g/L";
                 longFormUnit = "grams per litre";
             }
-            if ("blood presure".equalsIgnoreCase(measurementTypeName)) {
+            if ("blood pressure".equalsIgnoreCase(measurementTypeName)) {
                 shortFormUnit = "mmHg";
                 longFormUnit = "mm of mercure";
             }
@@ -158,84 +123,136 @@ public class MockDataMedicalController {
         return m;
 
     }
+    @GetMapping
+    @RequestMapping({"/measures/{nameResident}"})
+    public Collection<MedicalMeasurement> getMeasurementByResident(@PathVariable String nameResident){
 
-    public Collection<Double> getMeasurementByBracelet(String nameBracelet){
+        Long resident_id=residentService.getAllResidents().stream()
+                .filter(t->t.getLastName().equals(nameResident))
+                .map(Resident::getIdResident)
+                .findAny().orElse(null);
 
+        Long bracelet_id=braceletService.getAllBracelets().stream()
+                .filter(x->x.getResidents().getIdResident().equals(resident_id))
+                .map(Bracelet::getId)
+                .findAny().orElse(null);
 
+        listMeasurements=new ArrayList<>();
 
-              for (String s : measurementTypeNames)
-              {
-                for (Bracelet b : braceletService.getAllBracelets())
+        for(MedicalMeasurement m : medicalMeasurementService.getAllMedicalMeasurements())
+        {
+            if(m.getBracelet().getId()==bracelet_id){
+                listMeasurements.add(m);
+            }
+        }
+        return listMeasurements;
+    }
+
+    private void generateMeasurements() {
+
+        //using thread rather than timer because thread are more accurate and easier to update time
+        // with method thread sleep()
+        generateBPM(listBracelet);
+        //wait thread t1 is finish to start generate other value for other measurementType
+        try {
+            t1.join();
+            generatePressure(listBracelet);
+            t2.join();
+            generateGlucose(listBracelet);
+            t3.join();
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void generateGlucose( List<Bracelet> listBracelet){
+
+        t3= new Thread(new Runnable() {
+            @Override
+            public void run() {
+                int counter3=0;
+
+                for(Bracelet b : listBracelet)
                 {
-                    if(b.getRefBracelet().equals(nameBracelet))
-                    {
-                        listMeasurements=new ArrayList<>();
-                        for (MedicalMeasurement mm : medicalMeasurementService.getAllMedicalMeasurements())
-                        {
-                            Double mv=mm.getMeasurementValue();
-                            listMeasurements.add(mv);
+
+                    int NbValue = readerCSV.getNbOfValue(b);
+                    Double value;
+                    Double[] Tab = new Double[NbValue];
+
+
+                    while(counter3<NbValue) {
+                        Tab = MockDataMedicalController.this.getRandomMeasure(readerCSV.getThresholdGlucoseMin(b), readerCSV.getThresholdGlucoseMax(b), readerCSV.getStandarDeviation(b), readerCSV.getProgram(b), readerCSV.getNbOfValue(b));
+                        MedicalMeasurement mf = new MedicalMeasurement();
+
+                        logger.info("ceci est  " + b.getResidents().getLastName() + " son taux de glucose est "+ Tab[counter3]);
+                        mf.setMeasurementValue(Tab[counter3]);
+                        mf.setBracelet(b);
+                        mf.setMedicalMeasurementType(MockDataMedicalController.this.medicalMeasurementTypeService.getMedicalMeasurementTypeByName("glucose rate"));
+                        LocalDate currentDate = LocalDate.now();
+                        LocalTime currentTime = LocalTime.now();
+                        LocalDateTime currentDateAndTime = LocalDateTime.of(currentDate, currentTime);
+                        mf.setMeasurementDateAndTime(currentDateAndTime);
+
+                        medicalMeasurementService.createMedicalMeasurement(mf);
+                        try {
+                            t3.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
                         }
-                        break;
+                        counter3++;
                     }
                 }
             }
 
-            return listMeasurements;
+        });
+
+        t3.start();
+
     }
 
+    private void generatePressure( List<Bracelet> listBracelet){
 
-    private void generateMeasurements() {
+        t2= new Thread(new Runnable() {
+            @Override
+            public void run() {
+                int counter2=0;
 
-        //using thread rather than timer because thread are more accurate easier and esto update time
-        // with method thread sleep()
-        generateBPM(listBracelet);
-
-        //wait thread t1 is finish to start generate other value for other measurementType
-        try {
-            t1.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-                for (Bracelet b : listBracelet)
+                for(Bracelet b : listBracelet)
                 {
 
-                    for (String s : measurementTypeNames2)
-                    {
+                    int NbValue = readerCSV.getNbOfValue(b);
+                    Double[] Tab = new Double[NbValue];
 
-                        for (int i = 0; i < readerCSV.getNbOfValue(b); i++)
-                        {
-                            double value = 0.0;
-                            //sleep 1 secondes
-                            try {
-                                Thread.sleep(1000);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
+                    while(counter2<NbValue) {
+                        Tab = MockDataMedicalController.this.getRandomMeasure(readerCSV.getThresholdPressureMin(b), readerCSV.getThresholdPressureMax(b), readerCSV.getStandarDeviation(b), readerCSV.getProgram(b), readerCSV.getNbOfValue(b));
 
-                            if (s.equalsIgnoreCase("blood pressure")) {
-                                value = getRandomMeasure(readerCSV.getThresholdPresureMin(b), readerCSV.getThresholdPresureMax(b), readerCSV.getStandarDeviation(b), readerCSV.getProgram(b), readerCSV.getNbOfValue(b))[i];
-                            }
+                        MedicalMeasurement mf = new MedicalMeasurement();
 
-                            if (s.equalsIgnoreCase("glucose rate")) {
-                                value = getRandomMeasure(readerCSV.getThresholdGlucoseMin(b), readerCSV.getThresholdGlucoseMax(b), readerCSV.getStandarDeviation(b), readerCSV.getProgram(b), readerCSV.getNbOfValue(b))[i];
-                            }
+                        logger.info("ceci est  " + b.getResidents().getLastName() + " sa tension est "+ Tab[counter2]);
+                        mf.setMeasurementValue(Tab[counter2]);
+                        mf.setBracelet(b);
+                        mf.setMedicalMeasurementType(MockDataMedicalController.this.medicalMeasurementTypeService.getMedicalMeasurementTypeByName("blood pressure"));
+                        LocalDate currentDate = LocalDate.now();
+                        LocalTime currentTime = LocalTime.now();
+                        LocalDateTime currentDateAndTime = LocalDateTime.of(currentDate, currentTime);
+                        mf.setMeasurementDateAndTime(currentDateAndTime);
 
-                            MedicalMeasurement m = new MedicalMeasurement();
-                            m.setMeasurementValue(value);
-                            m.setBracelet(b);
-                            m.setMedicalMeasurementType(medicalMeasurementTypeService.getMedicalMeasurementTypeByName(s));
-
-                            LocalDate currentDate = LocalDate.now();
-                            LocalTime currentTime = LocalTime.now();
-                            LocalDateTime currentDateAndTime = LocalDateTime.of(currentDate, currentTime);
-                            m.setMeasurementDateAndTime(currentDateAndTime);
-
-                            medicalMeasurementService.createMedicalMeasurement(m);
+                        medicalMeasurementService.createMedicalMeasurement(mf);
+                        try {
+                            t2.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
                         }
+                        counter2++;
                     }
-
+                }
             }
 
+        });
+
+        t2.start();
 
     }
 
@@ -250,18 +267,17 @@ public class MockDataMedicalController {
                 {
 
                     int NbValue = readerCSV.getNbOfValue(b);
-                    Double value;
                     Double[] Tab = new Double[NbValue];
-                    setAge((Integer) readerCSV.getAge(b));
+                    setAge((Integer) b.getResidents().getAge());
 
-                    while(counter1!=NbValue) {
+                    while(counter1<NbValue) {
 
 
                         Tab = MockDataMedicalController.this.getRandomMeasure(getTargetMaxRateMin(), getTargetMaxRateMax(), (int) readerCSV.getStandarDeviation(b), readerCSV.getProgram(b), readerCSV.getNbOfValue((b)));
 
                         MedicalMeasurement mf = new MedicalMeasurement();
 
-                        logger.info("ceci est b " + b + "son bpm est "+ Tab[counter1]);
+                        logger.info("ceci est  " + b.getResidents().getLastName() + " son bpm est "+ Tab[counter1]);
                         mf.setMeasurementValue(Tab[counter1]);
                         mf.setBracelet(b);
                         mf.setMedicalMeasurementType(MockDataMedicalController.this.medicalMeasurementTypeService.getMedicalMeasurementTypeByName("heart beat"));
@@ -278,11 +294,6 @@ public class MockDataMedicalController {
                         }
                         counter1++;
                     }
-                    if (counter1 == NbValue) {
-                        counter1 = 0;
-
-                    }
-
                 }
             }
 
@@ -304,7 +315,40 @@ public class MockDataMedicalController {
         double value = 0.0;
         String prog = program;
 
+        double base = mean ;
+        int lengthPlateau=4;
+        Double plateau[] = new Double[lengthPlateau];
+        Double maxPlateau = max+1;
+
         switch (program) {
+
+            case("trapeze"):
+                Tab[0] =  base;
+
+                for (int i = 1; i < nbOfValue; i++)
+                {
+
+                    Tab[i]=Tab[i-1]+ 0.5*i;
+
+                    if(i>=nbOfValue/2 && i<((nbOfValue/2)+lengthPlateau))
+                    {
+                        Tab[i]=maxPlateau;
+                    }
+
+                    if(i>=nbOfValue/2+lengthPlateau || Tab[i]>maxPlateau)
+                    {
+                        Tab[i]=Tab[i-1]-(0.2*i);
+                    }
+
+                    if(Tab[i]<base)
+                    {
+                        Tab[i]=base;
+                    }
+
+
+                }
+                break;
+
 
             case ("normal"):
                 for (int i = 0; i < nbOfValue; i++) {
