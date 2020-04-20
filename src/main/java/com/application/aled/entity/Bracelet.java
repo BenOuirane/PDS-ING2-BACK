@@ -104,10 +104,10 @@ public class Bracelet {
 	}
 
 
-	public Bracelet(long id, long mcAddress, String idResident, LocalDateTime lastSentData, String refBracelet) {
+	public Bracelet(long id, long mcAddress, Long idResident, LocalDateTime lastSentData, String refBracelet) {
 		this.id = id;
 		this.mcAddress = mcAddress;
-		//this.idResident = idResident;
+
 		this.lastSentData = lastSentData;
 		this.refBracelet = refBracelet;
 	}

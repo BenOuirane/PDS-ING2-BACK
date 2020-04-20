@@ -6,8 +6,10 @@ import java.io.IOException;
 import java.util.logging.Logger;
 
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
+@EnableScheduling
 public class BackendApplication extends SpringBootServletInitializer{
 
 	public static void main(String[] args) throws IOException {
