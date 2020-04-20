@@ -32,7 +32,7 @@ public class LampHistoryController {
 
 
     @PutMapping("/hours/lamp")
-    public ArrayList<Map<String[], Integer>> getLampUsingHours(@RequestBody ObjectNode jsonData){
+    public ArrayList<Map<List<String>, Integer>> getLampUsingHours(@RequestBody ObjectNode jsonData){
         java.sql.Timestamp startTime = java.sql.Timestamp.valueOf(jsonData.get("start").asText());
         java.sql.Timestamp endTime = java.sql.Timestamp.valueOf(jsonData.get("end").asText());
 
@@ -44,8 +44,8 @@ public class LampHistoryController {
         }
 
         ObjectHistoryVerification objectVerification = new ObjectHistoryVerification();
-        ArrayList<Map<String[], Integer>> usingHoursArray = objectVerification.usingHours(objectsHistories, 2);
-        for (Map<String[], Integer> toto:
+        ArrayList<Map<List<String>, Integer>> usingHoursArray = objectVerification.usingHours(objectsHistories, 2);
+        for (Map<List<String>, Integer> toto:
                 usingHoursArray ) {
             System.out.println(toto.values());
 

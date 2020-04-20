@@ -30,24 +30,24 @@ public class ObjectHistoryVerification {
             }
         }
 
-        Map.Entry<String, Integer> maxEntry = null;
+        Map.Entry<String, Integer> maxHoursEntry = null;
 
 
         for (Map.Entry<String, Integer> entry : objectParameters.entrySet()) {
-            if (maxEntry == null || entry.getValue().compareTo(maxEntry.getValue()) > 0) {
-                maxEntry = entry;
+            if (maxHoursEntry == null || entry.getValue().compareTo(maxHoursEntry.getValue()) > 0) {
+                maxHoursEntry = entry;
             }
         }
 
-        return maxEntry.getKey();
+        return maxHoursEntry.getKey();
     }
 
     /*
     Made to know if oven temperature was too high
      */
-    public List<ObjectsHistory> tooHigh (List<ObjectsHistory> objectsHistoryList, int max){
+    public List<ObjectsHistory> tooHigh (List<ObjectsHistory> objectsHistoryList, int maxHours){
         for (ObjectsHistory objectsHistory : objectsHistoryList) {
-            if(parseInt(objectsHistory.getData()) < max) {
+            if(parseInt(objectsHistory.getData()) < maxHours) {
                 objectsHistoryList.remove(objectsHistory);
             }
         }
@@ -66,34 +66,35 @@ public class ObjectHistoryVerification {
     }
 
     /*
-    Made to know the number of on hours for an object TODO
+    Made to know the time range for an object to be on "power"
+    Testing with lamp
      */
-    public ArrayList<Map<String[], Integer>> usingHours(List<ObjectsHistory> objectsHistories, int max) {
-        Map<String[], Integer> wellUsed = new HashMap<String[], Integer>();
-        Map<String[], Integer> badlyUsed = new HashMap<String[], Integer>();
-        ArrayList<Map<String[], Integer>> datas = new ArrayList<Map<String[], Integer>>();
+    public ArrayList<Map<List<String>, Integer>> usingHours(List<ObjectsHistory> objectsHistories, int maxHours) {
+        Map<List<String>, Integer> wellUsed = new HashMap<List<String>, Integer>();
+        Map<List<String>, Integer> badlyUsed = new HashMap<List<String>, Integer>();
 
-        String[] timestampsToString = new String[2];
+        ArrayList<Map<List<String>, Integer>> timeRanges = new ArrayList<Map<List<String>, Integer>>();
 
         for (int i = 0; i < objectsHistories.size(); i++) {
-            if(i <  (objectsHistories.size() - 1)){
+            if(i < (objectsHistories.size() - 1)){
+                // Take of all elements that are not "power" messages
                 if (!(objectsHistories.get(i).getColumnData().equals("power"))) {
                     objectsHistories.remove(objectsHistories.get(i));
                 } else {
-
                     if (objectsHistories.get(i).getData().equals("on") && objectsHistories.get(i + 1).getData().equals("off")) {
                         Timestamp poweredOn = objectsHistories.get(i).getMessageTimestamp();
                         Timestamp poweredOff = objectsHistories.get(i + 1).getMessageTimestamp();
 
-                        long numberOfHours = (poweredOff.getTime() - poweredOn.getTime()) / (60 * 60 * 1000) % 24;
+                        long hoursOn = (poweredOff.getTime() - poweredOn.getTime()) / (60 * 60 * 1000) % 24;
 
-                        timestampsToString[0] = dateFormat.format(poweredOn);
-                        timestampsToString[1] = dateFormat.format(poweredOff);
+                        List<String> timestampsToString = new ArrayList<String>(2);
+                        timestampsToString.add(dateFormat.format(poweredOn));
+                        timestampsToString.add(dateFormat.format(poweredOff));
 
-                        if (numberOfHours >= max) {
-                            badlyUsed.put(timestampsToString, (int) numberOfHours);
+                        if (hoursOn >= maxHours) {
+                            badlyUsed.put(timestampsToString, (int) hoursOn);
                         } else {
-                            wellUsed.put(timestampsToString, (int) numberOfHours);
+                            wellUsed.put(timestampsToString, (int) hoursOn);
                         }
                         i++;
                     }
@@ -101,10 +102,10 @@ public class ObjectHistoryVerification {
             }
         }
 
-        datas.add(wellUsed);
-        datas.add(badlyUsed);
+        timeRanges.add(wellUsed);
+        timeRanges.add(badlyUsed);
 
-        return datas;
+        return timeRanges;
     }
 
 }
