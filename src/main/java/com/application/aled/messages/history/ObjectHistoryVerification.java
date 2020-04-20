@@ -8,6 +8,7 @@ import com.application.aled.entity.history.ObjectsHistory;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 import static java.lang.Integer.parseInt;
 
@@ -17,6 +18,7 @@ public class ObjectHistoryVerification {
 
     /*
     Made to know the favorite parameter for one element
+    Tested with alarmClock
      */
     public String favoriteParameter (List<ObjectsHistory> objectsHistoryList) {
         Map<String, Integer>  objectParameters = new HashMap<String, Integer>();
@@ -74,24 +76,27 @@ public class ObjectHistoryVerification {
         String[] timestampsToString = new String[2];
 
         for (int i = 0; i < objectsHistories.size(); i++) {
-            if(objectsHistories.get(i).getColumnData() != "power"){
-                objectsHistories.remove(objectsHistories.get(i));
-            } else {
-                if(objectsHistories.get(i).getData() == "on" && objectsHistories.get(i + 1).getData() == "off"){
-                    Timestamp poweredOn = objectsHistories.get(i).getMessageTimestamp();
-                    Timestamp poweredOff = objectsHistories.get(i).getMessageTimestamp();
+            if(i <  (objectsHistories.size() - 1)){
+                if (!(objectsHistories.get(i).getColumnData().equals("power"))) {
+                    objectsHistories.remove(objectsHistories.get(i));
+                } else {
 
-                    long numberOfHours = (poweredOff.getTime() - poweredOn.getTime()) / (60 * 60 * 1000) % 24;
+                    if (objectsHistories.get(i).getData().equals("on") && objectsHistories.get(i + 1).getData().equals("off")) {
+                        Timestamp poweredOn = objectsHistories.get(i).getMessageTimestamp();
+                        Timestamp poweredOff = objectsHistories.get(i + 1).getMessageTimestamp();
 
-                    timestampsToString[0] = dateFormat.format(poweredOn);
-                    timestampsToString[1] = dateFormat.format(poweredOff);
+                        long numberOfHours = (poweredOff.getTime() - poweredOn.getTime()) / (60 * 60 * 1000) % 24;
 
-                    if(numberOfHours >= max){
-                        badlyUsed.put(timestampsToString, (int) numberOfHours);
-                    } else {
-                        wellUsed.put(timestampsToString, (int) numberOfHours);
+                        timestampsToString[0] = dateFormat.format(poweredOn);
+                        timestampsToString[1] = dateFormat.format(poweredOff);
+
+                        if (numberOfHours >= max) {
+                            badlyUsed.put(timestampsToString, (int) numberOfHours);
+                        } else {
+                            wellUsed.put(timestampsToString, (int) numberOfHours);
+                        }
+                        i++;
                     }
-                    i++;
                 }
             }
         }
