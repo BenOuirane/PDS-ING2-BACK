@@ -18,5 +18,6 @@ public interface ResidentService {
 	public List<Resident> getAllResidents();
 
 	Resident getResidentById(Long id);
+
 }
 

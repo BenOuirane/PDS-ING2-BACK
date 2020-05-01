@@ -1,5 +1,6 @@
 package com.application.aled.controller;
 
+import com.application.aled.entity.Rooms;
 import com.application.aled.entity.User;
 import com.application.aled.repository.ResidentRepository;
 import com.application.aled.entity.Resident;
@@ -31,6 +32,18 @@ public class ResidentController {
     @DeleteMapping(value = "/resident/{idResident}")
     public void deleteCategory(@PathVariable(name = "idResident") Long idResident) {
         residentRepository.deleteById(idResident);
+    }
+
+    @GetMapping(value = "/residents")
+    public List<Resident> getAllResidents() {
+        List<Resident> residents = residentService.getAllResidents();
+        return residents;
+    }
+
+    @GetMapping(value = "/resident/{idResident}")
+    public Resident getResidentById(@PathVariable(name = "idResident") Long idResident) {
+        Resident resident = residentService.getResidentById(idResident);
+        return resident;
     }
 
 }

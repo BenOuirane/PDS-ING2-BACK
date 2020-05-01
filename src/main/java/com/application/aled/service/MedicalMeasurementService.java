@@ -11,4 +11,6 @@ public interface MedicalMeasurementService {
     MedicalMeasurement createMedicalMeasurement(MedicalMeasurement medicalMeasurement);
     MedicalMeasurement updateMedicalMeasurement(MedicalMeasurement medicalMeasurement);
     void deleteMedicalMeasurement(Long id);
+    Collection<MedicalMeasurement> getMeasurementsByResidentAndMeasurementType(Long residentID,Long measurementTypeId);
+
 }
