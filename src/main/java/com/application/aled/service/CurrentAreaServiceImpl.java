@@ -68,7 +68,7 @@ public class CurrentAreaServiceImpl implements CurrentAreaService {
 
 
 	@Override
-	public CurrentArea getCurrentAreaByBraceletId(Long idbrac) {
+	public CurrentArea getCurrentAreaByBraceletId(int idbrac) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -76,7 +76,7 @@ public class CurrentAreaServiceImpl implements CurrentAreaService {
 
 
 	@Override
-	public List<CurrentArea> getAreasByYear(int year) throws NullPointerException{ 
+	public List<CurrentArea> getAreasByYear(String year) throws NullPointerException{ 
         List<CurrentArea> areasYear = new ArrayList<>();   
         currentareaRepository.findAreaByYY(year).forEach(areasYear::add);
 		return areasYear;
@@ -99,6 +99,15 @@ public class CurrentAreaServiceImpl implements CurrentAreaService {
         List<CurrentArea> areasYYMMDD = new ArrayList<>();
         currentareaRepository.findAreaByYYMMDD(year, month, day).forEach(areasYYMMDD::add);
         return areasYYMMDD; }
+
+
+
+	@Override
+	public List<CurrentArea> getAreaBraceletNbPassage(int area_id) {
+		List<CurrentArea> nbPassAreas = new ArrayList<>();
+		currentareaRepository.findAreaBraceletSumTime(area_id);
+		return nbPassAreas;
+	}
 
 
 

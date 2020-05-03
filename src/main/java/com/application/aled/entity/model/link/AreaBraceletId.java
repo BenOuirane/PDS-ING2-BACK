@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Embeddable
 public class AreaBraceletId implements Serializable {
 	
@@ -14,7 +16,8 @@ public class AreaBraceletId implements Serializable {
 	@Column(name="area_id")
 	private String areaId;
 	
-	@Column(name = "crossDate")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+	@Column(name = "cross_date")
     private LocalDateTime createdOn = LocalDateTime.now();
 	
 	public LocalDateTime getCreatedOn() {
