@@ -58,7 +58,7 @@ public class MedicalMeasurementServiceImpl implements MedicalMeasurementService{
     public MedicalMeasurement createMedicalMeasurement(MedicalMeasurement medicalMeasurement) {
 
         // Compare les valeur de la mesure avec les seuils min et max
-        // Si la valeur est en dehors des bornes envoyer
+        // Si la valeur est en dehors des bornes envoyer une alerte
         //A chaque enregistrement d'une mesure en base je check la mesure à partir d'ici et plus dans generaterandom
         checkMeasurements(medicalMeasurement);
         return this.medicalMeasurementRepository.save(medicalMeasurement);
@@ -98,9 +98,7 @@ public class MedicalMeasurementServiceImpl implements MedicalMeasurementService{
 
         double currentMeasurementValue ;
 
-        //Je parcours tous les types de mesures qui existent, pour un patient donné
-        // A noter que pour le moment, le patient est figé
-
+        //Je parcours tous les types de mesures qui existent
 
         isAlert = true;
 
@@ -129,7 +127,7 @@ public class MedicalMeasurementServiceImpl implements MedicalMeasurementService{
             progress.put("residentFirsName", resident.getFirstName());
             progress.put("residentLastName", resident.getLastName());
             progress.put("residentAge", resident.getAge()+"");
-            progress.put("residentRoom", resident.getRoom().getIdRoom()+"");
+            //progress.put("residentRoom", resident.getRoom().getIdRoom()+"");
             progress.put("measurementType", currentMeasurementType.getName());
             progress.put("measurementUnit", currentMeasurementType.getLongFormUnit());
             progress.put("measurementTypeMinValue", currentMedThres.getMinValue()+"");
@@ -137,7 +135,7 @@ public class MedicalMeasurementServiceImpl implements MedicalMeasurementService{
 
 
 
-            //ToDO : développer la fonction qui va bien
+
             System.out.println(" ********** DEBUT ALERTE sur la Mesure de : " + currentMeasurementType.getName() + "  *************** ");
             System.out.println("Min = " + currentMedThres.getMinValue() + " - Max = " + currentMedThres.getMaxValue() );
             System.out.println(" VALEURS CONCERNEES : ");
@@ -147,6 +145,9 @@ public class MedicalMeasurementServiceImpl implements MedicalMeasurementService{
                 System.out.println(lastsMeasurements.get(i).getMeasurementValue());
                 progress.put("lastMeasurement_"+(i+1), lastsMeasurements.get(i).getMeasurementDateAndTime() + " : " + lastsMeasurements.get(i).getMeasurementValue());
             }
+
+            //Le client (Front) qui a souscrit au message en provenance du endpoint « topic/progress » de notre API
+            // recevera les messages de l'alerte inclut dans "progress.put( )"
             messagingTemplate.convertAndSend("/topic/progress", progress);
             System.out.println(" ***** FIN ***** FIN ALERTE sur la Mesure de : " + currentMeasurementType.getName() + "  ****** FIN ********* ");
 
