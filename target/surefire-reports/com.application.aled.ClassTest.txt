@@ -1,7 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.application.aled.ClassTest
--------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.439 s <<< FAILURE! - in com.application.aled.ClassTest
-initializationError(com.application.aled.ClassTest)  Time elapsed: 0.016 s  <<< ERROR!
-java.lang.Exception: No runnable methods
-
