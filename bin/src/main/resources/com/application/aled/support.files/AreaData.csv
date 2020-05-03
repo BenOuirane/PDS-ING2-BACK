@@ -1,0 +1,16 @@
+id;name;surface;id_capteur
+1;Chambre 1;12,5;Capteur chambre 1
+2;Chambre 2;12,5;Capteur chambre 2
+3;Chambre 3;17,6;Capteur chambre 3
+4;Chambre 4;11,74;Capteur chambre 4
+5;Chambre VIP 1;31,8;Capteur Chambre VIP 1
+6;Forum;60,35;Capteur Forum
+7;Aqua;75,98;Capteur Aqua
+8;Savane;88,1;Capteur Savane
+9;Chambre 9;17,5;Capteur chambre 9
+10;Chambre 10;14,6;Capteur chambre 10
+11;Chambre 11;14,6;Capteur chambre 11
+12;Chambre 12;14,6;Capteur chambre 12
+13;Chambre 13;14,6;Capteur chambre 13
+14;Chambre 14;14,6;Capteur chambre 14
+15;Chambre 15;14,6;Capteur chambre 15
