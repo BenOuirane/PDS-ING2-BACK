@@ -10,7 +10,10 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+<<<<<<< HEAD
 import org.springframework.web.bind.annotation.RequestParam;
+=======
+>>>>>>> master
 import org.springframework.web.bind.annotation.RestController;
 import com.application.aled.controller.exception.CustomHandler;
 import com.application.aled.entity.Bracelet;
@@ -49,6 +52,7 @@ public class BraceletController {
 		}
 	}
 
+
 	@GetMapping("/bracelets/year/{year}")
 	public int getBraceletaByYear(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") LocalDateTime year) {
 		int braceletByYear = braceletService.getBraceletByYear(year).size();
@@ -66,5 +70,7 @@ public class BraceletController {
 		int braceletByDay = braceletService.getBraceletByDay(year, month, day).size();
 		return braceletByDay;
 	}
+
+	
 
 }

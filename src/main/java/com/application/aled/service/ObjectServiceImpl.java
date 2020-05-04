@@ -1,27 +1,28 @@
 package com.application.aled.service;
 
-import com.application.aled.entity.*;
-import com.application.aled.repository.*;
+import com.application.aled.entity.Objects;
+import com.application.aled.entity.Rooms;
+import com.application.aled.repository.ObjectRepository;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.logging.Logger;
+
+import com.application.aled.repository.RoomRepository;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.logging.Logger;
+import javax.persistence.EntityManager;
+import javax.persistence.Transient;
 
 @Service
 public class ObjectServiceImpl implements ObjectService {
 
     @Autowired
     ObjectRepository objectRepository;
-
-    //Used to save different types of objects
-    LampRepository lampRepository;
-    ShutterRepository shutterRepository;
-    CoffeeMachineRepository coffeeMachineRepository;
-    AlarmClockRepository alarmClockRepository;
 
     @Autowired
     RoomRepository roomRepository;
@@ -58,42 +59,6 @@ public class ObjectServiceImpl implements ObjectService {
     public Objects updateObjects(Objects objects) {
         Objects _objects = objectRepository.save(objects);
         return _objects;
-    }
-
-    @Override
-    public boolean scenarioLaunchService(ScenarioMyMorning scenarioMyMorning){
-        Lamp lamp = scenarioMyMorning.getLamp();
-        Shutter shutter = scenarioMyMorning.getShutter();
-        AlarmClock alarmClock = scenarioMyMorning.getAlarmClock();
-        CoffeeMachine coffeeMachine = scenarioMyMorning.getCoffeeMachine();
-
-        Date time = new Date("1587103200000"); //8h00
-
-         lamp.setHourOn((alarmClock.getAlarm() != null )?alarmClock.getAlarm() : new Timestamp(time.getTime()));
-         lamp.setStatus(true);
-         lamp.setColor("YELLOW");
-
-         shutter.setHourOn((alarmClock.getAlarm() != null )?alarmClock.getAlarm() : new Timestamp(time.getTime()));
-         shutter.setStatus(true);
-
-         alarmClock.setAlarm((alarmClock.getAlarm() != null )?alarmClock.getAlarm() : new Timestamp(time.getTime()));
-         alarmClock.setAlarmStatus(true);
-
-         coffeeMachine.setStatus(true);
-         coffeeMachine.setScheduleCoffee((alarmClock.getAlarm() != null )?alarmClock.getAlarm() : new Timestamp(time.getTime()));
-
-         try {
-             lampRepository.save(lamp);
-             coffeeMachineRepository.save(coffeeMachine);
-             alarmClockRepository.save(alarmClock);
-             shutterRepository.save(shutter);
-         }catch (Exception e){
-             logger.info("ERROR : ObjectServiceImpl.scenarioLaunchService : " + e);
-             return false;
-         }
-
-
-        return true;
     }
 
 }

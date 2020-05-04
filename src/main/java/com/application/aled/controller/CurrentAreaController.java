@@ -16,12 +16,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.application.aled.controller.exception.CustomHandler;
 import com.application.aled.entity.CurrentArea;
-import com.application.aled.service.BraceletService;
 import com.application.aled.service.CurrentAreaService;
 
 /**
@@ -37,17 +35,22 @@ public class CurrentAreaController {
 
 	@Autowired
 	CurrentAreaService currentAreaService;
+<<<<<<< HEAD
 
 	@Autowired
 	BraceletService braceletService;
 
 	// TODO to send to audit
+=======
+
+>>>>>>> master
 	@GetMapping("/currentlocations")
 	@ResponseBody
 	public ResponseEntity<List<CurrentArea>> getAllLocation() {
 		logger.info("Getting all current areas from current area table...");
 		List<CurrentArea> locations = currentAreaService.getAllAreas();
 		logger.info("Positions well extracted from current area table ...");
+<<<<<<< HEAD
 		// TODO here we use a design pattern
 		return ResponseEntity.ok(locations);
 	}
@@ -67,6 +70,12 @@ public class CurrentAreaController {
 	}
 
 	// TODO to send to audit
+=======
+		//TODO here we use a design pattern called XXX 
+		return ResponseEntity.ok(locations);
+	}
+
+>>>>>>> master
 	@GetMapping("/currentlocation/{locationId}")
 	public CurrentArea positionId(@PathVariable(name = "locationId") String locationId) throws NullPointerException {
 		logger.info("Getting this area" + locationId + "from current area table...");
@@ -80,6 +89,7 @@ public class CurrentAreaController {
 		}
 	}
 
+<<<<<<< HEAD
 	// TODO
 	@GetMapping("/currentlocation/bracelet/{braceletId}")
 	public CurrentArea getCurrentAreaBracelet(@PathVariable(name = "braceletId") int braceletId)
@@ -94,9 +104,23 @@ public class CurrentAreaController {
 		} else {
 			logger.info(_area.toString());
 			return _area;
+=======
+	@RequestMapping(value = "/generate_currentlocations", method = RequestMethod.POST)
+	public ResponseEntity<Void> createDataMock() {
+		logger.info("Generating current areas in current area table..");
+		for (int i = 1; i <10; i++) {
+			CurrentArea currentarea = new CurrentArea();
+			//currentarea.setId_bracelet(i);
+			//currentarea.setDate(LocalDateTime.now());
+			//currentAreaService.addLocation(currentarea);
+>>>>>>> master
 		}
+		logger.info("Data has been well generated in the table current area..");
+		return ResponseEntity.ok().build();
+			
 	}
 	
+<<<<<<< HEAD
 /*	@GetMapping("/currentlocation/area/{areatId}")
 	public CurrentArea getCurrentAreaSumPassage(@PathVariable(name = "braceletId") int braceletId) 
 			throws NullPointerException {
@@ -131,4 +155,7 @@ public class CurrentAreaController {
 		return areaByDay;
 	}
 
+=======
+	//TODO add the other methods
+>>>>>>> master
 }

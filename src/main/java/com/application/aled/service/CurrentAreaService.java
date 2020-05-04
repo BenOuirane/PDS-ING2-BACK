@@ -1,9 +1,8 @@
 package com.application.aled.service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
-import com.application.aled.entity.Bracelet;
+
 import com.application.aled.entity.CurrentArea;
 
 
@@ -13,6 +12,7 @@ public interface CurrentAreaService {
 	
 	public CurrentArea getCurrentAreaById(int idarea);
 	public CurrentArea getCurrentAreaByBraceletId(int idbrac);
+
 
 	void addArea(CurrentArea idarea);
 

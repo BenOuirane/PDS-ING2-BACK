@@ -28,5 +28,11 @@ public class ResidenceController {
             return residence;
         }
 
+        @GetMapping("/totalres")
+        public int[] getTotalResidence(){
+        int[] total = residenceRepository.findResidence();
+        return total;
+    }
+
 
 }

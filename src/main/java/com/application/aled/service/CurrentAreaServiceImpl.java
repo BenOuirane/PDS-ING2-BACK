@@ -1,12 +1,10 @@
 package com.application.aled.service;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.application.aled.entity.CurrentArea;
-import com.application.aled.entity.Failure;
 import com.application.aled.repository.CurrentAreaRepository;
 
 /**
@@ -108,7 +106,5 @@ public class CurrentAreaServiceImpl implements CurrentAreaService {
 		currentareaRepository.findAreaBraceletSumTime(area_id);
 		return nbPassAreas;
 	}
-
-
 
 }

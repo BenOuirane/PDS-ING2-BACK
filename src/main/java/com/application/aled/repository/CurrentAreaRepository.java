@@ -28,4 +28,5 @@ public interface CurrentAreaRepository extends CrudRepository<CurrentArea, Integ
 
 	@Query(value = "select a from current_area a where year(a.cross_date) = ?1 and month(a.cross_date)= ?2 and day(a.cross_date)= ?3", nativeQuery = true)
 	List<CurrentArea> findAreaByYYMMDD(int year, int month, int date);
+
 }

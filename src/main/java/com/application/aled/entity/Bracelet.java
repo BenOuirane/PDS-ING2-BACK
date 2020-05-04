@@ -36,6 +36,12 @@ public class Bracelet {
 
 	@OneToMany(mappedBy = "bracelet", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<CurrentArea> currentArea = new ArrayList<>();
+	 @OneToMany(
+		        mappedBy = "bracelet",
+		        cascade = CascadeType.ALL,
+		        orphanRemoval = true
+		    )
+    private List<CurrentArea> currentArea = new ArrayList<>();
 
 	public List<CurrentArea> getCurrentArea() {
 		return currentArea;
