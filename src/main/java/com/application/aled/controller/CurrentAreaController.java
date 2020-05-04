@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.application.aled.controller.exception.CustomHandler;
 import com.application.aled.entity.CurrentArea;
 import com.application.aled.service.CurrentAreaService;
-import com.application.aled.service.bracelet.BraceletService;
+import com.application.aled.service.BraceletService;
 
 /**
  * @author ISMAIL EL HAMMOUD
@@ -82,7 +82,7 @@ public class CurrentAreaController {
 	}
 
 	// TODO
-	/*@GetMapping("/currentlocation/bracelet/{braceletId}")
+	@GetMapping("/currentlocation/bracelet/{braceletId}")
 	public CurrentArea getCurrentAreaBracelet(@PathVariable(name = "braceletId") int braceletId)
 			throws NullPointerException {
 		logger.info("Getting bracelet by id..");
@@ -96,9 +96,10 @@ public class CurrentAreaController {
 			logger.info(_area.toString());
 			return _area;
 
-		}*/
+		}
+	}
 	
-/*	@GetMapping("/currentlocation/area/{areatId}")
+	/*@GetMapping("/currentlocation/area/{areatId}")
 	public CurrentArea getCurrentAreaSumPassage(@PathVariable(name = "braceletId") int braceletId) 
 			throws NullPointerException {
 		CurrentArea _area = currentAreaService.getAreaBraceletNbPassage(braceletId);
@@ -110,9 +111,15 @@ public class CurrentAreaController {
 			logger.info(_area.toString());
 			return _area;
 		}
-	}*/
+	}
+	*/
 	
-	
+	@GetMapping("/currentlocation/areabracelet")
+	public int[] getSumPassageAreaBracelet() {
+		int [] sumPassage = currentAreaService.getSumAreaBracelet();
+		return sumPassage;
+		
+	}
 
 	@GetMapping("/currentlocalion/year/{year}")
 	public int getAreaByYear(@RequestParam(required = false)  String year) {

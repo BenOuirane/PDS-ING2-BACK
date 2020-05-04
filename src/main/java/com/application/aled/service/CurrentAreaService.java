@@ -20,7 +20,7 @@ public interface CurrentAreaService {
 
 	void removeArea(CurrentArea idarea);
 	
-	public List<CurrentArea> getAreaBraceletNbPassage(int bracelet_id);
+	//public List<CurrentArea> getAreaBraceletNbPassage(int bracelet_id);
 
 	public List<CurrentArea> getAreasByYear(String year);
 
@@ -28,6 +28,6 @@ public interface CurrentAreaService {
 
 	public List<CurrentArea> getAreasByDay(int year, int month, int day);
 
-	//public  CurrentArea findAreaByBraceletIdAndCross_date(int braceletId, LocalDateTime cross_date);
+	public  int[] getSumAreaBracelet();
 
 }

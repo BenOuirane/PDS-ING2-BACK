@@ -100,11 +100,20 @@ public class CurrentAreaServiceImpl implements CurrentAreaService {
 
 
 
-	@Override
+	/*@Override
 	public List<CurrentArea> getAreaBraceletNbPassage(int area_id) {
 		List<CurrentArea> nbPassAreas = new ArrayList<>();
 		currentareaRepository.findAreaBraceletSumTime(area_id);
 		return nbPassAreas;
+	}*/
+
+
+
+	@Override
+	public int[] getSumAreaBracelet() {
+		int [] sumPassageBraceletInArea;
+		sumPassageBraceletInArea = currentareaRepository.findAreaBraceletSumTime();
+		return sumPassageBraceletInArea;
 	}
 
 }

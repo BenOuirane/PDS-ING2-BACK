@@ -17,7 +17,7 @@ public interface BraceletRepository extends CrudRepository<Bracelet, String> {
 	// public List<Bracelet> findByWipDate(LocalDateTime lastsentdata);
 	public Bracelet findBraceletById(Long idBrac);
 
-	@Query(value = "select b from bracelet b where year(b.last_sent) = ?1", nativeQuery = true)
+	@Query(value = "select b.last_sent from bracelet b where year(b.last_sent) = ?1", nativeQuery = true)
 	List<Bracelet> findBraceletByYY(LocalDateTime year);
 
 	@Query(value = "select b from bracelet b where year(b.last_sent) = ?1 and month(b.last_sent)= ?2", nativeQuery = true)
