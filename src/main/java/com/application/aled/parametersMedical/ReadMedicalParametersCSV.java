@@ -3,11 +3,8 @@ package com.application.aled.parametersMedical;
 
 import com.application.aled.entity.Bracelet;
 import com.application.aled.entity.Resident;
-import com.application.aled.entity.User;
-import com.application.aled.service.BraceletService;
 import com.application.aled.service.BraceletServiceImpl;
 import com.application.aled.service.ResidentServiceImpl;
-import com.application.aled.service.UserServiceImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -49,19 +46,21 @@ public class ReadMedicalParametersCSV {
         try {
 
             br = new BufferedReader(new FileReader(csvFile));
+            hsmp = new HashMap<String, List<String>>();
 
             while ((line = br.readLine()) != null)
             {
-                Bracelet b = new Bracelet();
-
                 String[] split = line.split(cvsSplitBy);
+
                 lstValues = new ArrayList<String>();
+
                 for (int i = 1; i < split.length; i++)
                 {
                     lstValues.add(split[i]);
                 }
-                hsmp = new HashMap<String, List<String>>();
+
                 hsmp.put(split[0], lstValues);
+
             }
 
         } catch (FileNotFoundException e) {
@@ -83,11 +82,18 @@ public class ReadMedicalParametersCSV {
 
     public List<Resident> getListResidents(){
 
-        for (Map.Entry<String, List<String>> en : hsmp.entrySet())
-        {
-            for(Resident r : residentService.getAllResidents())
-            {
-                if(en.getKey().equalsIgnoreCase(r.getLastName())){
+        Set<Map.Entry<String, List<String>>> entrySet =
+                hsmp.entrySet();
+
+        Iterator<Map.Entry<String, List<String>>> iterator =
+                entrySet.iterator();
+
+        while(iterator.hasNext()) {
+
+            Map.Entry<String, List<String>> entry = iterator.next();
+            for (Resident r : residentService.getAllResidents()) {
+
+                if (entry.getKey().equalsIgnoreCase(r.getLastName())) {
                     listResidents.add(r);
                 }
             }
@@ -98,30 +104,37 @@ public class ReadMedicalParametersCSV {
     public List<Bracelet> getListBracelets(){
         for(Resident r : getListResidents()){
             for(Bracelet b : braceletService.getAllBracelets()){
-                if(r.getIdResident().equals(b.getResidents().getIdResident())){
+                if(r.getIdResident()==(b.getResidents().getIdResident())){
                     lstBracelet.add(b);
                 }
             }
         }
+        System.out.println(lstBracelet);
         return lstBracelet;
     }
 
 
-
     public Object[] retrieveParameters(Bracelet b)
     {
-
         List<String> valuesParameters= new ArrayList<>();
-        String name="";
 
-        for (Map.Entry<String, List<String>> en : hsmp.entrySet())
-        {
-            if(en.getKey().equals(b.getResidents().getLastName()))
-            {
-                valuesParameters = en.getValue();
+        Set<Map.Entry<String, List<String>>> entrySet =
+                hsmp.entrySet();
+
+        Iterator<Map.Entry<String, List<String>>> iterator =
+                entrySet.iterator();
+
+        while(iterator.hasNext()) {
+
+            Map.Entry<String, List<String>> entry = iterator.next();
+            if (entry.getKey().equals(b.getResidents().getLastName())) {
+
+                valuesParameters = entry.getValue();
+
             }
-
         }
+
+
         return valuesParameters.toArray();
     }
 
@@ -161,9 +174,9 @@ public class ReadMedicalParametersCSV {
         Long timeUpdate= Long.valueOf((String) retrieveParameters(b)[6]);
         return timeUpdate;
     }
-    public int getStandarDeviation(Bracelet b) {
+    public Double getStandarDeviation(Bracelet b) {
 
-        return Integer.valueOf((String) retrieveParameters(b)[7]);
+        return Double.valueOf((String) retrieveParameters(b)[7]);
     }
 
 
