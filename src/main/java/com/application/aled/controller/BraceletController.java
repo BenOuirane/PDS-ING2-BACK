@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.application.aled.controller.exception.CustomHandler;
@@ -35,7 +33,6 @@ public class BraceletController {
 	}
 	
 
-	
 	@GetMapping("/bracelets/{braceletId}")
 	public Bracelet braceletId(@PathVariable(name = "braceletId")  Long braceletId) throws NullPointerException {
 		logger.info("Getting bracelet by id..");
@@ -51,6 +48,7 @@ public class BraceletController {
 		}
 	}
 
+	
 	//TODO add the other methods.
 	
 	

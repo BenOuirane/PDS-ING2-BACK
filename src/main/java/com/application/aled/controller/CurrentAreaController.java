@@ -14,13 +14,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.application.aled.controller.exception.CustomHandler;
-import com.application.aled.entity.Bracelet;
 import com.application.aled.entity.CurrentArea;
-import com.application.aled.service.BraceletService;
 import com.application.aled.service.CurrentAreaService;
 
 /**
@@ -37,19 +34,28 @@ public class CurrentAreaController {
 	
 	@Autowired
 	CurrentAreaService currentAreaService;
-	
-	@Autowired
-	BraceletService braceletService;
 
-	//TODO to send to audit
 	@GetMapping("/currentlocations")
 	@ResponseBody
 	public ResponseEntity<List<CurrentArea>> getAllLocation() {
 		logger.info("Getting all current areas from current area table...");
 		List<CurrentArea> locations = currentAreaService.getAllAreas();
 		logger.info("Positions well extracted from current area table ...");
-		//TODO here we use a design pattern 
+		//TODO here we use a design pattern called XXX 
 		return ResponseEntity.ok(locations);
+	}
+
+	@GetMapping("/currentlocation/{locationId}")
+	public CurrentArea positionId(@PathVariable(name = "locationId") String locationId) throws NullPointerException {
+		logger.info("Getting this area" + locationId + "from current area table...");
+		CurrentArea _idlocation  = currentAreaService.getCurrentAreaById(Integer.parseInt(locationId));
+		if (_idlocation == null) {
+				
+				throw new CustomHandler("Area not found");
+			} else {
+				logger.info(_idlocation.toString());
+				return _idlocation;
+			}
 	}
 
 	@RequestMapping(value = "/generate_currentlocations", method = RequestMethod.POST)
@@ -66,69 +72,5 @@ public class CurrentAreaController {
 			
 	}
 	
-	//TODO to send to audit
-	@GetMapping("/currentlocation/{locationId}")
-	public CurrentArea positionId(@PathVariable(name = "locationId") String locationId) throws NullPointerException {
-		logger.info("Getting this area" + locationId + "from current area table...");
-		CurrentArea _idlocation  = currentAreaService.getCurrentAreaById(Integer.parseInt(locationId));
-		if (_idlocation == null) {
-				
-				throw new CustomHandler("Area not found");
-			} else {
-				logger.info(_idlocation.toString());
-				return _idlocation;
-			}
-	}
-
-	
-	//TODO
-	@GetMapping("/currentlocation/bracelet/{braceletId}")
-	public CurrentArea getCurrentAreaBracelet(@PathVariable(name = "braceletId")  Long braceletId) throws NullPointerException {
-		logger.info("Getting bracelet by id..");
-		CurrentArea _area = currentAreaService.getCurrentAreaByBraceletId((braceletId));
-		
-		if (_area == null) {
-			logger.error("There's no data in bracelet table..");
-			throw new CustomHandler("Bracelet not found");
-
-		} else {
-			logger.info(_area.toString());
-			return _area;
-		}
-	}
-
-	
-	
-	///date/{crossDate}
-	//@PathVariable LocalDateTime crossDate
-	
-	
-	
-	
-	
-	  @GetMapping("currentarea/year")
-      public int getAreaByYear(@RequestParam int year) {
-
-      int areaByYear = currentAreaService.getAreasByYear(year).size();
-
-      return areaByYear ;
-  }
-
-  @GetMapping("currentarea/month")
-  public int getAreaByYearAndMonth(@RequestParam int year, int month) {
-
-      int areaByMonth = currentAreaService.getAreasByYearAndMonth(year, month).size();
-
-      return areaByMonth;
-  }
-  @GetMapping("currentarea/day")
-  public int getAreaByDay(@RequestParam int year, int month, int day) {
-
-      int areaByDay = currentAreaService.getAreasByDay(year, month, day).size();
-
-      return areaByDay ;
-  }
-	
 	//TODO add the other methods
-	//TODO sending to audit is not an emergency.. could be done at the end
 }
