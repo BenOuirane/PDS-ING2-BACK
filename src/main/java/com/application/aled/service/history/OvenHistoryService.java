@@ -12,4 +12,6 @@ public interface OvenHistoryService {
     public void emptyTable();
 
     public List<OvenHistory> getOvenHistoryByObjectsId(long id);
+
+    public List<OvenHistory> getOvenHistoryByObjectsIdAndColumn_data(long id, String column_data);
 }

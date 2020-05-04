@@ -34,4 +34,12 @@ public class OvenHistoryServiceImpl implements OvenHistoryService {
 
         return ovenHistories;
     }
+
+    @Override
+    public List<OvenHistory> getOvenHistoryByObjectsIdAndColumn_data(long id, String column_data) {
+        List<OvenHistory> ovenHistories = new ArrayList<OvenHistory>();
+        ovenHistoryRepository.findOvenHistoriesByIdAndColumnData( id, column_data).forEach(ovenHistories::add);
+
+        return ovenHistories;
+    }
 }
