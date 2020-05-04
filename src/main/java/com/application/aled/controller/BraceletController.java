@@ -10,10 +10,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-<<<<<<< HEAD
 import org.springframework.web.bind.annotation.RequestParam;
-=======
->>>>>>> master
 import org.springframework.web.bind.annotation.RestController;
 import com.application.aled.controller.exception.CustomHandler;
 import com.application.aled.entity.Bracelet;

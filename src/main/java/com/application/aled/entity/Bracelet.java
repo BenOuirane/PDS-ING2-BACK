@@ -41,7 +41,7 @@ public class Bracelet {
 		        cascade = CascadeType.ALL,
 		        orphanRemoval = true
 		    )
-    private List<CurrentArea> currentArea = new ArrayList<>();
+  //  private List<CurrentArea> currentArea = new ArrayList<>();
 
 	public List<CurrentArea> getCurrentArea() {
 		return currentArea;

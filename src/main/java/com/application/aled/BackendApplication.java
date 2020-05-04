@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.io.IOException;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
-<<<<<<< HEAD
 import com.application.aled.controller.AreaController;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
@@ -16,16 +15,9 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class BackendApplication extends SpringBootServletInitializer {
 	static final Logger logger = LogManager.getLogger(AreaController.class.getName());
-=======
 
-//import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-@ComponentScan
-@SpringBootApplication
 
-//@EnableSwagger2
-public class BackendApplication extends SpringBootServletInitializer{
->>>>>>> master
 
 	public static void main(String[] args) throws IOException {
 		logger.info("com.application.aled.BackendApplication");
