@@ -9,6 +9,8 @@ import java.util.Date;
 import java.util.*;
 import java.util.logging.Logger;
 
+import static java.lang.Integer.parseInt;
+
 public class PopulateObjectsHistory {
 
     Random random = new Random();
@@ -162,5 +164,47 @@ public class PopulateObjectsHistory {
             default:
                 break;
         }
+    }
+
+    public  List<ObjectsHistory> createHistoryErrors(Objects objectToRecord, String type, String parameter, Timestamp time){
+        List<ObjectsHistory> historiesError = new ArrayList<ObjectsHistory>();
+        switch (type){
+            case "power":
+                Date lastDate = new Date(time.getTime());
+                lastDate.setHours(time.getHours() - parseInt(parameter));
+                Timestamp lastTimestamp = new Timestamp(lastDate.getTime());
+
+                ObjectsHistory messageRecordOn = new ObjectsHistory("on", "power", lastTimestamp, objectToRecord);
+                ObjectsHistory messageRecordOff = new ObjectsHistory("off", "power", time, objectToRecord);
+                historiesError.add(messageRecordOn);
+                historiesError.add(messageRecordOff);
+            break;
+
+            case "nightAlarm":
+                Date nextAlarm = new Date(time.getTime());
+                nextAlarm.setHours(1);
+                Timestamp nextAlarmTimestamp = new Timestamp(nextAlarm.getTime());
+
+                ObjectsHistory messageRecordAlarm = new ObjectsHistory(nextAlarmTimestamp.toString(), "alarm", nextAlarmTimestamp, objectToRecord);
+                historiesError.add(messageRecordAlarm);
+                break;
+
+            case "shutterAlarm":
+                Date lastClosing = new Date(time.getTime());
+
+                lastClosing.setHours(time.getHours() - parseInt(parameter));
+                Timestamp lastNightOpeningTimestamp = new Timestamp(lastClosing.getTime());
+
+                ObjectsHistory messageOpen = new ObjectsHistory("open", "action", lastNightOpeningTimestamp, objectToRecord);
+                ObjectsHistory messageClose = new ObjectsHistory("close", "action", time, objectToRecord);
+                historiesError.add(messageOpen);
+                historiesError.add(messageClose);
+                break;
+            default:
+                break;
+
+        }
+
+        return historiesError;
     }
 }

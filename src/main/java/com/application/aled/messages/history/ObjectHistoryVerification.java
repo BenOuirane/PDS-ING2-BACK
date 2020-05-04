@@ -13,7 +13,7 @@ import static java.time.temporal.ChronoUnit.DAYS;
 
 public class ObjectHistoryVerification {
 
-    SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm:ss");
+    SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm:ss yyyy.MM.dd");
 
     /*
     Made to know the favorite parameter for one element
@@ -90,13 +90,13 @@ public class ObjectHistoryVerification {
                         Timestamp opened = shutterHistoryList.get(i).getMessageTimestamp();
                         Timestamp close = shutterHistoryList.get(i + 1).getMessageTimestamp();
 
-                        long daysOn = (opened.getTime() - close.getTime()) / 24 * 60 * 60 * 1000;
+                        long daysOn = (close.getTime() - opened.getTime()) / (24 * 60 * 60 * 1000);
 
                         List<String> timestampsToString = new ArrayList<String>(2);
                         timestampsToString.add(dateFormat.format(opened));
                         timestampsToString.add(dateFormat.format(close));
 
-                        if(daysOn > 1){
+                        if(daysOn >= 1){
                             badlyUsed.put(timestampsToString, (int) daysOn);
                         } else {
                             Date afterOpening = new Date(opened.getTime());
@@ -114,7 +114,6 @@ public class ObjectHistoryVerification {
                 }
             }
         }
-
         return badlyUsed;
     }
 

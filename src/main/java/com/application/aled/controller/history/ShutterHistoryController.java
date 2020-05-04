@@ -32,7 +32,7 @@ public class ShutterHistoryController {
         java.sql.Timestamp endTime = java.sql.Timestamp.valueOf(jsonData.get("end").asText());
 
         List<ShutterHistory> shutterHistories =  shuttersHistoryService.getShutterHistoryByObjectsIdAndColumnDataAndDateBetween(new Long(jsonData.get("id").asText()), "action", startTime, endTime);
-
+        
         ObjectHistoryVerification objectVerification = new ObjectHistoryVerification();
         Map<List<String>, Integer> wronglyOpened = objectVerification.wronglyOpenedShutter(shutterHistories);
 

@@ -1,10 +1,12 @@
 package com.application.aled.controller.history;
 
 import com.application.aled.entity.history.AlarmClockHistory;
+import com.application.aled.entity.history.CoffeeMachineHistory;
 import com.application.aled.entity.history.LampHistory;
 import com.application.aled.entity.history.ObjectsHistory;
 import com.application.aled.messages.history.ObjectHistoryVerification;
 import com.application.aled.service.history.AlarmClockHistoryServiceImpl;
+import com.application.aled.service.history.CoffeeMachineHistoryServiceImpl;
 import com.application.aled.service.history.LampHistoryServiceImpl;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,9 @@ public class ObjectsHistoryController {
 
     @Autowired
     AlarmClockHistoryServiceImpl alarmClocksHistoryService;
+
+    @Autowired
+    CoffeeMachineHistoryServiceImpl coffeeMachinesHistoryService;
 
     @Autowired
     LampHistoryServiceImpl lampHistoryService;
@@ -37,12 +42,18 @@ public class ObjectsHistoryController {
                     objectsHistories.add((ObjectsHistory) lampsHistory);
                 }
                 break;
+            case "coffeeMachine" :
+                List<CoffeeMachineHistory> coffeeMachineHistories =  coffeeMachinesHistoryService.getCoffeeMachineHistoryByObjectsIdAndColumnDataAndDateBetween(new Long(jsonData.get("id").asText()), "power", startTime, endTime);
+                for (CoffeeMachineHistory coffeeMachineHistory : coffeeMachineHistories) {
+                    objectsHistories.add((ObjectsHistory) coffeeMachineHistory);
+                }
+                break;
             default:
         }
 
 
         ObjectHistoryVerification objectVerification = new ObjectHistoryVerification();
-        ArrayList<Map<List<String>, Integer>> usingHoursArray = objectVerification.usingHours(objectsHistories, 2);
+        ArrayList<Map<List<String>, Integer>> usingHoursArray = objectVerification.usingHours(objectsHistories, jsonData.get("parameter").asInt());
         return usingHoursArray;
     }
 
