@@ -57,6 +57,7 @@ public class ObjectHistoryVerification {
     Made to know if an alarm was set between 23 and 4 o'clock
      */
     public List<AlarmClockHistory> nightAlarm (List<AlarmClockHistory> alarmClockHistoryList){
+        List<AlarmClockHistory> results = new ArrayList<AlarmClockHistory>();
         for (AlarmClockHistory alarmClockHistory : alarmClockHistoryList) {
             Timestamp alarm = alarmClockHistory.getMessageTimestamp();
 
@@ -66,18 +67,20 @@ public class ObjectHistoryVerification {
             Date before = new Date(alarm.getTime());
             before.setHours(4);
 
-            if(alarm.after(before) && alarm.before(after)){
-                alarmClockHistoryList.remove(alarmClockHistory);
+            if(alarm.before(before) && alarm.after(after)){
+                results.add(alarmClockHistory);
             }
         }
 
-        return alarmClockHistoryList;
+        return results;
     }
 
     /*
     Made to know if a shutter was open during many days or during night
      */
-    public List<ShutterHistory> wronglyOpenedShutter (List<ShutterHistory> shutterHistoryList){
+    public Map<List<String>, Integer> wronglyOpenedShutter (List<ShutterHistory> shutterHistoryList){
+        Map<List<String>, Integer> badlyUsed = new HashMap<List<String>, Integer>();
+
         for (int i = 0; i < shutterHistoryList.size(); i++) {
             if(i < (shutterHistoryList.size() - 1)){
                 if (!(shutterHistoryList.get(i).getColumnData().equals("action"))) {
@@ -89,9 +92,12 @@ public class ObjectHistoryVerification {
 
                         long daysOn = (opened.getTime() - close.getTime()) / 24 * 60 * 60 * 1000;
 
-                        if(daysOn < 1){
-                            shutterHistoryList.remove(shutterHistoryList.get(i));
-                            shutterHistoryList.remove(shutterHistoryList.get(i + 1));
+                        List<String> timestampsToString = new ArrayList<String>(2);
+                        timestampsToString.add(dateFormat.format(opened));
+                        timestampsToString.add(dateFormat.format(close));
+
+                        if(daysOn > 1){
+                            badlyUsed.put(timestampsToString, (int) daysOn);
                         } else {
                             Date afterOpening = new Date(opened.getTime());
                             afterOpening.setHours(0);
@@ -99,20 +105,17 @@ public class ObjectHistoryVerification {
                             Date beforeOpening = new Date(opened.getTime());
                             beforeOpening.setHours(4);
 
-                            if(opened.after(beforeOpening) && opened.before(afterOpening)){
-                                shutterHistoryList.remove(shutterHistoryList.get(i));
-                                shutterHistoryList.remove(shutterHistoryList.get(i + 1));
+                            if(opened.after(afterOpening) && opened.before(beforeOpening)){
+                                badlyUsed.put(timestampsToString, (int) 0);
                             }
                         }
-
                         i++;
                     }
                 }
             }
         }
 
-
-        return shutterHistoryList;
+        return badlyUsed;
     }
 
     /*

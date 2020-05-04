@@ -93,7 +93,15 @@ public class ObjectServiceImpl implements ObjectService {
          }
 
 
+
+
         return true;
+    }
+
+    @Override
+    public Objects getObjectsById(long id) {
+        Objects _objects = objectRepository.findById(id);
+        return _objects;
     }
 
 }

@@ -17,4 +17,6 @@ public interface ObjectService {
     Objects updateObjects(Objects objects);
 
     boolean scenarioLaunchService(ScenarioMyMorning scenarioMyMorning);
+
+    Objects getObjectsById(long id);
 }

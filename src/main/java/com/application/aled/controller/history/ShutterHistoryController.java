@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -26,14 +27,14 @@ public class ShutterHistoryController {
     }
 
     @PutMapping("/wronglyOpened/shutter")
-    public List<ShutterHistory> getWronglyOpenedHistory(@RequestBody ObjectNode jsonData){
+    public Map<List<String>, Integer> getWronglyOpenedHistory(@RequestBody ObjectNode jsonData){
         java.sql.Timestamp startTime = java.sql.Timestamp.valueOf(jsonData.get("start").asText());
         java.sql.Timestamp endTime = java.sql.Timestamp.valueOf(jsonData.get("end").asText());
 
         List<ShutterHistory> shutterHistories =  shuttersHistoryService.getShutterHistoryByObjectsIdAndColumnDataAndDateBetween(new Long(jsonData.get("id").asText()), "action", startTime, endTime);
 
         ObjectHistoryVerification objectVerification = new ObjectHistoryVerification();
-        List<ShutterHistory> wronglyOpened = objectVerification.wronglyOpenedShutter(shutterHistories);
+        Map<List<String>, Integer> wronglyOpened = objectVerification.wronglyOpenedShutter(shutterHistories);
 
         return wronglyOpened;
     }
