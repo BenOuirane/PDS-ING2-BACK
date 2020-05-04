@@ -147,6 +147,7 @@ public class FailureServiceImpl implements FailureService {
             objects.setState(true);
 
         }
+        simulateSuspectBehavior();
         logger.info("Insert histories of all objects");
         List<Failure> failures = this.getFailures();
         return failures;
@@ -163,6 +164,39 @@ public class FailureServiceImpl implements FailureService {
             if (failure.getEnd_date() == null)
                 failure.setEnd_date(new Timestamp(System.currentTimeMillis()));
         }
+    }
+
+    public void simulateSuspectBehavior(){
+        Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
+        long twoMinutesBeforeLong = currentTimestamp.getTime()- 120000;
+        Timestamp timestampTwoMinutesBefore = new Timestamp(twoMinutesBeforeLong);
+
+        List<Objects> ovens = objectService.getObjectsByObjectType("OVEN");
+        if (ovens.size()==0)
+            return;
+
+        OvenHistory ovenHistory20degrees = new OvenHistory();
+        ovenHistory20degrees.setColumnData("temperature");
+        ovenHistory20degrees.setData("20");
+        ovenHistory20degrees.setMessageTimestamp(timestampTwoMinutesBefore);
+        ovenHistory20degrees.setObject(ovens.get(0));
+        ovenHistoryService.addHistory(ovenHistory20degrees);
+
+        OvenHistory ovenHistory100degrees = new OvenHistory();
+        ovenHistory100degrees.setColumnData("temperature");
+        ovenHistory100degrees.setData("100");
+        ovenHistory100degrees.setMessageTimestamp(currentTimestamp);
+        ovenHistory100degrees.setObject(ovens.get(0));
+        ovenHistoryService.addHistory(ovenHistory100degrees);
+
+        if(ovens.size()==1)
+            return;;
+        OvenHistory ovenHistory400 = new OvenHistory();
+        ovenHistory400.setColumnData("temperature");
+        ovenHistory400.setData("400");
+        ovenHistory400.setMessageTimestamp(currentTimestamp);
+        ovenHistory400.setObject(ovens.get(1));
+        ovenHistoryService.addHistory(ovenHistory400);
     }
 
 }
