@@ -13,7 +13,7 @@ import static java.time.temporal.ChronoUnit.DAYS;
 
 public class ObjectHistoryVerification {
 
-    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
+    SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm:ss");
 
     /*
     Made to know the favorite parameter for one element
