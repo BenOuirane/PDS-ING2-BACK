@@ -42,22 +42,17 @@ public class AlarmClockHistoryController {
         return alarmClocks;
     }
 
-    @PutMapping("/favorite/alarmClock")
-    public String getFavoriteRadio(@RequestBody ObjectNode jsonData){
+    @PutMapping("/nightAlarm/alarmClock")
+    public List<AlarmClockHistory> getNightAlarmsHistory(@RequestBody ObjectNode jsonData){
         java.sql.Timestamp startTime = java.sql.Timestamp.valueOf(jsonData.get("start").asText());
         java.sql.Timestamp endTime = java.sql.Timestamp.valueOf(jsonData.get("end").asText());
 
-        List<AlarmClockHistory> alarmClocks =  alarmClocksHistoryService.getAlarmClockHistoryByObjectsIdAndColumnDataAndDateBetween(new Long(jsonData.get("id").asText()), jsonData.get("parameter").asText(), startTime, endTime);
-        List<ObjectsHistory> objectsHistories = new ArrayList<ObjectsHistory>();
-
-        for (AlarmClockHistory alarmClockHistory : alarmClocks) {
-            objectsHistories.add((ObjectsHistory) alarmClockHistory);
-        }
+        List<AlarmClockHistory> alarmClocksHistories =  alarmClocksHistoryService.getAlarmClockHistoryByObjectsIdAndColumnDataAndDateBetween(new Long(jsonData.get("id").asText()), "alarm", startTime, endTime);
 
         ObjectHistoryVerification objectVerification = new ObjectHistoryVerification();
-        String favoriteParameter = objectVerification.favoriteParameter(objectsHistories);
+        List<AlarmClockHistory> nightAlarms = objectVerification.nightAlarm(alarmClocksHistories);
 
-        return favoriteParameter;
+        return nightAlarms;
     }
 
 }

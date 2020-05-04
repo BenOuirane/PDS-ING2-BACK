@@ -1,16 +1,15 @@
 package com.application.aled.messages.history;
 
 import com.application.aled.entity.CoffeeMachine;
-import com.application.aled.entity.history.AlarmClockHistory;
-import com.application.aled.entity.history.CoffeeMachineHistory;
-import com.application.aled.entity.history.ObjectsHistory;
+import com.application.aled.entity.history.*;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
+import java.time.temporal.ChronoUnit;
 
 import static java.lang.Integer.parseInt;
+import static java.time.temporal.ChronoUnit.DAYS;
 
 public class ObjectHistoryVerification {
 
@@ -45,13 +44,75 @@ public class ObjectHistoryVerification {
     /*
     Made to know if oven temperature was too high
      */
-    public List<ObjectsHistory> tooHigh (List<ObjectsHistory> objectsHistoryList, int maxHours){
-        for (ObjectsHistory objectsHistory : objectsHistoryList) {
-            if(parseInt(objectsHistory.getData()) < maxHours) {
-                objectsHistoryList.remove(objectsHistory);
+    public List<OvenHistory> tooHigh (List<OvenHistory> ovenHistoryList, int maxTemp){
+        for (OvenHistory ovenHistory : ovenHistoryList) {
+            if(parseInt(ovenHistory.getData()) < maxTemp) {
+                ovenHistoryList.remove(ovenHistory);
             }
         }
-        return objectsHistoryList;
+        return ovenHistoryList;
+    }
+
+    /*
+    Made to know if an alarm was set between 23 and 4 o'clock
+     */
+    public List<AlarmClockHistory> nightAlarm (List<AlarmClockHistory> alarmClockHistoryList){
+        for (AlarmClockHistory alarmClockHistory : alarmClockHistoryList) {
+            Timestamp alarm = alarmClockHistory.getMessageTimestamp();
+
+            Date after = new Date(alarm.getTime());
+            after.setHours(23);
+
+            Date before = new Date(alarm.getTime());
+            before.setHours(4);
+
+            if(alarm.after(before) && alarm.before(after)){
+                alarmClockHistoryList.remove(alarmClockHistory);
+            }
+        }
+
+        return alarmClockHistoryList;
+    }
+
+    /*
+    Made to know if a shutter was open during many days or during night
+     */
+    public List<ShutterHistory> wronglyOpenedShutter (List<ShutterHistory> shutterHistoryList){
+        for (int i = 0; i < shutterHistoryList.size(); i++) {
+            if(i < (shutterHistoryList.size() - 1)){
+                if (!(shutterHistoryList.get(i).getColumnData().equals("action"))) {
+                    shutterHistoryList.remove(shutterHistoryList.get(i));
+                } else {
+                    if (shutterHistoryList.get(i).getData().equals("open") && shutterHistoryList.get(i + 1).getData().equals("close")) {
+                        Timestamp opened = shutterHistoryList.get(i).getMessageTimestamp();
+                        Timestamp close = shutterHistoryList.get(i + 1).getMessageTimestamp();
+
+                        long daysOn = (opened.getTime() - close.getTime()) / 24 * 60 * 60 * 1000;
+
+                        if(daysOn < 1){
+                            shutterHistoryList.remove(shutterHistoryList.get(i));
+                            shutterHistoryList.remove(shutterHistoryList.get(i + 1));
+                        } else {
+                            Date afterOpening = new Date(opened.getTime());
+                            afterOpening.setHours(0);
+
+                            Date beforeOpening = new Date(opened.getTime());
+                            beforeOpening.setHours(4);
+
+                            if(opened.after(beforeOpening) && opened.before(afterOpening)){
+                                shutterHistoryList.remove(shutterHistoryList.get(i));
+                                shutterHistoryList.remove(shutterHistoryList.get(i + 1));
+                            }
+                        }
+
+                        i++;
+                    }
+                }
+            }
+        }
+
+
+        return shutterHistoryList;
     }
 
     /*
@@ -64,6 +125,7 @@ public class ObjectHistoryVerification {
         }
         return numberOfCapsules;
     }
+
 
     /*
     Made to know the time range for an object to be on "power"
