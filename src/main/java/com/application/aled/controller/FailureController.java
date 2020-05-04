@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/api/failure")
+@RequestMapping("/api")
 public class FailureController {
 
     /*
@@ -45,7 +45,7 @@ public class FailureController {
          * GetMapping gives us the route to get to the getAllFailures() function :
          * Here, we have http://{localhost} or {172.31.254.61}/api/failures
          */
-        @GetMapping("")
+        @GetMapping("/failures")
         public List<Failure> getAllFailures() {
             System.out.println("Get all Failures...");
 
@@ -67,7 +67,7 @@ public class FailureController {
          * and that it will be our parameter for this function
          */
 
-        @GetMapping("/year")
+        @GetMapping("/failures/year")
         public int getFailuresByYear(@RequestParam int year) {
 
         int failureByYear = failureService.getFailuresByYear(year).size();
@@ -75,19 +75,27 @@ public class FailureController {
         return failureByYear ;
     }
 
-    @GetMapping("/month")
+    @GetMapping("/failures/month")
     public int getFailuresByYearAndMonth(@RequestParam int year, int month) {
 
         int failuresByMonth = failureService.getFailuresByYearAndMonth(year, month).size();
 
         return failuresByMonth;
     }
-    @GetMapping("/day")
+    @GetMapping("/failures/day")
     public int getFailuresByDay(@RequestParam int year, int month, int day) {
 
         int failuresByDay = failureService.getFailuresByDay(year, month, day).size();
 
         return failuresByDay ;
+    }
+
+    @GetMapping("/failures/simulation")
+    public List<Failure> getSimulation() {
+
+        List<Failure> failures = failureService.launchSimulation();
+
+        return failures;
     }
 
 

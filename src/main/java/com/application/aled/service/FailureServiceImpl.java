@@ -2,9 +2,13 @@ package com.application.aled.service;
 
 import com.application.aled.entity.Failure;
 import com.application.aled.entity.Objects;
+import com.application.aled.entity.history.*;
 import com.application.aled.repository.FailureRepository;
+import com.application.aled.service.history.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.sql.Timestamp;
 import java.util.logging.Logger;
 
 import java.util.ArrayList;
@@ -18,6 +22,18 @@ public class FailureServiceImpl implements FailureService {
     sql methods (findAll(), save()...)
     They will be our base for the rest of the service
      */
+    @Autowired
+    ObjectService objectService;
+    @Autowired
+    LampHistoryService lampHistoryService;
+    @Autowired
+    OvenHistoryService ovenHistoryService;
+    @Autowired
+    ShutterHistoryService shutterHistoryService;
+    @Autowired
+    CoffeeMachineHistoryService coffeeMachineHistoryService;
+    @Autowired
+    AlarmClockHistoryService alarmClockHistoryService;
     @Autowired
     FailureRepository repository;
     Logger logger = Logger.getLogger("com.application.aled.service.FailureServiceImpl");
@@ -73,8 +89,81 @@ public class FailureServiceImpl implements FailureService {
         logger.info("get the failures for the day "+ day+" of the month "+month+ " and the year "+year);
         return failuresbyday; }
 
-	
+    @Override
+    public List<Failure> launchSimulation(){
+        setFailureEndingDate();
+        /*
+         *Get all objects to simulate
+         */
+        List<Objects> objectsList = objectService.getObjects();
+        /**
+         **Create a recent message for each objects and switch error state at true.
+         **/
+        for(Objects objects: objectsList){
 
+            switch(objects.getObjectType()){
+                case "LAMP":
+                    LampHistory lampHistory = new LampHistory();
+                    lampHistory.setColumnData("connected");
+                    lampHistory.setData("true");
+                    lampHistory.setMessageTimestamp(new Timestamp(System.currentTimeMillis()));
+                    lampHistory.setObject(objects);
+                    lampHistoryService.addHistory(lampHistory);
+
+                case "OVEN":
+                    OvenHistory ovenHistory = new OvenHistory();
+                    ovenHistory.setColumnData("connected");
+                    ovenHistory.setData("true");
+                    ovenHistory.setMessageTimestamp(new Timestamp(System.currentTimeMillis()));
+                    ovenHistory.setObject(objects);
+                    ovenHistoryService.addHistory(ovenHistory);
+
+                case "SHUTTER":
+                    ShutterHistory shutterHistory = new ShutterHistory();
+                    shutterHistory.setColumnData("connected");
+                    shutterHistory.setData("true");
+                    shutterHistory.setMessageTimestamp(new Timestamp(System.currentTimeMillis()));
+                    shutterHistory.setObject(objects);
+                    shutterHistoryService.addHistory(shutterHistory);
+
+                case "COFFEEMACHINE":
+                    CoffeeMachineHistory coffeeMachineHistory = new CoffeeMachineHistory();
+                    coffeeMachineHistory.setColumnData("connected");
+                    coffeeMachineHistory.setData("true");
+                    coffeeMachineHistory.setMessageTimestamp(new Timestamp(System.currentTimeMillis()));
+                    coffeeMachineHistory.setObject(objects);
+                    coffeeMachineHistoryService.addHistory(coffeeMachineHistory);
+
+                case "ALARMCLOCK":
+                    AlarmClockHistory alarmClockHistory = new AlarmClockHistory();
+                    alarmClockHistory.setColumnData("connected");
+                    alarmClockHistory.setData("true");
+                    alarmClockHistory.setMessageTimestamp(new Timestamp(System.currentTimeMillis()));
+                    alarmClockHistory.setObject(objects);
+                    alarmClockHistoryService.addHistory(alarmClockHistory);
+
+
+            }
+            objects.setState(true);
+
+        }
+        logger.info("Insert histories of all objects");
+        List<Failure> failures = this.getFailures();
+        return failures;
+    }
+
+
+    /**
+     * Set ending date of unfinished failures with current timestamp
+     */
+    public void setFailureEndingDate(){
+        List<Failure> failures = this.getFailures();
+        for (Failure failure: failures
+        ) {
+            if (failure.getEnd_date() == null)
+                failure.setEnd_date(new Timestamp(System.currentTimeMillis()));
+        }
+    }
 
 }
 
