@@ -11,7 +11,9 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
@@ -31,6 +33,8 @@ public class SuspectBehaviorChecker {
         Logger logger = Logger.getLogger("com.application.aled.messages.SuspectBehaviorChecker");
 
         try {
+            Thread.sleep(15000);
+
             while (true){
                 Thread.sleep(30000);
                 logger.info("Starting SuspectBehavior algorithm");
@@ -56,12 +60,26 @@ public class SuspectBehaviorChecker {
     private void checkOvenBehavior(Objects objectToCheck) {
         List<OvenHistory> ovenHistories = ovenHistoryService.getOvenHistoryByObjectsIdAndColumn_data(objectToCheck.getId(), "temperature");
         ovenHistories.sort(Comparator.comparing(OvenHistory::getMessageTimestamp));
+        Logger logger2 = Logger.getLogger("com.application.aled.messages.SuspectBehaviorChecker");
+
+
+
         if(ovenHistories.size()>=1){
             int temperature = Integer.parseInt(ovenHistories.get(ovenHistories.size()-1).getData());
-            if(temperature > 300)
-                failureService.addFailure(new Failure("Temperature is too high", new Timestamp(System.currentTimeMillis()),null,objectToCheck));
-            if(temperature < 10)
-                failureService.addFailure(new Failure("Temperature is too high", new Timestamp(System.currentTimeMillis()),null,objectToCheck));
+            if(temperature > 300) {
+                System.out.println("trop chaud");
+                if (!(messageAlreadyDetectedToday(objectToCheck, "Temperature change too quickly"))) {
+                    failureService.addFailure(new Failure("Temperature is too high", new Timestamp(System.currentTimeMillis()), null, objectToCheck));
+                    logger2.info("Temperature is too high for the oven "+objectToCheck.getId());
+                }
+            }
+            if(temperature < 10) {
+                if (!(messageAlreadyDetectedToday(objectToCheck, "Temperature change too quickly"))){
+                    failureService.addFailure(new Failure("Temperature is too low", new Timestamp(System.currentTimeMillis()), null, objectToCheck));
+                    logger2.info("Temperature is too low for the oven "+objectToCheck.getId());
+
+                }
+            }
         }
         if(ovenHistories.size()>=2){
             int temperatureRecent = Integer.parseInt(ovenHistories.get(ovenHistories.size()-1).getData());
@@ -72,9 +90,34 @@ public class SuspectBehaviorChecker {
             long longRecentPast = ovenHistories.get(ovenHistories.size()-2).getMessageTimestamp().getTime();
             int secondDiff = (int) TimeUnit.MILLISECONDS.toSeconds(longRecentDate-longRecentPast);
 
-            if(temperatureDifference/secondDiff > 0.5 )//TODO BLOCK MULTIPLE FAILURES
-                failureService.addFailure(new Failure("Temperature change too quickly", new Timestamp(System.currentTimeMillis()),null,objectToCheck));
+            if(temperatureDifference/secondDiff > 0.5 ){
 
+                if (!(messageAlreadyDetectedToday(objectToCheck, "Temperature change too quickly"))) {
+                    failureService.addFailure(new Failure("Temperature change too quickly", new Timestamp(System.currentTimeMillis()), null, objectToCheck));
+                    logger2.info("Temperature change too quickly for the oven "+objectToCheck.getId());
+
+                }
+            }
         }
+    }
+
+    public boolean messageAlreadyDetectedToday(Objects objectToCheck, String messageError){
+        //yesterday date
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date(System.currentTimeMillis()));
+        calendar.add(Calendar.DATE, -1);
+        Date yesterdayDate = calendar.getTime();
+        Timestamp yesterdayTimestamp = new Timestamp(yesterdayDate.getTime());
+        Failure moreRecentHighTemperatureFailure = failureService.getMoreRecentFailureByObjectAndColumnData(objectToCheck,messageError);
+
+        if (moreRecentHighTemperatureFailure == null)
+            return false;
+        if (!(moreRecentHighTemperatureFailure.getEnd_date() == null)) {
+            return false;
+        }
+        if (moreRecentHighTemperatureFailure.getBegin_date().after(yesterdayTimestamp)) {
+            return true;
+        }
+        return false;
     }
 }

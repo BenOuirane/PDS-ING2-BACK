@@ -153,6 +153,15 @@ public class FailureServiceImpl implements FailureService {
         return failures;
     }
 
+    @Override
+    public Failure getMoreRecentFailureByObjectAndColumnData(Objects objects, String columnData) {
+        List<Failure> failureList = repository.findFailureByObjectsAndMessage(objects,columnData);
+        if (failureList.isEmpty())
+            return null;
+
+        return failureList.get(failureList.size()-1);
+    }
+
 
     /**
      * Set ending date of unfinished failures with current timestamp
