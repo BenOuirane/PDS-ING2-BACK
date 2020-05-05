@@ -49,6 +49,8 @@ public class ObjectsHistoryInsertion {
         long minusWeek = fiveDaysAgo.getTime()-5*24*60*60*1000;
 
         Timestamp twoDaysAgo = new Timestamp(fiveDaysAgo.getTime()-2*24*60*60*1000);
+        twoDaysAgo.setHours(10);
+
 
         Timestamp threeDaysAgo = new Timestamp(fiveDaysAgo.getTime()-3*24*60*60*1000);
 
@@ -80,11 +82,12 @@ public class ObjectsHistoryInsertion {
         }
 
         /* ------ SHUTTERS ------ */
-        List<ObjectsHistory> morningShutterHistory = populateObjectsHistory.createObjectsRecords(shutters , twoDaysAgo, 1, 7, 9, false, false);
-        List<ObjectsHistory> eveningShutterHistory = populateObjectsHistory.createObjectsRecords(shutters , twoDaysAgo, 1, 19,  20, false, true);
+        List<ObjectsHistory> morningShutterHistory = populateObjectsHistory.createObjectsRecords(shutters , fiveDaysAgo, 1, 7, 9, false, false);
+        List<ObjectsHistory> eveningShutterHistory = populateObjectsHistory.createObjectsRecords(shutters , fiveDaysAgo, 1, 19,  20, false, true);
 
         for (Objects shutter: shutters) {
-            eveningShutterHistory.addAll(populateObjectsHistory.createHistoryErrors(shutter, "shutterAlarm", "28", new Timestamp(fiveDaysAgo.getTime())));
+            eveningShutterHistory.addAll(populateObjectsHistory.createHistoryErrors(shutter, "shutterAlarm", "28", new Timestamp(fiveDaysAgo.getTime()-2*24*60*60*1000)));
+            eveningShutterHistory.addAll(populateObjectsHistory.createHistoryErrors(shutter, "nightShutter", "0", new Timestamp(fiveDaysAgo.getTime())));
         }
 
         shutterHistoryService.emptyTable();
@@ -96,14 +99,15 @@ public class ObjectsHistoryInsertion {
 
         /* ------ COFFEEMACHINE ------ */
         List<ObjectsHistory> objectsHistoriesCoffeeMachine = populateObjectsHistory.createObjectsRecords(coffees, fiveDaysAgo, 3, 7, 9, true, true);
+        List<ObjectsHistory> historyErrors = new ArrayList<ObjectsHistory>();
 
         for (Objects coffee: coffees) {
-            objectsHistoriesCoffeeMachine.addAll(populateObjectsHistory.createHistoryErrors(coffee, "power", "3", twoDaysAgo));
+            historyErrors.addAll(populateObjectsHistory.createHistoryErrors(coffee, "power", "3", twoDaysAgo));
         }
 
         coffeeHistoryService.emptyTable();
 
-        for (ObjectsHistory objectsHistory : objectsHistoriesCoffeeMachine) {
+        for (ObjectsHistory objectsHistory : sortList(objectsHistoriesCoffeeMachine, historyErrors)) {
             CoffeeMachineHistory coffeeMachineHistory = new CoffeeMachineHistory(objectsHistory.getData(), objectsHistory.getColumnData(), objectsHistory.getMessageTimestamp(), objectsHistory.getObject());
             coffeeHistoryService.addHistory(coffeeMachineHistory);
         }
@@ -113,6 +117,10 @@ public class ObjectsHistoryInsertion {
         /* ------ ALARMCLOCK ------ */
         List<ObjectsHistory> morningAlarmHistory = populateObjectsHistory.createObjectsRecords(alarms, fiveDaysAgo, 2, 7, 9, false, false);
         List<ObjectsHistory> eveningAlarmHistory = populateObjectsHistory.createObjectsRecords(alarms, fiveDaysAgo, 2, 18, 19, false, true);
+
+        for (Objects alarm: alarms) {
+            eveningAlarmHistory.addAll(populateObjectsHistory.createHistoryErrors(alarm, "nightAlarm", "0", twoDaysAgo));
+        }
 
         alarmHistoryService.emptyTable();
 

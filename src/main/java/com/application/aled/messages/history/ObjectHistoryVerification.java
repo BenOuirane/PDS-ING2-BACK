@@ -4,6 +4,7 @@ import com.application.aled.entity.CoffeeMachine;
 import com.application.aled.entity.history.*;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.time.temporal.ChronoUnit;
@@ -13,7 +14,8 @@ import static java.time.temporal.ChronoUnit.DAYS;
 
 public class ObjectHistoryVerification {
 
-    SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm:ss yyyy.MM.dd");
+    SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss yyyy.MM.dd");
+    SimpleDateFormat parseTimestamp = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
 
     /*
     Made to know the favorite parameter for one element
@@ -59,17 +61,26 @@ public class ObjectHistoryVerification {
     public List<AlarmClockHistory> nightAlarm (List<AlarmClockHistory> alarmClockHistoryList){
         List<AlarmClockHistory> results = new ArrayList<AlarmClockHistory>();
         for (AlarmClockHistory alarmClockHistory : alarmClockHistoryList) {
-            Timestamp alarm = alarmClockHistory.getMessageTimestamp();
+            String alarmString = alarmClockHistory.getData();
 
-            Date after = new Date(alarm.getTime());
-            after.setHours(23);
+            try {
+                Date alarmDate = parseTimestamp.parse(alarmString);
+                Timestamp alarmTimestamp = new Timestamp(alarmDate.getTime());
 
-            Date before = new Date(alarm.getTime());
-            before.setHours(4);
+                Date after = new Date(alarmTimestamp.getTime());
+                after.setHours(23);
 
-            if(alarm.before(before) && alarm.after(after)){
-                results.add(alarmClockHistory);
+                Date before = new Date(alarmTimestamp.getTime());
+                before.setHours(4);
+
+                if(alarmTimestamp.before(new Timestamp(before.getTime())) && alarmTimestamp.after(new Timestamp(after.getTime()-1*24*60*60*1000))){
+                    results.add(alarmClockHistory);
+                }
+
+            } catch (ParseException e) {
+                e.printStackTrace();
             }
+
         }
 
         return results;
@@ -96,6 +107,7 @@ public class ObjectHistoryVerification {
                         timestampsToString.add(dateFormat.format(opened));
                         timestampsToString.add(dateFormat.format(close));
 
+
                         if(daysOn >= 1){
                             badlyUsed.put(timestampsToString, (int) daysOn);
                         } else {
@@ -105,7 +117,8 @@ public class ObjectHistoryVerification {
                             Date beforeOpening = new Date(opened.getTime());
                             beforeOpening.setHours(4);
 
-                            if(opened.after(afterOpening) && opened.before(beforeOpening)){
+
+                            if(opened.after(new Timestamp(afterOpening.getTime())) && opened.before(new Timestamp(beforeOpening.getTime()))){
                                 badlyUsed.put(timestampsToString, (int) 0);
                             }
                         }

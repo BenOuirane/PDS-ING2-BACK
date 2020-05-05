@@ -171,11 +171,11 @@ public class PopulateObjectsHistory {
         switch (type){
             case "power":
                 Date lastDate = new Date(time.getTime());
-                lastDate.setHours(time.getHours() - parseInt(parameter));
+                lastDate.setHours(time.getHours() + parseInt(parameter));
                 Timestamp lastTimestamp = new Timestamp(lastDate.getTime());
 
-                ObjectsHistory messageRecordOn = new ObjectsHistory("on", "power", lastTimestamp, objectToRecord);
-                ObjectsHistory messageRecordOff = new ObjectsHistory("off", "power", time, objectToRecord);
+                ObjectsHistory messageRecordOn = new ObjectsHistory("off", "power", lastTimestamp, objectToRecord);
+                ObjectsHistory messageRecordOff = new ObjectsHistory("on", "power", time, objectToRecord);
                 historiesError.add(messageRecordOn);
                 historiesError.add(messageRecordOff);
             break;
@@ -185,18 +185,33 @@ public class PopulateObjectsHistory {
                 nextAlarm.setHours(1);
                 Timestamp nextAlarmTimestamp = new Timestamp(nextAlarm.getTime());
 
-                ObjectsHistory messageRecordAlarm = new ObjectsHistory(nextAlarmTimestamp.toString(), "alarm", nextAlarmTimestamp, objectToRecord);
+                ObjectsHistory messageRecordAlarm = new ObjectsHistory(nextAlarmTimestamp.toString(), "alarm", time, objectToRecord);
                 historiesError.add(messageRecordAlarm);
                 break;
 
+            case "nightShutter":
+                Date nightShutterOpenAlarm = new Date(time.getTime());
+                nightShutterOpenAlarm.setHours(2);
+                Timestamp nightShutterOpenAlarmTimestamp = new Timestamp(nightShutterOpenAlarm.getTime());
+
+                Date nightShutterCloseAlarm = new Date(time.getTime());
+                nightShutterCloseAlarm.setHours(3);
+                Timestamp nightShutterCloseAlarmTimestamp = new Timestamp(nightShutterCloseAlarm.getTime());
+
+                ObjectsHistory messageOpenShutter = new ObjectsHistory("open", "action", nightShutterOpenAlarmTimestamp, objectToRecord);
+                ObjectsHistory messageCloseShutter = new ObjectsHistory("close", "action", nightShutterCloseAlarmTimestamp, objectToRecord);
+
+                historiesError.add(messageOpenShutter);
+                historiesError.add(messageCloseShutter);
+                break;
             case "shutterAlarm":
                 Date lastClosing = new Date(time.getTime());
 
-                lastClosing.setHours(time.getHours() - parseInt(parameter));
+                lastClosing.setHours(time.getHours() + parseInt(parameter));
                 Timestamp lastNightOpeningTimestamp = new Timestamp(lastClosing.getTime());
 
-                ObjectsHistory messageOpen = new ObjectsHistory("open", "action", lastNightOpeningTimestamp, objectToRecord);
-                ObjectsHistory messageClose = new ObjectsHistory("close", "action", time, objectToRecord);
+                ObjectsHistory messageOpen = new ObjectsHistory("close", "action", lastNightOpeningTimestamp, objectToRecord);
+                ObjectsHistory messageClose = new ObjectsHistory("open", "action", time, objectToRecord);
                 historiesError.add(messageOpen);
                 historiesError.add(messageClose);
                 break;
