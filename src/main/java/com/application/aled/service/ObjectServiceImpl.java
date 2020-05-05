@@ -18,9 +18,13 @@ public class ObjectServiceImpl implements ObjectService {
     ObjectRepository objectRepository;
 
     //Used to save different types of objects
+    @Autowired
     LampRepository lampRepository;
+    @Autowired
     ShutterRepository shutterRepository;
+    @Autowired
     CoffeeMachineRepository coffeeMachineRepository;
+    @Autowired
     AlarmClockRepository alarmClockRepository;
 
     @Autowired
@@ -67,7 +71,8 @@ public class ObjectServiceImpl implements ObjectService {
         AlarmClock alarmClock = scenarioMyMorning.getAlarmClock();
         CoffeeMachine coffeeMachine = scenarioMyMorning.getCoffeeMachine();
 
-        Date time = new Date("1587103200000"); //8h00
+
+        Date time = new Date(Long.parseLong("1587103200000")); //8h00
 
          lamp.setHourOn((alarmClock.getAlarm() != null )?alarmClock.getAlarm() : new Timestamp(time.getTime()));
          lamp.setStatus(true);
@@ -87,15 +92,11 @@ public class ObjectServiceImpl implements ObjectService {
              coffeeMachineRepository.save(coffeeMachine);
              alarmClockRepository.save(alarmClock);
              shutterRepository.save(shutter);
+             return true;
          }catch (Exception e){
              logger.info("ERROR : ObjectServiceImpl.scenarioLaunchService : " + e);
              return false;
          }
-
-
-
-
-        return true;
     }
 
     @Override
