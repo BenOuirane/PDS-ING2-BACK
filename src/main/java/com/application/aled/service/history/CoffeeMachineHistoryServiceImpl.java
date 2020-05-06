@@ -40,9 +40,7 @@ public class CoffeeMachineHistoryServiceImpl implements CoffeeMachineHistoryServ
     @Override
     public List<CoffeeMachineHistory> getCoffeeMachineHistoryByObjectsIdAndColumnDataAndDateBetween(long id, String columnData, Timestamp start, Timestamp end) {
         List<CoffeeMachineHistory> coffeeMachineHistory = new ArrayList<CoffeeMachineHistory>();
-        System.out.println(start.getTime());
         coffeeMachineHistoryRepository.findByObject_IdAndColumnDataAndMessageTimestampLessThanEqualAndMessageTimestampGreaterThanEqual(id, columnData,  start,  end).forEach(coffeeMachineHistory::add);
-        System.out.println(coffeeMachineHistory);
 
         return coffeeMachineHistory;
     }

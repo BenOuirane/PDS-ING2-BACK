@@ -40,9 +40,7 @@ public class ShutterHistoryServiceImpl implements ShutterHistoryService {
     @Override
     public List<ShutterHistory> getShutterHistoryByObjectsIdAndColumnDataAndDateBetween(long id, String columnData, Timestamp start, Timestamp end) {
         List<ShutterHistory> shutterHistory = new ArrayList<ShutterHistory>();
-        System.out.println(start.getTime());
         shutterHistoryRepository.findByObject_IdAndColumnDataAndMessageTimestampLessThanEqualAndMessageTimestampGreaterThanEqual(id, columnData,  start,  end).forEach(shutterHistory::add);
-        System.out.println(shutterHistory);
 
         return shutterHistory;
     }

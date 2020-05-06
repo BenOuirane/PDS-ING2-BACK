@@ -40,7 +40,12 @@ public class ObjectHistoryVerification {
             }
         }
 
-        return maxHoursEntry.getKey();
+        if(maxHoursEntry == null){
+            return "Aucune donnée";
+        } else {
+            return maxHoursEntry.getKey();
+        }
+
     }
 
     /*
