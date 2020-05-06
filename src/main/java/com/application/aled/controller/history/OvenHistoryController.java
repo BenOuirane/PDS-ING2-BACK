@@ -8,7 +8,10 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import static java.lang.Integer.parseInt;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -33,7 +36,11 @@ public class OvenHistoryController {
         List<OvenHistory> ovenHistories =  ovenHistoryService.getOvenHistoryByObjectsIdAndColumnDataAndDateBetween(new Long(jsonData.get("id").asText()), "temp", startTime, endTime);
 
         ObjectHistoryVerification objectVerification = new ObjectHistoryVerification();
-        List<OvenHistory> ovenHistoriesTooHigh = objectVerification.tooHigh(ovenHistories, jsonData.get("temperature").asInt());
+        List<OvenHistory> ovenHistoriesTooHigh = new ArrayList<OvenHistory>();
+
+        if(ovenHistories != null){
+            ovenHistoriesTooHigh = objectVerification.tooHigh(ovenHistories, parseInt(jsonData.get("temperature").asText()));
+        }
 
         return ovenHistoriesTooHigh;
     }

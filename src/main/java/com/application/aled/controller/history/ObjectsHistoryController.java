@@ -1,13 +1,11 @@
 package com.application.aled.controller.history;
 
-import com.application.aled.entity.history.AlarmClockHistory;
-import com.application.aled.entity.history.CoffeeMachineHistory;
-import com.application.aled.entity.history.LampHistory;
-import com.application.aled.entity.history.ObjectsHistory;
+import com.application.aled.entity.history.*;
 import com.application.aled.messages.history.ObjectHistoryVerification;
 import com.application.aled.service.history.AlarmClockHistoryServiceImpl;
 import com.application.aled.service.history.CoffeeMachineHistoryServiceImpl;
 import com.application.aled.service.history.LampHistoryServiceImpl;
+import com.application.aled.service.history.OvenHistoryServiceImpl;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +22,9 @@ public class ObjectsHistoryController {
 
     @Autowired
     CoffeeMachineHistoryServiceImpl coffeeMachinesHistoryService;
+
+    @Autowired
+    OvenHistoryServiceImpl ovenHistoryService;
 
     @Autowired
     LampHistoryServiceImpl lampHistoryService;
@@ -46,6 +47,13 @@ public class ObjectsHistoryController {
                 List<CoffeeMachineHistory> coffeeMachineHistories =  coffeeMachinesHistoryService.getCoffeeMachineHistoryByObjectsIdAndColumnDataAndDateBetween(new Long(jsonData.get("id").asText()), "power", startTime, endTime);
                 for (CoffeeMachineHistory coffeeMachineHistory : coffeeMachineHistories) {
                     objectsHistories.add((ObjectsHistory) coffeeMachineHistory);
+                }
+                break;
+
+            case "oven" :
+                List<OvenHistory> ovenHistories =  ovenHistoryService.getOvenHistoryByObjectsIdAndColumnDataAndDateBetween(new Long(jsonData.get("id").asText()), "power", startTime, endTime);
+                for (OvenHistory ovenHistory : ovenHistories) {
+                    objectsHistories.add((ObjectsHistory) ovenHistory);
                 }
                 break;
             default:
