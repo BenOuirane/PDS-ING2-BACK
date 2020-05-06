@@ -52,12 +52,14 @@ public class ObjectHistoryVerification {
     Made to know if oven temperature was too high
      */
     public List<OvenHistory> tooHigh (List<OvenHistory> ovenHistoryList, int maxTemp){
+        List<OvenHistory> ovenHistoryTooHigh = new ArrayList<OvenHistory>();
+
         for (OvenHistory ovenHistory : ovenHistoryList) {
-            if(parseInt(ovenHistory.getData()) < maxTemp) {
-                ovenHistoryList.remove(ovenHistory);
+            if(parseInt(ovenHistory.getData()) > maxTemp) {
+                ovenHistoryTooHigh.add(ovenHistory);
             }
         }
-        return ovenHistoryList;
+        return ovenHistoryTooHigh;
     }
 
     /*

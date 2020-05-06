@@ -2,6 +2,7 @@ package com.application.aled.messages.history;
 
 import com.application.aled.entity.Objects;
 import com.application.aled.entity.history.ObjectsHistory;
+import com.application.aled.entity.history.OvenHistory;
 
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
@@ -164,6 +165,62 @@ public class PopulateObjectsHistory {
             default:
                 break;
         }
+    }
+
+    public List<ObjectsHistory> createOvenHistories(Timestamp startTime, Timestamp endTime, Timestamp stopTime, int maxTemp, Objects objectToRecord){
+        List<ObjectsHistory> ovenHistories = new ArrayList<ObjectsHistory>();
+        ObjectsHistory startHistory = new ObjectsHistory("on", "power", startTime, objectToRecord);
+        ObjectsHistory endHistory = new ObjectsHistory("off", "power", endTime, objectToRecord);
+        ovenHistories.add(startHistory);
+        ovenHistories.add(endHistory);
+
+        int randomTemp = random.nextInt(70) + 50;
+        int temp = 25 + random.nextInt(10);
+
+        Calendar cal = Calendar.getInstance();
+
+        Timestamp messageTime = startTime;
+
+        while(temp < maxTemp && messageTime.before(stopTime)){
+            cal.setTime(messageTime);
+            cal.add(Calendar.MINUTE, 5);
+            messageTime = new Timestamp(cal.getTimeInMillis());
+            temp = temp + randomTemp;
+            ObjectsHistory ovenIncreaseHistory = new ObjectsHistory();
+
+            if(temp < maxTemp && messageTime.before(stopTime)){
+                ovenIncreaseHistory = new ObjectsHistory(String.valueOf(temp), "temp", messageTime, objectToRecord);
+            } else if (temp < maxTemp && !messageTime.before(stopTime)){
+                ovenIncreaseHistory = new ObjectsHistory(String.valueOf(temp), "temp", stopTime, objectToRecord);
+            } else if (temp >= maxTemp && messageTime.before(stopTime)) {
+                ovenIncreaseHistory = new ObjectsHistory(String.valueOf(maxTemp), "temp", messageTime, objectToRecord);
+            } else {
+                ovenIncreaseHistory = new ObjectsHistory(String.valueOf(maxTemp), "temp", stopTime, objectToRecord);
+            }
+
+            ovenHistories.add(ovenIncreaseHistory);
+        }
+
+        while(temp > 0 && messageTime.before(endTime)){
+            cal.setTime(messageTime);
+            cal.add(Calendar.MINUTE, 10);
+            messageTime = new Timestamp(cal.getTimeInMillis());
+            temp = temp - randomTemp;
+            ObjectsHistory ovenDecreaseHistory = new ObjectsHistory();
+
+            if(temp > 0 && messageTime.before(endTime)){
+                ovenDecreaseHistory = new ObjectsHistory(String.valueOf(temp), "temp", messageTime, objectToRecord);
+            } else if (temp <= 0 && messageTime.before(endTime)) {
+                ovenDecreaseHistory = new ObjectsHistory("0", "temp", messageTime, objectToRecord);
+                temp = 0;
+            } else {
+                ovenDecreaseHistory = new ObjectsHistory("0", "temp", stopTime, objectToRecord);
+            }
+
+            ovenHistories.add(ovenDecreaseHistory);
+        }
+
+        return ovenHistories;
     }
 
     public  List<ObjectsHistory> createHistoryErrors(Objects objectToRecord, String type, String parameter, Timestamp time){

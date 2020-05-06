@@ -30,7 +30,7 @@ public class OvenHistoryController {
         java.sql.Timestamp startTime = java.sql.Timestamp.valueOf(jsonData.get("start").asText());
         java.sql.Timestamp endTime = java.sql.Timestamp.valueOf(jsonData.get("end").asText());
 
-        List<OvenHistory> ovenHistories =  ovenHistoryService.getOvenHistoryByObjectsIdAndColumnDataAndDateBetween(new Long(jsonData.get("id").asText()), "temperature", startTime, endTime);
+        List<OvenHistory> ovenHistories =  ovenHistoryService.getOvenHistoryByObjectsIdAndColumnDataAndDateBetween(new Long(jsonData.get("id").asText()), "temp", startTime, endTime);
 
         ObjectHistoryVerification objectVerification = new ObjectHistoryVerification();
         List<OvenHistory> ovenHistoriesTooHigh = objectVerification.tooHigh(ovenHistories, jsonData.get("temperature").asInt());
