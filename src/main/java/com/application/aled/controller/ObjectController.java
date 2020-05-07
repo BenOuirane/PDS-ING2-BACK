@@ -20,6 +20,13 @@ public class ObjectController {
 
     Logger logger = Logger.getLogger("com.application.aled.controller.ObjectController");
 
+    @PutMapping("/object/id")
+    public Objects getObjectById(@RequestBody long id){
+        logger.info("Call getId :" + id);
+        Objects _objects = objectService.getObjectsById(id);
+        return _objects;
+    }
+
     @PutMapping("/object/list")
     public List<Objects> getAllObject(@RequestBody Rooms rooms){
         logger.info("Call getAllObject :" + rooms.toString());

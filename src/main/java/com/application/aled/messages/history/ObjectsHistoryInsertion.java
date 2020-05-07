@@ -10,10 +10,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.logging.Logger;
 
 @Component
@@ -34,9 +31,9 @@ public class ObjectsHistoryInsertion {
     @Autowired
     AlarmClockHistoryServiceImpl alarmHistoryService;
 
-    // OVEN TODO
-    //@Autowired
-    //OvenHistoryServiceImpl ovenHistoryService;
+    @Autowired
+    OvenHistoryServiceImpl ovenHistoryService;
+
     Logger logger = Logger.getLogger("com.application.aled.messages.history.ObjectsHistoryInsertion");
 
 
@@ -44,11 +41,42 @@ public class ObjectsHistoryInsertion {
     public void createObjectHistories(){
         logger.info("Inserting history started");
 
-        Date fiveDaysAgo = new Date();
+        Date oneMonthAgo = new Date();
+        Date today = new Date();
 
-        long minusWeek = fiveDaysAgo.getTime()-5*24*60*60*1000;
+        Calendar c = Calendar.getInstance();
+        c.setTime(oneMonthAgo);
+        c.add(Calendar.MONTH, -1);
+        oneMonthAgo = c.getTime();
 
-        fiveDaysAgo = new Date(minusWeek);
+        Timestamp twoDaysAgo = new Timestamp(today.getTime()-2*24*60*60*1000);
+        twoDaysAgo.setHours(10);
+
+        Timestamp sevenDaysAgo12 = new Timestamp(today.getTime()-7*24*60*60*1000);
+        sevenDaysAgo12.setHours(12);
+        sevenDaysAgo12.setMinutes(00);
+
+        Timestamp sevenDaysAgo13 = new Timestamp(sevenDaysAgo12.getTime());
+        sevenDaysAgo13.setHours(13);
+        sevenDaysAgo13.setMinutes(00);
+
+        Timestamp sevenDaysAgo12h45 = new Timestamp(sevenDaysAgo12.getTime());
+        sevenDaysAgo12h45.setHours(12);
+        sevenDaysAgo12h45.setMinutes(45);
+
+        Timestamp twoWeeksAgo12 = new Timestamp(sevenDaysAgo12.getTime()-7*24*60*60*1000);
+        Timestamp twoWeeksAgo13 = new Timestamp(sevenDaysAgo13.getTime()-7*24*60*60*1000);
+        Timestamp twoWeeksAgo12h45 = new Timestamp(sevenDaysAgo12h45.getTime()-7*24*60*60*1000);
+
+        Timestamp tenDaysAgo18 = new Timestamp(sevenDaysAgo12.getTime()-3*24*60*60*1000);
+        tenDaysAgo18.setHours(18);
+        tenDaysAgo18.setMinutes(00);
+        Timestamp tenDaysAgo19 = new Timestamp(sevenDaysAgo13.getTime()-3*24*60*60*1000);
+        tenDaysAgo19.setHours(19);
+        tenDaysAgo19.setMinutes(00);
+        Timestamp tenDaysAgo23 = new Timestamp(sevenDaysAgo12h45.getTime()-3*24*60*60*1000);
+        tenDaysAgo23.setHours(23);
+        tenDaysAgo23.setMinutes(00);
 
         PopulateObjectsHistory populateObjectsHistory = new PopulateObjectsHistory();
 
@@ -56,13 +84,16 @@ public class ObjectsHistoryInsertion {
         List<Objects> shutters = objectService.getObjectsByObjectType("SHUTTER");
         List<Objects> coffees = objectService.getObjectsByObjectType("COFFEEMACHINE");
         List<Objects> alarms = objectService.getObjectsByObjectType("ALARMCLOCK");
-
-        //List<Objects> ovens = objectService.getObjectsByObjectType("OVEN");
+        List<Objects> ovens = objectService.getObjectsByObjectType("OVEN");
 
 
         /* ------ LAMPS ------ */
-        List<ObjectsHistory> morningLampHistory = populateObjectsHistory.createObjectsRecords(lamps, fiveDaysAgo, 3, 6, 9, true, false);
-        List<ObjectsHistory> eveningLampHistory = populateObjectsHistory.createObjectsRecords(lamps, fiveDaysAgo, 3, 20, 22, true, true);
+        List<ObjectsHistory> morningLampHistory = populateObjectsHistory.createObjectsRecords(lamps, oneMonthAgo, 3, 6, 9, true, false);
+        List<ObjectsHistory> eveningLampHistory = populateObjectsHistory.createObjectsRecords(lamps, oneMonthAgo, 3, 20, 22, true, true);
+
+        for (Objects lamp: lamps) {
+            eveningLampHistory.addAll(populateObjectsHistory.createHistoryErrors(lamp, "power", "8", twoDaysAgo));
+        }
 
         lampHistoryService.emptyTable();
 
@@ -72,8 +103,13 @@ public class ObjectsHistoryInsertion {
         }
 
         /* ------ SHUTTERS ------ */
-        List<ObjectsHistory> morningShutterHistory = populateObjectsHistory.createObjectsRecords(shutters , fiveDaysAgo, 1, 7, 9, false, false);
-        List<ObjectsHistory> eveningShutterHistory = populateObjectsHistory.createObjectsRecords(shutters , fiveDaysAgo, 1, 19,  20, false, true);
+        List<ObjectsHistory> morningShutterHistory = populateObjectsHistory.createObjectsRecords(shutters , oneMonthAgo, 1, 7, 9, false, false);
+        List<ObjectsHistory> eveningShutterHistory = populateObjectsHistory.createObjectsRecords(shutters , oneMonthAgo, 1, 19,  20, false, true);
+
+        for (Objects shutter: shutters) {
+            eveningShutterHistory.addAll(populateObjectsHistory.createHistoryErrors(shutter, "shutterAlarm", "28", new Timestamp(oneMonthAgo.getTime()-2*24*60*60*1000)));
+            eveningShutterHistory.addAll(populateObjectsHistory.createHistoryErrors(shutter, "nightShutter", "0", new Timestamp(oneMonthAgo.getTime())));
+        }
 
         shutterHistoryService.emptyTable();
 
@@ -83,18 +119,29 @@ public class ObjectsHistoryInsertion {
         }
 
         /* ------ COFFEEMACHINE ------ */
-        List<ObjectsHistory> objectsHistoriesCoffeeMachine = populateObjectsHistory.createObjectsRecords(coffees, fiveDaysAgo, 3, 7, 9, true, true);
+        List<ObjectsHistory> objectsHistoriesCoffeeMachine = populateObjectsHistory.createObjectsRecords(coffees, oneMonthAgo, 3, 7, 9, true, true);
+        List<ObjectsHistory> historyErrors = new ArrayList<ObjectsHistory>();
+
+        for (Objects coffee: coffees) {
+            historyErrors.addAll(populateObjectsHistory.createHistoryErrors(coffee, "power", "3", twoDaysAgo));
+        }
 
         coffeeHistoryService.emptyTable();
 
-        for (ObjectsHistory objectsHistory : objectsHistoriesCoffeeMachine) {
+        for (ObjectsHistory objectsHistory : sortList(objectsHistoriesCoffeeMachine, historyErrors)) {
             CoffeeMachineHistory coffeeMachineHistory = new CoffeeMachineHistory(objectsHistory.getData(), objectsHistory.getColumnData(), objectsHistory.getMessageTimestamp(), objectsHistory.getObject());
             coffeeHistoryService.addHistory(coffeeMachineHistory);
         }
 
+
+
         /* ------ ALARMCLOCK ------ */
-        List<ObjectsHistory> morningAlarmHistory = populateObjectsHistory.createObjectsRecords(alarms, fiveDaysAgo, 2, 7, 9, false, false);
-        List<ObjectsHistory> eveningAlarmHistory = populateObjectsHistory.createObjectsRecords(alarms, fiveDaysAgo, 2, 18, 19, false, true);
+        List<ObjectsHistory> morningAlarmHistory = populateObjectsHistory.createObjectsRecords(alarms, oneMonthAgo, 2, 7, 9, false, false);
+        List<ObjectsHistory> eveningAlarmHistory = populateObjectsHistory.createObjectsRecords(alarms, oneMonthAgo, 2, 18, 19, false, true);
+
+        for (Objects alarm: alarms) {
+            eveningAlarmHistory.addAll(populateObjectsHistory.createHistoryErrors(alarm, "nightAlarm", "0", twoDaysAgo));
+        }
 
         alarmHistoryService.emptyTable();
 
@@ -103,12 +150,24 @@ public class ObjectsHistoryInsertion {
             alarmHistoryService.addHistory(alarmHistory);
         }
 
-        logger.info("Inserting history finished");
+        /* ------ OVEN ------ */
+        List<ObjectsHistory> ovenHistories = new ArrayList<ObjectsHistory>();
 
-        /*
-        List<ObjectsHistory> objectsHistoriesOvenLunch = populateHistory.setMessagesTimestamps(objects.subList(14,17) , weekAgo, 4, 13, 12);
-        List<ObjectsHistory> objectsHistoriesOvenDinner = populateHistory.setMessagesTimestamps(objects.subList(14,17) , weekAgo, 4, 19, 18);
-        */
+        for (Objects oven: ovens) {
+            ovenHistories.addAll(populateObjectsHistory.createOvenHistories(sevenDaysAgo12, sevenDaysAgo13, sevenDaysAgo12h45, 300, oven));
+            ovenHistories.addAll(populateObjectsHistory.createOvenHistories(tenDaysAgo18,  tenDaysAgo23, tenDaysAgo19, 600, oven));
+        }
+
+        ovenHistories.sort(Comparator.comparing(ObjectsHistory::getMessageTimestamp));
+
+        ovenHistoryService.emptyTable();
+
+        for (ObjectsHistory objectsHistory: ovenHistories) {
+            OvenHistory ovenHistory = new OvenHistory(objectsHistory.getData(), objectsHistory.getColumnData(), objectsHistory.getMessageTimestamp(), objectsHistory.getObject());
+            ovenHistoryService.addHistory(ovenHistory);
+        }
+
+        logger.info("Inserting history finished");
 
     }
 

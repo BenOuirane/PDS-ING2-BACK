@@ -39,9 +39,7 @@ public class LampHistoryServiceImpl implements LampHistoryService {
     @Override
     public List<LampHistory> getLampHistoryByObjectsIdAndColumnDataAndDateBetween(long id, String columnData, Timestamp start, Timestamp end) {
         List<LampHistory> lampHistory = new ArrayList<LampHistory>();
-        System.out.println(start.getTime());
         lampHistoryRepository.findByObject_IdAndColumnDataAndMessageTimestampLessThanEqualAndMessageTimestampGreaterThanEqual(id, columnData,  start,  end).forEach(lampHistory::add);
-        System.out.println(lampHistory);
 
         return lampHistory;
     }

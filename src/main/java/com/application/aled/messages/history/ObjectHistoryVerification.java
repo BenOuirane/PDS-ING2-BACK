@@ -1,20 +1,21 @@
 package com.application.aled.messages.history;
 
 import com.application.aled.entity.CoffeeMachine;
-import com.application.aled.entity.history.AlarmClockHistory;
-import com.application.aled.entity.history.CoffeeMachineHistory;
-import com.application.aled.entity.history.ObjectsHistory;
+import com.application.aled.entity.history.*;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
+import java.time.temporal.ChronoUnit;
 
 import static java.lang.Integer.parseInt;
+import static java.time.temporal.ChronoUnit.DAYS;
 
 public class ObjectHistoryVerification {
 
-    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
+    SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss yyyy.MM.dd");
+    SimpleDateFormat parseTimestamp = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
 
     /*
     Made to know the favorite parameter for one element
@@ -39,19 +40,101 @@ public class ObjectHistoryVerification {
             }
         }
 
-        return maxHoursEntry.getKey();
+        if(maxHoursEntry == null){
+            return "Aucune donnée";
+        } else {
+            return maxHoursEntry.getKey();
+        }
+
     }
 
     /*
     Made to know if oven temperature was too high
      */
-    public List<ObjectsHistory> tooHigh (List<ObjectsHistory> objectsHistoryList, int maxHours){
-        for (ObjectsHistory objectsHistory : objectsHistoryList) {
-            if(parseInt(objectsHistory.getData()) < maxHours) {
-                objectsHistoryList.remove(objectsHistory);
+    public List<OvenHistory> tooHigh (List<OvenHistory> ovenHistoryList, int maxTemp){
+        List<OvenHistory> ovenHistoryTooHigh = new ArrayList<OvenHistory>();
+
+        for (OvenHistory ovenHistory : ovenHistoryList) {
+            if(parseInt(ovenHistory.getData()) > maxTemp) {
+                ovenHistoryTooHigh.add(ovenHistory);
             }
         }
-        return objectsHistoryList;
+        return ovenHistoryTooHigh;
+    }
+
+    /*
+    Made to know if an alarm was set between 23 and 4 o'clock
+     */
+    public List<AlarmClockHistory> nightAlarm (List<AlarmClockHistory> alarmClockHistoryList){
+        List<AlarmClockHistory> results = new ArrayList<AlarmClockHistory>();
+        for (AlarmClockHistory alarmClockHistory : alarmClockHistoryList) {
+            String alarmString = alarmClockHistory.getData();
+
+            try {
+                Date alarmDate = parseTimestamp.parse(alarmString);
+                Timestamp alarmTimestamp = new Timestamp(alarmDate.getTime());
+
+                Date after = new Date(alarmTimestamp.getTime());
+                after.setHours(23);
+
+                Date before = new Date(alarmTimestamp.getTime());
+                before.setHours(4);
+
+                if(alarmTimestamp.before(new Timestamp(before.getTime())) && alarmTimestamp.after(new Timestamp(after.getTime()-1*24*60*60*1000))){
+                    results.add(alarmClockHistory);
+                }
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        return results;
+    }
+
+    /*
+    Made to know if a shutter was open during many days or during night
+     */
+    public Map<List<String>, Integer> wronglyOpenedShutter (List<ShutterHistory> shutterHistoryList){
+        Map<List<String>, Integer> badlyUsed = new HashMap<List<String>, Integer>();
+
+        for (int i = 0; i < shutterHistoryList.size(); i++) {
+            if(i < (shutterHistoryList.size() - 1)){
+                if (!(shutterHistoryList.get(i).getColumnData().equals("action"))) {
+                    shutterHistoryList.remove(shutterHistoryList.get(i));
+                } else {
+                    if (shutterHistoryList.get(i).getData().equals("open") && shutterHistoryList.get(i + 1).getData().equals("close")) {
+                        Timestamp opened = shutterHistoryList.get(i).getMessageTimestamp();
+                        Timestamp close = shutterHistoryList.get(i + 1).getMessageTimestamp();
+
+                        long daysOn = (close.getTime() - opened.getTime()) / (24 * 60 * 60 * 1000);
+
+                        List<String> timestampsToString = new ArrayList<String>(2);
+                        timestampsToString.add(dateFormat.format(opened));
+                        timestampsToString.add(dateFormat.format(close));
+
+
+                        if(daysOn >= 1){
+                            badlyUsed.put(timestampsToString, (int) daysOn);
+                        } else {
+                            Date afterOpening = new Date(opened.getTime());
+                            afterOpening.setHours(0);
+
+                            Date beforeOpening = new Date(opened.getTime());
+                            beforeOpening.setHours(4);
+
+
+                            if(opened.after(new Timestamp(afterOpening.getTime())) && opened.before(new Timestamp(beforeOpening.getTime()))){
+                                badlyUsed.put(timestampsToString, (int) 0);
+                            }
+                        }
+                        i++;
+                    }
+                }
+            }
+        }
+        return badlyUsed;
     }
 
     /*
@@ -64,6 +147,7 @@ public class ObjectHistoryVerification {
         }
         return numberOfCapsules;
     }
+
 
     /*
     Made to know the time range for an object to be on "power"

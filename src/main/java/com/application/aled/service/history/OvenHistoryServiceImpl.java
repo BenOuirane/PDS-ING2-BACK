@@ -39,9 +39,7 @@ public class OvenHistoryServiceImpl implements OvenHistoryService {
     @Override
     public List<OvenHistory> getOvenHistoryByObjectsIdAndColumnDataAndDateBetween(long id, String columnData, Timestamp start, Timestamp end) {
         List<OvenHistory> ovenHistory = new ArrayList<OvenHistory>();
-        System.out.println(start.getTime());
         ovenHistoryRepository.findByObject_IdAndColumnDataAndMessageTimestampLessThanEqualAndMessageTimestampGreaterThanEqual(id, columnData,  start,  end).forEach(ovenHistory::add);
-        System.out.println(ovenHistory);
 
         return ovenHistory;
     }

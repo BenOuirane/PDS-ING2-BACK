@@ -97,9 +97,12 @@ public class ObjectServiceImpl implements ObjectService {
              logger.info("ERROR : ObjectServiceImpl.scenarioLaunchService : " + e);
              return false;
          }
+    }
 
-
-
+    @Override
+    public Objects getObjectsById(long id) {
+        Objects _objects = objectRepository.findById(id);
+        return _objects;
     }
 
 }
