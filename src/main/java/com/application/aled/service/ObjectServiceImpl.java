@@ -1,31 +1,28 @@
 package com.application.aled.service;
 
-import com.application.aled.entity.*;
-import com.application.aled.repository.*;
+import com.application.aled.entity.Objects;
+import com.application.aled.entity.Rooms;
+import com.application.aled.repository.ObjectRepository;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.logging.Logger;
+
+import com.application.aled.repository.RoomRepository;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.logging.Logger;
+import javax.persistence.EntityManager;
+import javax.persistence.Transient;
 
 @Service
 public class ObjectServiceImpl implements ObjectService {
 
     @Autowired
     ObjectRepository objectRepository;
-
-    //Used to save different types of objects
-    @Autowired
-    LampRepository lampRepository;
-    @Autowired
-    ShutterRepository shutterRepository;
-    @Autowired
-    CoffeeMachineRepository coffeeMachineRepository;
-    @Autowired
-    AlarmClockRepository alarmClockRepository;
 
     @Autowired
     RoomRepository roomRepository;

@@ -1,6 +1,7 @@
 package com.application.aled.controller;
 
-import com.application.aled.entity.*;
+import com.application.aled.entity.Objects;
+import com.application.aled.entity.Rooms;
 import com.application.aled.service.ObjectServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -41,9 +42,7 @@ public class ObjectController {
         return objects;
     }
 
-    @PutMapping("objects/Scenario/myMorning")
-    public boolean scenarioLaunch(@RequestBody ScenarioMyMorning scenarioMyMorning){
-        logger.info("ObjectController.scenarioLaunch :" + scenarioMyMorning.getLamp().toString() + scenarioMyMorning.getShutter().toString() + scenarioMyMorning.getAlarmClock().toString() + scenarioMyMorning.getCoffeeMachine().toString());
-        return objectService.scenarioLaunchService(scenarioMyMorning);
-    }
+
+
+
 }
