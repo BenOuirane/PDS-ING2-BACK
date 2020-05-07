@@ -8,8 +8,12 @@ import java.util.logging.Logger;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
 
+//import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
 @ComponentScan
 @SpringBootApplication
+
+//@EnableSwagger2
 public class BackendApplication extends SpringBootServletInitializer{
 
 	public static void main(String[] args) throws IOException {
@@ -19,5 +23,5 @@ public class BackendApplication extends SpringBootServletInitializer{
 
 		logger.info("Application is initialized :)");
 	}
-	
+
 }
