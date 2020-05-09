@@ -55,6 +55,11 @@ public class CurrentAreaServiceImpl implements CurrentAreaService {
 
 	}
 
+	@Override
+	public List<CurrentArea> getAreasByBracelet(Long idbrac) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 
 	@Override
@@ -116,4 +121,7 @@ public class CurrentAreaServiceImpl implements CurrentAreaService {
 		return sumPassageBraceletInArea;
 	}
 
+
+
+	
 }

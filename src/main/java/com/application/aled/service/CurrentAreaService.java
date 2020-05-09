@@ -29,5 +29,6 @@ public interface CurrentAreaService {
 	public List<CurrentArea> getAreasByDay(int year, int month, int day);
 
 	public  int[] getSumAreaBracelet();
+	public List<CurrentArea> getAreasByBracelet(Long idbrac);
 
 }

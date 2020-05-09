@@ -17,9 +17,14 @@ public interface CurrentAreaRepository extends CrudRepository<CurrentArea, Integ
 	List<CurrentArea> findByArea(String name);
 	// public CurrentArea findAreaByBraceletId(Long idBrac);
 
+	
+	//Urgent 
 	@Query(value = "select area_id from current_area a where a.bracelet_id = ? order by area_id ", nativeQuery = true)
 	int [] findAreaBraceletSumTime();
 
+	@Query(value = "select area_id, bracelet_id, cross_date from current_area a where a.bracelet_id = ? ", nativeQuery = true)
+	List<CurrentArea> findAreaByBracelet();
+	//Later
 	@Query(value = "select a.cross_date  from current_area a where year(a.cross_date) = '2020' ", nativeQuery = true)
 	List<CurrentArea> findAreaByYY(String year);
 
