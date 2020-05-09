@@ -1,6 +1,7 @@
 package com.application.aled.service;
 
 import com.application.aled.entity.AlarmClock;
+import com.application.aled.service.AlarmClockService;
 import com.application.aled.entity.Lamp;
 import com.application.aled.entity.Objects;
 import com.application.aled.repository.AlarmClockRepository;
@@ -12,7 +13,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @Service
-public class AlarmClockServiceImpl implements AlarmClockService{
+public class AlarmClockServiceImpl implements AlarmClockService {
 
     @Autowired
     AlarmClockRepository alarmClockRepository;

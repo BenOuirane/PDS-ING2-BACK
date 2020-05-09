@@ -1,5 +1,10 @@
+/**
+ * 
+ */
 package com.application.aled.service;
+
 import com.application.aled.entity.Resident;
+import com.application.aled.entity.Rooms;
 import com.application.aled.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +30,12 @@ public class ResidentServiceImpl implements ResidentService {
 		Resident _resident = residentRepository.findByUser(user);
 		logger.info("getResidentByUser" + _resident.toString());
 		return _resident;
+	}
+
+	public Resident getResidentByRoom(Rooms room){
+		Resident resident = residentRepository.findByRoom(room);
+		logger.info("getResidentByRoom" + resident.toString());
+		return resident;
 	}
 
 }

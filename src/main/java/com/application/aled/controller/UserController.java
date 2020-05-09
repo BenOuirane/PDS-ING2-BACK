@@ -81,5 +81,11 @@ public class UserController {
 		return users;
 	}
 
+	@PutMapping(value = "/user/id")
+	public User getUserById(@RequestBody long id){
+		User user = userService.getUserById(id);
+		return user;
+	}
+
 }
 

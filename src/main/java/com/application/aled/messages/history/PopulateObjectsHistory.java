@@ -2,12 +2,15 @@ package com.application.aled.messages.history;
 
 import com.application.aled.entity.Objects;
 import com.application.aled.entity.history.ObjectsHistory;
+import com.application.aled.entity.history.OvenHistory;
 
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.*;
 import java.util.logging.Logger;
+
+import static java.lang.Integer.parseInt;
 
 public class PopulateObjectsHistory {
 
@@ -162,5 +165,118 @@ public class PopulateObjectsHistory {
             default:
                 break;
         }
+    }
+
+    public List<ObjectsHistory> createOvenHistories(Timestamp startTime, Timestamp endTime, Timestamp stopTime, int maxTemp, Objects objectToRecord){
+        List<ObjectsHistory> ovenHistories = new ArrayList<ObjectsHistory>();
+        ObjectsHistory startHistory = new ObjectsHistory("on", "power", startTime, objectToRecord);
+        ObjectsHistory endHistory = new ObjectsHistory("off", "power", endTime, objectToRecord);
+        ovenHistories.add(startHistory);
+        ovenHistories.add(endHistory);
+
+        int randomTemp = random.nextInt(70) + 50;
+        int temp = 25 + random.nextInt(10);
+
+        Calendar cal = Calendar.getInstance();
+
+        Timestamp messageTime = startTime;
+
+        while(temp < maxTemp && messageTime.before(stopTime)){
+            cal.setTime(messageTime);
+            cal.add(Calendar.MINUTE, 5);
+            messageTime = new Timestamp(cal.getTimeInMillis());
+            temp = temp + randomTemp;
+            ObjectsHistory ovenIncreaseHistory = new ObjectsHistory();
+
+            if(temp < maxTemp && messageTime.before(stopTime)){
+                ovenIncreaseHistory = new ObjectsHistory(String.valueOf(temp), "temp", messageTime, objectToRecord);
+            } else if (temp < maxTemp && !messageTime.before(stopTime)){
+                ovenIncreaseHistory = new ObjectsHistory(String.valueOf(temp), "temp", stopTime, objectToRecord);
+            } else if (temp >= maxTemp && messageTime.before(stopTime)) {
+                ovenIncreaseHistory = new ObjectsHistory(String.valueOf(maxTemp), "temp", messageTime, objectToRecord);
+            } else {
+                ovenIncreaseHistory = new ObjectsHistory(String.valueOf(maxTemp), "temp", stopTime, objectToRecord);
+            }
+
+            ovenHistories.add(ovenIncreaseHistory);
+        }
+
+        while(temp > 0 && messageTime.before(endTime)){
+            cal.setTime(messageTime);
+            cal.add(Calendar.MINUTE, 10);
+            messageTime = new Timestamp(cal.getTimeInMillis());
+            temp = temp - randomTemp;
+            ObjectsHistory ovenDecreaseHistory = new ObjectsHistory();
+
+            if(temp > 0 && messageTime.before(endTime)){
+                ovenDecreaseHistory = new ObjectsHistory(String.valueOf(temp), "temp", messageTime, objectToRecord);
+            } else if (temp <= 0 && messageTime.before(endTime)) {
+                ovenDecreaseHistory = new ObjectsHistory("0", "temp", messageTime, objectToRecord);
+                temp = 0;
+            } else {
+                ovenDecreaseHistory = new ObjectsHistory("0", "temp", stopTime, objectToRecord);
+            }
+
+            ovenHistories.add(ovenDecreaseHistory);
+        }
+
+        return ovenHistories;
+    }
+
+    public  List<ObjectsHistory> createHistoryErrors(Objects objectToRecord, String type, String parameter, Timestamp time){
+        List<ObjectsHistory> historiesError = new ArrayList<ObjectsHistory>();
+        switch (type){
+            case "power":
+                Date lastDate = new Date(time.getTime());
+                lastDate.setHours(time.getHours() + parseInt(parameter));
+                Timestamp lastTimestamp = new Timestamp(lastDate.getTime());
+
+                ObjectsHistory messageRecordOn = new ObjectsHistory("off", "power", lastTimestamp, objectToRecord);
+                ObjectsHistory messageRecordOff = new ObjectsHistory("on", "power", time, objectToRecord);
+                historiesError.add(messageRecordOn);
+                historiesError.add(messageRecordOff);
+            break;
+
+            case "nightAlarm":
+                Date nextAlarm = new Date(time.getTime());
+                nextAlarm.setHours(1);
+                Timestamp nextAlarmTimestamp = new Timestamp(nextAlarm.getTime());
+
+                ObjectsHistory messageRecordAlarm = new ObjectsHistory(nextAlarmTimestamp.toString(), "alarm", time, objectToRecord);
+                historiesError.add(messageRecordAlarm);
+                break;
+
+            case "nightShutter":
+                Date nightShutterOpenAlarm = new Date(time.getTime());
+                nightShutterOpenAlarm.setHours(2);
+                Timestamp nightShutterOpenAlarmTimestamp = new Timestamp(nightShutterOpenAlarm.getTime());
+
+                Date nightShutterCloseAlarm = new Date(time.getTime());
+                nightShutterCloseAlarm.setHours(3);
+                Timestamp nightShutterCloseAlarmTimestamp = new Timestamp(nightShutterCloseAlarm.getTime());
+
+                ObjectsHistory messageOpenShutter = new ObjectsHistory("open", "action", nightShutterOpenAlarmTimestamp, objectToRecord);
+                ObjectsHistory messageCloseShutter = new ObjectsHistory("close", "action", nightShutterCloseAlarmTimestamp, objectToRecord);
+
+                historiesError.add(messageOpenShutter);
+                historiesError.add(messageCloseShutter);
+                break;
+            case "shutterAlarm":
+                Date lastClosing = new Date(time.getTime());
+
+                lastClosing.setHours(time.getHours() + parseInt(parameter));
+                Timestamp lastNightOpeningTimestamp = new Timestamp(lastClosing.getTime());
+
+                ObjectsHistory messageOpen = new ObjectsHistory("close", "action", lastNightOpeningTimestamp, objectToRecord);
+                ObjectsHistory messageClose = new ObjectsHistory("open", "action", time, objectToRecord);
+                historiesError.add(messageOpen);
+                historiesError.add(messageClose);
+                break;
+            default:
+                break;
+
+        }
+
+        return historiesError;
     }
 }
