@@ -69,8 +69,8 @@ public class MockDataMedicalController {
     //public String generateRandomMeasurements(@PathVariable String nameResident)
 
     @Scheduled(fixedDelay = 20000, initialDelay = 1000)
-    public void generateRandomMeasurements() {
-
+    public void generateRandomMeasurements()
+    {
         //String returnMessage = "Les données aléatoires n'ont pas été générées correctement";
         readerCSV =new ReadMedicalParametersCSV(braceletService, residentService);
         readerCSV.ReadingCSVfiles();

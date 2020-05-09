@@ -127,7 +127,7 @@ public class MedicalMeasurementServiceImpl implements MedicalMeasurementService{
             progress.put("residentFirsName", resident.getFirstName());
             progress.put("residentLastName", resident.getLastName());
             progress.put("residentAge", resident.getAge()+"");
-            //progress.put("residentRoom", resident.getRoom().getIdRoom()+"");
+            progress.put("residentRoom", resident.getRoom().getIdRoom()+"");
             progress.put("measurementType", currentMeasurementType.getName());
             progress.put("measurementUnit", currentMeasurementType.getLongFormUnit());
             progress.put("measurementTypeMinValue", currentMedThres.getMinValue()+"");
