@@ -2,13 +2,10 @@ package com.application.aled.service;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.application.aled.entity.Area;
 import com.application.aled.repository.AreaRepository;
-import com.application.aled.repository.CurrentAreaRepository;
 
 @Service
 public class AreaServiceImpl implements AreaService {
@@ -22,10 +19,20 @@ public class AreaServiceImpl implements AreaService {
 		return arealist;
 	}
 
+	//The second way to do mocks, csv and this short algo
 	@Override
 	public void addArea(Area area) {
-		// TODO Auto-generated method stub
-		
+		/*if(area ==null) {
+			for (int i=0; i<=10; i++) {
+				area = new Area();
+				area.setArea_id((long) 10);
+				area.setName("Chamrbe" + i);
+				area.setId_capteur("Capteur" + i);
+				area.setSurface(17.58);
+			return ;	
+		}
+			areaRepository.save(area);
+		}*/
 	}
 
 	@Override
@@ -41,13 +48,25 @@ public class AreaServiceImpl implements AreaService {
 	@Override
 	public void removeArea(Area area) {
 		areaRepository.delete(area);
-		
+		// FIXME: unauthorized action
 	}
 
-	@Override
-	public Area getAreasById(int code) {
-		// TODO Auto-generated method stub
-		return null;
+	/*@Override
+	public Area getAreasById(Long code) {
+		Area area = areaRepository.findAreaByCode(code);
+		return area;
 	}
+	*/
+	/*@Override
+	public Area getAreaByName(String areaname) {
+		Area area = areaRepository.findAreaByName(areaname);
+		return area;
+	}
+	
+	 @Override
+	 public Area getAreaDetails(Area areadetails) {
+		 Area area = areaRepository.findAreaDetails(areadetails);
+		 return area;
+	 }*/
 
 }

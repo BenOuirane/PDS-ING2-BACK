@@ -7,10 +7,10 @@ import com.application.aled.entity.Area;
 
 
 @Repository
-public interface AreaRepository extends CrudRepository<Area, String> {
+public interface AreaRepository extends CrudRepository<Area, Integer> {
 	//public Area findAreaByName(String name);
-	//public Area getAreaDetails(Area area);
-	//public Area findAreaByCode(Integer code);
+	//public Area findAreaDetails(Area area);
+	//public Area findAreaByCode(Long code);
 
 	
 }

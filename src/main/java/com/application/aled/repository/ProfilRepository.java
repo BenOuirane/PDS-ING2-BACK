@@ -6,6 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface ProfilRepository  extends CrudRepository<Profil, Long> {
 
-    Profil findByObjects(Objects object);
+    Profil findByName(String name);
 
 }

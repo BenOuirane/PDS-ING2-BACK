@@ -7,6 +7,8 @@ import com.application.aled.service.NotificationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.logging.Logger;
+
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api")
@@ -15,9 +17,11 @@ public class NotificationController {
     @Autowired
     NotificationServiceImpl notificationService;
 
+    Logger logger = Logger.getLogger("com.application.aled.controller.NotificationController");
+
     @PutMapping("/notification/create")
     public Notification createNotification(@RequestBody Notification notification){
-        System.out.println("Call createNotification");
+        logger.info("Call createNotification");
 
         Notification _notification = notificationService.addNotification(notification);
 
@@ -26,7 +30,7 @@ public class NotificationController {
 
     @PutMapping("/notifications/list")
     public Notification[] getNotification(@RequestBody User user){
-        System.out.println("Call getNotification");
+        logger.info("Call getNotification");
 
         Notification[] _notifications = notificationService.getNotifications(user);
 
@@ -35,7 +39,7 @@ public class NotificationController {
 
     @PutMapping("/notifications/update")
     public Notification[] updateNotificationsState(@RequestBody User user){
-        System.out.println("Call updateNotificationState");
+        logger.info("Call updateNotificationState");
 
         Notification[] _notifications = notificationService.updateStateByReceiver(user);
 

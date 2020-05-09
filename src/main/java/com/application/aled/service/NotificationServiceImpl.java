@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
+import java.util.logging.Logger;
 
 @Service
 public class NotificationServiceImpl implements NotificationService {
@@ -16,9 +17,11 @@ public class NotificationServiceImpl implements NotificationService {
     @Autowired
     NotificationRepository repository;
 
+    Logger logger = Logger.getLogger("com.application.aled.service.NotificationServiceImpl");
+
     @Override
     public Notification addNotification(Notification notification) {
-        System.out.println("Adding notification : " + notification.toString());
+        logger.info("Adding notification : " + notification.toString());
 
         Notification _notification = new Notification();
 
@@ -37,7 +40,7 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Override
     public Notification[] getNotifications(User receiver) {
-        System.out.println("Getting notifications of : " + receiver);
+        logger.info("Getting notifications of : " + receiver);
 
         Notification[] _notifications = repository.findByReceiverOrderByDateDesc(receiver);
 
@@ -46,7 +49,7 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Override
     public Notification[] updateStateByReceiver(User receiver) {
-        System.out.println("Updating state to 'SEEN' for the notifications of : " + receiver);
+        logger.info("Updating state to 'SEEN' for the notifications of : " + receiver);
 
         Notification[] notificationFound =  repository.findByStateAndReceiver("PENDING", receiver);
 

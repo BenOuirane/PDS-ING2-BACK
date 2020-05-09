@@ -106,7 +106,7 @@ public class WaitingTimeChecker {
                 }
                 secondsDifference = TimeUnit.MILLISECONDS.toSeconds(longCurrent -longLastMessage);
                 logger.info("difference log = "+ secondsDifference);
-                if (secondsDifference<60000) {
+                if (secondsDifference<400) { //time divided per 10
                     logger.info("time is relevant for " + objects.getObjectType() + " number " + objects.getId());
                     return true;
                 }break;
@@ -120,7 +120,7 @@ public class WaitingTimeChecker {
                 }
                 secondsDifference = TimeUnit.MILLISECONDS.toSeconds(longCurrent -longLastMessage);
                 logger.info("difference log = "+ secondsDifference);
-                if (secondsDifference<60000) {
+                if (secondsDifference<4000) {
                     logger.info("time is relevant for " + objects.getObjectType() + " number " + objects.getId());
                     return true;
                 }break;
@@ -134,7 +134,7 @@ public class WaitingTimeChecker {
                 }
                 secondsDifference = TimeUnit.MILLISECONDS.toSeconds(longCurrent -longLastMessage);
                 logger.info("difference log = "+ secondsDifference);
-                if (secondsDifference<60000) {
+                if (secondsDifference<4000) {
                     logger.info("time is relevant for " + objects.getObjectType() + " number " + objects.getId());
                     return true;
                 }break;
@@ -146,7 +146,7 @@ public class WaitingTimeChecker {
                 }
                 secondsDifference = TimeUnit.MILLISECONDS.toSeconds(longCurrent -longLastMessage);
                 logger.info("difference log = "+ secondsDifference);
-                if (secondsDifference<60000) {
+                if (secondsDifference<4000) {
                     logger.info("time is relevant for " + objects.getObjectType() + " number " + objects.getId());
                     return true;
                 }break;

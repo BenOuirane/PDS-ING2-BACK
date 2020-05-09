@@ -43,9 +43,7 @@ public class UserController {
 
 	@GetMapping("/users")
 	public List<User> getAllUsers() {
-
 		logger.info("Getting all users  from user table...Call getAllUsers ");
-
 		List<User> users = userService.getUsers();
 		logger.info("Data extracted from user table...");
 		return users;
@@ -61,7 +59,6 @@ public class UserController {
 	@PutMapping(value = "/user/login")
 	public User loginUser(@RequestBody User user) throws Exception {
 		logger.info("Getting all users  from user table...Call getAllUsers ");
-
 		User _user = userService.userLogin(user.getUsername(), user.getPassword());
 		logger.info("Extracting data from the user table");
 
@@ -79,10 +76,15 @@ public class UserController {
 	@PutMapping(value = "/users/")
 	public List<User> getUsersByRole(@RequestBody String role) {
 		logger.info("Getting all users  from user table...Call getAllUsers ");
-
 		List<User> users = userService.getUserByRole(role);
 		logger.info("Extracting data from the user table");
 		return users;
+	}
+
+	@PutMapping(value = "/user/id")
+	public User getUserById(@RequestBody long id){
+		User user = userService.getUserById(id);
+		return user;
 	}
 
 }

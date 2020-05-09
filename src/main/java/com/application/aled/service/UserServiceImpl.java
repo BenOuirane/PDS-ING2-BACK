@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -19,6 +20,8 @@ public class UserServiceImpl implements UserService {
      */
     @Autowired
     private UserRepository repository;
+
+    Logger logger = Logger.getLogger("com.application.aled.service.UserRepository");
 
     /*
     Here we use the 'findAll()' to create a custom getUsers()
@@ -35,7 +38,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User userLogin(String username, String password) throws NullPointerException {
-        System.out.println("Login user " + username + " and password " + password);
+        logger.info("Login user " + username + " and password " + password);
 
         User user = repository.findByUsernameAndPassword(username, password);
 
@@ -44,12 +47,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getUserByRole(String role) {
-        System.out.println("Finding users with role : " + role);
+        logger.info("Finding users with role : " + role);
 
         List<User> users = new ArrayList<>();
         repository.findAllByRole(role).forEach(users::add);
 
         return users;
+    }
+
+    @Override
+    public User getUserById(long id) {
+        User user = new User();
+        user = repository.findById(id);
+        return user;
     }
 
 }

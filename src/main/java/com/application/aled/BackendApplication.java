@@ -7,9 +7,15 @@ import java.util.logging.Logger;
 
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.context.annotation.ComponentScan;
 
+
+//import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+@ComponentScan
 @SpringBootApplication
 @EnableScheduling
+//@EnableSwagger2
 public class BackendApplication extends SpringBootServletInitializer{
 
 	public static void main(String[] args) throws IOException {
@@ -17,7 +23,7 @@ public class BackendApplication extends SpringBootServletInitializer{
 
 		SpringApplication.run(BackendApplication.class, args);
 
-		logger.config("Application is running :)");
+		logger.info("Application is initialized :)");
 	}
-	
+
 }

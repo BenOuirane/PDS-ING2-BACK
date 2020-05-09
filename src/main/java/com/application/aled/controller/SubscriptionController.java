@@ -17,7 +17,7 @@ public class SubscriptionController {
     @Autowired
     SubscriptionServiceImpl subscriptionService;
 
-    @GetMapping("/subscription")
+    @GetMapping("/subscriptions")
     public List<Subscription> getAllSubscription() {
         System.out.println("Call getAllSubscription");
         List<Subscription> subscriptions = subscriptionService.getAllSubscription();
@@ -25,7 +25,7 @@ public class SubscriptionController {
         return subscriptions;
     }
 
-    @PutMapping("/subscription/")
+    @PutMapping("/subscription")
     public Subscription getSubscription(String name){
         System.out.println("Call getSubscription");
         Subscription subscription = subscriptionService.getSubscription(name);

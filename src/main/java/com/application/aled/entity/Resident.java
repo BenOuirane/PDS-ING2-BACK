@@ -1,5 +1,4 @@
 
-
 package com.application.aled.entity;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,18 +11,22 @@ import java.util.Collection;
 public class Resident implements Serializable {
 	@Id
 	@GeneratedValue
-	@Column(name = "id_resident")
 	private Long idResident;
-	@Column(name="first_name")
+
+	@Column(name = "firstName")
 	private String firstName;
-	@Column(name="last_name")
+
+	@Column(name = "lastName")
 	private String lastName;
-	@Column(name="age")
-	private  int  age;
+
+	@Column(name = "age")
+	private int age;
+
 
 	@OneToOne(cascade = CascadeType.PERSIST, optional = true)
 	@JoinColumn(unique = true)
 	private Rooms room;
+
 
 	@OneToOne(cascade = CascadeType.ALL, optional = true)
 	@JoinColumn(unique = true)
@@ -33,8 +36,10 @@ public class Resident implements Serializable {
 	@JoinColumn(name="idResidence")
 	private Residence residence;
 
+
 	@OneToOne
 	private MedicalFolder medicalFolder;
+
 
 	@OneToOne(cascade = CascadeType.ALL, optional = true)
 	@JoinColumn(unique = true)

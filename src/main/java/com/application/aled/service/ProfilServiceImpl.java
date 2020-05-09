@@ -1,25 +1,32 @@
 package com.application.aled.service;
 
-import com.application.aled.entity.Objects;
 import com.application.aled.entity.Profil;
 import com.application.aled.repository.ProfilRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class ProfilServiceImpl implements ProfilService {
 
     @Autowired
     ProfilRepository profilRepository;
 
-    @Transactional
-    public List<Profil> getProfilByObject(Objects object) {
-        List<Profil> profil = new ArrayList<>();
-       // profilRepository.findByObjects(object).forEach(profil::add);
 
-        System.out.println("Profil by Object: " + profil);
+    @Override
+    public Profil getProfilByName(String name) {
+        Profil profil;
+        profil = profilRepository.findByName(name);
+        System.out.println("Profil : " + profil);
+        return profil;
+    }
+
+    @Override
+    public List<Profil> getAllProfil() {
+        List<Profil> profil = new ArrayList<Profil>();
+        profilRepository.findAll().forEach(profil::add);
         return profil;
     }
 }

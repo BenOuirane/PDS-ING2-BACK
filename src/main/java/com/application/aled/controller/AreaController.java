@@ -16,6 +16,7 @@ import com.application.aled.controller.exception.CustomHandler;
 import com.application.aled.entity.Area;
 import com.application.aled.entity.Bracelet;
 import com.application.aled.service.AreaService;
+import com.application.aled.service.AreaServiceImpl;
 
 import java.util.List;
 
@@ -41,11 +42,10 @@ public class AreaController {
 
 	}
 			
-	@GetMapping("/areas/byname")
-	
-	public Area areaCode(@PathVariable(name = "areaCode")  int areaCode) throws NullPointerException {
+	/*@GetMapping("/areas/byname")
+	public Area areaCode(@PathVariable(name = "area_code")  int areaCode) throws NullPointerException {
 		logger.info("Getting area by code..");
-		Area _area = areaService.getAreasById((areaCode));
+		Area _area = areaService.getAreasById((long) (areaCode));
 		
 		if (_area == null) {
 			logger.error("There's no data in area table..");
@@ -56,7 +56,7 @@ public class AreaController {
 			return _area;
 		}
 	}
-	
+	*/
 	
 	
 	

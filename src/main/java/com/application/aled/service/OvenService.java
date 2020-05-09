@@ -8,4 +8,5 @@ import java.util.List;
 public interface OvenService {
 
     List<Oven> getOven(Objects objects);
+    boolean updateOven(Oven oven);
 }

@@ -24,6 +24,12 @@ public class AlarmClockController {
         List<AlarmClock> alarmClocks =  alarmClockService.getAlarmClock(objects);
         logger.info("Call getAlarmClocks : " + alarmClocks);
         return alarmClocks;
-
     }
+
+    @PutMapping("/alarmClock/updateParam")
+    public boolean updateAlarmClock(@RequestBody AlarmClock alarmClock){
+        logger.info("Call updateAlarmClock : " + alarmClock.toString());
+        return alarmClockService.updateAlarmClock(alarmClock);
+    }
+
 }

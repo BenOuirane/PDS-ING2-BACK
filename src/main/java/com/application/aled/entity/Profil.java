@@ -1,8 +1,5 @@
 package com.application.aled.entity;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -10,10 +7,9 @@ import java.util.List;
 @Table(name = "profil")
 public class Profil {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private long id_profil;
 
     @Column(name = "name")
     private String name;
@@ -24,17 +20,14 @@ public class Profil {
     @Column(name = "typeProfil2")
     private String typeProfil2;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_services", nullable = true)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    //@JsonIgnore
-    private List<Objects> objects;
+    @Column(name = "objects")
+    private String objects;
 
     public Profil(){
 
     }
 
-    public Profil(String name, String typeProfil1, String typeProfil2, List<Objects> objects) {
+    public Profil(String name, String typeProfil1, String typeProfil2, String objects) {
         this.name = name;
         this.typeProfil1 = typeProfil1;
         this.typeProfil2 = typeProfil2;
@@ -42,7 +35,7 @@ public class Profil {
     }
 
     public long getId() {
-        return id;
+        return id_profil;
     }
 
     public String getName() {
@@ -53,8 +46,8 @@ public class Profil {
         return typeProfil1;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setId(long id_profil) {
+        this.id_profil = id_profil;
     }
 
     public void setName(String name) {
@@ -83,18 +76,18 @@ public class Profil {
         }
     }
 
-    public List<Objects> getObjects() {
+    public String getObjects() {
         return objects;
     }
 
-    public void setObjects(List<Objects> objects) {
+    public void setObjects(String objects) {
         this.objects = objects;
     }
 
     @Override
     public String toString() {
         return "Profil{" +
-                "id=" + id +
+                "id_profil=" + id_profil +
                 ", name='" + name + '\'' +
                 ", typeProfil1='" + typeProfil1 + '\'' +
                 ", typeProfil2='" + typeProfil2 + '\'' +
