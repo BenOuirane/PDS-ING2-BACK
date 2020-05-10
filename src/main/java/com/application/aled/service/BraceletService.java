@@ -21,4 +21,7 @@ public interface BraceletService {
 	public List<Bracelet> getBraceletByYearAndMonth(int year, int month);
 
 	public List<Bracelet> getBraceletByDay(int year, int month, int day);
+	Bracelet getBraceletByRefBracelet(String nameBrac);
+
+
 }

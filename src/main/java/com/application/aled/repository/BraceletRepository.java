@@ -1,5 +1,8 @@
 package com.application.aled.repository;
 
+
+
+import com.application.aled.entity.MedicalMeasurementType;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -27,4 +30,6 @@ public interface BraceletRepository extends CrudRepository<Bracelet, String> {
 	List<Bracelet> findBraceletByYYMMDD(int year, int month, int date);
 	
 	
+	public Bracelet findBraceletByRefBracelet(String name);
+
 }

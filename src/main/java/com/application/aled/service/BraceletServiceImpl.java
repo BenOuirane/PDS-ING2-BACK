@@ -6,6 +6,7 @@ package com.application.aled.service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -65,6 +66,14 @@ public class BraceletServiceImpl implements BraceletService {
 	}
 
 	@Override
+
+	/*public Bracelet getBraceletById(Bracelet idBrac) {
+		Bracelet bracelet=  braceletRepository.findBraceletById(idBrac);
+		return bracelet;
+		
+	}*/
+
+
 	public Bracelet getBraceletById(Long idBrac) {
 		Bracelet bracelet = braceletRepository.findBraceletById(idBrac);
 		return bracelet;
@@ -90,5 +99,9 @@ public class BraceletServiceImpl implements BraceletService {
 		braceletRepository.findBraceletByYYMMDD(year, month, day).forEach(braceletsYYMMDD::add);
 		return braceletsYYMMDD;
 	}
+	public Bracelet getBraceletByRefBracelet(String name) {
+		return this.braceletRepository.findBraceletByRefBracelet(name);
+	}
+
 
 }

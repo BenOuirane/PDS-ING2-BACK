@@ -43,6 +43,7 @@ public class Bracelet {
 		    )
   //  private List<CurrentArea> currentArea = new ArrayList<>();
 
+
 	public List<CurrentArea> getCurrentArea() {
 		return currentArea;
 	}
@@ -61,6 +62,7 @@ public class Bracelet {
 
 	public Bracelet() {
 	}
+
 
 	public long getId() {
 		return id;
@@ -92,13 +94,15 @@ public class Bracelet {
 				+ refBracelet + "]";
 	}
 
-	public Bracelet(long id, long mcAddress, long idResident, LocalDateTime lastSentData, String refBracelet) {
+
+	public Bracelet(long id, long mcAddress, Long idResident, LocalDateTime lastSentData, String refBracelet) {
 		this.id = id;
 		this.mcAddress = mcAddress;
-		//this.idResident = idResident;
+
 		this.lastSentData = lastSentData;
 		this.refBracelet = refBracelet;
 	}
+
 
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_resident", unique = true)
