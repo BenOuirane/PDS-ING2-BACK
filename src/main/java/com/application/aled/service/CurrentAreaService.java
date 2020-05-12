@@ -1,5 +1,6 @@
 package com.application.aled.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.application.aled.entity.Bracelet;
@@ -16,7 +17,7 @@ public interface CurrentAreaService {
 	
 	public CurrentArea[]  getAreaBraceletNbPassage(Bracelet bracelet);
 
-	public  List<CurrentArea> getSumAreaBracelet(int idbrac);
+	public  CurrentArea[] getSumAreaBracelet(Bracelet idbrac);
 	
 	void addArea(CurrentArea idarea);
 
@@ -25,7 +26,7 @@ public interface CurrentAreaService {
 	void removeArea(CurrentArea idarea);
 	
 
-	public List<CurrentArea> getAreasByYear(String year);
+	public List<CurrentArea> getAreasByYear(LocalDateTime year);
 
 	public List<CurrentArea> getAreasByYearAndMonth(int year, int month);
 

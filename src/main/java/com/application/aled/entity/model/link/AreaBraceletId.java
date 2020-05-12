@@ -10,6 +10,11 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @Embeddable
 public class AreaBraceletId implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Column(name="bracelet_id")
 	private Long braceletId;
 	

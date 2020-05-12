@@ -1,5 +1,6 @@
 package com.application.aled.service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,7 +75,7 @@ public class CurrentAreaServiceImpl implements CurrentAreaService {
 
 
 	@Override
-	public List<CurrentArea> getAreasByYear(String year) throws NullPointerException{ 
+	public List<CurrentArea> getAreasByYear(LocalDateTime year) throws NullPointerException{ 
         List<CurrentArea> areasYear = new ArrayList<>();   
         currentareaRepository.findAreaByYY(year);
 		return areasYear;
@@ -109,8 +110,8 @@ public class CurrentAreaServiceImpl implements CurrentAreaService {
 
 
 	@Override
-	public List<CurrentArea> getSumAreaBracelet(int idbrac) {
-		List<CurrentArea> sumPassageBraceletInArea = currentareaRepository.findAreaBraceletSumTime(idbrac);
+	public CurrentArea[] getSumAreaBracelet(Bracelet idbrac) {
+		CurrentArea [] sumPassageBraceletInArea = currentareaRepository.findAreaBraceletSumTime(idbrac);
 		return sumPassageBraceletInArea;
 	}
 

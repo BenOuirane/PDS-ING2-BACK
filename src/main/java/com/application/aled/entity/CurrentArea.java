@@ -29,12 +29,12 @@ public class CurrentArea implements Serializable {
 
 
 	@JsonBackReference
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@MapsId("braceletId")
 	private Bracelet bracelet;
 
 	@JsonBackReference
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@MapsId("code_area")
 	private Area area;
 

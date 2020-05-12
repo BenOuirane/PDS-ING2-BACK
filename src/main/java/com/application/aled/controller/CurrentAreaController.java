@@ -3,6 +3,7 @@
  */
 package com.application.aled.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Random;
 
@@ -129,9 +130,10 @@ public class CurrentAreaController {
 	}
 	
 	
-	@GetMapping("/currentlocation/areabracelet")
-	public List<CurrentArea> getSumPassageAreaBracelet(int bracelet_id) {
-		List<CurrentArea> sumPassage = currentAreaService.getSumAreaBracelet(bracelet_id);
+	@GetMapping("/currentlocation/areabracelet/{bracelet_id}")
+	public CurrentArea [] getSumPassageAreaBracelet(@PathVariable(name = "bracelet_id") Bracelet bracelet) 
+			throws NullPointerException {
+		CurrentArea [] sumPassage = currentAreaService.getSumAreaBracelet(bracelet);
 		return sumPassage;
 		
 	}
@@ -139,7 +141,7 @@ public class CurrentAreaController {
 	
 
 	@GetMapping("/currentlocalion/year/{year}")
-	public List<CurrentArea> getAreaByYear(@RequestParam(required = false)  String year) {
+	public List<CurrentArea> getAreaByYear(@RequestParam(required = false)  LocalDateTime year) {
 		List<CurrentArea> areaByYear = currentAreaService.getAreasByYear(year);
 		return areaByYear;
 	}
