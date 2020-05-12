@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.application.aled.entity.Bracelet;
 import com.application.aled.entity.CurrentArea;
 import com.application.aled.repository.CurrentAreaRepository;
 
@@ -56,13 +58,6 @@ public class CurrentAreaServiceImpl implements CurrentAreaService {
 	}
 
 	@Override
-	public List<CurrentArea> getAreasByBracelet(Long idbrac) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	@Override
 	public CurrentArea getCurrentAreaById(int idarea) {
 		// FIXME: unauthorized action
 		return null;
@@ -71,9 +66,9 @@ public class CurrentAreaServiceImpl implements CurrentAreaService {
 
 
 	@Override
-	public CurrentArea getCurrentAreaByBraceletId(int idbrac) {
-		// TODO Auto-generated method stub
-		return null;
+	public CurrentArea[] getCurrentAreaByBracelet(Bracelet idbrac) {
+		CurrentArea [] areas = currentareaRepository.findAreaByBracelet(idbrac);
+		return areas;
 	}
 
 
@@ -81,7 +76,7 @@ public class CurrentAreaServiceImpl implements CurrentAreaService {
 	@Override
 	public List<CurrentArea> getAreasByYear(String year) throws NullPointerException{ 
         List<CurrentArea> areasYear = new ArrayList<>();   
-        currentareaRepository.findAreaByYY(year).forEach(areasYear::add);
+        currentareaRepository.findAreaByYY(year);
 		return areasYear;
        
 	}
@@ -105,12 +100,11 @@ public class CurrentAreaServiceImpl implements CurrentAreaService {
 
 
 
-	/*@Override
-	public List<CurrentArea> getAreaBraceletNbPassage(int area_id) {
-		List<CurrentArea> nbPassAreas = new ArrayList<>();
-		currentareaRepository.findAreaBraceletSumTime(area_id);
-		return nbPassAreas;
-	}*/
+	@Override
+	public CurrentArea [] getAreaBraceletNbPassage(Bracelet bracelet) {
+		CurrentArea [] areas = currentareaRepository.findAreaByBracelet(bracelet);
+		return areas;
+	}
 
 
 
@@ -119,6 +113,15 @@ public class CurrentAreaServiceImpl implements CurrentAreaService {
 		int [] sumPassageBraceletInArea;
 		sumPassageBraceletInArea = currentareaRepository.findAreaBraceletSumTime();
 		return sumPassageBraceletInArea;
+	}
+
+
+
+	@Override
+	public List<CurrentArea> getAreas() {
+		List<CurrentArea> areas = new ArrayList<CurrentArea>();
+		currentareaRepository.findAll().forEach(areas::add);
+		return areas;
 	}
 
 

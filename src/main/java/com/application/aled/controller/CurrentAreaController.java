@@ -4,9 +4,9 @@
 package com.application.aled.controller;
 
 import java.util.List;
+import java.util.Random;
 
 import javax.websocket.server.PathParam;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,14 +14,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.application.aled.controller.exception.CustomHandler;
+import com.application.aled.entity.Bracelet;
 import com.application.aled.entity.CurrentArea;
 import com.application.aled.service.CurrentAreaService;
+import com.application.aled.service.ResidentService;
 import com.application.aled.service.BraceletService;
 
 /**
@@ -40,6 +43,9 @@ public class CurrentAreaController {
 
 	@Autowired
 	BraceletService braceletService;
+	
+	@Autowired
+	ResidentService residentService;
 
 
 	@GetMapping("/currentlocations")
@@ -54,19 +60,27 @@ public class CurrentAreaController {
 
 	@RequestMapping(value = "/generate_currentlocations", method = RequestMethod.POST)
 	public ResponseEntity<Void> createDataMock() {
+		Random rd = new Random();
 		logger.info("Generating current areas in current area table..");
 		for (int i = 1; i < 10; i++) {
 			CurrentArea currentarea = new CurrentArea();
-			// currentarea.setId_bracelet(i);
-			// currentarea.setDate(LocalDateTime.now());
-			// currentAreaService.addLocation(currentarea);
+			//currentarea.setArea(i++);
+			
 		}
 		logger.info("Data has been well generated in the table current area..");
 		return ResponseEntity.ok().build();
 
 	}
 
+	 @GetMapping(value = "/current_area_size")
+	 public int getAreaSize() {
+		logger.info("Getting current area size from current area table...");
+		 int areas = currentAreaService.getAreas().size();
+	     return areas;
+	  }
 
+	 
+	 
 
 	@GetMapping("/currentlocation/{locationId}")
 	public CurrentArea positionId(@PathVariable(name = "locationId") String locationId) throws NullPointerException {
@@ -81,12 +95,12 @@ public class CurrentAreaController {
 		}
 	}
 
-	// TODO
-	@GetMapping("/currentlocation/bracelet/{braceletId}")
-	public CurrentArea getCurrentAreaBracelet(@PathVariable(name = "braceletId") int braceletId)
+	
+	@GetMapping("/currentlocation/bracelet/list")
+	public CurrentArea [] getCurrentAreaBracelet(@RequestBody Bracelet bracelet)
 			throws NullPointerException {
 		logger.info("Getting bracelet by id..");
-		CurrentArea _area = currentAreaService.getCurrentAreaByBraceletId((braceletId));
+		CurrentArea[] _area = currentAreaService.getCurrentAreaByBracelet((bracelet));
 
 		if (_area == null) {
 			logger.error("There's no data in bracelet table..");
@@ -99,10 +113,11 @@ public class CurrentAreaController {
 		}
 	}
 	
-	/*@GetMapping("/currentlocation/area/{areatId}")
-	public CurrentArea getCurrentAreaSumPassage(@PathVariable(name = "braceletId") int braceletId) 
+	@GetMapping("/currentlocation/visits/{bracelet_id}")
+	public CurrentArea[] getCurrentAreaSumPassage(@PathVariable(name = "bracelet_id") Bracelet bracelet) 
 			throws NullPointerException {
-		CurrentArea _area = currentAreaService.getAreaBraceletNbPassage(braceletId);
+		logger.info("Getting bracelet by id..");
+		CurrentArea[] _area = currentAreaService.getAreaBraceletNbPassage(bracelet);
 		if (_area == null) {
 			logger.error("There's no data in bracelet table..");
 			throw new CustomHandler("Bracelet not found");
@@ -112,18 +127,20 @@ public class CurrentAreaController {
 			return _area;
 		}
 	}
-	*/
+	
 	
 	@GetMapping("/currentlocation/areabracelet")
-	public int[] getSumPassageAreaBracelet() {
+	public int[] getSumPassageAreaBracelet(String bracelet_id) {
 		int [] sumPassage = currentAreaService.getSumAreaBracelet();
 		return sumPassage;
 		
 	}
+	
+	
 
 	@GetMapping("/currentlocalion/year/{year}")
-	public int getAreaByYear(@RequestParam(required = false)  String year) {
-		int areaByYear = currentAreaService.getAreasByYear(year).size();
+	public List<CurrentArea> getAreaByYear(@RequestParam(required = false)  String year) {
+		List<CurrentArea> areaByYear = currentAreaService.getAreasByYear(year);
 		return areaByYear;
 	}
 

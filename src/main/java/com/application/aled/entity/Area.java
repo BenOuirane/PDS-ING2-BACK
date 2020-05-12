@@ -16,6 +16,7 @@ import java.util.List;
 import javax.persistence.*;
 import org.hibernate.annotations.NaturalId;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 /**
  * @author ISMAIL EL HAMMOUD
@@ -27,7 +28,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "area")
 //@NaturalIdCache
 //@Cache(	usage = CacheConcurrencyStrategy.READ_ONLY)
-public class Area implements Serializable {
+public class Area {
 
 	@Id
 	@GeneratedValue
@@ -35,7 +36,8 @@ public class Area implements Serializable {
 
 	@NaturalId
 	private String name;
-
+	
+	@JsonManagedReference
 	@OneToMany(mappedBy = "area")
 	private List<CurrentArea> areas = new ArrayList<>();
 
@@ -52,6 +54,7 @@ public class Area implements Serializable {
 		this.name = name;
 	}
 
+	@JsonManagedReference
 	@ManyToOne(fetch = FetchType.LAZY, optional = true)
 	@JoinColumn(name = "code_area", nullable = true)
 	@JsonIgnore

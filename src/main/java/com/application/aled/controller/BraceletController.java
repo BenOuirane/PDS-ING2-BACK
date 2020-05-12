@@ -1,11 +1,9 @@
 package com.application.aled.controller;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,14 +31,15 @@ public class BraceletController {
 		logger.info("Data well extracted from bracelet table... the list is ready");
 		return bracelets;
 	}
-
-	@GetMapping("/bracelets/byid")
-	public Bracelet findBraceletById(Long id) {
-		Bracelet idbracelet = braceletService.getBraceletById(id);
+	
+	
+	@GetMapping("/bracelet/{braceletsId}")
+	public Bracelet getBraceletById(@PathVariable(name = "braceletId") Long braceletId) throws NullPointerException {
+		Bracelet idbracelet = braceletService.getBraceletById(braceletId);
 		return  idbracelet;
 	}
-
-
+	
+	
 	@GetMapping("/bracelets/{braceletId}")
 	public Bracelet braceletId(@PathVariable(name = "braceletId") Long braceletId) throws NullPointerException {
 		logger.info("Getting bracelet by id..");
@@ -57,12 +56,13 @@ public class BraceletController {
 	}
 
 
-	@GetMapping("/bracelets/year/{year}")
-	public int getBraceletaByYear(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") LocalDateTime year) {
+	@GetMapping("/bracelets/year")
+	public int getBraceletaByYear(@RequestParam int year) {
 		int braceletByYear = braceletService.getBraceletByYear(year).size();
 		return braceletByYear;
 	}
 
+	
 	@GetMapping("bracelets/month/{month}")
 	public int getBraceletByYearAndMonth(@RequestParam int year, int month) {
 		int braceletByMonth = braceletService.getBraceletByYearAndMonth(year, month).size();

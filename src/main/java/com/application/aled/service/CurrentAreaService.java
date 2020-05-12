@@ -2,16 +2,19 @@ package com.application.aled.service;
 
 import java.util.List;
 
-
+import com.application.aled.entity.Bracelet;
 import com.application.aled.entity.CurrentArea;
 
 
 public interface CurrentAreaService {
 	
 	public List<CurrentArea> getAllAreas();
-	
+	public List<CurrentArea> getAreas();
 	public CurrentArea getCurrentAreaById(int idarea);
-	public CurrentArea getCurrentAreaByBraceletId(int idbrac);
+	
+	public CurrentArea[] getCurrentAreaByBracelet(Bracelet idbrac);
+	
+	public CurrentArea[]  getAreaBraceletNbPassage(Bracelet bracelet);
 
 
 	void addArea(CurrentArea idarea);
@@ -20,7 +23,6 @@ public interface CurrentAreaService {
 
 	void removeArea(CurrentArea idarea);
 	
-	//public List<CurrentArea> getAreaBraceletNbPassage(int bracelet_id);
 
 	public List<CurrentArea> getAreasByYear(String year);
 
@@ -29,6 +31,5 @@ public interface CurrentAreaService {
 	public List<CurrentArea> getAreasByDay(int year, int month, int day);
 
 	public  int[] getSumAreaBracelet();
-	public List<CurrentArea> getAreasByBracelet(Long idbrac);
 
 }

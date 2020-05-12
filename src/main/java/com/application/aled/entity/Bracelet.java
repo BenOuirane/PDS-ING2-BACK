@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Cacheable
@@ -34,16 +36,11 @@ public class Bracelet {
 	@Column(name = "ref_bracelet")
 	private String refBracelet;
 
-	@OneToMany(mappedBy = "bracelet", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+	
+	@JsonManagedReference
+	@OneToMany(mappedBy = "bracelet", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<CurrentArea> currentArea = new ArrayList<>();
-	 @OneToMany(
-		        mappedBy = "bracelet",
-		        cascade = CascadeType.ALL,
-		        orphanRemoval = true
-		    )
-  //  private List<CurrentArea> currentArea = new ArrayList<>();
-
-
+	
 	public List<CurrentArea> getCurrentArea() {
 		return currentArea;
 	}

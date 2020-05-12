@@ -9,6 +9,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.junit.Test;
 
 import com.application.aled.controller.exception.CustomHandler;
+import com.application.aled.entity.Area;
 import com.application.aled.entity.CurrentArea;
 import com.application.aled.repository.CurrentAreaRepository;
 import com.application.aled.service.CurrentAreaServiceImpl;
@@ -16,9 +17,10 @@ import com.application.aled.service.CurrentAreaServiceImpl;
 @RunWith(MockitoJUnitRunner.class)
 public class CurrentAreaServiceImplTest {
 
+	Area area;
 	@Mock 
 	CurrentAreaRepository currentarearepository;
-	/*
+	
 	@InjectMocks
 	CurrentAreaServiceImpl currentareaservice;
 	
@@ -32,13 +34,13 @@ public class CurrentAreaServiceImplTest {
 	@Test(expected = CustomHandler.class) 
 	public void assertAreaEnum() {
 		CurrentArea _currentarea = new CurrentArea();
-		_currentarea.setId(null);
+		_currentarea.setArea(area);
 	}
 	
-	@Test(expected = CustomHandler.class)
+	/*@Test(expected = CustomHandler.class)
 	public void assertCurrentAreaEnum() {
 		CurrentArea _currentarea = new CurrentArea();
 		_currentarea.setCreatedOn(null);
-		}
-*/		
+		}*/
+	
 }

@@ -78,6 +78,5 @@ public class AreaBraceletId implements Serializable {
 	}
 	
 	
-	//TODO check if PK and FK are well implemented..
 	
 }

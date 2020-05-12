@@ -15,7 +15,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication
 @EnableSwagger2
 public class BackendApplication extends SpringBootServletInitializer {
-	static final Logger logger = LogManager.getLogger(AreaController.class.getName());
+	static final Logger logger = LogManager.getLogger(BackendApplication.class.getName());
 
 
 
