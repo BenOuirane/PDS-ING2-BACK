@@ -16,7 +16,8 @@ public interface CurrentAreaService {
 	
 	public CurrentArea[]  getAreaBraceletNbPassage(Bracelet bracelet);
 
-
+	public  List<CurrentArea> getSumAreaBracelet(int idbrac);
+	
 	void addArea(CurrentArea idarea);
 
 	void updateArea(CurrentArea idarea);
@@ -30,6 +31,6 @@ public interface CurrentAreaService {
 
 	public List<CurrentArea> getAreasByDay(int year, int month, int day);
 
-	public  int[] getSumAreaBracelet();
+
 
 }

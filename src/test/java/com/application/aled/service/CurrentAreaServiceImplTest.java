@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import com.application.aled.entity.CurrentArea;
 import com.application.aled.repository.CurrentAreaRepository;
-@RunWith(MockitoJUnitRunner.class)
 
+@RunWith(MockitoJUnitRunner.class)
 public class CurrentAreaServiceImplTest {
 
 	CurrentArea currentArea;

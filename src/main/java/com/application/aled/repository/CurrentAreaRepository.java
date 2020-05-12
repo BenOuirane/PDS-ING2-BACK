@@ -19,10 +19,10 @@ public interface CurrentAreaRepository extends JpaRepository<CurrentArea, Intege
 
 	CurrentArea [] findAreaByBracelet(Bracelet bracelet);
 	 
-	@Query(value = "select count(*) as NombredePassage, bracelet_id, area_id from current_area a where a.bracelet_id = ? group by area_id, bracelet_id ", nativeQuery = true)
-	int [] findAreaBraceletSumTime();
+	@Query(value = "select count(*) as NombredePassage, bracelet_id, area_id from current_area a where a.bracelet_id = ?1 group by area_id, bracelet_id ", nativeQuery = true)
+	List<CurrentArea> findAreaBraceletSumTime(int idbrac);
 
-	@Query(value = "select count(*) as NombredePassage, bracelet_id, area_id from current_area a where a.bracelet_id = 4 group by area_id, bracelet_id ", nativeQuery = true)
+	@Query(value = "select count(*) as NombredePassage, bracelet_id, area_id from current_area a where a.bracelet_id = ?1 group by area_id, bracelet_id ", nativeQuery = true)
 	CurrentArea [] findAreaBraceletNbVisite();
 	
 	

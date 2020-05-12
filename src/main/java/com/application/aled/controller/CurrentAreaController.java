@@ -6,7 +6,6 @@ package com.application.aled.controller;
 import java.util.List;
 import java.util.Random;
 
-import javax.websocket.server.PathParam;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +19,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.application.aled.controller.exception.CustomHandler;
 import com.application.aled.entity.Bracelet;
 import com.application.aled.entity.CurrentArea;
+import com.application.aled.service.BraceletService;
 import com.application.aled.service.CurrentAreaService;
 import com.application.aled.service.ResidentService;
-import com.application.aled.service.BraceletService;
 
 /**
  * @author ISMAIL EL HAMMOUD
@@ -130,8 +130,8 @@ public class CurrentAreaController {
 	
 	
 	@GetMapping("/currentlocation/areabracelet")
-	public int[] getSumPassageAreaBracelet(String bracelet_id) {
-		int [] sumPassage = currentAreaService.getSumAreaBracelet();
+	public List<CurrentArea> getSumPassageAreaBracelet(int bracelet_id) {
+		List<CurrentArea> sumPassage = currentAreaService.getSumAreaBracelet(bracelet_id);
 		return sumPassage;
 		
 	}
