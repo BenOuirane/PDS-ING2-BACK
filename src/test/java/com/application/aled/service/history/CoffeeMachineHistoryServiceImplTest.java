@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static org.mockito.BDDMockito.given;
+
 @RunWith(MockitoJUnitRunner.class)
 public class CoffeeMachineHistoryServiceImplTest {
 
@@ -34,47 +36,97 @@ public class CoffeeMachineHistoryServiceImplTest {
         MockitoAnnotations.initMocks(this);
     }
 
-
     @Test
     public void getCoffeeMachineHistoriesByObjectsIdTest() {
-        List<CoffeeMachineHistory> coffeeMachineHistory = new ArrayList<>();
-        repository.findByObject_Id(object.getId()).forEach(coffeeMachineHistory::add);
-        List<CoffeeMachineHistory> coffeeMachineHistoryListTest = coffeeMachineService.getCoffeeMachineHistoryByObjectsId(object.getId());
-        Assert.assertEquals(coffeeMachineHistoryListTest, coffeeMachineHistory);
+        Timestamp end = new Timestamp(new Date().getTime());
+        Timestamp start = end;
+
+        start.setMonth(end.getMonth() - 1);
+
+        List<CoffeeMachineHistory> coffeeMachineHistoriesExpected = new ArrayList<>();
+        coffeeMachineHistoriesExpected.add(new CoffeeMachineHistory("coffeeMachineHistoriesCapsules","schedule_coffee", new Timestamp(new Date().getTime()-7*24*60*60*1000), object));
+        coffeeMachineHistoriesExpected.add(new CoffeeMachineHistory("coffeeMachineHistoriesPower","capsules", new Timestamp(new Date().getTime()-7*24*60*60*1000), object));
+        coffeeMachineHistoriesExpected.add(new CoffeeMachineHistory("coffeeMachineHistoriesPower","power", new Timestamp(new Date().getTime()-7*24*60*60*1000), object));
+
+        given(repository.findByObject_Id(object.getId())).willReturn(coffeeMachineHistoriesExpected);
+
+        List<CoffeeMachineHistory> coffeeMachineHistories = new ArrayList<>();
+        repository.findByObject_Id(object.getId()).forEach(coffeeMachineHistories::add);
+
+        List<CoffeeMachineHistory> coffeeMachineHistoriesTest = new ArrayList<CoffeeMachineHistory>();
+
+        try {
+            coffeeMachineHistoriesTest = coffeeMachineService.getCoffeeMachineHistoryByObjectsId(object.getId());
+        } catch (Exception e){
+            Assert.fail("Service coffeeMachineService failing");
+        }
+
+        Assert.assertEquals(coffeeMachineHistoriesTest, coffeeMachineHistories);
+        Assert.assertNotEquals(coffeeMachineHistoriesTest, new ArrayList<CoffeeMachineHistory>());
     }
 
     @Test
     public void getCoffeeMachineHistoriesByObjectsIdAndColumnAndDateBetweenTest() {
         String[] columnsData = new String[3];
-
-        columnsData[0] = "schedule_coffee";
-        columnsData[1] = "capsules";
-        columnsData[2] = "power";
+        columnsData[0] = "capsules";
+        columnsData[1] = "power";
+        columnsData[2] = "schedule_coffee";
 
         Timestamp end = new Timestamp(new Date().getTime());
         Timestamp start = end;
-
         start.setMonth(end.getMonth() - 1);
 
+        List<CoffeeMachineHistory> coffeeMachineHistoriesCapsules = new ArrayList<>();
+        coffeeMachineHistoriesCapsules.add(new CoffeeMachineHistory("coffeeMachineHistoriesCapsules","capsules", new Timestamp(new Date().getTime()-7*24*60*60*1000), object));
+        given(repository.findByObject_IdAndColumnDataAndMessageTimestampLessThanEqualAndMessageTimestampGreaterThanEqual(object.getId(), "capsules", start, end)).willReturn(coffeeMachineHistoriesCapsules);
+
+        List<CoffeeMachineHistory> coffeeMachineHistoriesPower = new ArrayList<>();
+        coffeeMachineHistoriesPower.add(new CoffeeMachineHistory("coffeeMachineHistoriesPower","power", new Timestamp(new Date().getTime()-7*24*60*60*1000), object));
+        given(repository.findByObject_IdAndColumnDataAndMessageTimestampLessThanEqualAndMessageTimestampGreaterThanEqual(object.getId(), "power", start, end)).willReturn(coffeeMachineHistoriesPower);
+
+        List<CoffeeMachineHistory> coffeeMachineHistoriesSchedule = new ArrayList<>();
+        coffeeMachineHistoriesSchedule.add(new CoffeeMachineHistory("coffeeMachineHistoriesSchedule","schedule_coffee", new Timestamp(new Date().getTime()-7*24*60*60*1000), object));
+        given(repository.findByObject_IdAndColumnDataAndMessageTimestampLessThanEqualAndMessageTimestampGreaterThanEqual(object.getId(), "schedule_coffee", start, end)).willReturn(coffeeMachineHistoriesSchedule);
+
+
         for (String columnData: columnsData) {
-            List<CoffeeMachineHistory> coffeeMachineHistory = new ArrayList<>();
+            List<CoffeeMachineHistory> coffeeMachineHistories = new ArrayList<>();
 
-            repository.findByObject_IdAndColumnDataAndMessageTimestampLessThanEqualAndMessageTimestampGreaterThanEqual(object.getId(), columnData, start, end).forEach(coffeeMachineHistory::add);
+            repository.findByObject_IdAndColumnDataAndMessageTimestampLessThanEqualAndMessageTimestampGreaterThanEqual(object.getId(), columnData, start, end).forEach(coffeeMachineHistories::add);
 
-            List<CoffeeMachineHistory> coffeeMachineHistoryListTest = coffeeMachineService.getCoffeeMachineHistoryByObjectsIdAndColumnDataAndDateBetween(object.getId(), columnData, start, end);
+            List<CoffeeMachineHistory> coffeeMachineHistoriesTest = new ArrayList<CoffeeMachineHistory>();
 
-            Assert.assertEquals(coffeeMachineHistoryListTest, coffeeMachineHistory);
+            try {
+                coffeeMachineHistoriesTest = coffeeMachineService.getCoffeeMachineHistoryByObjectsIdAndColumnDataAndDateBetween(object.getId(), columnData, start, end);
+            } catch (Exception e){
+                Assert.fail("Service coffeeMachineService failing");
+            }
+
+            if(columnData == "power"){
+                Assert.assertEquals(coffeeMachineHistoriesTest, coffeeMachineHistoriesPower);
+            } else if(columnData == "capsules") {
+                Assert.assertEquals(coffeeMachineHistoriesTest, coffeeMachineHistoriesCapsules);
+            } else {
+                Assert.assertEquals(coffeeMachineHistoriesTest, coffeeMachineHistoriesSchedule);
+            }
+
+            Assert.assertNotEquals(coffeeMachineHistoriesTest, new ArrayList<CoffeeMachineHistory>());
         }
     }
 
     @Test
-    public void getCoffeeMachineHistoriesByObjectsIdAndColumnAndDateBetweenIsEmptyTest() {
+    public void getCoffeeMachineHistoriesByObjectsIdAndColumnAndDateBetweenIsNotNullButEmptyTest() {
         Timestamp end = new Timestamp(new Date().getTime());
         Timestamp start = end;
 
         start.setMonth(end.getMonth() - 1);
 
-        List<CoffeeMachineHistory> coffeeMachineHistoryListTest = coffeeMachineService.getCoffeeMachineHistoryByObjectsIdAndColumnDataAndDateBetween(object.getId(), "null", start, end);
-        Assert.assertEquals(coffeeMachineHistoryListTest, new ArrayList<CoffeeMachineHistory>());
+        try {
+            List<CoffeeMachineHistory> coffeeMachineHistoriesTest = coffeeMachineService.getCoffeeMachineHistoryByObjectsIdAndColumnDataAndDateBetween(object.getId(), "null", start, end);
+            Assert.assertNotNull(coffeeMachineHistoriesTest);
+            Assert.assertEquals(coffeeMachineHistoriesTest, new ArrayList<CoffeeMachineHistory>());
+        } catch (Exception e){
+            Assert.fail("Service coffeeMachineService failing");
+        }
     }
 }

@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static org.mockito.BDDMockito.given;
+
 @RunWith(MockitoJUnitRunner.class)
 public class ShutterHistoryServiceImplTest {
 
@@ -34,45 +36,77 @@ public class ShutterHistoryServiceImplTest {
         MockitoAnnotations.initMocks(this);
     }
 
-
     @Test
     public void getShutterHistoriesByObjectsIdTest() {
-        List<ShutterHistory> shutterHistory = new ArrayList<>();
-        repository.findByObject_Id(object.getId()).forEach(shutterHistory::add);
-        List<ShutterHistory> shutterHistoryListTest = shutterService.getShutterHistoryByObjectsId(object.getId());
-        Assert.assertEquals(shutterHistoryListTest, shutterHistory);
+        Timestamp end = new Timestamp(new Date().getTime());
+        Timestamp start = end;
+
+        start.setMonth(end.getMonth() - 1);
+
+        List<ShutterHistory> shutterHistoriesExpected = new ArrayList<>();
+        shutterHistoriesExpected.add(new ShutterHistory("shutterHistoriesAction","action", new Timestamp(new Date().getTime()-7*24*60*60*1000), object));
+        shutterHistoriesExpected.add(new ShutterHistory("shutterHistoriesTemperature","temp", new Timestamp(new Date().getTime()-7*24*60*60*1000), object));
+
+        given(repository.findByObject_Id(object.getId())).willReturn(shutterHistoriesExpected);
+
+        List<ShutterHistory> shutterHistories = new ArrayList<>();
+        repository.findByObject_Id(object.getId()).forEach(shutterHistories::add);
+
+        List<ShutterHistory> shutterHistoriesTest = new ArrayList<ShutterHistory>();
+
+        try {
+            shutterHistoriesTest = shutterService.getShutterHistoryByObjectsId(object.getId());
+        } catch (Exception e){
+            Assert.fail("Service shutterService failing");
+        }
+
+        Assert.assertEquals(shutterHistoriesTest, shutterHistories);
+        Assert.assertNotEquals(shutterHistoriesTest, new ArrayList<ShutterHistory>());
     }
 
     @Test
     public void getShutterHistoriesByObjectsIdAndColumnAndDateBetweenTest() {
-        String[] columnsData = new String[1];
-
-        columnsData[0] = "action";
-
         Timestamp end = new Timestamp(new Date().getTime());
         Timestamp start = end;
-
         start.setMonth(end.getMonth() - 1);
 
-        for (String columnData: columnsData) {
-            List<ShutterHistory> shutterHistory = new ArrayList<>();
+        List<ShutterHistory> shutterHistoriesAction = new ArrayList<>();
+        shutterHistoriesAction.add(new ShutterHistory("shutterHistoriesAction","action", new Timestamp(new Date().getTime()-7*24*60*60*1000), object));
+        given(repository.findByObject_IdAndColumnDataAndMessageTimestampLessThanEqualAndMessageTimestampGreaterThanEqual(object.getId(), "action", start, end)).willReturn(shutterHistoriesAction);
 
-            repository.findByObject_IdAndColumnDataAndMessageTimestampLessThanEqualAndMessageTimestampGreaterThanEqual(object.getId(), columnData, start, end).forEach(shutterHistory::add);
 
-            List<ShutterHistory> shutterHistoryListTest = shutterService.getShutterHistoryByObjectsIdAndColumnDataAndDateBetween(object.getId(), columnData, start, end);
+        List<ShutterHistory> shutterHistories = new ArrayList<>();
 
-            Assert.assertEquals(shutterHistoryListTest, shutterHistory);
+        repository.findByObject_IdAndColumnDataAndMessageTimestampLessThanEqualAndMessageTimestampGreaterThanEqual(object.getId(), "action", start, end).forEach(shutterHistories::add);
+
+        List<ShutterHistory> shutterHistoriesTest = new ArrayList<ShutterHistory>();
+
+        try {
+            shutterHistoriesTest = shutterService.getShutterHistoryByObjectsIdAndColumnDataAndDateBetween(object.getId(), "action", start, end);
+        } catch (Exception e){
+            Assert.fail("Service shutterService failing");
         }
+
+        Assert.assertEquals(shutterHistoriesTest, shutterHistoriesAction);
+
+
+        Assert.assertNotEquals(shutterHistoriesTest, new ArrayList<ShutterHistory>());
+
     }
 
     @Test
-    public void getShutterHistoriesByObjectsIdAndColumnAndDateBetweenIsEmptyTest() {
+    public void getShutterHistoriesByObjectsIdAndColumnAndDateBetweenIsNotNullButEmptyTest() {
         Timestamp end = new Timestamp(new Date().getTime());
         Timestamp start = end;
 
         start.setMonth(end.getMonth() - 1);
 
-        List<ShutterHistory> shutterHistoryListTest = shutterService.getShutterHistoryByObjectsIdAndColumnDataAndDateBetween(object.getId(), "null", start, end);
-        Assert.assertEquals(shutterHistoryListTest, new ArrayList<ShutterHistory>());
+        try {
+            List<ShutterHistory> shutterHistoriesTest = shutterService.getShutterHistoryByObjectsIdAndColumnDataAndDateBetween(object.getId(), "null", start, end);
+            Assert.assertNotNull(shutterHistoriesTest);
+            Assert.assertEquals(shutterHistoriesTest, new ArrayList<ShutterHistory>());
+        } catch (Exception e){
+            Assert.fail("Service shutterService failing");
+        }
     }
 }
