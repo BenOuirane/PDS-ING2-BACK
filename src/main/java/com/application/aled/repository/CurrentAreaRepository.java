@@ -3,20 +3,24 @@ package com.application.aled.repository;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
 import com.application.aled.entity.Bracelet;
 import com.application.aled.entity.CurrentArea;
 
 
-public interface CurrentAreaRepository extends JpaRepository<CurrentArea, Integer> {
+@Repository
+public interface CurrentAreaRepository extends  CrudRepository<CurrentArea, Integer> {
 
 	List<CurrentArea> findByArea(String name);
 
 	CurrentArea [] findAreaByBracelet(Bracelet bracelet);
 	 
-	@Query(value = "select count(*) as NombredePassage, bracelet_id, area_id from current_area a where a.bracelet_id = ?1 group by area_id, bracelet_id ", nativeQuery = true)
-	CurrentArea [] findAreaBraceletSumTime(Bracelet bracelet);
+	@Query("SELECT new com.application.aled.entity.model.link.SumCurrentAreaBracelet(a.bracelet_id, COUNT(a.bracelet_id) as NombredePassage,  a.area_id)" + 
+	" FROM current_area a WHERE a.bracelet_id = ?1 GROUP BY area_id, bracelet_id ")
+	public List<CurrentArea> findAreaBraceletSumTime(Bracelet bracelet);
 
 	
 	

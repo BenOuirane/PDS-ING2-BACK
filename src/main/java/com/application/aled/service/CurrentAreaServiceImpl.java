@@ -19,6 +19,7 @@ public class CurrentAreaServiceImpl implements CurrentAreaService {
 
 	@Autowired
 	CurrentAreaRepository currentareaRepository;
+	
 	@Override
 	public List<CurrentArea> getAllAreas() {
 		List<CurrentArea> currentareaslist = new ArrayList<CurrentArea>();
@@ -110,8 +111,8 @@ public class CurrentAreaServiceImpl implements CurrentAreaService {
 
 
 	@Override
-	public CurrentArea[] getSumAreaBracelet(Bracelet idbrac) {
-		CurrentArea [] sumPassageBraceletInArea = currentareaRepository.findAreaBraceletSumTime(idbrac);
+	public List<CurrentArea> getSumAreaBracelet(Bracelet idbrac) {
+		List<CurrentArea> sumPassageBraceletInArea = currentareaRepository.findAreaBraceletSumTime(idbrac);
 		return sumPassageBraceletInArea;
 	}
 

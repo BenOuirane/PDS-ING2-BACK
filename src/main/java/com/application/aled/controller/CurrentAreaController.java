@@ -131,9 +131,9 @@ public class CurrentAreaController {
 	
 	
 	@GetMapping("/currentlocation/areabracelet/{bracelet_id}")
-	public CurrentArea [] getSumPassageAreaBracelet(@PathVariable(name = "bracelet_id") Bracelet bracelet) 
+	public List<CurrentArea> getSumPassageAreaBracelet(@PathVariable(name = "bracelet_id") Bracelet bracelet) 
 			throws NullPointerException {
-		CurrentArea [] sumPassage = currentAreaService.getSumAreaBracelet(bracelet);
+		List<CurrentArea> sumPassage = currentAreaService.getSumAreaBracelet(bracelet);
 		return sumPassage;
 		
 	}

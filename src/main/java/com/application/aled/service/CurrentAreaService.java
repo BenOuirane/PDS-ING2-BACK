@@ -3,10 +3,12 @@ package com.application.aled.service;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.application.aled.entity.Bracelet;
 import com.application.aled.entity.CurrentArea;
 
-
+@Service
 public interface CurrentAreaService {
 	
 	public List<CurrentArea> getAllAreas();
@@ -17,7 +19,7 @@ public interface CurrentAreaService {
 	
 	public CurrentArea[]  getAreaBraceletNbPassage(Bracelet bracelet);
 
-	public  CurrentArea[] getSumAreaBracelet(Bracelet idbrac);
+	public  List<CurrentArea> getSumAreaBracelet(Bracelet idbrac);
 	
 	void addArea(CurrentArea idarea);
 
