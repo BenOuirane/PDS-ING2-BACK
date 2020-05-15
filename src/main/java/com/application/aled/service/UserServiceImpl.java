@@ -55,4 +55,11 @@ public class UserServiceImpl implements UserService {
         return users;
     }
 
+    @Override
+    public User getUserById(long id) {
+        User user = new User();
+        user = repository.findById(id);
+        return user;
+    }
+
 }

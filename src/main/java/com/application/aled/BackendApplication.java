@@ -6,13 +6,15 @@ import java.io.IOException;
 import java.util.logging.Logger;
 
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.context.annotation.ComponentScan;
+
 
 //import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @ComponentScan
 @SpringBootApplication
-
+@EnableScheduling
 //@EnableSwagger2
 public class BackendApplication extends SpringBootServletInitializer{
 

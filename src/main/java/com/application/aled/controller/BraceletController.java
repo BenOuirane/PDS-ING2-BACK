@@ -33,6 +33,13 @@ public class BraceletController {
 	}
 	
 
+	@GetMapping("/bracelets/byid")
+	public Bracelet findBraceletById(Long id) {
+		Bracelet idbracelet = braceletService.getBraceletById(id);
+		return  idbracelet;
+	}
+
+
 	@GetMapping("/bracelets/{braceletId}")
 	public Bracelet braceletId(@PathVariable(name = "braceletId")  Long braceletId) throws NullPointerException {
 		logger.info("Getting bracelet by id..");
@@ -54,4 +61,5 @@ public class BraceletController {
 	
 	//this controller is dedicated to manage bracelet.
 	
+
 }

@@ -1,11 +1,8 @@
 
 package com.application.aled.entity;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-
 import javax.persistence.Id;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
@@ -153,5 +150,7 @@ public class Resident implements Serializable {
 				", medicalFolder=" + medicalFolder +
 				'}';
 	}
+
+
 
 }

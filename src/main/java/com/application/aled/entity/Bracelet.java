@@ -27,7 +27,7 @@ public class Bracelet {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	
+
 	@Column(name = "mc_address", nullable = false, unique = true)
 	private long mcAddress;
 
@@ -45,12 +45,12 @@ public class Bracelet {
 	@Column(name = "ref_bracelet")
 	private String refBracelet;
 
-	 @OneToMany(
-		        mappedBy = "bracelet",
-		        cascade = CascadeType.ALL,
-		        orphanRemoval = true
-		    )
-    private List<CurrentArea> currentArea = new ArrayList<>();
+	@OneToMany(
+			mappedBy = "bracelet",
+			cascade = CascadeType.ALL,
+			orphanRemoval = true
+	)
+	private List<CurrentArea> currentArea = new ArrayList<>();
 
 	public List<CurrentArea> getCurrentArea() {
 		return currentArea;
@@ -69,8 +69,8 @@ public class Bracelet {
 	}
 
 	public Bracelet() {}
-	
-	
+
+
 	public long getId() {
 		return id;
 	}
@@ -103,21 +103,21 @@ public class Bracelet {
 				+ refBracelet + "]";
 	}
 
-	
-	public Bracelet(long id, long mcAddress, String idResident, LocalDateTime lastSentData, String refBracelet) {
+
+	public Bracelet(long id, long mcAddress, Long idResident, LocalDateTime lastSentData, String refBracelet) {
 		this.id = id;
 		this.mcAddress = mcAddress;
-		//this.idResident = idResident;
+
 		this.lastSentData = lastSentData;
 		this.refBracelet = refBracelet;
 	}
-	 
-	//TODO add PK and FK 
+
+	//TODO add PK and FK
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name= "id_resident", unique = true )
 	@JsonIgnore
 	private Resident residents;
-	
+
 
 
 }
