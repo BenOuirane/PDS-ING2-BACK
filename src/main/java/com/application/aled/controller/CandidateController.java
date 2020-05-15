@@ -19,6 +19,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.*;
+import java.util.logging.Logger;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -41,15 +42,12 @@ public class CandidateController{
     @Autowired
     private ScoreRepository scoreRepository;
 
+    Logger logger = Logger.getLogger("com.application.aled.controller.CandidateController");
 
     @GetMapping("/candidates")
     public List<Candidate> getAllCandidates() {
 
-<<<<<<< HEAD
-        System.out.println("Get all Candidate...");
-=======
-        System.out.println("Get all Candidats...");
->>>>>>> 51988c458b04f04de3ed290153d27b52213261d2
+        logger.info("Get all residents");
 
         List<Candidate> candidates = new ArrayList<>();
         candidateRepository.findAll().forEach(candidates::add);
