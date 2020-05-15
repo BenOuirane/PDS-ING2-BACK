@@ -39,7 +39,6 @@ public class SuspectBehaviorChecker {
                 for (Objects objectToCheck : objectsList) {
                     switch (objectToCheck.getObjectType()){
                         case "OVEN":
-                            System.out.println(objectToCheck);
 
                             checkOvenBehavior(objectToCheck);
                     }
@@ -66,7 +65,6 @@ public class SuspectBehaviorChecker {
         }
 
 
-        //TODO change request
 
         ovenHistoriesTemperature.sort(Comparator.comparing(OvenHistory::getMessageTimestamp));
         Logger logger2 = Logger.getLogger("com.application.aled.messages.SuspectBehaviorChecker");
