@@ -17,53 +17,53 @@ import javax.xml.bind.Unmarshaller;
 import java.io.StringReader;
 import java.sql.Timestamp;
 
-@RestController
-@CrossOrigin(origins = "*")
-public class XmlController {
+ @RestController
+ @CrossOrigin(origins = "*")
+ public class XmlController {
 
     @Autowired(required = true)
-    MessageRepository messageRepository;
+  MessageRepository messageRepository;
     /**
      * Just an example to test the xmlTranslate method
      */
 
-    @Autowired
-    MessageServiceImpl messageService;
+  @Autowired
+ MessageServiceImpl messageService;
 
-    String xmlString = "<message>" +
-            "    <mac_address>00-1E-33-1D-6A-79</mac_address>" +
-            "        <effective_temperature>100</effective_temperature>" +
-            "    <programmed_temperature>200</programmed_temperature>" +
-            "</message>";
+   String xmlString = "<message>" +
+         "    <mac_address>00-1E-33-1D-6A-79</mac_address>" +
+         "        <effective_temperature>100</effective_temperature>" +
+         "    <programmed_temperature>200</programmed_temperature>" +
+       "</message>";
 
     /*
     This method must create an object message from a xml file in a first time.
     After that it save the message in the database
      */
-    public void xmlTranslate(String xmlString){
+  public void xmlTranslate(String xmlString){
 
         /*
         JAXBContext permits creation of a xml object from an existing class
          */
-        JAXBContext jaxbContext;
+      JAXBContext jaxbContext;
 
-        try
-        {
-            jaxbContext = JAXBContext.newInstance(Message.class);
+       try
+      {
+         jaxbContext = JAXBContext.newInstance(Message.class);
             /*
             Unmarshaller read an xml string and create an object with the method unmarshal
              */
-            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+         Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 
-            Message message = (Message) jaxbUnmarshaller.unmarshal(new StringReader(xmlString));
+        Message message = (Message) jaxbUnmarshaller.unmarshal(new StringReader(xmlString));
 
             /*
             We consider that send timestamp close to receive timestamp
              */
-            Date date= new Date();
-            long time = date.getTime();
-            message.setDateTime(new Timestamp(time));
-            System.out.println("message = "+ message);
+          Date date= new Date();
+           long time = date.getTime();
+         message.setDateTime(new Timestamp(time));
+         System.out.println("message = "+ message);
 
             /*
             We save the new message into table message
@@ -73,17 +73,17 @@ public class XmlController {
              *
              * Analyse the logic of the message
              **/
-            boolean isLogic = LogicChecker.check(message);
-            if(!isLogic){
-                System.out.println("there is an logic error");
-                Statement sta = PostgreSQLJDBC.connection.createStatement();
-                sta.executeUpdate("INSERT INTO public.failure("
-                        +"begin_date, mac_address, message)"
-                        +"VALUES ('"+message.getDateTime()+"','"+message.getMac_address()+"' ,'the message is not logic')");
-                return;
+      boolean isLogic = LogicChecker.check(message);
+       if(!isLogic){
+            System.out.println("there is an logic error");
+           Statement sta = PostgreSQLJDBC.connection.createStatement();
+         sta.executeUpdate("INSERT INTO public.failure("
+                       +"begin_date, mac_address, message)"
+                 +"VALUES ('"+message.getDateTime()+"','"+message.getMac_address()+"' ,'the message is not logic')");
+              return;
 
 
-            }
+           }
 
 
 
@@ -94,18 +94,18 @@ public class XmlController {
              */
 
 
-            Statement sta = PostgreSQLJDBC.connection.createStatement();
-            sta.executeUpdate("INSERT INTO public.messages("
-                    +"date_time, effective_temperature, mac_address, programmed_temperature)"
-                    +"VALUES ('"+message.getDateTime()+"',"+message.getEffective_temperature()+",'"+message.getMac_address()+"' ,"+message.getProgrammed_temperature()+")");
+          Statement sta = PostgreSQLJDBC.connection.createStatement();
+        sta.executeUpdate("INSERT INTO public.messages("
+                 +"date_time, effective_temperature, mac_address, programmed_temperature)"
+               +"VALUES ('"+message.getDateTime()+"',"+message.getEffective_temperature()+",'"+message.getMac_address()+"' ,"+message.getProgrammed_temperature()+")");
 
-            //messageRepository.save(message);
-        }
-        catch (JAXBException | SQLException e)
-        {
-            e.printStackTrace();
-        }
-    }
+          messageRepository.save(message);
+   }
+       catch (JAXBException | SQLException e)
+       {
+        e.printStackTrace();
+     }
+   }
 
     /*
     test for the method
@@ -123,4 +123,5 @@ public class XmlController {
 
     }
      **/
-}
+ }
+
