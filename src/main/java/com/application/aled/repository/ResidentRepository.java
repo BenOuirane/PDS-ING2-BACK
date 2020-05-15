@@ -1,12 +1,18 @@
 package com.application.aled.repository;
 
 import com.application.aled.entity.Resident;
-import com.application.aled.entity.Residents;
+import com.application.aled.entity.Rooms;
 import com.application.aled.entity.User;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-public interface  ResidentRepository extends JpaRepository<Residents,Long> {
+import java.util.List;
 
-    Residents findByUser(User user);
+@Repository
+public interface  ResidentRepository extends CrudRepository<Resident,Long> {
+    Resident findByUser(User user);
+    List<Resident> findAll();
+    Resident findByRoom(Rooms room);
 }
+
 

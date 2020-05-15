@@ -4,6 +4,8 @@
 package com.application.aled.controller;
 
 import java.util.List;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,22 +23,23 @@ import com.application.aled.service.ReferentialBraceletService;
 @RequestMapping("/api")
 public class ReferentialBraceletController {
 
+
+	static final Logger logger = LogManager.getLogger(ReferentialBraceletController.class.getName());
+
 	@Autowired
 	ReferentialBraceletService referentialBraceletService;
 
 	@GetMapping("/Referential_Bracelet")
 	public List<ReferentialBracelet> getAllReferentialBracelet() {
-		System.out.println("Get all Referential Measures...");
-
+		logger.info("Getting all bracelets from referential bracelet table...");
 		List<ReferentialBracelet> refbracelets = referentialBraceletService.getAllReferentialBracelets();
-
+		logger.info("Data well extracted from bracelet table..");
 		return refbracelets;
 	}
 	
-	/// the following method will allow us to generate several referential bracelet
-	// it will help us to mock data
-	//@GetMapping("/generate_referential_bracelet")
 	
+	
+	//TODO add the other methods
 
 	
 	

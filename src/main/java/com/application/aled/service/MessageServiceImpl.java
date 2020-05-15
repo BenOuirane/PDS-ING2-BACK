@@ -1,12 +1,14 @@
 package com.application.aled.service;
 
 import com.application.aled.entity.Message;
+import com.application.aled.entity.Objects;
 import com.application.aled.repository.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Service
 public class MessageServiceImpl implements MessageService {
@@ -18,26 +20,27 @@ public class MessageServiceImpl implements MessageService {
      */
     @Autowired
     private MessageRepository repository;
-
+    Logger logger = Logger.getLogger("com.application.aled.service.MessageService");
     /*
     Here we use the 'findAll()' to create a custom getUsers()
     for our application, our controllers
      */
     @Override
     public List<Message> getMessages() {
-        System.out.println("Get all messages...");
-
+        logger.info("Get all messages...");
         List<Message> messages = new ArrayList<>();
         repository.findAll().forEach(messages::add);
-
+        logger.info("messages"+ messages);
         return messages;
     }
-    public Message mac_address(String mac_address) throws NullPointerException {
-        System.out.println("Search message of a mac address");
 
-        Message message = repository.findByMacAddress(mac_address);
-
-        return message;
+    public List<Message> getMessageByObject(Objects objects) throws NullPointerException {
+        logger.info("Search message of a connected object");
+        List<Message> messages = new ArrayList<>();
+        //Message message = repository.findByObjects(objects);
+        repository.findByObjects(objects).forEach(messages::add);
+        logger.info("getMessageByObject return messages :"+ messages);
+        return messages;
     }
 }
 

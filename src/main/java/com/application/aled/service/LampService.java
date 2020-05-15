@@ -9,4 +9,5 @@ import java.util.List;
 public interface LampService {
 
     List<Lamp> getLamp(Objects objects);
+    boolean updateLamp(Lamp lamp);
 }
