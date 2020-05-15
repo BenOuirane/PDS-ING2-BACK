@@ -24,6 +24,8 @@ public class SuspectBehaviorChecker {
     ObjectService objectService;
     @Autowired
     FailureService failureService;
+    Logger logger2 = Logger.getLogger("com.application.aled.messages.SuspectBehaviorChecker");
+
 
     @Async
     public void launchVerification(){
@@ -67,25 +69,24 @@ public class SuspectBehaviorChecker {
 
 
         ovenHistoriesTemperature.sort(Comparator.comparing(OvenHistory::getMessageTimestamp));
-        Logger logger2 = Logger.getLogger("com.application.aled.messages.SuspectBehaviorChecker");
 
 
 
         if(ovenHistoriesTemperature.size()>=1){
             int temperature = Integer.parseInt(ovenHistoriesTemperature.get(ovenHistoriesTemperature.size()-1).getData());
 
-            if(temperature > 300) {
-                if (!(messageAlreadyDetectedToday(objectToCheck, "Temperature is too high"))) {
-                    failureService.addFailure(new Failure("Temperature is too high", new Timestamp(System.currentTimeMillis()), null, objectToCheck));
-                    logger2.info("Temperature is too high for the oven "+objectToCheck.getId());
-                }
-            }
-            if(temperature < 10) {
-                if (!(messageAlreadyDetectedToday(objectToCheck, "Temperature is too low"))){
-                    failureService.addFailure(new Failure("Temperature is too low", new Timestamp(System.currentTimeMillis()), null, objectToCheck));
-                    logger2.info("Temperature is too low for the oven "+objectToCheck.getId());
-
-                }
+            String answer = behaviorAnalyst(temperature);
+            switch (answer){
+                case "Temperature is too low":
+                    if (!(messageAlreadyDetectedToday(objectToCheck, "Temperature is too low"))){
+                        failureService.addFailure(new Failure("Temperature is too low", new Timestamp(System.currentTimeMillis()), null, objectToCheck));
+                        logger2.info("Temperature is too low for the oven "+objectToCheck.getId());
+                    } break;
+                case "Temperature is too high":
+                    if (!(messageAlreadyDetectedToday(objectToCheck, "Temperature is too high"))) {
+                        failureService.addFailure(new Failure("Temperature is too high", new Timestamp(System.currentTimeMillis()), null, objectToCheck));
+                        logger2.info("Temperature is too high for the oven "+objectToCheck.getId());
+                    }break;
             }
         }
         if(ovenHistoriesTemperature.size()>=2){
@@ -98,17 +99,16 @@ public class SuspectBehaviorChecker {
             int secondDiff = (int) TimeUnit.MILLISECONDS.toSeconds(longRecentDate-longRecentPast);
 
 
-            double secondDiffDouble = (double) secondDiff;
-            double temperatureDifferenceDouble = (double ) temperatureDifference;
-            double warmSpeed = Math.abs(temperatureDifferenceDouble/secondDiffDouble);
-            if(Math.abs(warmSpeed) > 0.5 ){
+            boolean temperatureGrowTooFast = warmSpeedAnalyst(secondDiff,temperatureDifference);
+            if(temperatureGrowTooFast) {
 
                 if (!(messageAlreadyDetectedToday(objectToCheck, "Temperature change too quickly"))) {
                     failureService.addFailure(new Failure("Temperature change too quickly", new Timestamp(System.currentTimeMillis()), null, objectToCheck));
-                    logger2.info("Temperature change too quickly for the oven "+objectToCheck.getId());
+                    logger2.info("Temperature change too quickly for the oven " + objectToCheck.getId());
 
                 }
             }
+
         }
     }
 
@@ -130,5 +130,27 @@ public class SuspectBehaviorChecker {
             return true;
         }
         return false;
+    }
+
+    public String behaviorAnalyst(int temperature){
+        if(temperature > 300) {
+            return "Temperature is too high";
+        }
+        if (temperature < 10){
+            return "Temperature is too low";
+        }
+        return "";
+    }
+
+    public boolean warmSpeedAnalyst(int secondDiff, int temperatureDifference){
+        double secondDiffDouble = (double) secondDiff;
+        double temperatureDifferenceDouble = (double) temperatureDifference;
+        if(secondDiffDouble==0)
+            return false;
+        double warmSpeed = Math.abs(temperatureDifferenceDouble/secondDiffDouble);
+        if(Math.abs(warmSpeed) > 0.5 )
+            return true;
+        return false;
+
     }
 }
