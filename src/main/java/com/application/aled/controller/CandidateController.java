@@ -45,7 +45,11 @@ public class CandidateController{
     @GetMapping("/candidates")
     public List<Candidate> getAllCandidates() {
 
+<<<<<<< HEAD
         System.out.println("Get all Candidate...");
+=======
+        System.out.println("Get all Candidats...");
+>>>>>>> 51988c458b04f04de3ed290153d27b52213261d2
 
         List<Candidate> candidates = new ArrayList<>();
         candidateRepository.findAll().forEach(candidates::add);
