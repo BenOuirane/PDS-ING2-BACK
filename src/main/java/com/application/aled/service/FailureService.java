@@ -20,5 +20,8 @@ public interface FailureService {
 
     public List<Failure> getFailuresByDay(int year, int month, int day);
 
-	
+    public List<Failure> launchSimulation();
+
+    public Failure getMoreRecentFailureByObjectAndColumnData(Objects objects, String columnData);
+
 }

@@ -5,16 +5,14 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
-
-@Entity(name="AreaType")
-@Table(name ="area_type")
+@Entity(name = "AreaType")
+@Table(name = "area_type")
 public class AreaType {
 
 	@Id
 	@Column(name = "id")
 	private int id_area_type;
-	
+
 	public int getId_area_type() {
 		return id_area_type;
 	}
@@ -32,9 +30,8 @@ public class AreaType {
 	}
 
 	@Column(name = "name")
-	private String name; 
-	
-	
-	//TODO Add PF and FK  
-	
+	private String name;
+
+	// TODO Add PF and FK
+
 }

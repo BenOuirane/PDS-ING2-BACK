@@ -1,4 +1,3 @@
-
 package com.application.aled.entity;
 
 import javax.persistence.*;
@@ -94,5 +93,4 @@ public class Profil {
                 ", typeProfil2='" + typeProfil2 + '\'' +
                 '}';
     }
-
 }
