@@ -27,7 +27,9 @@ public class CurrentArea implements Serializable {
 	@EmbeddedId
 	private AreaBraceletId id;
 
-
+//	@Column(name = "bracelet_id", nullable = false, unique = true)
+//	private long braceletId;
+	
 	@JsonBackReference
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@MapsId("braceletId")
@@ -81,4 +83,7 @@ public class CurrentArea implements Serializable {
 		return id.getBraceletId();
 	}
 
+	public Long getAreaId() {
+		return area.getArea_id();
+	}
 }

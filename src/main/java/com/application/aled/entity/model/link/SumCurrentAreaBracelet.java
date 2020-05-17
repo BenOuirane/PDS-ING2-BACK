@@ -1,39 +1,45 @@
 package com.application.aled.entity.model.link;
 
+import org.hibernate.annotations.Entity;
+
+
 public class SumCurrentAreaBracelet {
 
-	private Integer area_id;
-	private Integer bracelet_id;
-	private Integer total;
+	private Long areaId;
+	public Long braceletId;
+	private Long total;
 	
-	public SumCurrentAreaBracelet(Integer area_id, Integer bracelet_id, Integer total) {
-		super();
-		this.area_id = area_id;
-		this.bracelet_id = bracelet_id;
+	public SumCurrentAreaBracelet(Long areaId, Long braceletId, Long total) {
+		this.areaId = areaId;
+		this.braceletId = braceletId;
 		this.total = total;
 	}
-
-	public Integer getArea_id() {
-		return area_id;
+	
+	/*public SumCurrentAreaBracelet(Integer areaId, Long braceletId) {
+		this.areaId = areaId;
+		this.braceletId = braceletId;
+	}*/
+	public Long getAreaId() {
+		return areaId;
 	}
 
-	public void setArea_id(Integer area_id) {
-		this.area_id = area_id;
+	public void setAreaId(Long areaId) {
+		this.areaId = areaId;
 	}
 
-	public Integer getBracelet_id() {
-		return bracelet_id;
+	public Long getBraceletId() {
+		return braceletId;
 	}
 
-	public void setBracelet_id(Integer bracelet_id) {
-		this.bracelet_id = bracelet_id;
+	public void setBraceletId(Long braceletId) {
+		this.braceletId = braceletId;
 	}
 
-	public Integer getTotal() {
+	public Long getTotal() {
 		return total;
 	}
 
-	public void setTotal(Integer total) {
+	public void setTotal(Long total) {
 		this.total = total;
 	}
 	

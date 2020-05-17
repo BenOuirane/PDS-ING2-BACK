@@ -2,10 +2,12 @@
  * 
  */
 package com.application.aled.controller;
-
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -115,10 +117,10 @@ public class CurrentAreaController {
 	}
 	
 	@GetMapping("/currentlocation/visits/{bracelet_id}")
-	public CurrentArea[] getCurrentAreaSumPassage(@PathVariable(name = "bracelet_id") Bracelet bracelet) 
+	public Map<Long, Long> getCurrentAreaSumPassage(@PathVariable(name = "bracelet_id") Bracelet bracelet) 
 			throws NullPointerException {
 		logger.info("Getting bracelet by id..");
-		CurrentArea[] _area = currentAreaService.getAreaBraceletNbPassage(bracelet);
+		Map<Long, Long> _area = currentAreaService.getAreaBraceletNbPassage(bracelet);
 		if (_area == null) {
 			logger.error("There's no data in bracelet table..");
 			throw new CustomHandler("Bracelet not found");
@@ -129,13 +131,17 @@ public class CurrentAreaController {
 		}
 	}
 	
-	
-	@GetMapping("/currentlocation/areabracelet/{bracelet_id}")
-	public List<CurrentArea> getSumPassageAreaBracelet(@PathVariable(name = "bracelet_id") Bracelet bracelet) 
+	@GetMapping("/currentlocation/sum/{bracelet_id}")
+	public  Map<Long, Long>  getSumPassageAreaBracelet(@PathVariable(name = "bracelet_id") Bracelet bracelet) 
 			throws NullPointerException {
-		List<CurrentArea> sumPassage = currentAreaService.getSumAreaBracelet(bracelet);
-		return sumPassage;
 		
+		Map<Long, Long> _area = currentAreaService.getAreaBraceletNbPassage(bracelet);
+		
+		
+
+		
+		return _area;
+
 	}
 	
 	
