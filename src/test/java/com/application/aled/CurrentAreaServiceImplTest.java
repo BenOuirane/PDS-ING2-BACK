@@ -10,6 +10,10 @@ import org.junit.Test;
 
 import com.application.aled.controller.exception.CustomHandler;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+import com.application.aled.entity.Area;
+>>>>>>> 8d1da6dc7d21bfe8feb6c1f59c4d4d4e90d499cc
 =======
 import com.application.aled.entity.Area;
 >>>>>>> 8d1da6dc7d21bfe8feb6c1f59c4d4d4e90d499cc
@@ -21,14 +25,20 @@ import com.application.aled.service.CurrentAreaServiceImpl;
 public class CurrentAreaServiceImplTest {
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	@Mock 
 	CurrentAreaRepository currentarearepository;
 	/*
 =======
+=======
+>>>>>>> 8d1da6dc7d21bfe8feb6c1f59c4d4d4e90d499cc
 	Area area;
 	@Mock 
 	CurrentAreaRepository currentarearepository;
 	
+<<<<<<< HEAD
+>>>>>>> 8d1da6dc7d21bfe8feb6c1f59c4d4d4e90d499cc
+=======
 >>>>>>> 8d1da6dc7d21bfe8feb6c1f59c4d4d4e90d499cc
 	@InjectMocks
 	CurrentAreaServiceImpl currentareaservice;
@@ -44,6 +54,7 @@ public class CurrentAreaServiceImplTest {
 	public void assertAreaEnum() {
 		CurrentArea _currentarea = new CurrentArea();
 <<<<<<< HEAD
+<<<<<<< HEAD
 		_currentarea.setId(null);
 	}
 	
@@ -54,6 +65,8 @@ public class CurrentAreaServiceImplTest {
 		}
 */		
 =======
+=======
+>>>>>>> 8d1da6dc7d21bfe8feb6c1f59c4d4d4e90d499cc
 		_currentarea.setArea(area);
 	}
 	
@@ -63,5 +76,8 @@ public class CurrentAreaServiceImplTest {
 		_currentarea.setCreatedOn(null);
 		}*/
 	
+<<<<<<< HEAD
+>>>>>>> 8d1da6dc7d21bfe8feb6c1f59c4d4d4e90d499cc
+=======
 >>>>>>> 8d1da6dc7d21bfe8feb6c1f59c4d4d4e90d499cc
 }

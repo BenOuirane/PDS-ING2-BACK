@@ -50,5 +50,9 @@ public class OvenHistoryServiceImpl implements OvenHistoryService {
         ovenHistoryRepository.findByObject_IdAndColumnDataAndMessageTimestampLessThanEqualAndMessageTimestampGreaterThanEqual(id, columnData,  start,  end).forEach(ovenHistory::add);
 
         return ovenHistory;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8d1da6dc7d21bfe8feb6c1f59c4d4d4e90d499cc
     }
 }
