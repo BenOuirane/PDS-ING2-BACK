@@ -6,25 +6,47 @@ package com.application.aled.entity;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import javax.persistence.*;
-
 import com.application.aled.entity.model.link.AreaBraceletId;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 /**
  * @author ISMAIL EL HAMMOUD
  *
  */
 
-@Entity(name="CurrentArea")
+@Entity(name = "CurrentArea")
 @Table(name = "current_area")
-public class CurrentArea  implements Serializable {
-	
-	
-	@EmbeddedId
-	private AreaBraceletId id; 
+public class CurrentArea implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@EmbeddedId
+	private AreaBraceletId id;
+
+//	@Column(name = "bracelet_id", nullable = false, unique = true)
+//	private long braceletId;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("braceletId")
-    private Bracelet bracelet;
+	@JsonBackReference
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@MapsId("braceletId")
+	private Bracelet bracelet;
+
+	@JsonBackReference
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@MapsId("code_area")
+	private Area area;
+
+	public CurrentArea(Area area, Bracelet bracelet) {
+		this.area = area;
+		this.bracelet = bracelet;
+	}
+	
+	public CurrentArea() {
+	}
 	
 	public AreaBraceletId getId() {
 		return id;
@@ -48,39 +70,20 @@ public class CurrentArea  implements Serializable {
 
 	public void setArea(Area area) {
 		this.area = area;
-	}
+	}	
 
-	@ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("code_area")
-    private Area area;
-	
-	
-	
-	public CurrentArea() {}
-
-	public CurrentArea (Area area, Bracelet bracelet) {
-		this.area=area;
-		this.bracelet=bracelet;
-		//this.id = new AreaBraceletId(Are
-	}
-	
-	
-	 //private LocalDateTime 	crossDate;
-
-	
-	
-	
 	public LocalDateTime getCreatedOn() {
 		return id.getCreatedOn();
 	}
 
 	public void setCreatedOn(LocalDateTime createdOn) {
-		//this.createdOn = createdOn;
-	}
-	
+		}
+
 	public Long getBraceletId() {
 		return id.getBraceletId();
 	}
 
-	
+	public Long getAreaId() {
+		return area.getArea_id();
+	}
 }

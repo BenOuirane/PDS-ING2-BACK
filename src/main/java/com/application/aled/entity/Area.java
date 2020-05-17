@@ -10,65 +10,55 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.*;
-
-import org.hibernate.annotations.NaturalIdCache;
-import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.NaturalId;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 /**
  * @author ISMAIL EL HAMMOUD
  *
  */
 
-
 //TODO Activate the cache once all dev is done
 @Entity
 @Table(name = "area")
 //@NaturalIdCache
 //@Cache(	usage = CacheConcurrencyStrategy.READ_ONLY)
-public class Area implements Serializable {
-	
+public class Area {
+
 	@Id
 	@GeneratedValue
 	private Long area_id;
-	
+
 	@NaturalId
 	private String name;
 	
-	 @OneToMany(
-		        mappedBy = "area"
-    )
+	@JsonManagedReference
+	@OneToMany(mappedBy = "area")
 	private List<CurrentArea> areas = new ArrayList<>();
-	
-		 
+
 	@Column(name = "surface")
 	private Double surface;
-	
+
 	@Column(name = "id_capteur")
 	private String id_capteur;
-	
-	public Area() {}
-	
+
+	public Area() {
+	}
+
 	public Area(String name) {
-	        this.name = name;
-	    }
+		this.name = name;
+	}
+
+	@JsonManagedReference
 	@ManyToOne(fetch = FetchType.LAZY, optional = true)
 	@JoinColumn(name = "code_area", nullable = true)
 	@JsonIgnore
 	private AreaType areatype;
-
-
-
 
 	@Override
 	public int hashCode() {
@@ -173,10 +163,4 @@ public class Area implements Serializable {
 		this.areatype = areatype;
 	}
 
-	
-
-	
-	
-	
-	
 }
