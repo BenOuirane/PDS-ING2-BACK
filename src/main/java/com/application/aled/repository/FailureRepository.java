@@ -29,4 +29,6 @@ public interface FailureRepository extends CrudRepository<Failure, Long> {
 
     List<Failure> findByObjects(Objects objects);
 
+    List<Failure> findFailureByObjectsAndMessage(Objects objects, String errorName);
+
 }

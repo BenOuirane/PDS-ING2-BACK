@@ -12,7 +12,7 @@ import java.util.List;
 public interface OvenHistoryRepository extends JpaRepository<OvenHistory,Long> {
     @Override
     void deleteAll();
-
+    List<OvenHistory> findOvenHistoriesByIdAndColumnData(long id, String columnData);
     List<OvenHistory> findByObject_Id(long id);
     List<OvenHistory> findByObject_IdAndColumnDataAndMessageTimestampLessThanEqualAndMessageTimestampGreaterThanEqual(long id, String columnData, Timestamp start, Timestamp end);
 }

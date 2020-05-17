@@ -15,5 +15,9 @@ public interface OvenHistoryService {
 
     public List<OvenHistory> getOvenHistoryByObjectsId(long id);
 
+
+    public List<OvenHistory> getOvenHistoryByObjectsIdAndColumn_data(long id, String column_data);
+
     public List<OvenHistory> getOvenHistoryByObjectsIdAndColumnDataAndDateBetween(long id, String columnData, Timestamp start, Timestamp end);
+
 }

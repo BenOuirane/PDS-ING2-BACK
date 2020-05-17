@@ -2,25 +2,16 @@ package com.application.aled.entity;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-
 import javax.persistence.*;
-
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-import org.hibernate.mapping.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+//@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @Table(name = "bracelet")
 public class Bracelet {
 
@@ -45,13 +36,11 @@ public class Bracelet {
 	@Column(name = "ref_bracelet")
 	private String refBracelet;
 
-	@OneToMany(
-			mappedBy = "bracelet",
-			cascade = CascadeType.ALL,
-			orphanRemoval = true
-	)
+	
+	@JsonManagedReference
+	@OneToMany(mappedBy = "bracelet", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<CurrentArea> currentArea = new ArrayList<>();
-
+	
 	public List<CurrentArea> getCurrentArea() {
 		return currentArea;
 	}
@@ -68,7 +57,8 @@ public class Bracelet {
 		this.residents = residents;
 	}
 
-	public Bracelet() {}
+	public Bracelet() {
+	}
 
 
 	public long getId() {
@@ -78,8 +68,6 @@ public class Bracelet {
 	public void setId(long id) {
 		this.id = id;
 	}
-
-
 
 	public LocalDateTime getLastSentData() {
 		return lastSentData;
@@ -112,12 +100,10 @@ public class Bracelet {
 		this.refBracelet = refBracelet;
 	}
 
-	//TODO add PK and FK
+
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name= "id_resident", unique = true )
+	@JoinColumn(name = "id_resident", unique = true)
 	@JsonIgnore
 	private Resident residents;
-
-
 
 }
