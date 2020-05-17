@@ -106,7 +106,7 @@ public class WaitingTimeChecker {
                 }
                 secondsDifference = TimeUnit.MILLISECONDS.toSeconds(longCurrent -longLastMessage);
                 logger.info("difference log = "+ Math.abs(secondsDifference));
-                if (Math.abs(secondsDifference)<4000) {
+                if (Math.abs(secondsDifference)<400) {
                     logger.info("time is relevant for " + objects.getObjectType() + " number " + objects.getId());
                     return true;
                 }break;
