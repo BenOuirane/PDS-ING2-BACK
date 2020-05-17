@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -66,7 +67,28 @@ public class FailureController {
          * and that it will be our parameter for this function
          */
 
+        @GetMapping("/year")
+        public int getFailuresByYear(@RequestParam int year) {
 
+        int failureByYear = failureService.getFailuresByYear(year).size();
+
+        return failureByYear ;
+    }
+
+    @GetMapping("/month")
+    public int getFailuresByYearAndMonth(@RequestParam int year, int month) {
+
+        int failuresByMonth = failureService.getFailuresByYearAndMonth(year, month).size();
+
+        return failuresByMonth;
+    }
+    @GetMapping("/day")
+    public int getFailuresByDay(@RequestParam int year, int month, int day) {
+
+        int failuresByDay = failureService.getFailuresByDay(year, month, day).size();
+
+        return failuresByDay ;
+    }
 
 
 

@@ -13,10 +13,15 @@ public interface BraceletService {
 
 	public List<Bracelet> getAllBracelets();
 	
+	Bracelet getBraceletById(Long idBrac);
 	
 	void addBracelet(Bracelet idBrac);
 
 	void updateBracelet(Bracelet idBrac);
 
 	void removeBracelet(Bracelet idBrac);
+
+	Bracelet getBraceletByRefBracelet(String nameBrac);
+
+
 }

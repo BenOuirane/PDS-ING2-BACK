@@ -1,13 +1,11 @@
-/**
- * 
- */
 package com.application.aled.service;
 
 import java.util.List;
 
+import com.application.aled.entity.Resident;
+import com.application.aled.entity.Rooms;
 import com.application.aled.entity.User;
 
-import com.application.aled.entity.Residents;
 
 /**
  * @author ISMAIL EL HAMMOUD
@@ -16,6 +14,12 @@ import com.application.aled.entity.Residents;
 
 public interface ResidentService {
 
+	public Resident getResidentByUser(User user);
+	public List<Resident> getAllResidents();
 
-	public Residents getResidentByUser(User user);
+	Resident getResidentById(Long id);
+
+
+
+	public Resident getResidentByRoom(Rooms room);
 }

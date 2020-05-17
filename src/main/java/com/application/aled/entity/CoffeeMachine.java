@@ -21,7 +21,7 @@ public class CoffeeMachine {
     private boolean status;
 
     @Column(name = "waterLevel")
-    private int waterLevel;
+    private float waterLevel;
 
     @Column(name = "nbCapsuleUsine")
     private int nbCapsuleUsine;
@@ -33,7 +33,7 @@ public class CoffeeMachine {
     private boolean statusUsine;
 
     @Column(name = "waterLevelUsine")
-    private int waterLevelUsine;
+    private float waterLevelUsine;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(unique = true)
@@ -43,7 +43,7 @@ public class CoffeeMachine {
 
     }
 
-    public CoffeeMachine(int nbCapsule, Timestamp scheduleCoffee, boolean status, int waterLevel, int nbCapsuleUsine, Timestamp scheduleCoffeeUsine, boolean statusUsine, int waterLevelUsine, Objects objects) {
+    public CoffeeMachine(int nbCapsule, Timestamp scheduleCoffee, boolean status, float waterLevel, int nbCapsuleUsine, Timestamp scheduleCoffeeUsine, boolean statusUsine, float waterLevelUsine, Objects objects) {
         this.nbCapsule = nbCapsule;
         this.scheduleCoffee = scheduleCoffee;
         this.status = status;
@@ -119,15 +119,15 @@ public class CoffeeMachine {
         this.objects = objects;
     }
 
-    public int getWaterLevel() {
-        return waterLevel;
+    public float getWaterLevel() {
+        return  waterLevel;
     }
 
     public void setWaterLevel(int waterLevel) {
         this.waterLevel = waterLevel;
     }
 
-    public int getWaterLevelUsine() {
+    public float getWaterLevelUsine() {
         return waterLevelUsine;
     }
 

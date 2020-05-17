@@ -43,3 +43,4 @@ logs
 out
 /target
 /node_modules
+/.metadata/

@@ -1,6 +1,5 @@
 package com.application.aled;
 
-
 import javafx.application.Application;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -17,23 +16,30 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import java.io.IOException;
+import java.util.logging.Logger;
 
-/*
- * SpringBootApplication that will be launched
- */
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.context.annotation.ComponentScan;
+
+
+
+//import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
 @SpringBootApplication
-public class BackendApplication extends SpringBootServletInitializer {
-
-
-
+@EnableScheduling
+//@EnableSwagger2
+public class BackendApplication extends SpringBootServletInitializer{
 
 	public static void main(String[] args) throws IOException {
-				SpringApplication.run(BackendApplication.class, args);
+		Logger logger = Logger.getLogger("com.application.aled.BackendApplication");
 
-		System.out.println("Application is running :)");
+		SpringApplication.run(BackendApplication.class, args);
 
-
-
-
+		logger.info("Application is initialized :)");
 	}
-	}
+
+}

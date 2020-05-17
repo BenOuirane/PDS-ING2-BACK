@@ -1,127 +1,156 @@
-package com.application.aled.entity;
 
+package com.application.aled.entity;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
 
-
-        import javax.persistence.*;
-        import java.io.Serializable;
-        import java.util.Collection;
-
 @Entity
 public class Resident implements Serializable {
-    @Id
-    @GeneratedValue
-    private Long idResident;
-    private String firstName;
-    private String lastName;
-    private  int  age;
-    private  int  IdResidence;
-    private  int  idRoom;
-    private  int  idMedicalFolder;
-    
-    //@OneToMany(mappedBy = "resident", fetch = FetchType.LAZY)
-    //private Collection<Object> objects;
-    @OneToOne
-    private MedicalFolder medicalFolder;
+	@Id
+	@GeneratedValue
+	private Long idResident;
 
-    public Resident() {super();}
+	@Column(name = "firstName")
+	private String firstName;
 
-    public Resident( String firstName, String lastName, int age, int IdResidence, int idRoom, int idMedicalFolder) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.age = age;
-        this.IdResidence = IdResidence;
-        this.idRoom = idRoom;
-        this.idMedicalFolder = idMedicalFolder;
-    }
+	@Column(name = "lastName")
+	private String lastName;
+
+	@Column(name = "age")
+	private int age;
 
 
-    public Long getIdResident() {
-        return idResident;
-    }
+	@OneToOne(cascade = CascadeType.PERSIST, optional = true)
+	@JoinColumn(unique = true)
+	private Rooms room;
 
-    public void setIdResident(Long idResident) {
-        this.idResident = idResident;
-    }
 
-    public String getFirstName() {
-        return firstName;
-    }
+	@OneToOne(cascade = CascadeType.ALL, optional = true)
+	@JoinColumn(unique = true)
+	private User user;
 
-    public void setFirsName(String firstName) {
-        this.firstName = firstName;
-    }
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="idResidence")
+	private Residence residence;
 
-    public String getLastName() {
-        return lastName;
-    }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+	@OneToOne
+	private MedicalFolder medicalFolder;
 
-    public int getAge() {
-        return age;
-    }
 
-    public void setAge(int age) {
-        this.age = age;
-    }
+	@OneToOne(cascade = CascadeType.ALL, optional = true)
+	@JoinColumn(unique = true)
+	private Subscription subscription;
 
-    public int getIdResidence() {
-        return IdResidence;
-    }
+	public Resident() {
+	}
+	public Resident(String firstName, String lastName,  int age, Rooms room, User user, Residence residence, MedicalFolder medicalFolder){
+		this.firstName =firstName;
+		this.lastName = lastName;
+		this.age =age;
+		this.room = room;
+		this.user = user;
+		this.residence = residence;
+		this.medicalFolder = medicalFolder;
+	}
 
-    public void setIdResidence(int IdResidence) {
-        this.IdResidence = IdResidence;
-    }
+	public Resident(String firstName, String lastName,  int age, Rooms room, User user){
+		this.firstName =firstName;
+		this.lastName = lastName;
+		this.age =age;
+		this.room = room;
+		this.user = user;
+	}
 
-    public int getIdRoom() {
-        return idRoom;
-    }
+	public Subscription getSubscription() {
+		return subscription;
+	}
 
-    public void setIdRoom(int idRoom) {
-        this.idRoom = idRoom;
-    }
+	public void setSubscription(Subscription subscription) {
+		this.subscription = subscription;
+	}
 
-    public int getIdMedicalFolder() {
-        return idMedicalFolder;
-    }
+	public Long getIdResident() {
+		return idResident;
+	}
 
-    public void setIdMedicalFolder(int idMedicalFolder) {
-        this.idMedicalFolder = idMedicalFolder;
-    }
+	public void setIdResident(Long idResident) {
+		this.idResident = idResident;
+	}
 
-    /*public Collection<Object> getObjects() {
-        return objects;
-    }
+	public String getFirstName() {
+		return firstName;
+	}
 
-    public void setObjects(Collection<Object> objects) {
-        this.objects = objects;
-    }*/
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
 
-    public MedicalFolder getMedicalFolder() {
-        return medicalFolder;
-    }
+	public String getLastName() {
+		return lastName;
+	}
 
-    public void setMedicalFolder(MedicalFolder medicalFolder) {
-        this.medicalFolder = medicalFolder;
-    }
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
 
-    @Override
-    public String toString() {
-        return "Resident{" +
-                "idResident=" + idResident +
-                ", firsName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", age=" + age +
-                ", getIdResidence=" + IdResidence +
-                ", idRoom=" + idRoom +
-                ", idMedicalFolder=" + idMedicalFolder +
-               // ", objects=" + objects +
-                ", medicalFolder=" + medicalFolder +
-                '}';
-    }
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public Rooms getRoom() {
+		return room;
+	}
+
+	public void setRoom(Rooms room) {
+		this.room = room;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Residence getResidence() {
+		return residence;
+	}
+
+	public void setResidence(Residence residence) {
+		this.residence = residence;
+	}
+
+	public MedicalFolder getMedicalFolder() {
+		return medicalFolder;
+	}
+
+	public void setMedicalFolder(MedicalFolder medicalFolder) {
+		this.medicalFolder = medicalFolder;
+	}
+
+	@Override
+	public String toString() {
+		return "Resident{" +
+				"idResident=" + idResident +
+				", firstName='" + firstName + '\'' +
+				", lastName='" + lastName + '\'' +
+				", age=" + age +
+				", room=" + room +
+				", user=" + user +
+				", residence=" + residence +
+				", medicalFolder=" + medicalFolder +
+				'}';
+	}
+
+
+
 }
