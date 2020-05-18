@@ -9,7 +9,7 @@ import com.application.aled.repository.MedicalThresholdRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.messaging.simp.SimpMessageSendingOperations;
+//import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -25,8 +25,11 @@ public class MedicalMeasurementServiceImpl implements MedicalMeasurementService{
     @Resource
     private MedicalThresholdRepository medicalThresholdRepository;
 
-    @Autowired
-    private SimpMessageSendingOperations messagingTemplate;
+    //private final SimpMessageSendingOperations messagingTemplate;
+
+    /*public MedicalMeasurementServiceImpl(SimpMessageSendingOperations messagingTemplate) {
+        this.messagingTemplate = messagingTemplate;
+    }*/
 
     @Override
     public Collection<MedicalMeasurement> getMeasurementsByResidentAndMeasurementType(Long residentID,Long measurementTypeId) {
@@ -148,7 +151,7 @@ public class MedicalMeasurementServiceImpl implements MedicalMeasurementService{
 
             //Le client (Front) qui a souscrit au message en provenance du endpoint « topic/progress » de notre API
             // recevera les messages de l'alerte inclut dans "progress.put( )"
-            messagingTemplate.convertAndSend("/topic/progress", progress);
+            //messagingTemplate.convertAndSend("/topic/progress", progress);
             System.out.println(" ***** FIN ***** FIN ALERTE sur la Mesure de : " + currentMeasurementType.getName() + "  ****** FIN ********* ");
 
         }

@@ -60,12 +60,16 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication
 =======
 import com.application.aled.controller.AreaController;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
+//import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @ComponentScan
 @SpringBootApplication
+<<<<<<< HEAD
 >>>>>>> 8d1da6dc7d21bfe8feb6c1f59c4d4d4e90d499cc
 @EnableSwagger2
+=======
+//@EnableSwagger2
+>>>>>>> ea97482317af96c73181a811534f55e066b0e989
 public class BackendApplication extends SpringBootServletInitializer {
 	static final Logger logger = LogManager.getLogger(BackendApplication.class.getName());
 
