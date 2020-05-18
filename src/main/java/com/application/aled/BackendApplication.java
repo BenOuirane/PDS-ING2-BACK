@@ -9,11 +9,11 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.context.annotation.ComponentScan;
 import com.application.aled.controller.AreaController;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
+//import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @ComponentScan
 @SpringBootApplication
-@EnableSwagger2
+//@EnableSwagger2
 public class BackendApplication extends SpringBootServletInitializer {
 	static final Logger logger = LogManager.getLogger(BackendApplication.class.getName());
 
