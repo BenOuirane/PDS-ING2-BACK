@@ -36,50 +36,13 @@ public class Bracelet {
 	@Column(name = "ref_bracelet")
 	private String refBracelet;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-	@OneToMany(
-			mappedBy = "bracelet",
-			cascade = CascadeType.ALL,
-			orphanRemoval = true
-	)
-	private List<CurrentArea> currentArea = new ArrayList<>();
 
-	public List<CurrentArea> getCurrentArea() {
-		return currentArea;
-	}
-
-	public void setCurrentArea(List<CurrentArea> currentArea) {
-		this.currentArea = currentArea;
-	}
-
-	public Resident getResidents() {
-		return residents;
-	}
-
-	public void setResidents(Resident residents) {
-		this.residents = residents;
-	}
-
-	public Bracelet() {}
-
-
-	public long getId() {
-		return id;
-=======
-=======
->>>>>>> 8d1da6dc7d21bfe8feb6c1f59c4d4d4e90d499cc
-	
 	@JsonManagedReference
 	@OneToMany(mappedBy = "bracelet", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<CurrentArea> currentArea = new ArrayList<>();
-	
+
 	public List<CurrentArea> getCurrentArea() {
 		return currentArea;
-<<<<<<< HEAD
-
-=======
->>>>>>> 8d1da6dc7d21bfe8feb6c1f59c4d4d4e90d499cc
 	}
 
 	public void setCurrentArea(List<CurrentArea> currentArea) {
@@ -90,19 +53,6 @@ public class Bracelet {
 		return residents;
 	}
 
-<<<<<<< HEAD
-
-	public void setResidents(Resident residents) {
-		this.residents = residents;
-	}
-
-	public Bracelet() {
-	}
-
-
-	public long getId() {
-		return id;
-=======
 	public void setResidents(Resident residents) {
 		this.residents = residents;
 	}
@@ -117,13 +67,7 @@ public class Bracelet {
 
 	public void setId(long id) {
 		this.id = id;
->>>>>>> 8d1da6dc7d21bfe8feb6c1f59c4d4d4e90d499cc
 	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
 
 	public LocalDateTime getLastSentData() {
 		return lastSentData;
@@ -157,25 +101,9 @@ public class Bracelet {
 	}
 
 
-<<<<<<< HEAD
-	//TODO add PK and FK
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name= "id_resident", unique = true )
-	@JsonIgnore
-	private Resident residents;
-
-
-
-
-=======
->>>>>>> 8d1da6dc7d21bfe8feb6c1f59c4d4d4e90d499cc
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_resident", unique = true)
 	@JsonIgnore
 	private Resident residents;
-<<<<<<< HEAD
-
-=======
->>>>>>> 8d1da6dc7d21bfe8feb6c1f59c4d4d4e90d499cc
 
 }

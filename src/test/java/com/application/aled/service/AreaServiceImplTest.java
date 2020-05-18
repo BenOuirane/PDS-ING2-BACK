@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.application.aled.service;
 
@@ -22,36 +22,36 @@ import com.application.aled.repository.AreaRepository;
  */
 @RunWith(MockitoJUnitRunner.class)
 public class AreaServiceImplTest {
-		
+
 	Area area;
-	
+
 	@Mock
 	AreaRepository areaRepository;
-	
+
 	@InjectMocks
 	AreaServiceImpl areaService;
-	
+
 	@Before
 	public void setUp() throws Exception {
-	        MockitoAnnotations.initMocks(this);
-	    }
-	
+		MockitoAnnotations.initMocks(this);
+	}
+
 	@Test
 	public void getAllAreasTest() {
 		//
-        // GIVEN
-        //
+		// GIVEN
+		//
 		List<Area> areas = new ArrayList<>();
 		areaRepository.findAll().forEach(areas::add);
 		//
-	    // WHEN
-	    //
+		// WHEN
+		//
 		List<Area> areaList = areaService.getAllAreas();
 		//
-        // THEN
-        //
+		// THEN
+		//
 		Assert.assertEquals(areaList, areas);
 	}
-	
-	
+
+
 }
